@@ -29,8 +29,8 @@ python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -e .[dev]
 cp .env.example .env
-python -m purposebench.cli generate --cases-per-workflow 10
-python -m purposebench.cli run --config configs/experiment.yaml --condition mock
+python -m purposebench.cli generate --cases-per-workflow 30 --seed 20260802
+python -m purposebench.cli run --config configs/experiment.yaml --adapter mock --limit 4
 python -m purposebench.cli evaluate
 ```
 
@@ -61,11 +61,13 @@ Run:
 
 ```bash
 python scripts/doctor.py
-python -m purposebench.cli run --config configs/experiment.yaml --condition compex_purpose_bound --limit 4
+python -m purposebench.cli run --config configs/smoke_v4.yaml --limit 4
 ```
 
 See `docs/COMPEX_LOCAL_MAPPING.md` for the exact interface, limitations, and
-evidence semantics.
+evidence semantics. The successful pre-freeze gate and the earlier preserved
+failed attempts are documented in `docs/PILOT_VALIDATION.md` and
+`docs/PROTOCOL_DEVIATIONS.md`.
 
 ## Reproducibility rules
 

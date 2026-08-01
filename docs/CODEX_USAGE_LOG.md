@@ -21,6 +21,9 @@ Codex is a tool used in the research process and is not an author.
 - Ran a pre-freeze real smoke test, diagnosed a thinking-model structured-output
   failure, and implemented the documented fail-closed correction without
   modifying the original raw event stream.
+- Preserved three unsuccessful pilot streams, completed the fourth integration
+  gate, generated deterministic pilot diagnostics, and prepared the validated
+  protocol for versioning. Pilot values are not presented as paper claims.
 
 Required human review areas include the purpose policies, equivalence of the
 Compex two-stage execution to comparison conditions, metric definitions,

@@ -1,5 +1,5 @@
 experiment_name: purposebound_finance_v1
-protocol_version: unfrozen
+protocol_version: protocol-v1
 seed: 20260802
 dataset_path: data/generated/cases.jsonl
 results_path: results/raw/runs.jsonl
@@ -11,10 +11,40 @@ conditions:
   - compex_purpose_bound
 models:
   - provider: openai_compatible
-    name: qwen3:8b
+    name: qwen3:4b
     temperature: 0.0
     max_tokens: 500
-  # Add at least one frontier API model and one other open/open-weight model for the full study.
+    reasoning_effort: none
+    response_format: &purposebench_response_format
+      type: json_schema
+      json_schema:
+        name: purposebench_decision
+        strict: true
+        schema:
+          type: object
+          additionalProperties: false
+          properties:
+            decision:
+              type: string
+            risk_score:
+              type: number
+              minimum: 0
+              maximum: 100
+            reasons:
+              type: array
+              minItems: 1
+              items:
+                type: string
+          required: [decision, risk_score, reasons]
+  - provider: openai_compatible
+    name: gemma4:e2b
+    temperature: 0.0
+    max_tokens: 500
+    reasoning_effort: none
+    response_format: *purposebench_response_format
+# A commercial frontier model is blocked from the Compex condition because the
+# mapped execution API persists environment values and has no secret-reference
+# mechanism. Do not add a commercial key until that limitation is resolved.
 repetitions: 3
 request_timeout_seconds: 180
 resume: true

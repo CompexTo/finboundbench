@@ -50,18 +50,30 @@ def run(
 
 
 @app.command()
-def evaluate() -> None:
-    paths = evaluate_results(ROOT / "results" / "raw" / "runs.jsonl", ROOT / "results" / "derived")
+def evaluate(
+    raw: Path = typer.Option(Path("results/raw/runs.jsonl")),  # noqa: B008
+    derived: Path = typer.Option(Path("results/derived")),  # noqa: B008
+) -> None:
+    raw_path = raw if raw.is_absolute() else ROOT / raw
+    derived_path = derived if derived.is_absolute() else ROOT / derived
+    paths = evaluate_results(raw_path, derived_path)
     for name, path in paths.items():
         print(f"{name}: {path}")
 
 
 @app.command()
-def report() -> None:
+def report(
+    raw: Path = typer.Option(Path("results/raw/runs.jsonl")),  # noqa: B008
+    derived: Path = typer.Option(Path("results/derived")),  # noqa: B008
+    paper: Path = typer.Option(Path("paper")),  # noqa: B008
+) -> None:
+    raw_path = raw if raw.is_absolute() else ROOT / raw
+    derived_path = derived if derived.is_absolute() else ROOT / derived
+    paper_path = paper if paper.is_absolute() else ROOT / paper
     paths = build_report_assets(
-        ROOT / "results" / "raw" / "runs.jsonl",
-        ROOT / "results" / "derived",
-        ROOT / "paper",
+        raw_path,
+        derived_path,
+        paper_path,
     )
     for path in paths:
         print(path)

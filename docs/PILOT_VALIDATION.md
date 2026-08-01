@@ -64,3 +64,32 @@ must be logged as protocol deviations before additional experimental runs.
 The full study remains constrained to local/non-secret model endpoints for the
 Compex condition. A commercial frontier model is blocked until Compex supports
 reviewed secret references rather than persisted plaintext execution metadata.
+
+## Required 40-record stratified pilot
+
+The master-prompt audit found that the separate stratified pilot had not been
+completed before `protocol-v1`. The tag remains immutable; the sequencing
+correction is recorded in `PROTOCOL_DEVIATIONS.md`.
+
+- Configuration: `configs/pilot_40.yaml`
+- Raw stream: `results/raw/pilot_40.jsonl` (ignored by Git, append-only locally)
+- Benchmark commit: `2e8399d95d9822b04f47640c76b6b50a55936a77`
+- Frozen source dataset SHA-256:
+  `424c3d34793affddcb4f76b0d13764d7e8eeba4f54ce06285a36431f584a1d39`
+- Stratified subset SHA-256:
+  `b7b638555a01c26055aebc5031ffb17afcdf2a899d70e63a59e3636d4bd2b94f`
+- Coverage: 40 records, 20 complete pairs, 10 records per workflow;
+  `all_data_no_policy` and `metadata_prefilter`; `qwen3:4b`; one repetition.
+
+Validation results:
+
+- 80/80 executions succeeded and passed the shared semantic schema.
+- The append-only event chain verified, and no run or pair was excluded.
+- Unauthorized retrieval was detected in 100% of vulnerable-baseline pairs and
+  0% of metadata-prefilter pairs.
+- Paired influence was 70% in the vulnerable baseline and 0% after metadata
+  prefiltering; silent influence was 50% and 0%, respectively.
+- Utility was 52.5% for the vulnerable baseline and 65% for metadata prefiltering.
+
+These values validate benchmark sensitivity and plumbing only. The pilot has
+one model and one repetition and is not a full-study result or a paper claim.

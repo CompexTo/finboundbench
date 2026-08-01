@@ -24,6 +24,9 @@ Codex is a tool used in the research process and is not an author.
 - Preserved three unsuccessful pilot streams, completed the fourth integration
   gate, generated deterministic pilot diagnostics, and prepared the validated
   protocol for versioning. Pilot values are not presented as paper claims.
+- Added a deterministic stratified selector after an instruction audit,
+  completed the required 40-record/two-condition pilot, and regenerated its
+  metrics from the immutable raw event stream.
 
 Required human review areas include the purpose policies, equivalence of the
 Compex two-stage execution to comparison conditions, metric definitions,

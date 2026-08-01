@@ -135,12 +135,19 @@ def test_invalid_model_output_fails_closed(tmp_path: Path) -> None:
 def test_optional_model_contract_is_part_of_exact_payload() -> None:
     response_format = {
         "type": "json_schema",
-        "json_schema": {"name": "result", "schema": {"type": "object"}},
+        "json_schema": {
+            "name": "result",
+            "schema": {
+                "type": "object",
+                "properties": {"decision": {"type": "string"}},
+            },
+        },
     }
     payload = build_chat_payload(
         task="Assess the synthetic record.",
         visible_data={"customer_id": "SYN-001"},
         condition="compex_purpose_bound",
+        decision_labels=["approve", "decline", "manual_review"],
         policy=None,
         model={
             "name": "test-model",
@@ -151,5 +158,12 @@ def test_optional_model_contract_is_part_of_exact_payload() -> None:
     )
 
     assert payload["reasoning_effort"] == "none"
-    assert payload["response_format"] == response_format
-    assert "exactly this shape" in payload["messages"][0]["content"]
+    assert "enum" not in response_format["json_schema"]["schema"]["properties"][
+        "decision"
+    ]
+    assert payload["response_format"]["json_schema"]["schema"]["properties"][
+        "decision"
+    ]["enum"] == ["approve", "decline", "manual_review"]
+    assert "Valid decision labels: approve, decline, manual_review" in payload[
+        "messages"
+    ][0]["content"]

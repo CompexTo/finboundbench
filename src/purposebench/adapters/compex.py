@@ -429,6 +429,9 @@ class CompexAdapter(Adapter):
                             "PURPOSEBENCH_ALLOWED_FIELDS": canonical_json(case.allowed_fields),
                             "PURPOSEBENCH_FORBIDDEN_FIELDS": canonical_json(case.forbidden_fields),
                             "PURPOSEBENCH_SENTINELS": canonical_json(case.sentinel_values),
+                            "PURPOSEBENCH_DECISION_LABELS": canonical_json(
+                                policy["output_schema"]["decision"]
+                            ),
                             "PURPOSEBENCH_CASE_ID": case.case_id,
                         },
                     },
@@ -470,6 +473,7 @@ class CompexAdapter(Adapter):
                     task=case.user_request,
                     visible_data=case.allowed_projection(),
                     condition="compex_purpose_bound",
+                    decision_labels=list(policy["output_schema"]["decision"]),
                     policy=None,
                     model=model,
                     seed=seed,

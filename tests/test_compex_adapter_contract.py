@@ -36,6 +36,7 @@ class FakeCompexState:
             task=self.case.user_request,
             visible_data=self.case.allowed_projection(),
             condition="compex_purpose_bound",
+            decision_labels=list(self.policy["output_schema"]["decision"]),
             policy=None,
             model=self.model,
             seed=20260802,

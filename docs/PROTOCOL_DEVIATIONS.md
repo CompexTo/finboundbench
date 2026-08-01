@@ -64,3 +64,18 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   through the research agent inside Compex.
 - The third attempt writes `results/raw/smoke_v3.jsonl`; neither prior stream is
   edited or treated as successful evidence.
+
+## 2026-08-01 — third real smoke-run correction before protocol freeze
+
+- Preserved `results/raw/smoke_v3.jsonl` unchanged. All 12 calls passed the
+  structural schema and all Compex enforcement/evidence checks passed, but the
+  model copied the schema prompt's placeholder label and score. The resulting
+  decision utility was zero, so the protocol was not frozen.
+- Removed copyable example values from the common system prompt. Added the
+  workflow-specific valid decision vocabulary to every condition's common task
+  contract and injected the same vocabulary as the decision enum in the JSON
+  Schema request.
+- Extended the shared fail-closed validator to require an allowed decision,
+  risk score within 0–100, and a nonempty string array for reasons.
+- The fourth attempt writes `results/raw/smoke_v4.jsonl`; all earlier pilot
+  streams remain immutable evidence of the pre-freeze corrections.

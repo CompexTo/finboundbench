@@ -102,6 +102,7 @@ class OpenAICompatibleAdapter(Adapter):
             task=case.user_request,
             visible_data=visible,
             condition=condition,
+            decision_labels=list(policy["output_schema"]["decision"]),
             policy=policy,
             model=model,
             seed=seed,
@@ -117,7 +118,9 @@ class OpenAICompatibleAdapter(Adapter):
                     parsed = {"unparsed": text}
             except (TypeError, json.JSONDecodeError):
                 parsed = {"unparsed": text}
-            output_events = validate_structured_output(parsed)
+            output_events = validate_structured_output(
+                parsed, list(policy["output_schema"]["decision"])
+            )
             schema_ok = output_events[0]["status"] == "pass"
             pre_guard_text = text
             if condition == "output_guard_only":

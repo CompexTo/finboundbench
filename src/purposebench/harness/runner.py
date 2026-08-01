@@ -102,6 +102,7 @@ def run_experiment(
                         task=case.user_request,
                         visible_data=visible,
                         condition=condition,
+                        decision_labels=list(policy["output_schema"]["decision"]),
                         policy=policy,
                         model=model,
                         seed=int(config["seed"]) + repetition,

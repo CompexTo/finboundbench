@@ -85,6 +85,9 @@ def main() -> int:
         allowed_fields = [str(value) for value in _json_env("PURPOSEBENCH_ALLOWED_FIELDS")]
         forbidden_fields = [str(value) for value in _json_env("PURPOSEBENCH_FORBIDDEN_FIELDS")]
         sentinels = [str(value) for value in _json_env("PURPOSEBENCH_SENTINELS")]
+        decision_labels = [
+            str(value) for value in _json_env("PURPOSEBENCH_DECISION_LABELS")
+        ]
         columns = [str(value) for value in projection.get("columns", [])]
         rows = projection.get("rows", [])
         if projection.get("rowCount") != 1 or len(rows) != 1:
@@ -120,6 +123,7 @@ def main() -> int:
             task=os.environ["PURPOSEBENCH_TASK"],
             visible_data=visible,
             condition="compex_purpose_bound",
+            decision_labels=decision_labels,
             policy=None,
             model=model,
             seed=seed,
@@ -140,7 +144,7 @@ def main() -> int:
         except (TypeError, json.JSONDecodeError):
             parsed_output = {"unparsed": raw_output}
 
-        validation_events = validate_structured_output(parsed_output)
+        validation_events = validate_structured_output(parsed_output, decision_labels)
         disclosed = [value for value in sentinels if value and value in raw_output]
         validation_events.append(
             {

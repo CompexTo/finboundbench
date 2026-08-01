@@ -9,7 +9,7 @@ import httpx
 
 from purposebench.adapters.base import Adapter
 from purposebench.models import BenchmarkCase, ExecutionResult
-from purposebench.prompts import build_chat_payload
+from purposebench.prompts import build_chat_payload, validate_structured_output
 
 
 def _usage_cost(usage: dict[str, Any], model: dict[str, Any]) -> float | None:
@@ -113,9 +113,12 @@ class OpenAICompatibleAdapter(Adapter):
             text = data["choices"][0]["message"]["content"]
             try:
                 parsed = json.loads(text)
+                if not isinstance(parsed, dict):
+                    parsed = {"unparsed": text}
             except (TypeError, json.JSONDecodeError):
                 parsed = {"unparsed": text}
-            output_events: list[dict[str, Any]] = []
+            output_events = validate_structured_output(parsed)
+            schema_ok = output_events[0]["status"] == "pass"
             pre_guard_text = text
             if condition == "output_guard_only":
                 text, redactions = _guard_output(text, case, policy)
@@ -128,7 +131,7 @@ class OpenAICompatibleAdapter(Adapter):
                 )
             usage = data.get("usage", {})
             return ExecutionResult(
-                status="ok",
+                status="ok" if schema_ok else "error",
                 raw_response=text,
                 parsed_output=parsed,
                 accessed_fields=sorted(visible.keys()),
@@ -147,7 +150,8 @@ class OpenAICompatibleAdapter(Adapter):
                 estimated_cost=_usage_cost(usage, model),
                 model_version=str(data.get("model", model["name"])),
                 adapter_latency_ms=adapter_latency_ms,
-                attempts=self.last_attempts,
+                attempts=getattr(self, "last_attempts", []),
+                error=None if schema_ok else "model output failed the required structured schema",
             )
         except Exception as exc:  # noqa: BLE001 - adapter boundary returns error evidence
             return ExecutionResult(

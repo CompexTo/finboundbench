@@ -29,3 +29,21 @@ been generated when the changes below were made.
 These are pre-freeze implementation corrections, not post-result changes. Any
 change to cases, conditions, prompts, metrics, exclusion rules, or statistical
 tests after tag `protocol-v1` must be appended here before additional runs.
+
+## 2026-08-01 — first real smoke-run correction before protocol freeze
+
+- Preserved the first smoke run unchanged in `results/raw/smoke.jsonl`. Its 12
+  events are chained to benchmark commit `615fb81`; all four Compex access and
+  evidence checks passed, but the installed `qwen3:4b` model spent its entire
+  500-token completion budget in the response `reasoning` field and returned
+  empty visible content.
+- Corrected an asymmetry found by that run: the direct model adapter had marked
+  unparseable/empty output as successful while the Compex research agent failed
+  it against the required schema. Both paths now use the same shared structured
+  output validator and fail closed.
+- Added explicit, model-configured `reasoning_effort: none` and JSON response
+  format parameters to the second smoke protocol. These parameters are included
+  in the exact request payload for every condition and passed unchanged to the
+  model agent running inside Compex.
+- The corrected smoke writes a new append-only stream,
+  `results/raw/smoke_v2.jsonl`; the first stream is not edited or excluded.

@@ -103,3 +103,29 @@ def test_output_guard_redacts_disclosure_without_rewriting_decision(tmp_path: Pa
     assert forbidden_field not in result.raw_response
     assert result.parsed_output["decision"] == case.ground_truth["decision"]
     assert sentinel in result.evidence["pre_guard_raw_response"]
+
+
+def test_invalid_model_output_fails_closed(tmp_path: Path) -> None:
+    path = tmp_path / "cases.jsonl"
+    generate_dataset(path, cases_per_workflow=1, seed=123)
+    case = BenchmarkCase.model_validate(read_jsonl(path)[0])
+    repo = Path(__file__).resolve().parents[1]
+    policy = yaml.safe_load((repo / "policies" / f"{case.workflow}.yaml").read_text())
+    adapter = OpenAICompatibleAdapter()
+    adapter._call = lambda _payload: {  # type: ignore[method-assign]
+        "model": "fake-model",
+        "choices": [{"message": {"content": ""}}],
+        "usage": {},
+    }
+
+    result = adapter.execute(
+        case,
+        policy,
+        {"name": "fake-model", "reasoning_effort": "none"},
+        "all_data_no_policy",
+        123,
+    )
+
+    assert result.status == "error"
+    assert result.error == "model output failed the required structured schema"
+    assert result.output_validation_events[0]["status"] == "fail"

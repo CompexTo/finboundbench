@@ -18,6 +18,9 @@ Codex is a tool used in the research process and is not an author.
   exclusions, and raw-to-paper asset generation.
 - Generated no numerical research claim and used no customer, employer, or
   private production dataset.
+- Ran a pre-freeze real smoke test, diagnosed a thinking-model structured-output
+  failure, and implemented the documented fail-closed correction without
+  modifying the original raw event stream.
 
 Required human review areas include the purpose policies, equivalence of the
 Compex two-stage execution to comparison conditions, metric definitions,

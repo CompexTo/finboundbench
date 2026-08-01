@@ -416,6 +416,14 @@ class CompexAdapter(Adapter):
                             "PURPOSEBENCH_MODEL": str(model["name"]),
                             "PURPOSEBENCH_TEMPERATURE": str(model.get("temperature", 0.0)),
                             "PURPOSEBENCH_MAX_TOKENS": str(model.get("max_tokens", 500)),
+                            "PURPOSEBENCH_REASONING_EFFORT": str(
+                                model.get("reasoning_effort", "")
+                            ),
+                            "PURPOSEBENCH_RESPONSE_FORMAT": (
+                                canonical_json(model["response_format"])
+                                if "response_format" in model
+                                else ""
+                            ),
                             "PURPOSEBENCH_SEED": str(seed),
                             "PURPOSEBENCH_TASK": case.user_request,
                             "PURPOSEBENCH_ALLOWED_FIELDS": canonical_json(case.allowed_fields),

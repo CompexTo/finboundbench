@@ -11,7 +11,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
-from prompts import build_chat_payload
+from prompts import build_chat_payload, validate_structured_output
 
 INPUT_PATH = Path("/input/projected.json")
 OUTPUT_PATH = Path("/output/result.json")
@@ -78,24 +78,6 @@ def _model_call(url: str, api_key: str, payload: dict[str, Any], timeout: float)
     raise RuntimeError(f"model call failed after 3 attempts: {last_error}")
 
 
-def _validate_output(parsed: dict[str, Any]) -> list[dict[str, Any]]:
-    missing = [key for key in ("decision", "risk_score", "reasons") if key not in parsed]
-    types_ok = (
-        isinstance(parsed.get("decision"), str)
-        and isinstance(parsed.get("risk_score"), (int, float))
-        and not isinstance(parsed.get("risk_score"), bool)
-        and isinstance(parsed.get("reasons"), list)
-    )
-    return [
-        {
-            "type": "structured_output_schema",
-            "status": "pass" if not missing and types_ok else "fail",
-            "missing_keys": missing,
-            "types_ok": types_ok,
-        }
-    ]
-
-
 def main() -> int:
     started = time.perf_counter()
     try:
@@ -128,6 +110,12 @@ def main() -> int:
             "temperature": float(os.environ.get("PURPOSEBENCH_TEMPERATURE", "0")),
             "max_tokens": int(os.environ.get("PURPOSEBENCH_MAX_TOKENS", "500")),
         }
+        reasoning_effort = os.environ.get("PURPOSEBENCH_REASONING_EFFORT")
+        if reasoning_effort:
+            model["reasoning_effort"] = reasoning_effort
+        response_format = os.environ.get("PURPOSEBENCH_RESPONSE_FORMAT")
+        if response_format:
+            model["response_format"] = json.loads(response_format)
         model_request = build_chat_payload(
             task=os.environ["PURPOSEBENCH_TASK"],
             visible_data=visible,
@@ -152,7 +140,7 @@ def main() -> int:
         except (TypeError, json.JSONDecodeError):
             parsed_output = {"unparsed": raw_output}
 
-        validation_events = _validate_output(parsed_output)
+        validation_events = validate_structured_output(parsed_output)
         disclosed = [value for value in sentinels if value and value in raw_output]
         validation_events.append(
             {

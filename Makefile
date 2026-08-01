@@ -1,7 +1,10 @@
-.PHONY: install generate doctor smoke pilot full evaluate assets test lint
+.PHONY: install build-agent generate doctor smoke pilot full evaluate assets test lint
 
 install:
 	python -m pip install -e .[dev]
+
+build-agent:
+	docker build -f containers/agent/Dockerfile -t purposebound-finance-agent:local .
 
 generate:
 	python -m purposebench.cli generate --cases-per-workflow 30

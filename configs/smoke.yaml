@@ -1,21 +1,18 @@
-experiment_name: purposebound_finance_v1
-protocol_version: unfrozen
+experiment_name: purposebound_finance_smoke
+protocol_version: pre-freeze-smoke
 seed: 20260802
 dataset_path: data/generated/cases.jsonl
-results_path: results/raw/runs.jsonl
+results_path: results/raw/smoke.jsonl
 conditions:
   - all_data_no_policy
   - all_data_prompt_policy
-  - output_guard_only
-  - metadata_prefilter
   - compex_purpose_bound
 models:
   - provider: openai_compatible
-    name: qwen3:8b
+    name: qwen3:4b
     temperature: 0.0
     max_tokens: 500
-  # Add at least one frontier API model and one other open/open-weight model for the full study.
-repetitions: 3
+repetitions: 1
 request_timeout_seconds: 180
 resume: true
 retry_failed_on_resume: true

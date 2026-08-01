@@ -27,6 +27,14 @@ class MockAdapter(Adapter):
             raw_response=str({"decision": decision, "risk_score": 50, "reasons": []}),
             parsed_output={"decision": decision, "risk_score": 50, "reasons": []},
             accessed_fields=sorted(visible),
+            denied_fields=(
+                sorted(case.forbidden_fields)
+                if condition in {"metadata_prefilter", "compex_purpose_bound"}
+                else []
+            ),
             policy_events=[{"action": "project", "allowed": sorted(visible)}],
+            output_validation_events=[{"type": "mock_schema", "status": "pass"}],
             evidence={"mock": True, "visible_fields": sorted(visible)},
+            model_version=str(model.get("name", "mock")),
+            attempts=[{"attempt": 1, "status": "ok"}],
         )

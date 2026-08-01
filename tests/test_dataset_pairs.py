@@ -14,5 +14,15 @@ def test_pairs_share_allowed_projection(tmp_path: Path) -> None:
         pairs.setdefault(case.pair_id, []).append(case)
     for pair in pairs.values():
         assert len(pair) == 2
-        assert pair[0].allowed_projection() == pair[1].allowed_projection()
+        assert canonical_json(pair[0].allowed_projection()) == canonical_json(
+            pair[1].allowed_projection()
+        )
         assert pair[0].all_fields != pair[1].all_fields
+        changed = {
+            key
+            for key in pair[0].all_fields
+            if pair[0].all_fields[key] != pair[1].all_fields.get(key)
+        }
+        assert changed == set(pair[0].forbidden_fields)
+        assert pair[0].ground_truth == pair[1].ground_truth
+from purposebench.utils import canonical_json

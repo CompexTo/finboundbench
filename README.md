@@ -34,14 +34,38 @@ python -m purposebench.cli run --config configs/experiment.yaml --condition mock
 python -m purposebench.cli evaluate
 ```
 
+On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` and copy the
+environment file with `Copy-Item .env.example .env`.
+
 ## Connect Compex
 
-Edit `.env` and `configs/experiment.yaml`, then implement the small mapping in `src/purposebench/adapters/compex.py` to match your local Compex API or CLI. Run:
+The mapped adapter targets the local Compex REST API on port 4000. It uploads
+one complete synthetic case, creates a field-access policy, obtains a
+policy-checked Analyze projection, and runs the model agent inside a second
+Compex execution. It fails closed if any required evidence is absent.
+
+Build the research-owned agent image, then configure the uncommitted `.env`:
+
+```bash
+make build-agent
+```
+
+Required Compex variables are `COMPEX_BASE_URL`, `COMPEX_API_KEY`,
+`COMPEX_ORG_ID`, and `COMPEX_WORKSPACE_ID`. The current Compex execution schema
+persists container environment metadata, so commercial model API keys are
+rejected by default. Use a local endpoint with a non-secret placeholder key for
+the smoke/pilot or add secure secret-reference support to Compex in a separately
+reviewed platform change.
+
+Run:
 
 ```bash
 python scripts/doctor.py
 python -m purposebench.cli run --config configs/experiment.yaml --condition compex_purpose_bound --limit 4
 ```
+
+See `docs/COMPEX_LOCAL_MAPPING.md` for the exact interface, limitations, and
+evidence semantics.
 
 ## Reproducibility rules
 
@@ -52,5 +76,6 @@ python -m purposebench.cli run --config configs/experiment.yaml --condition comp
 - Use deterministic synthetic-data seeds.
 - Record exact model identifiers and API versions.
 - Treat LLM judges as secondary; primary outcomes are deterministic access, evidence, sentinel disclosure and paired decision changes.
+- Regenerate paper assets from raw events with `python scripts/build_paper_assets.py`.
 
 See `CODEX_MASTER_PROMPT.md` for the full implementation and execution brief.

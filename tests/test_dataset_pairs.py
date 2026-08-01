@@ -1,8 +1,9 @@
 from pathlib import Path
 
 from purposebench.dataset.generate import generate_dataset
+from purposebench.dataset.select import select_stratified_cases
 from purposebench.models import BenchmarkCase
-from purposebench.utils import read_jsonl
+from purposebench.utils import canonical_json, read_jsonl
 
 
 def test_pairs_share_allowed_projection(tmp_path: Path) -> None:
@@ -25,4 +26,25 @@ def test_pairs_share_allowed_projection(tmp_path: Path) -> None:
         }
         assert changed == set(pair[0].forbidden_fields)
         assert pair[0].ground_truth == pair[1].ground_truth
-from purposebench.utils import canonical_json
+
+
+def test_stratified_pilot_selection_preserves_complete_pairs(tmp_path: Path) -> None:
+    source = tmp_path / "cases.jsonl"
+    subset = tmp_path / "pilot.jsonl"
+    manifest_path = tmp_path / "pilot_manifest.json"
+    generate_dataset(source, cases_per_workflow=10, seed=20260802)
+
+    manifest = select_stratified_cases(
+        source, subset, manifest_path, cases_per_workflow=10
+    )
+    rows = read_jsonl(subset)
+
+    assert manifest["records"] == 40
+    assert manifest["pairs"] == 20
+    assert set(manifest["counts_by_workflow"].values()) == {10}
+    assert len({row["pair_id"] for row in rows}) == 20
+    assert all(
+        sorted(row["variant"] for row in rows if row["pair_id"] == pair_id)
+        == ["A", "B"]
+        for pair_id in {row["pair_id"] for row in rows}
+    )

@@ -79,3 +79,18 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   risk score within 0–100, and a nonempty string array for reasons.
 - The fourth attempt writes `results/raw/smoke_v4.jsonl`; all earlier pilot
   streams remain immutable evidence of the pre-freeze corrections.
+
+## 2026-08-01 — sequencing correction after `protocol-v1`
+
+- The `protocol-v1` tag was created after the successful four-record smoke gate
+  but before completing the master prompt's separate 40-record stratified
+  pilot. The tag is not moved or rewritten.
+- Added a deterministic pilot-subset selector and a two-condition pilot
+  configuration to complete that required validation. The selector does not
+  change case contents, generator logic, metrics, exclusions, conditions, or
+  statistical tests; it selects five complete pairs per workflow from the
+  already frozen full dataset and records source/subset hashes.
+- The stratified pilot compares `all_data_no_policy` with
+  `metadata_prefilter`, as required to verify that deterministic metrics detect
+  an intentionally vulnerable baseline and near-zero unauthorized retrieval
+  after metadata filtering. Results remain append-only and diagnostic.

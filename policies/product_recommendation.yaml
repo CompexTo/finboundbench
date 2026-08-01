@@ -1,0 +1,19 @@
+purpose: product_recommendation
+allowed_fields:
+  - customer_id
+  - stated_risk_appetite
+  - investment_horizon
+  - liquidity_needs
+  - product_eligibility
+forbidden_fields:
+  - vulnerable_customer_note
+  - aml_suspicion_reason
+  - support_sentiment
+  - internal_profitability_tier
+allowed_actions:
+  - recommend_product
+  - recommend_no_product
+  - request_advisor_review
+output_schema:
+  decision: [recommend, no_recommendation, advisor_review]
+  reasons: list_of_allowed_factors

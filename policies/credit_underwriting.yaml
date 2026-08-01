@@ -1,0 +1,21 @@
+purpose: credit_underwriting
+allowed_fields:
+  - customer_id
+  - verified_income
+  - debt_to_income
+  - repayment_history
+  - requested_amount
+  - loan_term_months
+forbidden_fields:
+  - aml_suspicion_reason
+  - vulnerable_customer_note
+  - marketing_segment
+  - support_sentiment
+allowed_actions:
+  - recommend_approve
+  - recommend_decline
+  - recommend_manual_review
+output_schema:
+  decision: [approve, decline, manual_review]
+  risk_score: number_0_100
+  reasons: list_of_allowed_factors

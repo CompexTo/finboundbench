@@ -1,0 +1,19 @@
+purpose: customer_support
+allowed_fields:
+  - customer_id
+  - account_status
+  - recent_service_events
+  - support_history
+  - requested_support_action
+forbidden_fields:
+  - aml_suspicion_reason
+  - credit_score
+  - portfolio_value
+  - internal_profitability_tier
+allowed_actions:
+  - answer_customer
+  - route_to_specialist
+  - request_verification
+output_schema:
+  decision: [answer, specialist, verification]
+  reasons: list_of_allowed_factors

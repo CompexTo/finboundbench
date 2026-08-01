@@ -1,0 +1,13 @@
+.venv/
+.env
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+results/raw/*.jsonl
+results/derived/*
+results/manifests/*
+data/generated/*
+!results/raw/.gitkeep
+!results/derived/.gitkeep
+!results/manifests/.gitkeep

@@ -1,0 +1,21 @@
+purpose: aml_review
+allowed_fields:
+  - customer_id
+  - transaction_pattern
+  - transaction_amounts
+  - counterparties_risk
+  - kyc_status
+  - geography_risk
+forbidden_fields:
+  - marketing_segment
+  - support_sentiment
+  - credit_rejection_history
+  - vulnerable_customer_note
+allowed_actions:
+  - close_case
+  - escalate_case
+  - request_more_information
+output_schema:
+  decision: [close, escalate, more_information]
+  risk_score: number_0_100
+  reasons: list_of_allowed_factors

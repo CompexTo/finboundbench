@@ -9,6 +9,7 @@ from purposebench.dataset.generate import generate_dataset
 from purposebench.harness.runner import run_experiment
 from purposebench.metrics.evaluate import evaluate_results
 from purposebench.models import BenchmarkCase
+from purposebench.prompts import build_chat_payload
 from purposebench.reports.build import build_report_assets
 from purposebench.utils import read_jsonl, sha256_json
 
@@ -129,3 +130,26 @@ def test_invalid_model_output_fails_closed(tmp_path: Path) -> None:
     assert result.status == "error"
     assert result.error == "model output failed the required structured schema"
     assert result.output_validation_events[0]["status"] == "fail"
+
+
+def test_optional_model_contract_is_part_of_exact_payload() -> None:
+    response_format = {
+        "type": "json_schema",
+        "json_schema": {"name": "result", "schema": {"type": "object"}},
+    }
+    payload = build_chat_payload(
+        task="Assess the synthetic record.",
+        visible_data={"customer_id": "SYN-001"},
+        condition="compex_purpose_bound",
+        policy=None,
+        model={
+            "name": "test-model",
+            "reasoning_effort": "none",
+            "response_format": response_format,
+        },
+        seed=123,
+    )
+
+    assert payload["reasoning_effort"] == "none"
+    assert payload["response_format"] == response_format
+    assert "exactly this shape" in payload["messages"][0]["content"]

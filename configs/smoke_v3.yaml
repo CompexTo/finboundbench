@@ -1,0 +1,45 @@
+experiment_name: purposebound_finance_smoke_v3
+protocol_version: pre-freeze-smoke-v3
+seed: 20260802
+dataset_path: data/generated/cases.jsonl
+results_path: results/raw/smoke_v3.jsonl
+conditions:
+  - all_data_no_policy
+  - all_data_prompt_policy
+  - compex_purpose_bound
+models:
+  - provider: openai_compatible
+    name: qwen3:4b
+    temperature: 0.0
+    max_tokens: 500
+    reasoning_effort: none
+    response_format:
+      type: json_schema
+      json_schema:
+        name: purposebench_decision
+        strict: true
+        schema:
+          type: object
+          additionalProperties: false
+          properties:
+            decision:
+              type: string
+            risk_score:
+              type: number
+              minimum: 0
+              maximum: 100
+            reasons:
+              type: array
+              minItems: 1
+              items:
+                type: string
+          required: [decision, risk_score, reasons]
+repetitions: 1
+request_timeout_seconds: 180
+resume: true
+retry_failed_on_resume: true
+retry_policy:
+  max_attempts: 3
+  backoff_seconds: [1, 2]
+rate_limit:
+  min_interval_seconds: 0

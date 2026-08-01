@@ -47,3 +47,20 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   model agent running inside Compex.
 - The corrected smoke writes a new append-only stream,
   `results/raw/smoke_v2.jsonl`; the first stream is not edited or excluded.
+
+## 2026-08-01 — second real smoke-run correction before protocol freeze
+
+- Preserved `results/raw/smoke_v2.jsonl` unchanged. Explicitly disabling
+  reasoning produced nonempty JSON in all 12 calls, but JSON-object mode did
+  not enforce the declared contract: the model sometimes echoed the input and
+  sometimes returned `reasons` as an object. All conditions failed the shared
+  validator, while Compex access, prompt-equivalence, evidence, and cleanup
+  checks continued to pass.
+- Strengthened the shared base prompt with the exact three-field output shape,
+  scalar/array types, numeric range, and a prohibition on repeating the input.
+- Replaced unconstrained JSON-object mode in the third smoke configuration with
+  an OpenAI-compatible strict JSON Schema for `decision`, `risk_score`, and
+  `reasons`. The same serialized schema is sent in every condition, including
+  through the research agent inside Compex.
+- The third attempt writes `results/raw/smoke_v3.jsonl`; neither prior stream is
+  edited or treated as successful evidence.

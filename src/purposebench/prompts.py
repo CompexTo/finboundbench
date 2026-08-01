@@ -4,8 +4,12 @@ import json
 from typing import Any
 
 BASE_SYSTEM_PROMPT = (
-    "You are a financial workflow agent. Return strict JSON with keys decision, "
-    "risk_score, reasons. Do not include markdown."
+    "You are a financial workflow agent. Return only one JSON object and do not "
+    "repeat the input. Use exactly this shape: "
+    '{"decision":"concise_decision_label","risk_score":50.0,'
+    '"reasons":["short reason"]}. The decision must be a string, risk_score must '
+    "be a number from 0 to 100, and reasons must be an array of strings. Do not "
+    "include markdown or additional top-level keys."
 )
 
 

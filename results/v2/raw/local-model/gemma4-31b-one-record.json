@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "purposebound-finance.local-model-gate.v2",
+  "recordedAt": "2026-08-02T15:43:39.821Z",
+  "status": "passed",
+  "environment": {
+    "runtime": "node-22.22.2",
+    "inferenceServer": "ollama-0.32.5",
+    "endpoint": "http://127.0.0.1:11434/api/generate",
+    "hardwareAttestationAvailable": false,
+    "trustedHostRequired": true,
+    "deviations": [
+      {
+        "stage": "initial-harness-invocation",
+        "outcome": "not-a-model-failure",
+        "detail": "The first harness invocation inherited Node 16 and stopped before inference because DOMException was unavailable. The governed gate was rerun under the repository-required Node 22 runtime and passed."
+      }
+    ]
+  },
+  "model": {
+    "family": "Gemma4",
+    "tag": "gemma4:31b",
+    "pinnedIdentity": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "manifestDigest": "sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "manifestSha256": "8f0eb5cafc55cf2ae698c31eb22c8aa96c9563c7bfbded55c6b9389df659485f",
+    "parameterCount": 31273089132,
+    "quantization": "Q4_K_M"
+  },
+  "governedOneRecordGate": {
+    "status": "passed",
+    "contractSha256": "71deeb8da79ab92128116d48816dd8c365ae7af39f57f50163a6a934cb61ccc7",
+    "transmittedFields": [
+      "case_id",
+      "loan_amount",
+      "debt_to_income_ratio"
+    ],
+    "promptPayloadSha256": "1cec6f5c1ba9e413480456cedb3d6f725a707c9cab0c4bf1cb11244ce121e42b",
+    "quarantinedOutput": {
+      "decision": "ALLOW"
+    },
+    "responseSha256": "cbde101832fc1a4c934abb95e0aab09fa4908ce24f263cc15d9c5b64ac591110",
+    "modelLayerDigests": [
+      "sha256:0940386273ff9ddd5ede7c5ddaa0e925b50154e198ea977fb64aa1ca94a3a137",
+      "sha256:280af6832eca23cb322c4dcc65edfea98a21b8f8ab07dc7553bd6f7e6e7a3313",
+      "sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "sha256:56380ca2ab89f1f68c283f4d50863c0bcab52ae3f1b9a88e4ab5617b176f71a3"
+    ],
+    "inputTokens": 162,
+    "outputTokens": 6,
+    "totalDurationNanoseconds": 102260224500,
+    "loadDurationNanoseconds": 75749046700,
+    "adapterLatencyMilliseconds": 102494,
+    "wallClockMilliseconds": 102611,
+    "runtimeParameters": {
+      "temperature": 0,
+      "seed": 20260802,
+      "topP": 1,
+      "reasoningSetting": "DISABLED",
+      "outputTokenLimit": 32
+    },
+    "releaseState": "quarantined",
+    "directToolAccess": false
+  }
+}

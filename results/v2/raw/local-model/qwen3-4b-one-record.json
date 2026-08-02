@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "purposebound-finance.local-model-gate.v2",
+  "recordedAt": "2026-08-02T15:39:35.329Z",
+  "status": "passed",
+  "environment": {
+    "runtime": "node-22.22.2",
+    "inferenceServer": "ollama-0.32.5",
+    "endpoint": "http://127.0.0.1:11434/api/generate",
+    "hardwareAttestationAvailable": false,
+    "trustedHostRequired": true,
+    "deviations": [
+      {
+        "stage": "initial-harness-invocation",
+        "outcome": "not-a-model-failure",
+        "detail": "The first harness invocation inherited Node 16 and stopped before inference because DOMException was unavailable. The governed gate was rerun under the repository-required Node 22 runtime and passed."
+      }
+    ]
+  },
+  "model": {
+    "family": "Qwen3",
+    "tag": "qwen3:4b",
+    "pinnedIdentity": "qwen3:4b@sha256:359d7dd4b879b30c35a88dd4b98c294eed07008d0cbd9876f72792a22e94fae7",
+    "manifestSha256": "94d31689d40c2c167edb5223e93215b48ed87adce4f7f6ee81f447d7b597aed1"
+  },
+  "directStructuredOutputGate": {
+    "status": "passed",
+    "response": {
+      "ok": true
+    },
+    "doneReason": "stop",
+    "inputTokens": 24,
+    "outputTokens": 6,
+    "modelDurationSeconds": 13.77,
+    "wallClockSeconds": 14.04
+  },
+  "governedOneRecordGate": {
+    "status": "passed",
+    "contractSha256": "71deeb8da79ab92128116d48816dd8c365ae7af39f57f50163a6a934cb61ccc7",
+    "transmittedFields": [
+      "case_id",
+      "loan_amount",
+      "debt_to_income_ratio"
+    ],
+    "promptPayloadSha256": "943aeb9ea9b87765a8d5b9508f9df0e09efcb078104261dbf6d64e7106c3277e",
+    "quarantinedOutput": {
+      "decision": "ALLOW"
+    },
+    "responseSha256": "2e7d9bfacdee0f0bef9f6e89af158414ad83d6627a2ca02b7b677f2da1336af0",
+    "inputTokens": 132,
+    "outputTokens": 10,
+    "totalDurationSeconds": 13.3245885,
+    "loadDurationSeconds": 10.6674955,
+    "wallClockSeconds": 13.333,
+    "releaseState": "quarantined",
+    "directToolAccess": false
+  }
+}

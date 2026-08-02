@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "purposebound-finance.local-model-gate-manifest.v2",
+  "generatedAt": "2026-08-02T15:44:00.000Z",
+  "selectionPolicy": "Use the largest locally installed model that passes the governed one-record gate; retain a smaller independently verified model for comparison.",
+  "primaryModel": "gemma4:31b",
+  "comparisonModel": "qwen3:4b",
+  "artifacts": [
+    {
+      "path": "results/v2/raw/local-model/gemma4-31b-one-record.json",
+      "sha256": "6885b382b80db3f11aacd6e59e7e201183ece74d4e3cd35fb097db7e799806ce",
+      "status": "passed",
+      "role": "largest-feasible-primary"
+    },
+    {
+      "path": "results/v2/raw/local-model/qwen3-4b-one-record.json",
+      "sha256": "54f75af9bb57cea319b381bcf477306ff4c2c2aec1f59a9d5e424526a2bd9e73",
+      "status": "passed",
+      "role": "comparison"
+    }
+  ],
+  "conclusion": "Gemma4:31b Q4_K_M is feasible for governed local processing on the recorded host, but its 102.6 second one-record latency makes Qwen3:4b the practical fast comparison condition."
+}

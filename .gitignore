@@ -12,3 +12,5 @@ data/generated/*
 !results/raw/.gitkeep
 !results/derived/.gitkeep
 !results/manifests/.gitkeep
+data/v2/raw/*
+!data/v2/raw/.gitkeep

@@ -1,0 +1,40 @@
+protocol_id: protocol-v2-local
+evidence_schema: compex-evidence-v2
+seed: 20260802
+results_namespace: results/v2
+conditions:
+  - full_data_no_policy
+  - prompt_only_restriction
+  - output_only_guard
+  - ordinary_metadata_prefilter
+  - compex_governed_local
+  - compex_governed_local_output_controls
+  - compex_governed_local_dp_training
+  - compex_governed_remote
+local_models:
+  primary:
+    provider: OLLAMA
+    tag: gemma4:31b
+    immutable_id: gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7
+    manifest: docs/v2/model-manifests/gemma4-31b.json
+  comparison:
+    provider: OLLAMA
+    tag: qwen3:4b
+    immutable_id: qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7
+    manifest: docs/v2/model-manifests/qwen3-4b.json
+remote_model:
+  provider: OPENAI
+  immutable_model_id: null
+  readiness: BLOCKED_PENDING_GITIGNORED_OPENAI_API_KEY
+privacy_training:
+  configurations: [non_dp, weak_dp, medium_dp, stronger_dp]
+  delta: 0.00001
+  accountant: rdp
+  clipping_norm: 1.0
+release_policy:
+  state_before_native_validation: QUARANTINED
+  default_decision: DENY
+trusted_host:
+  backend_type: LOCAL_HARDENED_DOCKER
+  hardware_attestation: false
+  host_trust_required: true

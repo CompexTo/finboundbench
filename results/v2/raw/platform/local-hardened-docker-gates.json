@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "purposebound-finance.local-hardened-docker-gates.v2",
+  "protocolId": "protocol-v2-local",
+  "recordedAt": "2026-08-02T16:20:00.000Z",
+  "platformCommit": "20229b805f5df03c2a3a55ed0d623cb3df3402db",
+  "status": "passed_after_fail_closed_development_gates",
+  "preflight": {
+    "runnerHealth": "healthy",
+    "backendReadiness": "READY",
+    "anonymousBackendEndpointStatus": 401,
+    "hardwareAttestation": false,
+    "hostTrustRequired": true,
+    "checks": {
+      "docker-daemon": true,
+      "linux-containers": true,
+      "trusted-host-declaration": true
+    },
+    "configurationDeviation": "The host .env MinIO access-key version differed from the already-running MinIO container. Live-gate upload therefore resolved the local container credential into process memory without printing or persisting it."
+  },
+  "images": {
+    "workload": {
+      "name": "purposebound-finance-v2-gate:local",
+      "digest": "sha256:3e16ed2a0aeea14c2bc43cefa0f1a17ea92b8c522dff318b364f16733356b5b9",
+      "baseImage": "python@sha256:25976e9d34a0fab1f278cae931f34c8303d97bf0c0d7f85b6b4dcf641d7702a4"
+    },
+    "ephemeralVolumeStager": "busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662"
+  },
+  "developmentAttempts": [
+    {
+      "executionId": "execution-live-local-v2-001",
+      "outcome": "failed_closed",
+      "contractHash": "04a5f6e98b434e7caf26199c6c2b656d4d369d91a068e2e513bc0f4124e3d576",
+      "projectionHash": "3db9fa9b5b40798794bdda734e2eb2c8a051de902414b24eebdefa9d49997a91",
+      "reason": "Docker rejected archive injection into a read-only root filesystem.",
+      "cleanupStatus": "COMPLETED"
+    },
+    {
+      "executionId": "execution-live-local-v2-002",
+      "outcome": "failed_closed",
+      "contractHash": "4261aa9f223ea1f15260abfa39a0a33ffb6dd36dd17d3d6fa417cd7f2ccc4585",
+      "projectionHash": "46c3b8a71cd59ded300bc35b40de54abe56e6eda9fc6405c7c27f1a9e4b7b6a3",
+      "reason": "Explicit archive parent directories did not change Docker's read-only-rootfs restriction.",
+      "cleanupStatus": "COMPLETED"
+    },
+    {
+      "executionId": "execution-live-local-v2-003",
+      "outcome": "incomplete_gate",
+      "contractHash": "2d3509811dde07160b26d73de672bace3ee8e08515707cc86a09ea7fc2dda026",
+      "projectionHash": "4b2feaf43f2882bf7cffd4fbd825c9df02c5f0a327552c148cb43c7d51f3fb14",
+      "reason": "Read-only input volume worked, but tmpfs output disappeared after process exit before collection."
+    },
+    {
+      "executionId": "execution-live-local-v2-004",
+      "outcome": "incomplete_gate",
+      "contractHash": "de601acd1db3127d0eddea9da8dea0254c0bfdde66718195b5a0dc6301ec440a",
+      "projectionHash": "56478c1d8c5f016cd487415d94e13d6c1c7084dd7123078c6579b9a2ddf755df",
+      "reason": "Confirmed post-exit tmpfs output loss; no artifact was released."
+    },
+    {
+      "executionId": "execution-live-local-v2-005",
+      "outcome": "failed_closed",
+      "contractHash": "c8a2da8d1f7b106eef3b45a19861b6ccef5d0c0f59f7f0d3785acf6c84fbe070",
+      "projectionHash": "fec7c3776b61f28d7b739c095746d572aaa3cf3275e95a8b8bab1dbe882295ae",
+      "reason": "Output volume ownership staging failed because chmod followed chown without FOWNER.",
+      "verificationStatus": "INCOMPLETE",
+      "cleanupStatus": "COMPLETED"
+    },
+    {
+      "executionId": "execution-live-local-v2-006",
+      "outcome": "invalid_due_to_mount_alias",
+      "contractHash": "9ef0f53f8dca5c5b9a2f7072e928317b3b0e1540444b031aa3665fd7d6d48436",
+      "projectionHash": "f71ddb7e63c455c9ce961c162e56a01795cfb2c9656ec44c96bb353eaed1dd41",
+      "reason": "Dockerode runtime volume-name shape disagreed with its type declaration and aliased input/output to an auto-created volume."
+    },
+    {
+      "executionId": "execution-live-local-v2-007",
+      "outcome": "invalid_due_to_mount_alias",
+      "contractHash": "66e700fa2aab7a87d65f3cc200d10cc5e1897e94132d219d5fd08d246a2d5bb5",
+      "projectionHash": "5c73fd2fb96c620b2e09cfc68377a9f4ff9f78de8197c01e659d3d05e3b46259",
+      "reason": "Type-directed use of VolumeCreateResponse.Name remained undefined at runtime."
+    },
+    {
+      "executionId": "execution-live-local-v2-008",
+      "outcome": "invalid_due_to_mount_alias",
+      "contractHash": "bb32c0e06d9c91b86d33c8eed21fd39b4bc5336b5b6034e275e755ab06e47cc4",
+      "projectionHash": "16838d44cc2178436ac7ea74bd0a1e7421abac9a6a3622fc9fe5f1f5ca0c6917",
+      "reason": "Runner logging confirmed the managed name was undefined; exact accidental and diagnostic volumes were then removed."
+    }
+  ],
+  "acceptedGate": {
+    "executionId": "execution-live-local-v2-009",
+    "contractHash": "72604bd8085aa55b518475d018478a97f61067b277fc1d0c194df42c09c782f6",
+    "preparedIntegrityHash": "5554a93d75ee0e4313d889dec8b510836e7c787be8e5bdca2880358df4b7bd10",
+    "backendType": "LOCAL_HARDENED_DOCKER",
+    "securityProfile": "HARDENED_V2",
+    "networkMode": "none",
+    "hardwareAttestation": false,
+    "hostTrustRequired": true,
+    "projection": {
+      "mountPath": "/input/projection.json",
+      "sha256": "121594d3fc69d4805994b4500911e9c3b4e44e8507a80fb23ef1c66a7ffacc04",
+      "selectedFields": ["case_id", "loan_amount", "debt_to_income_ratio"],
+      "deniedFields": ["internal_fraud_note"],
+      "recordCount": 1
+    },
+    "result": {
+      "path": "result.json",
+      "sha256": "bff1024806e318074babea7ebd8486f4ddf0c2ea1714c6e0cd4927db85dc7eb4",
+      "sizeBytes": 385,
+      "status": "APPROVED_DATA_AVAILABLE",
+      "contractHash": "72604bd8085aa55b518475d018478a97f61067b277fc1d0c194df42c09c782f6",
+      "projectionSha256": "121594d3fc69d4805994b4500911e9c3b4e44e8507a80fb23ef1c66a7ffacc04",
+      "confidentialValuesReleased": false
+    },
+    "structuredLogHash": "95bd63ca46bee9fde1738d235d73580bfb51c737759367d57ef47838eae5a6ce",
+    "exitCode": 0,
+    "startedAt": "2026-08-02T16:19:04.408Z",
+    "finishedAt": "2026-08-02T16:19:08.720Z",
+    "cleanupStatus": "COMPLETED",
+    "verificationStatus": "VERIFIED",
+    "remainingContainers": 0,
+    "remainingVolumes": 0
+  }
+}

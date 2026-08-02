@@ -1,0 +1,114 @@
+{
+  "schema": "purposebound-finance-v1-preservation-1",
+  "recordedAt": "2026-08-02T14:26:19+02:00",
+  "protocolV2Identifier": "protocol-v2-local",
+  "repository": {
+    "initialCommit": "d71d225ffe406dedfd95c8f88d1b4a0710b3a285",
+    "baselineBranch": "research/fin-clean-room-local-v2",
+    "baselineCommit": "2f88824c5fed6d739becdf5a52cc546e37de2589",
+    "dirtyPatchSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedListSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "untrackedFiles": []
+  },
+  "protectedTags": {
+    "protocol-v1": {
+      "tagObject": "6afb99c6c58882827446201a3b632dcfc7bb1eb7",
+      "targetCommit": "2800062581e34addf856d35f37209ef1276b4d12"
+    },
+    "protocol-v1.1": {
+      "tagObject": "434c6c911f43ed0f8aa50718c4828d05b675d545",
+      "targetCommit": "d71d225ffe406dedfd95c8f88d1b4a0710b3a285"
+    }
+  },
+  "baselineValidation": {
+    "pytest": "8 passed",
+    "ruff": "passed",
+    "mypy": "passed"
+  },
+  "protectedFiles": [
+    {
+      "path": "data/generated/cases.jsonl",
+      "bytes": 261680,
+      "records": 240,
+      "sha256": "424c3d34793affddcb4f76b0d13764d7e8eeba4f54ce06285a36431f584a1d39"
+    },
+    {
+      "path": "data/generated/pilot_40.jsonl",
+      "bytes": 41476,
+      "records": 40,
+      "sha256": "b7b638555a01c26055aebc5031ffb17afcdf2a899d70e63a59e3636d4bd2b94f"
+    },
+    {
+      "path": "results/manifests/dataset_manifest.json",
+      "bytes": 11650,
+      "sha256": "ea766e58d7b3207697a0616a9630c856528f76ebd6f860daa510e5c0298eadb2"
+    },
+    {
+      "path": "results/manifests/pilot_40_manifest.json",
+      "bytes": 2220,
+      "sha256": "8dc6a525f89b1ffac760149348f7c0e21e9e37e7db9bc0f55125cfc987152f8b"
+    },
+    {
+      "path": "results/raw/cleanup.jsonl",
+      "bytes": 13020,
+      "records": 16,
+      "sha256": "3ecee9051b821edb101cba6dea74de3fc5ef3dbf6e2fc25e36627c75cd2f14d0",
+      "integrity": "all self-hashes valid"
+    },
+    {
+      "path": "results/raw/smoke.jsonl",
+      "bytes": 777828,
+      "records": 12,
+      "sha256": "cec868f51d742ef419978d3655f6533be169f3f678f6b97e83fc6f9ecc8be323",
+      "chainRoot": "8d253f841690f224de29deef347beadbaa69ff07b4be8775a7019f24d35f495a",
+      "outcome": "8 ok, 4 error"
+    },
+    {
+      "path": "results/raw/smoke_v2.jsonl",
+      "bytes": 561830,
+      "records": 12,
+      "sha256": "7ea73139c9469c1aa2a2320f3aadd1749765792920410f4f696106328898c9d7",
+      "chainRoot": "85959364b540e390347a37f3492f43b55d0e7cc9368bde4859f78ad68991d750",
+      "outcome": "12 error"
+    },
+    {
+      "path": "results/raw/smoke_v3.jsonl",
+      "bytes": 534968,
+      "records": 12,
+      "sha256": "71e006849d089a1a88389282f48858d07914a5c2cb14cbf624598202e194897b",
+      "chainRoot": "5e17d50ff9dfa2db757794f977393337c7078397d2a896d09e82d1d5ea849959",
+      "outcome": "12 ok"
+    },
+    {
+      "path": "results/raw/smoke_v4.jsonl",
+      "bytes": 590600,
+      "records": 12,
+      "sha256": "d9adafeea22164ba255b362fd654cca377a904ca753568359c3fa01fbba69798",
+      "chainRoot": "1130c5ee089dd521143e28b1eba028c3646bfe4f03e494ee08e21815ca1774fc",
+      "outcome": "12 ok"
+    },
+    {
+      "path": "results/raw/pilot_40.jsonl",
+      "bytes": 671973,
+      "records": 80,
+      "sha256": "2f2b5362339c401246e01f163b3cb6ea075e3489bcb36e748643529bd612e941",
+      "chainRoot": "22de8e9d65cadea510f1b77c1d69f27ed649c4055ab4bcb4dd57c56dc2d2ad2a",
+      "outcome": "80 ok"
+    }
+  ],
+  "recoverableBackup": {
+    "path": "C:\\Users\\FRHMMH01\\.codex\\preservation\\purposebound-finance-protocol-v1-20260802.zip",
+    "bytes": 336624,
+    "entries": 55,
+    "sha256": "3ad26e18c2756dc070c9bc63079fbbd118f92ded08a39551fdf8bd0505bc6a25",
+    "contentVerification": "10 of 10 substantive datasets, manifests, and raw streams matched source SHA-256"
+  },
+  "rules": {
+    "v1PathsAreImmutable": true,
+    "v2DataRoot": "data/generated/v2",
+    "v2RawRoot": "results/raw/v2",
+    "v2DerivedRoot": "results/derived/v2",
+    "v2ManifestRoot": "results/manifests/v2",
+    "v2ConfigRoot": "configs/v2"
+  }
+}

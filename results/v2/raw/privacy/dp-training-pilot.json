@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "purposebound-finance.dp-training-pilot.v2",
+  "recordedAt": "2026-08-02T15:50:00.000Z",
+  "seed": 20260802,
+  "dataset": {
+    "kind": "deterministic_synthetic_tabular",
+    "records": 512,
+    "features": 8,
+    "positiveLabels": 248,
+    "sha256": "7d5c77777d0f398c3e9b180a8fd423aeaa91a8f52a052b665444349d89a6862f",
+    "generation": "numpy.default_rng(20260802); eight standard-normal features; thresholded linear logit with seeded Gaussian noise"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.13.0+cpu",
+    "opacus": "1.6.0",
+    "device": "cpu"
+  },
+  "wallClockSeconds": 2.5642778873443604,
+  "limitations": [
+    "This is a local research pilot, not a production model or paper-scale result.",
+    "Opacus secure_mode was disabled for reproducible, fast experimentation; a production training release must retrain with a cryptographically secure RNG.",
+    "Differential privacy applies to the declared training adjacency and release process and does not prevent every form of leakage."
+  ],
+  "results": [
+    {
+      "configName": "non_dp",
+      "private": false,
+      "actualEpsilon": null,
+      "delta": null,
+      "accountant": null,
+      "noiseMultiplier": null,
+      "clippingNorm": null,
+      "sampleRate": 0.07804878048780488,
+      "batchSize": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8725490196078431,
+        "binaryLogLoss": 0.34765362133938155
+      },
+      "runtimeSeconds": 0.12390700000105426,
+      "modelSha256": "54388565f29191de013d6736e8bec6cbcb8bf17a79709a2605d955320243b2ac"
+    },
+    {
+      "configName": "weak_dp",
+      "private": true,
+      "actualEpsilon": 13.274465080942651,
+      "delta": 0.00001,
+      "accountant": "rdp",
+      "noiseMultiplier": 0.7,
+      "clippingNorm": 1.0,
+      "sampleRate": 0.07692307692307693,
+      "batchSize": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8529411764705882,
+        "binaryLogLoss": 0.35717371275163545
+      },
+      "runtimeSeconds": 0.29504959999758285,
+      "modelSha256": "3135426c20f2116396298e2e5a6188a7b0d8c07baf535d23cc10a77aca48718d"
+    },
+    {
+      "configName": "medium_dp",
+      "private": true,
+      "actualEpsilon": 5.161475206080968,
+      "delta": 0.00001,
+      "accountant": "rdp",
+      "noiseMultiplier": 1.1,
+      "clippingNorm": 1.0,
+      "sampleRate": 0.07692307692307693,
+      "batchSize": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8529411764705882,
+        "binaryLogLoss": 0.35712707103126873
+      },
+      "runtimeSeconds": 0.40559740000753663,
+      "modelSha256": "db0924a83a35c0b236e17647b60dad02ecda9cd3d43abfb52609bbafc06b81d2"
+    },
+    {
+      "configName": "stronger_dp",
+      "private": true,
+      "actualEpsilon": 2.4968387038561017,
+      "delta": 0.00001,
+      "accountant": "rdp",
+      "noiseMultiplier": 1.7,
+      "clippingNorm": 1.0,
+      "sampleRate": 0.07692307692307693,
+      "batchSize": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8627450980392157,
+        "binaryLogLoss": 0.35728212984314367
+      },
+      "runtimeSeconds": 0.23184539999056142,
+      "modelSha256": "9b3ee7f1f12050089e2bb086f54a7fcd7b5f87852ae6da1b174573936350bc8e"
+    }
+  ]
+}

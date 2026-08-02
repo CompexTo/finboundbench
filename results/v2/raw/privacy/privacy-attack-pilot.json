@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "purposebound-finance.privacy-attack-pilot.v2",
+  "recordedAt": "2026-08-02T15:52:00.000Z",
+  "seed": 20260802,
+  "status": "passed",
+  "design": "Deterministic controlled observations supplied to the checked-in empirical attack implementations. This validates attack measurement and comparison plumbing; it is not a population estimate or a claim derived from the DP training pilot model.",
+  "conditions": {
+    "ordinary": {
+      "utilityAccuracy": 0.873,
+      "memberLosses": [0.11, 0.18, 0.21, 0.29, 0.34, 0.39],
+      "nonmemberLosses": [0.54, 0.61, 0.66, 0.73, 0.79, 0.88],
+      "sensitiveTruth": ["high", "low", "high", "low", "high", "low", "high", "low"],
+      "sensitivePredictions": ["high", "low", "high", "low", "high", "low", "high", "high"],
+      "repeatedQueryTruth": 10.0,
+      "repeatedQueryAnswers": [10.0, 10.0, 10.0, 10.0],
+      "differencing": {"withRecord": 51.0, "withoutRecord": 50.0, "trueContribution": 1.0},
+      "reconstructionAnswers": [1.0, 0.0, 1.0, 0.0]
+    },
+    "governed_non_dp": {
+      "utilityAccuracy": 0.873,
+      "memberLosses": [0.12, 0.17, 0.22, 0.28, 0.35, 0.40],
+      "nonmemberLosses": [0.53, 0.60, 0.65, 0.72, 0.80, 0.87],
+      "sensitiveTruth": ["high", "low", "high", "low", "high", "low", "high", "low"],
+      "sensitivePredictions": ["high", "low", "high", "low", "high", "low", "high", "high"],
+      "repeatedQueryTruth": 10.0,
+      "repeatedQueryAnswers": [10.0, 10.0],
+      "differencing": {"withRecord": 51.0, "withoutRecord": 50.0, "trueContribution": 1.0},
+      "reconstructionAnswers": [1.0, 0.0, 1.0, 0.0]
+    },
+    "governed_dp": {
+      "utilityAccuracy": 0.863,
+      "memberLosses": [0.31, 0.42, 0.47, 0.53, 0.58, 0.66],
+      "nonmemberLosses": [0.29, 0.43, 0.49, 0.52, 0.61, 0.67],
+      "sensitiveTruth": ["high", "low", "high", "low", "high", "low", "high", "low"],
+      "sensitivePredictions": ["high", "low", "low", "low", "high", "high", "low", "low"],
+      "repeatedQueryTruth": 10.0,
+      "repeatedQueryAnswers": [7.0, 7.0],
+      "differencing": {"withRecord": 49.1, "withoutRecord": 51.0, "trueContribution": 1.0},
+      "reconstructionAnswers": [0.2, 0.8, 0.3, 0.7]
+    }
+  },
+  "sharedReconstructionSystem": {
+    "queryMatrix": [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+    "truth": [1, 0, 1, 0],
+    "rank": 4,
+    "meaningful": true
+  },
+  "measurements": {
+    "ordinary": {
+      "membership_inference": {"risk": 1.0, "calibratedRocAuc": 1.0},
+      "attribute_inference": {"risk": 0.75, "accuracy": 0.875},
+      "repeated_query_averaging": {"risk": 1.0, "averagedAbsoluteError": 0.0},
+      "differencing": {"risk": 1.0, "absoluteError": 0.0},
+      "aggregate_reconstruction": {"risk": 1.0, "accuracy": 1.0}
+    },
+    "governed_non_dp": {
+      "membership_inference": {"risk": 1.0, "calibratedRocAuc": 1.0},
+      "attribute_inference": {"risk": 0.75, "accuracy": 0.875},
+      "repeated_query_averaging": {"risk": 1.0, "averagedAbsoluteError": 0.0},
+      "differencing": {"risk": 1.0, "absoluteError": 0.0},
+      "aggregate_reconstruction": {"risk": 1.0, "accuracy": 1.0}
+    },
+    "governed_dp": {
+      "membership_inference": {"risk": 0.16666666666666674, "calibratedRocAuc": 0.5277777777777778},
+      "attribute_inference": {"risk": 0.25, "accuracy": 0.625},
+      "repeated_query_averaging": {"risk": 0.0, "averagedAbsoluteError": 3.0},
+      "differencing": {"risk": 0.0, "absoluteError": 2.8999999999999986},
+      "aggregate_reconstruction": {"risk": 0.0, "accuracy": 0.0}
+    }
+  },
+  "comparisons": {
+    "governanceOnlyRiskChange": {
+      "membership_inference": 0.0,
+      "attribute_inference": 0.0,
+      "repeated_query_averaging": 0.0,
+      "differencing": 0.0,
+      "aggregate_reconstruction": 0.0
+    },
+    "dpRiskReductionVsGovernedNonDp": {
+      "membership_inference": 0.8333333333333333,
+      "attribute_inference": 0.5,
+      "repeated_query_averaging": 1.0,
+      "differencing": 1.0,
+      "aggregate_reconstruction": 1.0
+    }
+  },
+  "limitations": [
+    "These are empirical attacks against specified observations, not universal guarantees.",
+    "Governance controls access and evidence but does not by itself provide differential privacy.",
+    "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+    "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+    "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+  ]
+}

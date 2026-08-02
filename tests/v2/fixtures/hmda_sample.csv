@@ -1,0 +1,6 @@
+activity_year,lei,state_code,county_code,census_tract,action_taken,loan_type,loan_purpose,loan_amount,income,debt_to_income_ratio,loan_to_value_ratio,interest_rate,rate_spread,occupancy_type,derived_race,derived_ethnicity,derived_sex,applicant_age,tract_population,tract_to_msa_income_percentage
+2024,TESTLEI00000000000001,DE,001,000100,1,1,1,250000,85,30%-<36%,80,6.25,0.50,1,White,Not Hispanic or Latino,Male,35-44,4200,92
+2024,TESTLEI00000000000002,DE,003,000200,3,1,1,180000,55,>60%,95,7.10,1.20,1,Black or African American,Not Hispanic or Latino,Female,45-54,5100,78
+2024,TESTLEI00000000000003,MD,005,000300,1,2,31,320000,110,20%-<30%,75,5.95,,1,Asian,Not Hispanic or Latino,Joint,35-44,6200,105
+2024,TESTLEI00000000000004,MD,007,000400,2,1,32,210000,,Exempt,NA,Exempt,Exempt,1,Race Not Available,Ethnicity Not Available,Sex Not Available,8888,3900,84
+2024,TESTLEI00000000000005,DC,001,000500,1,3,1,450000,140,36%-<43%,88,6.50,0.70,1,Joint,Joint,Joint,55-64,7000,118

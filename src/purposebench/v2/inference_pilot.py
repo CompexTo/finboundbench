@@ -40,6 +40,13 @@ INFERENCE_CONDITIONS = (
 
 DECISIONS = ("STANDARD_REVIEW", "MANUAL_REVIEW")
 COMPACT_RESPONSE_RECORD_THRESHOLD = 16
+MODEL_TIMEOUT_MS = 1_200_000
+MODEL_RETRY_POLICY = {
+    "maxAttempts": 1,
+    "initialBackoffMs": 0,
+    "maximumBackoffMs": 0,
+    "retryableStatusCodes": [],
+}
 
 
 def _uses_compact_response(case_ids: Sequence[str]) -> bool:
@@ -210,7 +217,11 @@ def _user_prompt(
 class DirectOllamaInvoker:
     """Direct local-model baseline without Compex governance controls."""
 
-    def __init__(self, endpoint: str = "http://127.0.0.1:11434", timeout: float = 900) -> None:
+    def __init__(
+        self,
+        endpoint: str = "http://127.0.0.1:11434",
+        timeout: float = MODEL_TIMEOUT_MS / 1_000,
+    ) -> None:
         self.endpoint = endpoint.rstrip("/")
         self.client = httpx.Client(timeout=timeout)
         self.verified_models: set[str] = set()
@@ -308,6 +319,8 @@ class DirectOllamaInvoker:
                     "outputTokenLimit": output_token_limit,
                     "keepAliveSeconds": 300,
                     "contextWindowTokens": context_window_tokens,
+                    "timeoutMs": MODEL_TIMEOUT_MS,
+                    "retryPolicy": dict(MODEL_RETRY_POLICY),
                 },
             },
             "nativeRelease": None,
@@ -539,6 +552,8 @@ def run_inference_pilot(
                     "seed": seed,
                     "outputTokenLimit": output_token_limit,
                     "contextWindowTokens": context_window_tokens,
+                    "timeoutMs": MODEL_TIMEOUT_MS,
+                    "retryPolicy": dict(MODEL_RETRY_POLICY),
                 }
                 contract_hash = sha256_json(contract_material)
                 governed = CONDITION_PLANS[condition].approval_binding
@@ -553,7 +568,7 @@ def run_inference_pilot(
                             "seed": seed,
                             "outputTokenLimit": output_token_limit,
                             "contextWindowTokens": context_window_tokens,
-                            "timeoutMs": 1_200_000,
+                            "timeoutMs": MODEL_TIMEOUT_MS,
                             "selectedFields": list(selected_fields),
                             "records": records,
                             "prompts": prompts,

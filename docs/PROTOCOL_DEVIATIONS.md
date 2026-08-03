@@ -133,3 +133,8 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   normalizing results for the unchanged pair-agreement metric.
 - The four-pair stream remains unchanged under `CASE_ID_OBJECTS_V1`. This is a
   pre-pilot scalability correction, not a post-result exclusion or claim.
+- Before the first forty-record pilot, the direct client deadline was aligned
+  with the governed adapter at 1,200,000 milliseconds. The common deadline and
+  single-attempt, no-retry policy are now bound into contract material and
+  direct model evidence. The completed smoke remains unchanged and recorded
+  its actual durations and the retained transport failure.

@@ -55,6 +55,37 @@ def test_schema_and_response_validation_bind_every_case_id() -> None:
         _validate_response(value, case_ids)
 
 
+def test_large_batch_uses_compact_order_bound_response() -> None:
+    case_ids = [f"case-{index:02d}" for index in range(40)]
+    schema = response_schema(case_ids)
+    assert set(schema["properties"]) == {"decisions", "risk_scores"}
+    value = {
+        "decisions": ["STANDARD_REVIEW"] * 20 + ["MANUAL_REVIEW"] * 20,
+        "risk_scores": list(range(40)),
+    }
+    normalized = _validate_response(value, case_ids)
+    assert [row["case_id"] for row in normalized] == case_ids
+    assert normalized[-1] == {
+        "case_id": "case-39",
+        "decision": "MANUAL_REVIEW",
+        "risk_score": 39,
+    }
+    value["risk_scores"] = value["risk_scores"][:-1]
+    with pytest.raises(ValueError, match="array counts"):
+        _validate_response(value, case_ids)
+
+
+def test_compact_prompt_binds_output_indexes_to_input_order() -> None:
+    prompt = condition_prompts(
+        ExperimentCondition.COMPEX_GOVERNED_LOCAL,
+        ("denied",),
+        compact_response=True,
+    )["task"]
+    assert "Array index i" in prompt
+    assert "input record index i" in prompt
+    assert "do not return case IDs" in prompt
+
+
 def test_prompt_only_is_explicit_and_disclosure_scan_records_hashes_only() -> None:
     rows = load_paired_records(_dataset_path(), pair_limit=1)
     denied = tuple(rows[0]["prohibited_internal_fields"])

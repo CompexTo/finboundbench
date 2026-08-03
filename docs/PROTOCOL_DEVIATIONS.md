@@ -118,3 +118,18 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   rewritten or removed.
 - This is a four-pair integration smoke only. It is not eligible for a paper
   claim or protocol-v2-local freeze decision.
+
+## 2026-08-03 - protocol-v2-local pilot response encoding before first pilot
+
+- The successful four-pair smoke showed that the per-record object schema is
+  workable for eight records but unnecessarily expensive for the required
+  forty-record, 31B-model pilot.
+- Before starting any forty-record run, batches above 16 records were assigned
+  the compact `ORDERED_PARALLEL_ARRAYS_V1` response encoding. It returns one
+  decision array and one risk-score array in input record order.
+- The contract binds the encoding, response-schema hash, transmitted-record
+  hash, and SHA-256 of the ordered case-ID list. Validation requires exact
+  array lengths, decision vocabulary, integer bounds, and index order before
+  normalizing results for the unchanged pair-agreement metric.
+- The four-pair stream remains unchanged under `CASE_ID_OBJECTS_V1`. This is a
+  pre-pilot scalability correction, not a post-result exclusion or claim.

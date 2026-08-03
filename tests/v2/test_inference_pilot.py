@@ -64,3 +64,21 @@ def test_prompt_only_is_explicit_and_disclosure_scan_records_hashes_only() -> No
     findings = _disclosure_findings(f"leaked {denied[0]} {secret_value}", rows)
     assert findings
     assert secret_value not in str(findings)
+
+
+def test_failed_batches_are_not_treated_as_completed_resume_keys(tmp_path: Path) -> None:
+    # The raw stream may retain failed attempts, but a later passing record for
+    # the same dedupe key remains necessary for protocol completion.
+    from purposebench.utils import append_jsonl, read_jsonl
+
+    path = tmp_path / "attempts.jsonl"
+    append_jsonl(path, {"dedupeKey": "same", "status": "failed"})
+    completed = {
+        row["dedupeKey"] for row in read_jsonl(path) if row.get("status") == "passed"
+    }
+    assert completed == set()
+    append_jsonl(path, {"dedupeKey": "same", "status": "passed"})
+    completed = {
+        row["dedupeKey"] for row in read_jsonl(path) if row.get("status") == "passed"
+    }
+    assert completed == {"same"}

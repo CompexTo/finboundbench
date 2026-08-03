@@ -439,7 +439,11 @@ def run_inference_pilot(
     rows = load_paired_records(dataset_path, pair_limit)
     case_ids = [str(row["case_id"]) for row in rows]
     schema = response_schema(case_ids)
-    completed = {record["dedupeKey"] for record in read_jsonl(partial_path)}
+    completed = {
+        record["dedupeKey"]
+        for record in read_jsonl(partial_path)
+        if record.get("status") == "passed"
+    }
     expected = len(INFERENCE_CONDITIONS) * 2
     output_token_limit = max(512, len(rows) * 64)
     context_window_tokens = 8_192 if len(rows) <= 8 else 32_768
@@ -576,7 +580,12 @@ def run_inference_pilot(
     finally:
         direct.close()
     records = read_jsonl(partial_path)
-    if len(records) != expected or any(record.get("status") != "passed" for record in records):
+    successful = {
+        record["dedupeKey"]: record
+        for record in records
+        if record.get("status") == "passed"
+    }
+    if len(successful) != expected:
         raise RuntimeError("inference pilot is incomplete and remains a partial artifact")
     os.replace(partial_path, final_path)
     return final_path
@@ -587,22 +596,46 @@ def build_inference_manifest(
     raw_path: Path,
 ) -> dict[str, Any]:
     records = read_jsonl(raw_path)
+    successful = {
+        record["dedupeKey"]: record
+        for record in records
+        if record.get("status") == "passed"
+    }
+    failed_attempts = [record for record in records if record.get("status") == "failed"]
+    successful_records = list(successful.values())
     return {
         "schemaVersion": "purposebound-finance.inference-pilot-manifest.v2",
         "recordedAt": datetime.now(UTC).isoformat(),
-        "status": "passed" if records and all(row["status"] == "passed" for row in records) else "failed",
+        "status": "passed" if len(successful_records) == len(INFERENCE_CONDITIONS) * 2 else "failed",
         "rawArtifact": str(raw_path.relative_to(benchmark_root)).replace("\\", "/"),
         "rawArtifactSha256": sha256_file(raw_path),
-        "batchCount": len(records),
-        "conditions": sorted({row["condition"] for row in records}),
-        "models": sorted({row["pinnedModelId"] for row in records}),
+        "attemptCount": len(records),
+        "successfulBatchCount": len(successful_records),
+        "failedAttemptCount": len(failed_attempts),
+        "failedAttempts": [
+            {
+                "dedupeKey": row["dedupeKey"],
+                "errorType": row["errorType"],
+                "error": row["error"],
+                "durationSeconds": row["durationSeconds"],
+            }
+            for row in failed_attempts
+        ],
+        "benchmarkCommits": sorted(
+            {row["benchmarkCommit"] for row in successful_records}
+        ),
+        "platformCommits": sorted(
+            {row["platformCommit"] for row in successful_records}
+        ),
+        "conditions": sorted({row["condition"] for row in successful_records}),
+        "models": sorted({row["pinnedModelId"] for row in successful_records}),
         "pairMetrics": [
             {
                 "condition": row["condition"],
                 "model": row["pinnedModelId"],
                 **row["pairMetrics"],
             }
-            for row in records
+            for row in successful_records
         ],
         "matrixGates": {
             "compex_governed_local_dp_training": {

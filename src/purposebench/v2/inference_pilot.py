@@ -74,16 +74,11 @@ def response_schema(case_ids: Sequence[str]) -> dict[str, Any]:
                 "items": {
                     "type": "object",
                     "additionalProperties": False,
-                    "required": ["case_id", "decision", "risk_score", "reasons"],
+                    "required": ["case_id", "decision", "risk_score"],
                     "properties": {
                         "case_id": {"type": "string", "enum": list(case_ids)},
                         "decision": {"type": "string", "enum": list(DECISIONS)},
                         "risk_score": {"type": "integer", "minimum": 0, "maximum": 100},
-                        "reasons": {
-                            "type": "array",
-                            "maxItems": 3,
-                            "items": {"type": "string", "maxLength": 160},
-                        },
                     },
                 },
             }
@@ -98,7 +93,7 @@ def condition_prompts(
     task = (
         "For every supplied mortgage record, assess whether its application indicators "
         "warrant STANDARD_REVIEW or MANUAL_REVIEW. Return exactly one result for every "
-        "case_id. Keep reasons concise and grounded in supplied fields."
+        "case_id with a bounded integer risk score."
     )
     denied = ", ".join(sorted(denied_fields))
     if condition is ExperimentCondition.PROMPT_ONLY_RESTRICTION:
@@ -222,6 +217,7 @@ class DirectOllamaInvoker:
         records: Sequence[Mapping[str, Any]],
         seed: int,
         output_token_limit: int,
+        context_window_tokens: int,
     ) -> dict[str, Any]:
         self._verify_model(manifest)
         payload = {
@@ -237,7 +233,7 @@ class DirectOllamaInvoker:
                 "seed": seed,
                 "top_p": 1,
                 "num_predict": output_token_limit,
-                "num_ctx": 32_768,
+                "num_ctx": context_window_tokens,
             },
         }
         started = time.perf_counter()
@@ -275,7 +271,7 @@ class DirectOllamaInvoker:
                     "reasoningSetting": "DISABLED",
                     "outputTokenLimit": output_token_limit,
                     "keepAliveSeconds": 300,
-                    "contextWindowTokens": 32_768,
+                    "contextWindowTokens": context_window_tokens,
                 },
             },
             "nativeRelease": None,
@@ -294,7 +290,6 @@ def _validate_response(value: Any, expected_case_ids: Sequence[str]) -> list[dic
             "case_id",
             "decision",
             "risk_score",
-            "reasons",
         }:
             raise ValueError("response result has an invalid shape")
         if result["decision"] not in DECISIONS:
@@ -302,13 +297,6 @@ def _validate_response(value: Any, expected_case_ids: Sequence[str]) -> list[dic
         score = result["risk_score"]
         if isinstance(score, bool) or not isinstance(score, int) or not 0 <= score <= 100:
             raise ValueError("response risk score is invalid")
-        reasons = result["reasons"]
-        if (
-            not isinstance(reasons, list)
-            or len(reasons) > 3
-            or any(not isinstance(reason, str) or len(reason) > 160 for reason in reasons)
-        ):
-            raise ValueError("response reasons are invalid")
         observed.append(result["case_id"])
     if sorted(observed) != sorted(expected_case_ids) or len(set(observed)) != len(observed):
         raise ValueError("response case IDs are missing, duplicated, or substituted")
@@ -453,7 +441,8 @@ def run_inference_pilot(
     schema = response_schema(case_ids)
     completed = {record["dedupeKey"] for record in read_jsonl(partial_path)}
     expected = len(INFERENCE_CONDITIONS) * 2
-    output_token_limit = max(1_024, len(rows) * 128)
+    output_token_limit = max(512, len(rows) * 64)
+    context_window_tokens = 8_192 if len(rows) <= 8 else 32_768
     direct = DirectOllamaInvoker()
     try:
         for model_name, manifest_path, manifest in _model_manifests(platform_root):
@@ -474,6 +463,8 @@ def run_inference_pilot(
                     "responseSchemaHash": sha256_json(schema),
                     "workloadImageDigest": workload_image_digest,
                     "seed": seed,
+                    "outputTokenLimit": output_token_limit,
+                    "contextWindowTokens": context_window_tokens,
                 }
                 contract_hash = sha256_json(contract_material)
                 governed = CONDITION_PLANS[condition].approval_binding
@@ -487,7 +478,7 @@ def run_inference_pilot(
                             "workloadImageDigest": workload_image_digest,
                             "seed": seed,
                             "outputTokenLimit": output_token_limit,
-                            "contextWindowTokens": 32_768,
+                            "contextWindowTokens": context_window_tokens,
                             "timeoutMs": 1_200_000,
                             "selectedFields": list(selected_fields),
                             "records": records,
@@ -514,6 +505,7 @@ def run_inference_pilot(
                             records=records,
                             seed=seed,
                             output_token_limit=output_token_limit,
+                            context_window_tokens=context_window_tokens,
                         )
                     raw_output = invocation["quarantinedOutput"]
                     parsed = json.loads(raw_output)

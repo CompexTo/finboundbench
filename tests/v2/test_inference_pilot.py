@@ -45,7 +45,6 @@ def test_schema_and_response_validation_bind_every_case_id() -> None:
                 "case_id": case_id,
                 "decision": "STANDARD_REVIEW",
                 "risk_score": 20,
-                "reasons": ["Approved field"],
             }
             for case_id in case_ids
         ]

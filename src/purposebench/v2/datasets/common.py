@@ -6,6 +6,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from datetime import UTC, datetime
 from pathlib import Path
@@ -101,6 +102,9 @@ class TransformationManifest(BaseModel):
 
 class StreamingResponse(Protocol):
     @property
+    def status_code(self) -> int: ...
+
+    @property
     def headers(self) -> Mapping[str, str]: ...
 
     def __enter__(self) -> Self: ...
@@ -124,6 +128,7 @@ class StreamingHttpClient(Protocol):
         url: str,
         *,
         params: Mapping[str, str] | None = None,
+        headers: Mapping[str, str] | None = None,
         timeout: float | None = None,
     ) -> StreamingResponse: ...
 
@@ -237,32 +242,102 @@ def stream_download(
     timeout_seconds: float,
     overwrite: bool = False,
     max_bytes: int | None = None,
+    resume: bool = False,
 ) -> DownloadResult:
     """Stream a response to an atomic local artifact while hashing its bytes."""
 
     output = ensure_v2_output_path(output_path)
-    ensure_available((output,), overwrite=overwrite)
+    if resume and overwrite:
+        raise ValueError("resume and overwrite are mutually exclusive")
+    if resume:
+        if os.path.lexists(output):
+            raise FileExistsError(f"refusing to overwrite preservation-sensitive artifact: {output}")
+    else:
+        ensure_available((output,), overwrite=overwrite)
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = _part_path(output)
-    if os.path.lexists(temporary):
+    if os.path.lexists(temporary) and not resume:
         if not overwrite:
             raise FileExistsError(f"stale partial artifact exists: {temporary}")
         temporary.unlink()
 
+    if resume and not temporary.is_file():
+        raise FileNotFoundError(f"no partial artifact is available to resume: {temporary}")
     digest = hashlib.sha256()
-    bytes_written = 0
+    bytes_written = temporary.stat().st_size if resume else 0
+    if resume and bytes_written == 0:
+        raise ValueError("refusing to resume an empty partial artifact")
+    if resume:
+        with temporary.open("rb") as existing:
+            for chunk in iter(lambda: existing.read(1024 * 1024), b""):
+                digest.update(chunk)
     response_headers: dict[str, str] = {}
     try:
+        request_headers: dict[str, str] | None = None
+        expected_total: int | None = None
+        if resume:
+            probe_size = min(bytes_written, 1024 * 1024)
+            with temporary.open("rb") as existing:
+                prefix_expected = existing.read(probe_size)
+                existing.seek(bytes_written - probe_size)
+                suffix_expected = existing.read(probe_size)
+            prefix, prefix_headers = _fetch_range(
+                client,
+                url=url,
+                params=params,
+                start=0,
+                end=probe_size - 1,
+                timeout_seconds=timeout_seconds,
+            )
+            suffix, suffix_headers = _fetch_range(
+                client,
+                url=url,
+                params=params,
+                start=bytes_written - probe_size,
+                end=bytes_written - 1,
+                timeout_seconds=timeout_seconds,
+            )
+            if prefix != prefix_expected or suffix != suffix_expected:
+                raise ValueError("partial artifact does not match the current official source")
+            etag = prefix_headers.get("etag")
+            if not etag or suffix_headers.get("etag") != etag:
+                raise ValueError("official source did not provide one stable ETag for resume")
+            expected_total = _content_range_total(prefix_headers.get("content-range"))
+            if _content_range_total(suffix_headers.get("content-range")) != expected_total:
+                raise ValueError("official source size changed between resume probes")
+            if bytes_written >= expected_total:
+                raise ValueError("partial artifact length is not smaller than the official source")
+            if max_bytes is not None and expected_total > max_bytes:
+                raise ValueError(f"download exceeded max_bytes={max_bytes}")
+            request_headers = {
+                "range": f"bytes={bytes_written}-",
+                "if-range": etag,
+            }
         with client.stream(
             "GET",
             url,
             params=params,
+            headers=request_headers,
             timeout=timeout_seconds,
         ) as response:
             response.raise_for_status()
+            normalized_headers = {
+                key.lower(): str(value) for key, value in response.headers.items()
+            }
+            if resume:
+                if response.status_code != 206:
+                    raise ValueError("official source did not honor the resume byte range")
+                content_range = normalized_headers.get("content-range")
+                match = re.fullmatch(r"bytes (\d+)-(\d+)/(\d+)", str(content_range))
+                if (
+                    match is None
+                    or int(match.group(1)) != bytes_written
+                    or int(match.group(3)) != expected_total
+                ):
+                    raise ValueError("official source returned an unexpected resume range")
             response_headers = {
                 key.lower(): str(value)
-                for key, value in response.headers.items()
+                for key, value in normalized_headers.items()
                 if key.lower()
                 in {
                     "content-type",
@@ -270,9 +345,13 @@ def stream_download(
                     "content-disposition",
                     "etag",
                     "last-modified",
+                    "accept-ranges",
+                    "content-range",
                 }
             }
-            mode = "wb" if overwrite else "xb"
+            if expected_total is not None:
+                response_headers["content-length"] = str(expected_total)
+            mode = "ab" if resume else ("wb" if overwrite else "xb")
             with temporary.open(mode) as handle:
                 for chunk in response.iter_bytes(chunk_size=1024 * 1024):
                     if not chunk:
@@ -284,9 +363,12 @@ def stream_download(
                     handle.write(chunk)
                 handle.flush()
                 os.fsync(handle.fileno())
+            if expected_total is not None and bytes_written != expected_total:
+                raise ValueError("resumed download length differs from the official source size")
         _publish_temporary(temporary, output, overwrite=overwrite)
     except Exception:
-        temporary.unlink(missing_ok=True)
+        if not resume:
+            temporary.unlink(missing_ok=True)
         raise
     return DownloadResult(
         sha256=digest.hexdigest(),
@@ -304,6 +386,7 @@ def download_with_optional_client(
     timeout_seconds: float,
     overwrite: bool,
     max_bytes: int | None,
+    resume: bool = False,
 ) -> DownloadResult:
     if client is not None:
         return stream_download(
@@ -314,6 +397,7 @@ def download_with_optional_client(
             timeout_seconds=timeout_seconds,
             overwrite=overwrite,
             max_bytes=max_bytes,
+            resume=resume,
         )
     with httpx.Client(follow_redirects=True) as owned_client:
         return stream_download(
@@ -324,7 +408,40 @@ def download_with_optional_client(
             timeout_seconds=timeout_seconds,
             overwrite=overwrite,
             max_bytes=max_bytes,
+            resume=resume,
         )
+
+
+def _fetch_range(
+    client: StreamingHttpClient,
+    *,
+    url: str,
+    params: Mapping[str, str] | None,
+    start: int,
+    end: int,
+    timeout_seconds: float,
+) -> tuple[bytes, dict[str, str]]:
+    with client.stream(
+        "GET",
+        url,
+        params=params,
+        headers={"range": f"bytes={start}-{end}"},
+        timeout=timeout_seconds,
+    ) as response:
+        response.raise_for_status()
+        if response.status_code != 206:
+            raise ValueError("official source does not support verified byte ranges")
+        body = b"".join(response.iter_bytes(chunk_size=1024 * 1024))
+        if len(body) != end - start + 1:
+            raise ValueError("official source returned an incomplete resume probe")
+        return body, {key.lower(): str(value) for key, value in response.headers.items()}
+
+
+def _content_range_total(value: str | None) -> int:
+    match = re.fullmatch(r"bytes \d+-\d+/(\d+)", str(value))
+    if match is None:
+        raise ValueError("official source omitted a valid Content-Range total")
+    return int(match.group(1))
 
 
 def retrieval_timestamp(value: datetime | None = None) -> str:

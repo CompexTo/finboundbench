@@ -159,13 +159,13 @@ def download_cfpb_complaints(
     timeout_seconds: float = 600.0,
     overwrite: bool = False,
     max_bytes: int | None = None,
+    resume: bool = False,
 ) -> SourceArtifactManifest:
     """Stream the official CFPB bulk complaint CSV archive."""
 
-    ensure_available(
-        (raw_output_path, manifest_output_path),
-        overwrite=overwrite,
-    )
+    ensure_available((manifest_output_path,), overwrite=overwrite)
+    if not resume:
+        ensure_available((raw_output_path,), overwrite=overwrite)
     result = download_with_optional_client(
         client=client,
         url=CFPB_COMPLAINTS_DOWNLOAD_URL,
@@ -174,6 +174,7 @@ def download_cfpb_complaints(
         timeout_seconds=timeout_seconds,
         overwrite=overwrite,
         max_bytes=max_bytes,
+        resume=resume,
     )
     timestamp = retrieval_timestamp(retrieved_at)
     manifest = SourceArtifactManifest(

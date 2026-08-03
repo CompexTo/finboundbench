@@ -24,6 +24,7 @@ from purposebench.v2.datasets import (
     transform_cfpb_complaints,
     transform_hmda,
 )
+from purposebench.v2.datasets.common import stream_download
 
 FIXTURES = Path(__file__).parent / "fixtures"
 RETRIEVED_AT = datetime(2026, 8, 2, 12, 0, tzinfo=UTC)
@@ -36,11 +37,13 @@ class FakeStreamingResponse:
         *,
         headers: dict[str, str] | None = None,
         error: Exception | None = None,
+        status_code: int = 200,
     ) -> None:
         self._chunks = chunks
         self.headers = headers or {}
         self._error = error
         self.iterations = 0
+        self.status_code = status_code
 
     def __enter__(self) -> Self:
         return self
@@ -78,6 +81,7 @@ class FakeStreamingClient:
         url: str,
         *,
         params: Mapping[str, str] | None = None,
+        headers: Mapping[str, str] | None = None,
         timeout: float | None = None,
     ) -> FakeStreamingResponse:
         self.calls.append(
@@ -85,10 +89,45 @@ class FakeStreamingClient:
                 "method": method,
                 "url": url,
                 "params": params,
+                "headers": headers,
                 "timeout": timeout,
             }
         )
         return self.response
+
+
+class RangeStreamingClient:
+    def __init__(self, body: bytes, etag: str = '"fixture-etag"') -> None:
+        self.body = body
+        self.etag = etag
+
+    def stream(
+        self,
+        method: str,
+        url: str,
+        *,
+        params: Mapping[str, str] | None = None,
+        headers: Mapping[str, str] | None = None,
+        timeout: float | None = None,
+    ) -> FakeStreamingResponse:
+        del method, url, params, timeout
+        if not headers or "range" not in headers:
+            return FakeStreamingResponse([self.body])
+        value = headers["range"].removeprefix("bytes=")
+        start_text, end_text = value.split("-", maxsplit=1)
+        start = int(start_text)
+        end = int(end_text) if end_text else len(self.body) - 1
+        selected = self.body[start : end + 1]
+        return FakeStreamingResponse(
+            _chunks(selected),
+            status_code=206,
+            headers={
+                "ETag": self.etag,
+                "Content-Range": f"bytes {start}-{end}/{len(self.body)}",
+                "Content-Length": str(len(selected)),
+                "Accept-Ranges": "bytes",
+            },
+        )
 
 
 def _chunks(data: bytes) -> list[bytes]:
@@ -312,6 +351,43 @@ def test_cfpb_download_and_transform_offline_fixture(
     )
     assert any(record["fields"].get("zip_code") is None for record in records)
     assert any("not a statistical sample" in limitation for limitation in manifest.limitations)
+
+
+def test_stream_download_resumes_only_after_matching_prefix_suffix_and_etag(
+    tmp_path: Path,
+) -> None:
+    body = bytes(range(256)) * 20_000
+    output = tmp_path / "v2" / "resume" / "artifact.bin"
+    output.parent.mkdir(parents=True)
+    partial = output.with_name(f"{output.name}.part")
+    partial.write_bytes(body[:2_500_000])
+
+    result = stream_download(
+        RangeStreamingClient(body),
+        url="https://official.example/artifact.bin",
+        params=None,
+        output_path=output,
+        timeout_seconds=30,
+        resume=True,
+    )
+    assert output.read_bytes() == body
+    assert result.sha256 == hashlib.sha256(body).hexdigest()
+    assert result.bytes_written == len(body)
+    assert result.response_headers["content-length"] == str(len(body))
+
+    mismatched = output.parent / "mismatched.bin"
+    mismatch_partial = mismatched.with_name(f"{mismatched.name}.part")
+    mismatch_partial.write_bytes(b"wrong" * 100)
+    with pytest.raises(ValueError, match="does not match"):
+        stream_download(
+            RangeStreamingClient(body),
+            url="https://official.example/artifact.bin",
+            params=None,
+            output_path=mismatched,
+            timeout_seconds=30,
+            resume=True,
+        )
+    assert mismatch_partial.is_file()
 
 
 def test_source_checksum_substitution_fails_closed(

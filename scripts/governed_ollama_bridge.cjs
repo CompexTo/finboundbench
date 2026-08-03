@@ -74,6 +74,7 @@ async function main() {
     responseSchema,
     toolSchema,
     keepAliveSeconds: 300,
+    contextWindowTokens: input.contextWindowTokens,
   });
 
   let nativeRelease = null;

@@ -237,6 +237,7 @@ class DirectOllamaInvoker:
                 "seed": seed,
                 "top_p": 1,
                 "num_predict": output_token_limit,
+                "num_ctx": 32_768,
             },
         }
         started = time.perf_counter()
@@ -274,6 +275,7 @@ class DirectOllamaInvoker:
                     "reasoningSetting": "DISABLED",
                     "outputTokenLimit": output_token_limit,
                     "keepAliveSeconds": 300,
+                    "contextWindowTokens": 32_768,
                 },
             },
             "nativeRelease": None,
@@ -451,6 +453,7 @@ def run_inference_pilot(
     schema = response_schema(case_ids)
     completed = {record["dedupeKey"] for record in read_jsonl(partial_path)}
     expected = len(INFERENCE_CONDITIONS) * 2
+    output_token_limit = max(1_024, len(rows) * 128)
     direct = DirectOllamaInvoker()
     try:
         for model_name, manifest_path, manifest in _model_manifests(platform_root):
@@ -483,7 +486,8 @@ def run_inference_pilot(
                             "manifestRelativePath": str(manifest_path).replace("\\", "/"),
                             "workloadImageDigest": workload_image_digest,
                             "seed": seed,
-                            "outputTokenLimit": 8_192,
+                            "outputTokenLimit": output_token_limit,
+                            "contextWindowTokens": 32_768,
                             "timeoutMs": 1_200_000,
                             "selectedFields": list(selected_fields),
                             "records": records,
@@ -509,7 +513,7 @@ def run_inference_pilot(
                             selected_fields=selected_fields,
                             records=records,
                             seed=seed,
-                            output_token_limit=8_192,
+                            output_token_limit=output_token_limit,
                         )
                     raw_output = invocation["quarantinedOutput"]
                     parsed = json.loads(raw_output)

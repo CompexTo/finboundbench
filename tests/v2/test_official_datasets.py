@@ -6,7 +6,9 @@ import json
 import zipfile
 from collections.abc import Iterator, Mapping
 from datetime import UTC, datetime
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from threading import Thread
 from types import TracebackType
 from typing import Any, Self
 
@@ -24,7 +26,7 @@ from purposebench.v2.datasets import (
     transform_cfpb_complaints,
     transform_hmda,
 )
-from purposebench.v2.datasets.common import stream_download
+from purposebench.v2.datasets.common import parallel_range_download, stream_download
 
 FIXTURES = Path(__file__).parent / "fixtures"
 RETRIEVED_AT = datetime(2026, 8, 2, 12, 0, tzinfo=UTC)
@@ -388,6 +390,62 @@ def test_stream_download_resumes_only_after_matching_prefix_suffix_and_etag(
             resume=True,
         )
     assert mismatch_partial.is_file()
+
+
+def test_parallel_range_download_locks_every_segment_to_one_etag(
+    tmp_path: Path,
+) -> None:
+    body = bytes(range(256)) * 20_000
+    etag = '"parallel-fixture"'
+
+    class RangeHandler(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:
+            range_header = self.headers.get("Range", "")
+            if_range = self.headers.get("If-Range")
+            start_text, end_text = range_header.removeprefix("bytes=").split("-", 1)
+            start = int(start_text)
+            end = int(end_text)
+            if if_range is not None and if_range != etag:
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            selected = body[start : end + 1]
+            self.send_response(206)
+            self.send_header("ETag", etag)
+            self.send_header("Accept-Ranges", "bytes")
+            self.send_header("Last-Modified", "Mon, 03 Aug 2026 22:07:12 GMT")
+            self.send_header("Content-Length", str(len(selected)))
+            self.send_header("Content-Range", f"bytes {start}-{end}/{len(body)}")
+            self.end_headers()
+            self.wfile.write(selected)
+
+        def log_message(self, format: str, *args: object) -> None:
+            del format, args
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), RangeHandler)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        output = tmp_path / "v2" / "parallel" / "artifact.bin"
+        result = parallel_range_download(
+            url=f"http://127.0.0.1:{server.server_port}/artifact.bin",
+            params=None,
+            output_path=output,
+            timeout_seconds=30,
+            workers=4,
+            segment_bytes=1024 * 1024,
+        )
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+    assert output.read_bytes() == body
+    assert result.sha256 == hashlib.sha256(body).hexdigest()
+    assert result.bytes_written == len(body)
+    assert result.response_headers["etag"] == etag
+    assert result.response_headers["content-length"] == str(len(body))
+    assert not output.with_name(f"{output.name}.segments").exists()
 
 
 def test_source_checksum_substitution_fails_closed(

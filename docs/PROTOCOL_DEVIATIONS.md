@@ -138,3 +138,25 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   single-attempt, no-retry policy are now bound into contract material and
   direct model evidence. The completed smoke remains unchanged and recorded
   its actual durations and the retained transport failure.
+
+## 2026-08-03 - version-locked CFPB bulk download before transformation
+
+- The official CFPB bulk URL is a live object rather than an immutable release.
+  A serial range resume against ETag
+  `"f02ad5aa05f9de1401435db7a64ce2a8-168"` reached 1,264,582,656 bytes before
+  CFPB replaced the object at 22:07:12 UTC. The new ETag was
+  `"bfafab3373bec2ae6961e8906b2bed8f-168"`, and both the total size and prefix
+  changed. The incomplete old-version stream is preserved as
+  `data/v2/raw/cfpb-complaints.csv.zip.failed-live-replacement-20260803.part`
+  (SHA-256 `48d55a7b1df965a0e280a4ac811e1cae34faf0aa130554a41aa6d384ed8353d9`).
+- An earlier 632,291,328-byte partial with a divergent suffix remains preserved
+  as `data/v2/raw/cfpb-complaints.csv.zip.failed-20260803.part` (SHA-256
+  `d776f8980cfbd77d837de630abefa0a4f2bb907f083587af7571b707ede40088`).
+- Before transformation or any dataset result, the downloader was extended to
+  fetch disjoint ranges concurrently. Every segment must return the probe ETag,
+  exact Content-Range, exact byte count, and the same declared total. Segments
+  are combined, SHA-256 hashed, and atomically published only after every check
+  passes. A source replacement fails closed and leaves recovery artifacts.
+- These incomplete archives are acquisition diagnostics, not source datasets
+  or benchmark results. The eventual source manifest alone defines the exact
+  official snapshot used for transformation.

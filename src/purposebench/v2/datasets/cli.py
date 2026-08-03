@@ -69,12 +69,14 @@ def download_cfpb_command(
     manifest_output: Annotated[Path, typer.Option()],
     overwrite: Annotated[bool, typer.Option()] = False,
     resume: Annotated[bool, typer.Option()] = False,
+    parallel_ranges: Annotated[int, typer.Option(min=0, max=32)] = 0,
 ) -> None:
     manifest = download_cfpb_complaints(
         raw_output_path=raw_output,
         manifest_output_path=manifest_output,
         overwrite=overwrite,
         resume=resume,
+        parallel_ranges=parallel_ranges,
     )
     typer.echo(manifest.model_dump_json(indent=2))
 

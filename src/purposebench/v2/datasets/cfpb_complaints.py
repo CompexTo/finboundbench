@@ -29,6 +29,7 @@ from purposebench.v2.datasets.common import (
     ensure_available,
     ensure_v2_output_path,
     normalize_public_value,
+    parallel_range_download,
     read_source_manifest,
     retrieval_timestamp,
     source_version,
@@ -160,22 +161,40 @@ def download_cfpb_complaints(
     overwrite: bool = False,
     max_bytes: int | None = None,
     resume: bool = False,
+    parallel_ranges: int = 0,
 ) -> SourceArtifactManifest:
     """Stream the official CFPB bulk complaint CSV archive."""
 
     ensure_available((manifest_output_path,), overwrite=overwrite)
+    if resume and parallel_ranges:
+        raise ValueError("resume and parallel_ranges are mutually exclusive")
+    if client is not None and parallel_ranges:
+        raise ValueError("parallel_ranges requires the built-in HTTP client")
     if not resume:
         ensure_available((raw_output_path,), overwrite=overwrite)
-    result = download_with_optional_client(
-        client=client,
-        url=CFPB_COMPLAINTS_DOWNLOAD_URL,
-        params=None,
-        output_path=raw_output_path,
-        timeout_seconds=timeout_seconds,
-        overwrite=overwrite,
-        max_bytes=max_bytes,
-        resume=resume,
-    )
+    if parallel_ranges:
+        if overwrite:
+            raise ValueError("parallel_ranges does not permit overwrite")
+        result = parallel_range_download(
+            url=CFPB_COMPLAINTS_DOWNLOAD_URL,
+            params=None,
+            output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            workers=parallel_ranges,
+            segment_bytes=64 * 1024 * 1024,
+            max_bytes=max_bytes,
+        )
+    else:
+        result = download_with_optional_client(
+            client=client,
+            url=CFPB_COMPLAINTS_DOWNLOAD_URL,
+            params=None,
+            output_path=raw_output_path,
+            timeout_seconds=timeout_seconds,
+            overwrite=overwrite,
+            max_bytes=max_bytes,
+            resume=resume,
+        )
     timestamp = retrieval_timestamp(retrieved_at)
     manifest = SourceArtifactManifest(
         dataset_id="cfpb_consumer_complaints",

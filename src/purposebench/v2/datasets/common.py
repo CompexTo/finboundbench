@@ -8,6 +8,7 @@ import json
 import os
 import re
 from collections.abc import Iterable, Iterator, Mapping, Sequence
+from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from pathlib import Path
 from types import TracebackType
@@ -410,6 +411,126 @@ def download_with_optional_client(
             max_bytes=max_bytes,
             resume=resume,
         )
+
+
+def parallel_range_download(
+    *,
+    url: str,
+    params: Mapping[str, str] | None,
+    output_path: Path,
+    timeout_seconds: float,
+    workers: int,
+    segment_bytes: int,
+    max_bytes: int | None = None,
+) -> DownloadResult:
+    """Download one immutable HTTP object through version-locked byte ranges."""
+
+    if workers < 2 or workers > 32:
+        raise ValueError("parallel range workers must be between 2 and 32")
+    if segment_bytes < 1024 * 1024:
+        raise ValueError("parallel range segments must be at least 1 MiB")
+    output = ensure_v2_output_path(output_path)
+    ensure_available((output,), overwrite=False)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = _part_path(output)
+    segment_root = output.with_name(f"{output.name}.segments")
+    if os.path.lexists(segment_root):
+        raise FileExistsError(f"stale parallel segment directory exists: {segment_root}")
+
+    with httpx.Client(follow_redirects=True) as probe_client:
+        _, probe_headers = _fetch_range(
+            cast(StreamingHttpClient, probe_client),
+            url=url,
+            params=params,
+            start=0,
+            end=0,
+            timeout_seconds=timeout_seconds,
+        )
+    etag = probe_headers.get("etag")
+    if not etag:
+        raise ValueError("official source did not provide an ETag for parallel ranges")
+    total = _content_range_total(probe_headers.get("content-range"))
+    if max_bytes is not None and total > max_bytes:
+        raise ValueError(f"download exceeded max_bytes={max_bytes}")
+    segment_root.mkdir()
+    ranges = [
+        (index, start, min(start + segment_bytes - 1, total - 1))
+        for index, start in enumerate(range(0, total, segment_bytes))
+    ]
+
+    def download_segment(item: tuple[int, int, int]) -> Path:
+        index, start, end = item
+        destination = segment_root / f"{index:05d}.part"
+        written = 0
+        with (
+            httpx.Client(follow_redirects=True) as client,
+            client.stream(
+                "GET",
+                url,
+                params=params,
+                headers={
+                    "range": f"bytes={start}-{end}",
+                    "if-range": etag,
+                },
+                timeout=timeout_seconds,
+            ) as response,
+        ):
+            response.raise_for_status()
+            headers = {key.lower(): str(value) for key, value in response.headers.items()}
+            if response.status_code != 206:
+                raise ValueError("official source changed during parallel range download")
+            expected_range = f"bytes {start}-{end}/{total}"
+            if headers.get("etag") != etag or headers.get("content-range") != expected_range:
+                raise ValueError("official source identity or byte range changed")
+            with destination.open("xb") as handle:
+                for chunk in response.iter_bytes(chunk_size=1024 * 1024):
+                    if chunk:
+                        written += len(chunk)
+                        handle.write(chunk)
+                handle.flush()
+                os.fsync(handle.fileno())
+        if written != end - start + 1:
+            raise ValueError("official source returned an incomplete parallel segment")
+        return destination
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        segment_paths = list(executor.map(download_segment, ranges))
+
+    digest = hashlib.sha256()
+    bytes_written = 0
+    with temporary.open("xb") as combined:
+        for segment in segment_paths:
+            with segment.open("rb") as handle:
+                for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                    digest.update(chunk)
+                    bytes_written += len(chunk)
+                    combined.write(chunk)
+        combined.flush()
+        os.fsync(combined.fileno())
+    if bytes_written != total:
+        raise ValueError("combined parallel download length differs from the official source")
+    for segment in segment_paths:
+        segment.unlink()
+    segment_root.rmdir()
+    _publish_temporary(temporary, output, overwrite=False)
+    response_headers = {
+        key: value
+        for key, value in probe_headers.items()
+        if key
+        in {
+            "content-type",
+            "content-disposition",
+            "etag",
+            "last-modified",
+            "accept-ranges",
+        }
+    }
+    response_headers["content-length"] = str(total)
+    return DownloadResult(
+        sha256=digest.hexdigest(),
+        bytes_written=bytes_written,
+        response_headers=response_headers,
+    )
 
 
 def _fetch_range(

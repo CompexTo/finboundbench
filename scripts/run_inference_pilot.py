@@ -12,10 +12,31 @@ from purposebench.v2.pilots import write_new_v2_artifact
 
 
 def _image_digest(image: str) -> str:
-    output = subprocess.check_output(
-        ["docker", "image", "inspect", image, "--format", "{{.Id}}"],
-        text=True,
-    ).strip()
+    try:
+        output = subprocess.check_output(
+            ["docker", "image", "inspect", image, "--format", "{{.Id}}"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except subprocess.CalledProcessError:
+        image_ids = subprocess.check_output(
+            [
+                "docker",
+                "image",
+                "ls",
+                "--filter",
+                f"reference={image}",
+                "--format",
+                "{{.ID}}",
+            ],
+            text=True,
+        ).splitlines()
+        if len(image_ids) != 1:
+            raise RuntimeError("governed gate image tag is not uniquely installed") from None
+        output = subprocess.check_output(
+            ["docker", "image", "inspect", image_ids[0], "--format", "{{.Id}}"],
+            text=True,
+        ).strip()
     if not output.startswith("sha256:") or len(output) != 71:
         raise RuntimeError("governed gate image has no immutable local digest")
     return output

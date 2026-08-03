@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "purposebound-finance.inference-pilot-manifest.v2",
+  "recordedAt": "2026-08-03T21:01:03.885027+00:00",
+  "status": "passed",
+  "rawArtifact": "results/v2/raw/inference/four-pair-smoke.jsonl",
+  "rawArtifactSha256": "7572de374efebb07d0bf7d60536b1fcd8a5fffabb54f5751da0fe6c07f070a7b",
+  "attemptCount": 13,
+  "successfulBatchCount": 12,
+  "failedAttemptCount": 1,
+  "failedAttempts": [
+    {
+      "dedupeKey": "gemma4-31b|compex_governed_local|pairs=4",
+      "errorType": "RuntimeError",
+      "error": "governed Ollama bridge failed: OLLAMA_TRANSPORT_ERROR",
+      "durationSeconds": 304.914
+    }
+  ],
+  "benchmarkCommits": [
+    "739c12c55ad74f2adc458d3dcda0f70e6f470e5a",
+    "cd5bfb0ca88530992309d049f096328f7874d177"
+  ],
+  "platformCommits": [
+    "a14ce5263dbd752cb6cc26ea0de4c89fe41b0aef",
+    "ae563bc2f21ec7f400d9e55d2b6b4027f65b59fc"
+  ],
+  "conditions": [
+    "compex_governed_local",
+    "compex_governed_local_output_controls",
+    "full_data_no_policy",
+    "ordinary_metadata_prefilter",
+    "output_only_guard",
+    "prompt_only_restriction"
+  ],
+  "models": [
+    "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+    "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+  ],
+  "pairMetrics": [
+    {
+      "condition": "full_data_no_policy",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 0.0,
+      "decisionAgreements": 0,
+      "pairs": 4
+    },
+    {
+      "condition": "prompt_only_restriction",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 0.0,
+      "decisionAgreements": 0,
+      "pairs": 4
+    },
+    {
+      "condition": "output_only_guard",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 0.0,
+      "decisionAgreements": 0,
+      "pairs": 4
+    },
+    {
+      "condition": "ordinary_metadata_prefilter",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "compex_governed_local",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "compex_governed_local_output_controls",
+      "model": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "full_data_no_policy",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 0.0,
+      "decisionAgreements": 0,
+      "pairs": 4
+    },
+    {
+      "condition": "prompt_only_restriction",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "output_only_guard",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 0.0,
+      "decisionAgreements": 0,
+      "pairs": 4
+    },
+    {
+      "condition": "ordinary_metadata_prefilter",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "compex_governed_local",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    },
+    {
+      "condition": "compex_governed_local_output_controls",
+      "model": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+      "decisionAgreementRate": 1.0,
+      "decisionAgreements": 4,
+      "pairs": 4
+    }
+  ],
+  "matrixGates": {
+    "compex_governed_local_dp_training": {
+      "status": "passed",
+      "artifact": "results/v2/raw/privacy/dp-training-pilot.json",
+      "artifactSha256": "619b3649adfab62de1b90e67f80808bb72826e5cbc27c448f5fba09bc343e54b"
+    },
+    "compex_governed_remote": {
+      "status": "blocked",
+      "reason": "OPENAI_API_KEY is not configured in .env.research.local",
+      "keyValueInspected": false
+    }
+  },
+  "limitations": [
+    "This smoke or pilot validates the local experimental plumbing and is not a paper claim.",
+    "Public official records are protected research assets, not confidential data.",
+    "Synthetic internal fields have no factual relationship to source records.",
+    "The local backend trusts the host OS and administrator and provides no hardware attestation."
+  ]
+}

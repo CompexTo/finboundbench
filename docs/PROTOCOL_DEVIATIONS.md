@@ -94,3 +94,27 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   `metadata_prefilter`, as required to verify that deterministic metrics detect
   an intentionally vulnerable baseline and near-zero unauthorized retrieval
   after metadata filtering. Results remain append-only and diagnostic.
+
+## 2026-08-03 - protocol-v2-local inference smoke corrections before freeze
+
+- Preserved the first four batched attempts unchanged in
+  `results/v2/raw/inference/four-pair-smoke-aborted-context-mismatch.jsonl`
+  (SHA-256 `2635592d9b73ee021fc92fc5845cf6cbfd749c295677206cf75b4400b53f1df2`).
+  Those attempts mixed a 4,096-token runtime allocation with a 32,768-token
+  declared model context, so they are development evidence rather than a
+  protocol result.
+- Preserved the next one-batch attempt unchanged in
+  `results/v2/raw/inference/four-pair-smoke-aborted-oversized-output-schema.jsonl`
+  (SHA-256 `3e6217365d0344d5ce74e35a908d0c41a3f237d8e560ccabc554e3fbcd203445`).
+  Its verbose per-result reason schema made the 31B CPU run impractical. The
+  response surface was reduced before starting the clean smoke stream.
+- The clean append-only stream retains a failed Gemma governed attempt caused
+  by the Node fetch transport's approximately 300-second header deadline. The
+  platform transport was changed to enforce the contract's explicit timeout,
+  the failed attempt remained in place, and the same dedupe key was retried.
+- The final stream therefore records 13 attempts: 12 successful model/condition
+  batches and one retained transport failure. Its manifest records both the
+  pre-fix and post-fix platform and benchmark commits. No attempt was silently
+  rewritten or removed.
+- This is a four-pair integration smoke only. It is not eligible for a paper
+  claim or protocol-v2-local freeze decision.

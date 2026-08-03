@@ -93,3 +93,28 @@ Validation results:
 
 These values validate benchmark sensitivity and plumbing only. The pilot has
 one model and one repetition and is not a full-study result or a paper claim.
+
+## Protocol-v2-local four-pair multi-model smoke
+
+Date: 2026-08-03
+
+- Raw stream: `results/v2/raw/inference/four-pair-smoke.jsonl`
+- Raw SHA-256:
+  `7572de374efebb07d0bf7d60536b1fcd8a5fffabb54f5751da0fe6c07f070a7b`
+- Manifest: `results/v2/manifests/four-pair-smoke.json`
+- Coverage: four complete HMDA-derived pairs, six inference conditions, two
+  pinned local models (`qwen3:4b` and `gemma4:31b`)
+- Result: 12/12 required model/condition batches passed; one earlier failed
+  Gemma transport attempt remains in the append-only stream.
+- All successful batches used the pinned model recorded in evidence. Both
+  governed conditions bound model evidence to the execution contract. No
+  prohibited exact-value disclosure was detected.
+- Native Compex output validators allowed both governed-output artifacts for
+  each model. The output-only comparison condition used the same release rule
+  in the research harness and is not represented as native Compex enforcement.
+- The manifest records mixed development commits caused by the retained
+  transport correction. Details and the two earlier aborted streams are in
+  `PROTOCOL_DEVIATIONS.md`.
+
+This gate validates the local experimental plumbing only. It is not a
+forty-record pilot, a population estimate, a paper claim, or a freeze result.

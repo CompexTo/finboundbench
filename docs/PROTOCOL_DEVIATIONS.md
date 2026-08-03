@@ -138,6 +138,13 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   single-attempt, no-retry policy are now bound into contract material and
   direct model evidence. The completed smoke remains unchanged and recorded
   its actual durations and the retained transport failure.
+- The first forty-record Gemma full-data attempt then reached the recorded
+  1,200,000-millisecond deadline and failed closed. That attempt remains in the
+  append-only pilot checkpoint. Before retrying it or running any other Gemma
+  condition, Gemma received a model-specific 2,700,000-millisecond deadline;
+  Qwen remains at 1,200,000 milliseconds. Direct and governed paths use the
+  same bound for a given model, the subprocess boundary adds only a 300-second
+  shutdown margin, and the selected deadline remains contract/evidence bound.
 
 ## 2026-08-03 - version-locked CFPB bulk download before transformation
 

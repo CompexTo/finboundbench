@@ -5,7 +5,7 @@ import pytest
 from purposebench.v2.experiments import ExperimentCondition
 from purposebench.v2.inference_pilot import (
     MODEL_RETRY_POLICY,
-    MODEL_TIMEOUT_MS,
+    MODEL_TIMEOUTS_MS,
     DirectOllamaInvoker,
     _disclosure_findings,
     _validate_response,
@@ -89,12 +89,16 @@ def test_compact_prompt_binds_output_indexes_to_input_order() -> None:
     assert "do not return case IDs" in prompt
 
 
-def test_direct_and_governed_paths_share_one_bounded_no_retry_deadline() -> None:
+def test_direct_and_governed_paths_share_bounded_model_deadlines() -> None:
     invoker = DirectOllamaInvoker()
     try:
-        assert invoker.client.timeout.read == MODEL_TIMEOUT_MS / 1_000
+        assert invoker.client.timeout.read == max(MODEL_TIMEOUTS_MS.values()) / 1_000
     finally:
         invoker.close()
+    assert MODEL_TIMEOUTS_MS == {
+        "qwen3-4b": 1_200_000,
+        "gemma4-31b": 2_700_000,
+    }
     assert MODEL_RETRY_POLICY == {
         "maxAttempts": 1,
         "initialBackoffMs": 0,

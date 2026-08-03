@@ -40,7 +40,10 @@ INFERENCE_CONDITIONS = (
 
 DECISIONS = ("STANDARD_REVIEW", "MANUAL_REVIEW")
 COMPACT_RESPONSE_RECORD_THRESHOLD = 16
-MODEL_TIMEOUT_MS = 1_200_000
+MODEL_TIMEOUTS_MS = {
+    "qwen3-4b": 1_200_000,
+    "gemma4-31b": 2_700_000,
+}
 MODEL_RETRY_POLICY = {
     "maxAttempts": 1,
     "initialBackoffMs": 0,
@@ -220,7 +223,7 @@ class DirectOllamaInvoker:
     def __init__(
         self,
         endpoint: str = "http://127.0.0.1:11434",
-        timeout: float = MODEL_TIMEOUT_MS / 1_000,
+        timeout: float = max(MODEL_TIMEOUTS_MS.values()) / 1_000,
     ) -> None:
         self.endpoint = endpoint.rstrip("/")
         self.client = httpx.Client(timeout=timeout)
@@ -265,6 +268,7 @@ class DirectOllamaInvoker:
         seed: int,
         output_token_limit: int,
         context_window_tokens: int,
+        timeout_ms: int,
     ) -> dict[str, Any]:
         self._verify_model(manifest)
         payload = {
@@ -284,7 +288,11 @@ class DirectOllamaInvoker:
             },
         }
         started = time.perf_counter()
-        response = self.client.post(f"{self.endpoint}/api/generate", json=payload)
+        response = self.client.post(
+            f"{self.endpoint}/api/generate",
+            json=payload,
+            timeout=timeout_ms / 1_000,
+        )
         response.raise_for_status()
         body = response.json()
         if body.get("model") != manifest["modelTag"] or body.get("done") is not True:
@@ -319,7 +327,7 @@ class DirectOllamaInvoker:
                     "outputTokenLimit": output_token_limit,
                     "keepAliveSeconds": 300,
                     "contextWindowTokens": context_window_tokens,
-                    "timeoutMs": MODEL_TIMEOUT_MS,
+                    "timeoutMs": timeout_ms,
                     "retryPolicy": dict(MODEL_RETRY_POLICY),
                 },
             },
@@ -527,6 +535,7 @@ def run_inference_pilot(
     direct = DirectOllamaInvoker()
     try:
         for model_name, manifest_path, manifest in _model_manifests(platform_root):
+            model_timeout_ms = MODEL_TIMEOUTS_MS[model_name]
             for condition in INFERENCE_CONDITIONS:
                 dedupe = f"{model_name}|{condition.value}|pairs={pair_limit}"
                 if dedupe in completed:
@@ -552,7 +561,7 @@ def run_inference_pilot(
                     "seed": seed,
                     "outputTokenLimit": output_token_limit,
                     "contextWindowTokens": context_window_tokens,
-                    "timeoutMs": MODEL_TIMEOUT_MS,
+                    "timeoutMs": model_timeout_ms,
                     "retryPolicy": dict(MODEL_RETRY_POLICY),
                 }
                 contract_hash = sha256_json(contract_material)
@@ -568,7 +577,7 @@ def run_inference_pilot(
                             "seed": seed,
                             "outputTokenLimit": output_token_limit,
                             "contextWindowTokens": context_window_tokens,
-                            "timeoutMs": MODEL_TIMEOUT_MS,
+                            "timeoutMs": model_timeout_ms,
                             "selectedFields": list(selected_fields),
                             "records": records,
                             "prompts": prompts,
@@ -584,6 +593,7 @@ def run_inference_pilot(
                             benchmark_root=benchmark_root,
                             platform_root=platform_root,
                             payload=bridge_payload,
+                            timeout_seconds=(model_timeout_ms // 1_000) + 300,
                         )
                     else:
                         invocation = direct.invoke(
@@ -595,6 +605,7 @@ def run_inference_pilot(
                             seed=seed,
                             output_token_limit=output_token_limit,
                             context_window_tokens=context_window_tokens,
+                            timeout_ms=model_timeout_ms,
                         )
                     raw_output = invocation["quarantinedOutput"]
                     parsed = json.loads(raw_output)

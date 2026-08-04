@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "purposebound-finance.openrouter-model-manifest.v3",
+  "gateway": "OPENROUTER",
+  "modelId": "anthropic/claude-opus-5",
+  "canonicalCatalogSlug": "anthropic/claude-opus-5-20260723",
+  "upstreamProvider": "Amazon Bedrock",
+  "upstreamRoute": "amazon-bedrock",
+  "fallbackAllowed": false,
+  "zeroDataRetentionRequired": true,
+  "providerDataCollectionAllowed": false,
+  "supportedParameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+  ],
+  "reasoningConfiguration": {
+    "reasoningStrategy": "EFFORT",
+    "reasoningEffort": "low"
+  },
+  "tokenParameter": "max_tokens",
+  "structuredOutputMode": "JSON_SCHEMA_STRICT",
+  "maximumOutputTokens": 128000,
+  "contextWindow": 1000000,
+  "inputPriceCeiling": "0.000005",
+  "outputPriceCeiling": "0.000025",
+  "endpointMetadataCapturedAt": "2026-08-04T22:37:32.288735+00:00",
+  "catalogArtifact": "results/v2/raw/metadata/openrouter-models-20260804T223732Z.json",
+  "catalogResponseHash": "7f31068c9d3ecfe6e413965ec76dc846767635d600276139d2b65b7a37c0434a",
+  "routeArtifact": "results/v2/raw/metadata/openrouter-zdr-endpoints-20260804T223732Z.json",
+  "routeResponseHash": "a295a33a683fb4c3b8848b262b866f7f53b5bb1a40b4a4d29d21a2efd32c91d5",
+  "catalogMetadataHash": "41e7508f38fd15f7c130270cdaea5e8d93c83ed66b0b3bdf5ef6a939f286ab2a",
+  "routeMetadataHash": "1e38b435aa4e950479180bbd38608ed68f2d9d7a7892d314d8bdc18cb379b630",
+  "manifestHash": "a7b69a21e56b906b5879d8e766124255565267b54d640b14b6fabb58d6e3692d"
+}

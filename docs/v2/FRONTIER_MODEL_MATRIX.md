@@ -68,3 +68,10 @@ provider HTTP 429 from their pinned routes, while Claude Opus 5 returned HTTP
 settling the successful calls to their conservative token costs, the cumulative
 ledger debit is EUR 3.7532468. No pilot interpretation is allowed until each
 model's smoke gate passes.
+
+Claude's first manifest-bound `EFFORT_NONE` attempt also returned HTTP 400 and
+is retained. The cumulative ledger debit after that no-cost-evidence failure is
+EUR 4.0032468. A generic platform correction now retains only OpenRouter's
+typed error category, provider code, and response-body hash so a subsequent
+diagnostic attempt can distinguish invalid input from policy or capacity errors
+without retaining the provider's free-text message.

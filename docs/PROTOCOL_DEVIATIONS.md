@@ -281,3 +281,10 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   model. This changes Claude's manifest hash and the containing matrix hash.
   Existing successful smoke artifacts retain their original matrix-hash
   evidence and are not rewritten.
+- Claude's first call under the corrected manifest still returned HTTP 400 and
+  remains appended to its partial stream, raising the cumulative conservative
+  debit to EUR 4.0032468. The platform had reduced all non-success responses to
+  their HTTP status and discarded OpenRouter's documented typed error fields.
+  Before another paid diagnostic call, the generic provider boundary was
+  changed to retain only allowlisted error type/provider code values and a body
+  hash; free-text provider messages stay quarantined.

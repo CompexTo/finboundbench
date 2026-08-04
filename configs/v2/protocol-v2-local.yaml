@@ -26,8 +26,10 @@ remote_models:
   provider: OPENROUTER
   manifest: docs/v2/model-manifests/openrouter-frontier-2026-08-04.json
   matrix_config: configs/v2/openrouter-frontier-matrix.json
-  readiness: READY_WITH_GITIGNORED_OPENROUTER_API_KEY
-  total_authorized_cost_eur: 10.0
+  phase2_config: configs/v2/openrouter-phase2.json
+  readiness: AUDITED_WITH_GITIGNORED_OPENROUTER_API_KEY
+  total_authorized_cost_eur: 12.90239384
+  total_committed_cost_eur: 9.01262918
 official_datasets:
   hmda_2024_dc:
     source_manifest: results/v2/manifests/hmda-2024-dc-source.json
@@ -44,6 +46,11 @@ privacy_training:
   delta: 0.00001
   accountant: rdp
   clipping_norm: 1.0
+  validation_artifact: results/v2/raw/privacy/dp-training-phase2-validation.json
+privacy_attacks:
+  validation_artifact: results/v2/raw/privacy/privacy-attack-phase2-validation.json
+platform_security:
+  attack_suite: results/v2/raw/platform/local-attack-suite-phase2.json
 release_policy:
   state_before_native_validation: QUARANTINED
   default_decision: DENY
@@ -52,5 +59,10 @@ trusted_host:
   hardware_attestation: false
   host_trust_required: true
 freeze:
-  status: NOT_FROZEN
+  status: FROZEN_WITH_LIMITATIONS
+  scope: LOCAL_IMPLEMENTATION_AND_BOUNDED_REMOTE_PILOTS
+  paper_scale_complete: false
   readiness_document: docs/v2/PROTOCOL_READINESS.md
+  results_document: docs/v2/PHASE2_RESULTS.md
+  evidence_audit: results/v2/derived/protocol-v2-local-evidence-audit.json
+  freeze_manifest: results/v2/manifests/protocol-v2-local-freeze.json

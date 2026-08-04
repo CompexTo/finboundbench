@@ -43,6 +43,28 @@
     "claudeGate3": false,
     "reason": "Claude Gate 1 failed closed; continue the position diagnostic with eligible GPT and DeepSeek models only."
   },
+  "eligibleReducedMatrix": {
+    "modelIds": [
+      "openai/gpt-5.6-luna",
+      "google/gemma-4-26b-a4b-it",
+      "moonshotai/kimi-k3",
+      "meta-llama/llama-4-maverick"
+    ],
+    "excludedModelIds": {
+      "anthropic/claude-opus-5": "FORMALLY_CLOSED_AT_GATE_1",
+      "deepseek/deepseek-v4-pro": "FAILED_ELIGIBLE_POSITION_DIAGNOSTIC"
+    },
+    "modelMatrix": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+    "smokeRecordCount": 1,
+    "recordCount": 40,
+    "repetitions": 2,
+    "maximumReservationPerInvocationEur": 0.1,
+    "maximumMatrixBudgetEur": 1.0,
+    "maximumOutputTokens": 3072,
+    "timeoutMs": 300000,
+    "seed": 20260805,
+    "reason": "Continue the reduced governed-action matrix only with models that have not failed a required phase-two compatibility boundary."
+  },
   "newAttemptJustification": {
     "modelId": "anthropic/claude-opus-5",
     "route": "amazon-bedrock",

@@ -86,8 +86,8 @@ def download_cfpb_command(
 
 @app.command("download-cfpb-query")
 def download_cfpb_query_command(
-    date_received_min: Annotated[date, typer.Option()],
-    date_received_max: Annotated[date, typer.Option()],
+    date_received_min: Annotated[str, typer.Option(help="Inclusive ISO date (YYYY-MM-DD).")],
+    date_received_max: Annotated[str, typer.Option(help="Exclusive ISO date (YYYY-MM-DD).")],
     state: Annotated[str, typer.Option()],
     raw_output: Annotated[Path, typer.Option()],
     manifest_output: Annotated[Path, typer.Option()],
@@ -95,8 +95,8 @@ def download_cfpb_query_command(
 ) -> None:
     manifest = download_cfpb_complaints_query(
         CFPBQuery(
-            date_received_min=date_received_min,
-            date_received_max=date_received_max,
+            date_received_min=date.fromisoformat(date_received_min),
+            date_received_max=date.fromisoformat(date_received_max),
             state=state,
         ),
         raw_output_path=raw_output,

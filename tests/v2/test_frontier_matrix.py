@@ -8,6 +8,7 @@ from purposebench.v2.frontier_matrix import (
     load_frontier_matrix,
     reserve_budget,
     settle_budget,
+    validate_frontier_pilot_gate,
     validate_frontier_smoke_gate,
 )
 
@@ -137,5 +138,32 @@ def test_pilot_gate_binds_the_current_model_manifest_and_ledger_prefix() -> None
         validate_frontier_smoke_gate(
             benchmark_root,
             smoke_manifest,
+            substituted,
+        )
+
+
+def test_replication_gate_binds_the_original_forty_record_pilot() -> None:
+    benchmark_root = Path.cwd()
+    _, models = load_frontier_matrix(
+        benchmark_root,
+        Path("configs/v2/openrouter-frontier-matrix.json").resolve(),
+    )
+    model = next(item for item in models if item["modelId"] == "openai/gpt-5.6-luna")
+    pilot_manifest = Path(
+        "results/v2/manifests/openrouter-frontier-pilot-openai-gpt-5-6-luna.json"
+    ).resolve()
+    successful = validate_frontier_pilot_gate(
+        benchmark_root,
+        pilot_manifest,
+        model,
+    )
+    assert successful["recordCount"] == 40
+    assert successful["completePairCount"] == 20
+
+    substituted = {**model, "manifestHash": "c" * 64}
+    with pytest.raises(ValueError, match="current model manifest"):
+        validate_frontier_pilot_gate(
+            benchmark_root,
+            pilot_manifest,
             substituted,
         )

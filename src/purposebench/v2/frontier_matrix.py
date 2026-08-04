@@ -89,6 +89,83 @@ def validate_frontier_smoke_gate(
     return successful
 
 
+def validate_frontier_pilot_gate(
+    benchmark_root: Path,
+    pilot_manifest_path: Path,
+    model: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate the original forty-record pilot before paid replications."""
+
+    manifest_root = (benchmark_root / "results/v2/manifests").resolve()
+    resolved_manifest = pilot_manifest_path.resolve()
+    if manifest_root not in resolved_manifest.parents or not resolved_manifest.is_file():
+        raise ValueError("frontier pilot manifest is outside the manifest directory")
+    manifest = json.loads(resolved_manifest.read_text(encoding="utf-8"))
+    if (
+        manifest.get("schemaVersion")
+        != "purposebound-finance.remote-pilot-manifest.v2"
+        or manifest.get("status") != "passed"
+        or manifest.get("model") != model["modelId"]
+        or manifest.get("frontierMatrix", {}).get("phase") != "pilot"
+    ):
+        raise ValueError("frontier pilot manifest identity is invalid")
+
+    raw_root = (benchmark_root / "results/v2/raw/inference").resolve()
+    raw_path = (benchmark_root / str(manifest.get("rawArtifact", ""))).resolve()
+    if (
+        raw_root not in raw_path.parents
+        or not raw_path.is_file()
+        or sha256_file(raw_path) != manifest.get("rawArtifactSha256")
+    ):
+        raise ValueError("frontier pilot raw artifact integrity failed")
+    passed = [row for row in read_jsonl(raw_path) if row.get("status") == "passed"]
+    if len(passed) != 1:
+        raise ValueError("frontier pilot raw artifact must have one passing attempt")
+    successful = passed[0]
+    if (
+        successful.get("recordCount") != 40
+        or successful.get("pairCount") != 20
+        or successful.get("completePairCount") != 20
+        or successful.get("releaseAllowed") is not True
+        or successful.get("modelManifestHash") != model["manifestHash"]
+        or successful.get("pinnedModelId") != model["modelId"]
+        or successful.get("modelProvider") != "OPENROUTER"
+    ):
+        raise ValueError("frontier pilot did not pass for the current model manifest")
+
+    budget = manifest.get("budget")
+    if not isinstance(budget, dict):
+        raise TypeError("frontier pilot budget evidence is missing")
+    if budget.get("ledgerArtifact") != str(BUDGET_LEDGER).replace("\\", "/"):
+        raise ValueError("frontier pilot budget ledger substitution detected")
+    ledger_rows = read_jsonl(benchmark_root / BUDGET_LEDGER)
+    prefix_count = budget.get("ledgerPrefixRecordCount")
+    if (
+        not isinstance(prefix_count, int)
+        or prefix_count < 1
+        or prefix_count > len(ledger_rows)
+        or sha256_json(ledger_rows[:prefix_count]) != budget.get("ledgerPrefixHash")
+    ):
+        raise ValueError("frontier pilot budget ledger prefix integrity failed")
+    reservation_id = budget.get("reservationId")
+    settlements = [
+        row
+        for row in ledger_rows[:prefix_count]
+        if row.get("recordType") == "budget_settlement"
+        and row.get("reservationId") == reservation_id
+    ]
+    if (
+        len(settlements) != 1
+        or settlements[0].get("modelId") != model["modelId"]
+        or settlements[0].get("phase") != "pilot"
+        or settlements[0].get("outcome") != "passed"
+        or float(settlements[0].get("budgetDebitEur", -1))
+        != float(budget.get("budgetDebitEur", -2))
+    ):
+        raise ValueError("frontier pilot budget settlement is invalid")
+    return successful
+
+
 def load_frontier_matrix(
     benchmark_root: Path,
     config_path: Path,

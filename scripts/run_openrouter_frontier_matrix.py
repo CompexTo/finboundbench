@@ -16,6 +16,7 @@ from purposebench.v2.frontier_matrix import (
     load_frontier_matrix,
     reserve_budget,
     settle_budget,
+    validate_frontier_pilot_gate,
     validate_frontier_smoke_gate,
 )
 from purposebench.v2.pilots import write_new_v2_artifact
@@ -31,9 +32,12 @@ def main() -> None:
         default=Path("configs/v2/openrouter-frontier-matrix.json"),
     )
     parser.add_argument("--phase", choices=("smoke", "pilot"), required=True)
+    parser.add_argument("--repetition", type=int, choices=(1, 2, 3), default=1)
     parser.add_argument("--model-id", action="append", dest="model_ids")
     parser.add_argument("--image", default="purposebound-finance-v2-gate:local")
     args = parser.parse_args()
+    if args.phase == "smoke" and args.repetition != 1:
+        parser.error("smoke supports repetition 1 only")
     benchmark_root = Path(__file__).resolve().parents[1]
     config, models = load_frontier_matrix(benchmark_root, args.config.resolve())
     requested = set(args.model_ids or config["modelIds"])
@@ -51,7 +55,15 @@ def main() -> None:
         if model["modelId"] not in requested:
             continue
         slug = model["artifactSlug"]
-        artifact_stem = f"openrouter-frontier-{args.phase}-{slug}"
+        repetition_suffix = (
+            f"-rep{args.repetition}" if args.phase == "pilot" and args.repetition > 1 else ""
+        )
+        artifact_stem = f"openrouter-frontier-{args.phase}{repetition_suffix}-{slug}"
+        budget_phase = (
+            f"pilot_rep{args.repetition}"
+            if args.phase == "pilot" and args.repetition > 1
+            else args.phase
+        )
         raw_path = benchmark_root / "results/v2/raw/inference" / f"{artifact_stem}.jsonl"
         manifest_path = benchmark_root / "results/v2/manifests" / f"{artifact_stem}.json"
         if args.phase == "pilot":
@@ -90,6 +102,42 @@ def main() -> None:
                     }
                 )
                 continue
+            if args.repetition > 1:
+                pilot_manifest_path = (
+                    benchmark_root
+                    / "results/v2/manifests"
+                    / f"openrouter-frontier-pilot-{slug}.json"
+                )
+                if not pilot_manifest_path.exists():
+                    failures.append(
+                        {
+                            "modelId": model["modelId"],
+                            "errorType": "MissingPilotGate",
+                            "error": "original forty-record frontier pilot is not complete",
+                            "committedMatrixBudgetEur": str(
+                                committed_budget_eur(read_jsonl(ledger_path))
+                            ),
+                        }
+                    )
+                    continue
+                try:
+                    validate_frontier_pilot_gate(
+                        benchmark_root,
+                        pilot_manifest_path,
+                        model,
+                    )
+                except (OSError, TypeError, ValueError) as error:
+                    failures.append(
+                        {
+                            "modelId": model["modelId"],
+                            "errorType": "InvalidPilotGate",
+                            "error": str(error),
+                            "committedMatrixBudgetEur": str(
+                                committed_budget_eur(read_jsonl(ledger_path))
+                            ),
+                        }
+                    )
+                    continue
         if raw_path.exists() and manifest_path.exists():
             successes.append({"modelId": model["modelId"], "status": "already_complete"})
             continue
@@ -102,7 +150,7 @@ def main() -> None:
                 for row in ledger_rows
                 if row["recordType"] == "budget_settlement"
                 and row["modelId"] == model["modelId"]
-                and row["phase"] == args.phase
+                and row["phase"] == budget_phase
                 and row["outcome"] == "passed"
             ]
             if not settlements:
@@ -119,6 +167,7 @@ def main() -> None:
                 "matrixHash": config["modelMatrixHash"],
                 "modelManifest": config["modelManifestPath"],
                 "phase": args.phase,
+                "repetition": args.repetition,
             }
             manifest["modelManifestHash"] = model["manifestHash"]
             manifest["budget"] = {
@@ -148,7 +197,7 @@ def main() -> None:
         reservation_id, _ = reserve_budget(
             ledger_path,
             model_id=model["modelId"],
-            phase=args.phase,
+            phase=budget_phase,
             authorized_cost_eur=float(config["perInvocationAuthorizedCostEur"]),
             total_authorized_cost_eur=float(config["totalAuthorizedCostEur"]),
         )
@@ -166,6 +215,7 @@ def main() -> None:
                 ),
                 output_name=f"{artifact_stem}.jsonl",
                 workload_image_digest=image_digest,
+                repetition=args.repetition,
             )
             successful = [
                 row for row in read_jsonl(raw_path) if row.get("status") == "passed"
@@ -178,7 +228,7 @@ def main() -> None:
                 ledger_path,
                 reservation_id=reservation_id,
                 model_id=model["modelId"],
-                phase=args.phase,
+                phase=budget_phase,
                 budget_debit_eur=debit,
                 outcome="passed",
                 provider_reported_cost=provider_reported_cost,
@@ -194,6 +244,7 @@ def main() -> None:
                 "matrixHash": config["modelMatrixHash"],
                 "modelManifest": config["modelManifestPath"],
                 "phase": args.phase,
+                "repetition": args.repetition,
             }
             manifest["modelManifestHash"] = model["manifestHash"]
             manifest["budget"] = {
@@ -227,7 +278,7 @@ def main() -> None:
                     ledger_path,
                     reservation_id=reservation_id,
                     model_id=model["modelId"],
-                    phase=args.phase,
+                    phase=budget_phase,
                     budget_debit_eur=float(config["perInvocationAuthorizedCostEur"]),
                     outcome="failed_conservative_debit",
                 )

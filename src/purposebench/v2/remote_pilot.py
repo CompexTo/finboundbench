@@ -258,6 +258,7 @@ def run_remote_pilot(
     output_name: str,
     workload_image_digest: str,
     seed: int = 20260802,
+    repetition: int = 1,
 ) -> Path:
     if not output_name or Path(output_name).name != output_name:
         raise ValueError("output_name must be one safe filename")
@@ -270,10 +271,14 @@ def run_remote_pilot(
         raise ValueError("record_limit must be positive when provided")
     if not 0 < maximum_authorized_cost_eur <= 10:
         raise ValueError("remote invocation cost authorization must be within EUR 10")
+    if repetition not in {1, 2, 3}:
+        raise ValueError("remote pilot repetition must be 1, 2, or 3")
     manifest = validate_remote_model_manifest(model_manifest)
     model_name = str(manifest["artifactSlug"])
     scope = f"records={record_limit}" if record_limit is not None else f"pairs={pair_limit}"
     dedupe = f"{manifest['modelId']}|{REMOTE_CONDITION.value}|{scope}"
+    if repetition > 1:
+        dedupe += f"|repetition={repetition}"
     successful = {
         row["dedupeKey"]
         for row in read_jsonl(partial_path)
@@ -379,6 +384,8 @@ def run_remote_pilot(
                 "zeroDataRetention": True,
             },
         }
+        if repetition > 1:
+            contract_material["repetition"] = repetition
         contract_hash = sha256_json(contract_material)
         started = datetime.now(UTC)
         tick = time.perf_counter()
@@ -423,6 +430,7 @@ def run_remote_pilot(
                 "finishedAt": datetime.now(UTC).isoformat(),
                 "durationSeconds": round(time.perf_counter() - tick, 3),
                 "protocolId": "protocol-v2-local",
+                "repetition": repetition,
                 "benchmarkCommit": git_commit(benchmark_root),
                 "platformCommit": git_commit(platform_root),
                 "datasetPath": str(dataset_path.relative_to(benchmark_root)).replace(
@@ -474,6 +482,7 @@ def run_remote_pilot(
                 "finishedAt": datetime.now(UTC).isoformat(),
                 "durationSeconds": round(time.perf_counter() - tick, 3),
                 "condition": REMOTE_CONDITION.value,
+                "repetition": repetition,
                 "modelName": model_name,
                 "modelProvider": "OPENROUTER",
                 "pinnedModelId": manifest["modelId"],
@@ -528,6 +537,7 @@ def build_remote_manifest(
             else None
         ),
         "pairMetrics": successful[0]["pairMetrics"] if successful else None,
+        "repetition": successful[0].get("repetition", 1) if successful else None,
         "localFallback": {
             "artifact": str(local_fallback_path.relative_to(benchmark_root)).replace(
                 "\\", "/"

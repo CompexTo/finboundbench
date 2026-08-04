@@ -88,3 +88,11 @@ body exposed only numeric code 400, with no canonical type or provider code;
 the retained body hash is
 `198ee507b619f43dcb721951f73a5abb48497aa2c2c4556fede526d7b54123a5`.
 The cumulative conservative debit is EUR 4.2532468.
+
+A concurrent single-attempt sweep under the replacement route pins completed
+DeepSeek V4 Pro's smoke gate at a conservative debit of EUR 0.00092742. Gemma's
+Cerebras route returned HTTP 400 with body hash
+`6a5e27214c26b43b2dfae89ee4e158d284cf84c6c9bd1886e747ca222983cd33`.
+Claude again returned the same HTTP 400 body, now classified only as involving
+the provider-routing layer. Including those retained failures, the cumulative
+ledger debit is EUR 5.00417422.

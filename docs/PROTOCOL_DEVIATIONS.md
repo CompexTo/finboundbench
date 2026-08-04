@@ -308,3 +308,10 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   The cumulative conservative debit became EUR 4.2532468. Before another call,
   the generic diagnostic was extended to classify only fixed-vocabulary field
   and error-kind hints found in the provider message, never the message itself.
+- A concurrently started, single-attempt retry sweep used the newly committed
+  route matrix. DeepSeek V4 Pro passed its one-record gate through
+  `parasail/fp8`, with a conservative debit of EUR 0.00092742. Gemma's
+  `cerebras/fp16` route returned HTTP 400, and Claude returned the same HTTP 400
+  body as before with only the fixed `FIELD_provider` hint. Their failures stay
+  appended; the DeepSeek partial was promoted to final raw evidence. The
+  cumulative conservative debit is EUR 5.00417422.

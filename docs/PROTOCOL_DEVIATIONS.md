@@ -373,3 +373,12 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   strict-schema smoke gate, so the Claude forty-record phase is closed and no
   more Claude calls are authorized. The conservative ledger is EUR 7.25424502.
   The five active models with passing gates may proceed to the pilot phase.
+- The forty-record phase completed once for every eligible model: Gemma 4 26B
+  A4B, GPT-5.6 Luna, DeepSeek V4 Pro, Kimi K3, and Llama 4 Maverick. Claude was
+  skipped before reservation because no Claude smoke manifest passed. All five
+  runs passed exact-model, strict-schema, native-release, disclosure, and
+  evidence validation. Their conservative pilot debits total EUR 0.0597856,
+  leaving the full append-only matrix ledger at EUR 7.31403062 of EUR 10.
+- Every model produced identical decisions within all 20 paired cases. This is
+  a diagnostic property of the selected 40-record pilot and is not a population
+  fairness estimate, superiority claim, or protocol freeze result.

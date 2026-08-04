@@ -52,27 +52,26 @@
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
       "provider": "OPENROUTER",
-      "artifactSlug": "anthropic-claude-sonnet-5",
-      "modelId": "anthropic/claude-sonnet-5",
-      "modelVersion": "anthropic/claude-sonnet-5",
-      "canonicalSlug": "anthropic/claude-sonnet-5-20260630",
+      "artifactSlug": "anthropic-claude-opus-4-8",
+      "modelId": "anthropic/claude-opus-4.8",
+      "modelVersion": "anthropic/claude-opus-4.8",
+      "canonicalSlug": "anthropic/claude-4.8-opus-20260528",
       "endpoint": "https://openrouter.ai/api/v1/chat/completions",
-      "metadataSource": "https://openrouter.ai/api/v1/model/anthropic/claude-sonnet-5",
-      "metadataResponseSha256": "f5337e7e205161fa0f3649fda21ba15a7704dffaaba5911e1593a6acf910f58a",
+      "metadataSource": "https://openrouter.ai/api/v1/model/anthropic/claude-opus-4.8",
+      "metadataResponseSha256": "0a1262f3816571e1ea6e4a6353bbfd1438ace6d15d08f9818c40b19c6bc3b1c9",
       "contextSize": 1000000,
-      "catalogPricingUsdPerToken": {"prompt": "0.000002", "completion": "0.00001"},
-      "budgetCeilingUsdPerToken": {"prompt": "0.000002", "completion": "0.00001"},
-      "supportedParameters": ["include_reasoning", "max_completion_tokens", "max_tokens", "reasoning", "reasoning_effort", "response_format", "stop", "structured_outputs", "tool_choice", "tools", "verbosity"],
-      "providerRouting": {"only": ["azure"], "allowFallbacks": false, "zeroDataRetention": true},
+      "catalogPricingUsdPerToken": {"prompt": "0.000005", "completion": "0.000025"},
+      "budgetCeilingUsdPerToken": {"prompt": "0.000005", "completion": "0.000025"},
+      "supportedParameters": ["include_reasoning", "max_tokens", "reasoning", "reasoning_effort", "response_format", "stop", "structured_outputs", "tool_choice", "tools", "verbosity"],
+      "providerRouting": {"only": ["amazon-bedrock"], "allowFallbacks": false, "zeroDataRetention": true},
       "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
-      "routingEndpointTag": "azure/global",
-      "routingEndpointSnapshotSha256": "0176a3e367a5234351bb9caf6f9277c7dc54bde5149106cf09289b8112b852fc",
-      "routingCapturedAt": "2026-08-04T20:28:03.412715+00:00",
-      "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "xhigh", "high", "medium", "low"], "defaultEffort": "high"},
-      "reasoningSetting": "LOW",
-      "minimumOutputTokenLimit": 2048,
-      "capturedAt": "2026-08-04T20:28:03.412715+00:00",
-      "manifestHash": "43023e6a74cd896057fb943d0e8f44502424bdcad77691a1694fc8872065526b"
+      "routingEndpointTag": "amazon-bedrock",
+      "routingEndpointSnapshotSha256": "20786ffe752f9bde321519e11aed254a8b6e770ee06d43cd96d8699cbd2ad330",
+      "routingCapturedAt": "2026-08-04T20:32:15.756023+00:00",
+      "reasoning": {"mandatory": false, "defaultEnabled": false, "supportedEfforts": ["max", "xhigh", "high", "medium", "low"], "defaultEffort": "high"},
+      "reasoningDisableStrategy": "OMIT",
+      "capturedAt": "2026-08-04T20:32:15.756023+00:00",
+      "manifestHash": "271abd2ff92f1e7ae02a6bd043fb4921dba51e3fed78ab63f7c315bf02f98bf3"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -142,5 +141,5 @@
       "manifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e"
     }
   ],
-  "matrixHash": "cac89d3205ed48defba354f49d7deae0721cd863f9b9277257c8c9d04d92a4a5"
+  "matrixHash": "1e1b6bb0bdc167e857bad1fc7a38b3d79f4751c3807da353b5e24e0c1547af43"
 }

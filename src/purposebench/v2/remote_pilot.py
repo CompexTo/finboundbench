@@ -155,6 +155,11 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("remote model manifest identity is invalid")
     if not isinstance(manifest["supportedParameters"], list):
         raise TypeError("remote model supported parameters are invalid")
+    if manifest.get("reasoningDisableStrategy", "ENABLED_FALSE") not in {
+        "ENABLED_FALSE",
+        "EFFORT_NONE",
+    }:
+        raise ValueError("remote model reasoning disable strategy is invalid")
     supported = set(manifest["supportedParameters"])
     if len(supported) != len(manifest["supportedParameters"]):
         raise ValueError("remote model supported parameters contain duplicates")

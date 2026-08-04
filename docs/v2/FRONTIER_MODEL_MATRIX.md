@@ -29,8 +29,9 @@ platform rejects it as substitution.
   is eligible for interpretation.
 - Phase 2 runs the 20 complete paired cases (40 records) once per passing model.
 - Reasoning is explicitly disabled when the model advertises the OpenRouter
-  reasoning parameter. Unsupported sampling parameters are omitted and the
-  provider is required to support every parameter actually transmitted.
+  reasoning parameter. The hashed research manifest binds whether the request
+  uses `enabled: false` or `effort: none`; unsupported sampling parameters are
+  omitted and the provider must support every parameter actually transmitted.
 - Provider fallback is disabled. Routing requires zero data retention and
   denies providers that collect request data. Each model also pins one exact
   ZDR-capable upstream endpoint slug and its endpoint-metadata hash; this avoids

@@ -90,6 +90,16 @@ def test_remote_manifest_accepts_provider_specific_output_token_parameter() -> N
     assert validate_remote_model_manifest(manifest)["manifestHash"] == manifest["manifestHash"]
 
 
+def test_remote_manifest_rejects_unknown_reasoning_disable_strategy() -> None:
+    manifest = _remote_manifest()
+    manifest["reasoningDisableStrategy"] = "PROVIDER_DEFAULT"
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    with pytest.raises(ValueError, match="reasoning disable strategy"):
+        validate_remote_model_manifest(manifest)
+
+
 @pytest.mark.parametrize(
     "routing",
     [

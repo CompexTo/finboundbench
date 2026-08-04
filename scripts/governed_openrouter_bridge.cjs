@@ -92,12 +92,16 @@ async function main() {
     const providerOnly = Array.isArray(manifest.providerRouting?.only)
       ? manifest.providerRouting.only.map(String)
       : [];
+    const reasoningDisableStrategy = manifest.reasoningDisableStrategy || 'ENABLED_FALSE';
     if (
       providerOnly.length !== 1
       || manifest.providerRouting?.allowFallbacks !== false
       || manifest.providerRouting?.zeroDataRetention !== true
     ) {
       throw new Error('OpenRouter model manifest must pin one ZDR provider route');
+    }
+    if (!['ENABLED_FALSE', 'EFFORT_NONE'].includes(reasoningDisableStrategy)) {
+      throw new Error('OpenRouter reasoning disable strategy is invalid');
     }
     for (const required of ['response_format', 'structured_outputs']) {
       if (!supportedParameters.includes(required)) {
@@ -198,6 +202,7 @@ async function main() {
       costCalculator,
       supportedParameters,
       providerOnly,
+      reasoningDisableStrategy,
     }).invoke({
       contractHash: input.contractHash,
       model,

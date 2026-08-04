@@ -274,3 +274,10 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   EUR 3.7532468. The three successful model decisions are smoke diagnostics,
   not exclusions or paper claims, and the forty-record phase remains closed for
   models without a passing one-record gate.
+- Before retrying Claude, its HTTP 400 was traced to the provider-specific
+  representation used to disable reasoning. The model manifest now binds
+  `EFFORT_NONE` instead of the default `ENABLED_FALSE`; the generic platform
+  adapter supports both strategies without naming or selecting a benchmark
+  model. This changes Claude's manifest hash and the containing matrix hash.
+  Existing successful smoke artifacts retain their original matrix-hash
+  evidence and are not rewritten.

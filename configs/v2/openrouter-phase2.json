@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "purposebound-finance.openrouter-phase2.v2",
+  "protocolId": "protocol-v2-local",
+  "modelSelection": "results/v2/manifests/openrouter-claude-selection-20260804T223732Z.json",
+  "claudeModelManifest": "results/v2/manifests/openrouter-claude-model-20260804T223732Z.json",
+  "actionPolicy": "configs/v2/openrouter-action-policy.json",
+  "dataset": "data/v2/generated/hmda-2024-dc-pairs.jsonl",
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "priorLedgerPrefixRecordCount": 86,
+    "priorLedgerPrefixHash": "df2e3189933b384febce4783a3cc1d5ca39388fa22111bf8da22ab740bb984b1",
+    "priorCommittedEur": 7.90239384,
+    "additionalAuthorizedEur": 5.0,
+    "absoluteAuthorizedEur": 12.90239384,
+    "categories": {
+      "new_claude_compatibility": 1.5,
+      "position_diagnostic": 1.5,
+      "reduced_matrix": 1.0,
+      "full_condition_pilot": 1.0
+    }
+  },
+  "claudeCompatibility": {
+    "maximumSmokeAttempts": 3,
+    "maximumReservationPerAttemptEur": 0.5,
+    "maximumCompatibilityBudgetEur": 1.5,
+    "gate1RecordCount": 1,
+    "gate2PairCount": 4,
+    "outputTokenLimit": 2048,
+    "timeoutMs": 300000
+  },
+  "newAttemptJustification": {
+    "modelId": "anthropic/claude-opus-5",
+    "route": "amazon-bedrock",
+    "reason": "Fresh live metadata shows a healthy ZDR route with strict structured outputs. The new contract replaces model-selected decisions with indexed normalized scores, recommendations, and concise factors; binds the deterministic Compex action-policy hash; and uses explicit max_tokens plus low-effort reasoning strategies.",
+    "materialChanges": [
+      "refreshed catalog and route metadata hashes",
+      "new indexed structured-output schema",
+      "deterministic Compex action-policy binding",
+      "explicit tokenParameter=max_tokens",
+      "explicit reasoningStrategy=EFFORT and reasoningEffort=low"
+    ],
+    "documentedBeforePaidCall": true
+  },
+  "commercialProviderPolicy": {
+    "gateway": "OPENROUTER",
+    "credentialReference": {
+      "provider": "LOCAL_ENV_REFERENCE",
+      "reference": "OPENROUTER_API_KEY"
+    },
+    "directProviderApisAllowed": false,
+    "fallbackAllowed": false,
+    "zeroDataRetentionRequired": true,
+    "providerDataCollectionAllowed": false
+  }
+}

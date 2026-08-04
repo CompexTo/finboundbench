@@ -6,6 +6,7 @@ const path = require('node:path');
 
 const KEY_NAME = 'OPENROUTER_API_KEY';
 const REFERENCE_ID = 'openrouter-benchmark-key';
+const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 
 function requireInput(value, label) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -76,10 +77,15 @@ async function main() {
     const manifest = requireInput(input.modelManifest, 'model manifest');
     const manifestMaterial = { ...manifest };
     delete manifestMaterial.manifestHash;
+    const gateway = manifest.gateway || manifest.provider;
+    const endpoint = manifest.endpoint || OPENROUTER_ENDPOINT;
+    const modelVersion = manifest.modelVersion || manifest.modelId;
+    const canonicalSlug = manifest.canonicalCatalogSlug || manifest.canonicalSlug;
     if (
-      manifest.provider !== 'OPENROUTER'
-      || manifest.endpoint !== 'https://openrouter.ai/api/v1/chat/completions'
-      || manifest.modelVersion !== manifest.modelId
+      gateway !== 'OPENROUTER'
+      || endpoint !== OPENROUTER_ENDPOINT
+      || modelVersion !== manifest.modelId
+      || typeof canonicalSlug !== 'string'
       || /(?:^|[-_.:/@])(latest|current|default|stable|preview|auto)(?:$|[-_.:/@])/i
         .test(String(manifest.modelId || ''))
       || types.hashCanonicalJson(manifestMaterial) !== manifest.manifestHash
@@ -89,20 +95,51 @@ async function main() {
     const supportedParameters = Array.isArray(manifest.supportedParameters)
       ? manifest.supportedParameters.map(String)
       : [];
-    const providerOnly = Array.isArray(manifest.providerRouting?.only)
-      ? manifest.providerRouting.only.map(String)
-      : [];
+    const providerOnly = typeof manifest.upstreamRoute === 'string'
+      ? [manifest.upstreamRoute]
+      : Array.isArray(manifest.providerRouting?.only)
+        ? manifest.providerRouting.only.map(String)
+        : [];
+    const fallbackAllowed = manifest.fallbackAllowed === undefined
+      ? manifest.providerRouting?.allowFallbacks
+      : manifest.fallbackAllowed;
+    const zeroDataRetentionRequired = manifest.zeroDataRetentionRequired === undefined
+      ? manifest.providerRouting?.zeroDataRetention
+      : manifest.zeroDataRetentionRequired;
     const reasoningDisableStrategy = manifest.reasoningDisableStrategy || 'ENABLED_FALSE';
-    const reasoningSetting = manifest.reasoningSetting || 'DISABLED';
+    const reasoningConfiguration = manifest.reasoningConfiguration;
+    const reasoningStrategy = reasoningConfiguration?.reasoningStrategy;
+    const reasoningEffort = reasoningConfiguration?.reasoningEffort;
+    const reasoningEnabled = reasoningConfiguration?.reasoningEnabled;
+    const reasoningSetting = manifest.reasoningSetting
+      || (reasoningStrategy === 'EFFORT' ? String(reasoningEffort).toUpperCase() : 'DISABLED');
+    const tokenParameter = manifest.tokenParameter
+      || (supportedParameters.includes('max_tokens')
+        ? 'max_tokens'
+        : 'max_completion_tokens');
     if (
       providerOnly.length !== 1
-      || manifest.providerRouting?.allowFallbacks !== false
-      || manifest.providerRouting?.zeroDataRetention !== true
+      || fallbackAllowed !== false
+      || zeroDataRetentionRequired !== true
+      || (manifest.providerDataCollectionAllowed !== undefined
+        && manifest.providerDataCollectionAllowed !== false)
     ) {
       throw new Error('OpenRouter model manifest must pin one ZDR provider route');
     }
+    if (
+      manifest.structuredOutputMode !== undefined
+      && manifest.structuredOutputMode !== 'JSON_SCHEMA_STRICT'
+    ) {
+      throw new Error('OpenRouter structured-output method is invalid');
+    }
     if (!['ENABLED_FALSE', 'EFFORT_NONE', 'OMIT'].includes(reasoningDisableStrategy)) {
       throw new Error('OpenRouter reasoning disable strategy is invalid');
+    }
+    if (
+      reasoningStrategy !== undefined
+      && !['OMIT', 'EFFORT', 'ENABLED_FLAG'].includes(reasoningStrategy)
+    ) {
+      throw new Error('OpenRouter reasoning strategy is invalid');
     }
     if (!['DISABLED', 'LOW', 'MEDIUM', 'HIGH'].includes(reasoningSetting)) {
       throw new Error('OpenRouter reasoning setting is invalid');
@@ -113,13 +150,37 @@ async function main() {
       }
     }
     if (
-      !supportedParameters.includes('max_tokens')
-      && !supportedParameters.includes('max_completion_tokens')
+      !['max_tokens', 'max_completion_tokens'].includes(tokenParameter)
+      || !supportedParameters.includes(tokenParameter)
     ) {
       throw new Error('OpenRouter model does not support an output-token parameter');
     }
-    const promptRate = Number(manifest.budgetCeilingUsdPerToken?.prompt);
-    const completionRate = Number(manifest.budgetCeilingUsdPerToken?.completion);
+    if (
+      manifest.maximumOutputTokens !== undefined
+      && (
+        !Number.isSafeInteger(manifest.maximumOutputTokens)
+        || input.outputTokenLimit > manifest.maximumOutputTokens
+      )
+    ) {
+      throw new Error('OpenRouter output-token limit exceeds the manifest');
+    }
+    if (
+      manifest.contextWindow !== undefined
+      && (!Number.isSafeInteger(manifest.contextWindow) || manifest.contextWindow < 1)
+    ) {
+      throw new Error('OpenRouter context window is invalid');
+    }
+    for (const hashField of ['catalogMetadataHash', 'routeMetadataHash']) {
+      if (manifest[hashField] !== undefined && !/^[a-f0-9]{64}$/.test(manifest[hashField])) {
+        throw new Error(`OpenRouter ${hashField} is invalid`);
+      }
+    }
+    const promptRate = Number(
+      manifest.inputPriceCeiling ?? manifest.budgetCeilingUsdPerToken?.prompt,
+    );
+    const completionRate = Number(
+      manifest.outputPriceCeiling ?? manifest.budgetCeilingUsdPerToken?.completion,
+    );
     if (
       !Number.isFinite(promptRate)
       || promptRate < 0
@@ -148,7 +209,7 @@ async function main() {
       provider: 'OPENROUTER',
       exactRequestedModelId: manifest.modelId,
       effectiveModelId: manifest.modelId,
-      modelVersion: manifest.modelVersion,
+      modelVersion,
       modelIdImmutability: 'PINNED',
       endpoint: manifest.endpoint,
       executionMode: 'REMOTE',
@@ -168,7 +229,7 @@ async function main() {
         maximumBackoffMs: 0,
         retryableStatusCodes: [],
       },
-      providerMetadataTimestamp: manifest.capturedAt,
+      providerMetadataTimestamp: manifest.endpointMetadataCapturedAt || manifest.capturedAt,
     };
     const costCalculator = {
       calculate: ({ modelId, tokens }) => {
@@ -178,7 +239,7 @@ async function main() {
             currency: 'USD',
             amountEur: null,
             pricingSource: 'MODEL_SUBSTITUTION',
-            pricingTimestamp: manifest.capturedAt,
+            pricingTimestamp: manifest.endpointMetadataCapturedAt || manifest.capturedAt,
           };
         }
         const amount = tokens.inputTokens * promptRate
@@ -188,7 +249,7 @@ async function main() {
           currency: 'USD',
           amountEur: amount,
           pricingSource: 'RESEARCH_MANIFEST_CONSERVATIVE_USD_EUR_PARITY_CEILING',
-          pricingTimestamp: manifest.capturedAt,
+          pricingTimestamp: manifest.endpointMetadataCapturedAt || manifest.capturedAt,
         };
       },
     };
@@ -206,6 +267,10 @@ async function main() {
       costCalculator,
       supportedParameters,
       providerOnly,
+      tokenParameter,
+      ...(reasoningStrategy === undefined ? {} : { reasoningStrategy }),
+      ...(reasoningEffort === undefined ? {} : { reasoningEffort }),
+      ...(reasoningEnabled === undefined ? {} : { reasoningEnabled }),
       reasoningDisableStrategy,
     }).invoke({
       contractHash: input.contractHash,
@@ -242,7 +307,36 @@ async function main() {
       },
       policy: input.nativeReleasePolicy,
     });
-    process.stdout.write(JSON.stringify({ ...result, nativeRelease }));
+    let governedActionBatch;
+    if (
+      input.actionPolicy !== undefined
+      || input.actionPolicyHash !== undefined
+      || input.expectedRecordCount !== undefined
+    ) {
+      if (nativeRelease.allowed !== true) {
+        throw new Error('Native release denied before deterministic action mapping');
+      }
+      const { evaluateDeterministicActionBatch } = require(path.join(
+        platformRoot,
+        'services',
+        'api',
+        'dist',
+        'confidential-execution',
+        'action-policy',
+        'deterministic-action-policy.js',
+      ));
+      governedActionBatch = evaluateDeterministicActionBatch({
+        modelOutput: JSON.parse(result.quarantinedOutput),
+        expectedRecordCount: input.expectedRecordCount,
+        policy: input.actionPolicy,
+        expectedPolicyHash: input.actionPolicyHash,
+      });
+    }
+    process.stdout.write(JSON.stringify({
+      ...result,
+      nativeRelease,
+      ...(governedActionBatch === undefined ? {} : { governedActionBatch }),
+    }));
   } finally {
     if (keyState.loadedFromFile) {
       if (keyState.previousValue === undefined) delete process.env[KEY_NAME];
@@ -252,6 +346,11 @@ async function main() {
 }
 
 main().catch((error) => {
+  if (error && typeof error === 'object' && error.diagnostic) {
+    process.stderr.write(`PROVIDER_SAFE_ERROR:${JSON.stringify(error.diagnostic)}`);
+    process.exitCode = 1;
+    return;
+  }
   const message = error instanceof Error ? error.message : String(error);
   process.stderr.write(message.includes(KEY_NAME) ? 'OPENROUTER_API_KEY_NOT_CONFIGURED' : message);
   process.exitCode = 1;

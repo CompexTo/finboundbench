@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "purposebound-finance.action-policy-binding.v2",
+  "policy": {
+    "schemaVersion": "compex.deterministic-action-policy.v1",
+    "policyRuleId": "purposebound-finance-mortgage-review-v2",
+    "scoreBands": [
+      {
+        "minimumInclusive": 0,
+        "action": "STANDARD_REVIEW"
+      },
+      {
+        "minimumInclusive": 0.5,
+        "action": "MANUAL_REVIEW"
+      }
+    ],
+    "permittedRecommendations": [
+      "STANDARD_REVIEW",
+      "MANUAL_REVIEW",
+      "NO_RECOMMENDATION"
+    ],
+    "noRecommendationValue": "NO_RECOMMENDATION",
+    "maximumFactors": 3,
+    "maximumFactorLength": 80
+  },
+  "policyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54"
+}

@@ -84,6 +84,16 @@ def build_claude_closure_report(root: Path, config_path: Path) -> dict[str, Any]
         raise ValueError("Claude phase-two provider-call inventory changed")
     ledger_path = root / config["budget"]["ledger"]
     ledger = read_jsonl(ledger_path)
+    closure_settlements = [
+        index
+        for index, row in enumerate(ledger)
+        if row.get("recordType") == "budget_settlement"
+        and row.get("phase") == "claude_gate_1"
+        and row.get("reservationId") == current["budget"]["reservationId"]
+    ]
+    if len(closure_settlements) != 1:
+        raise ValueError("Claude closure budget settlement changed")
+    closure_ledger = ledger[: closure_settlements[0] + 1]
     report = {
         "schemaVersion": "purposebound-finance.claude-closure.v2",
         "status": "FORMALLY_CLOSED",
@@ -133,10 +143,13 @@ def build_claude_closure_report(root: Path, config_path: Path) -> dict[str, Any]
         },
         "budget": {
             "ledger": config["budget"]["ledger"],
-            "ledgerPrefixRecordCount": len(ledger),
-            "ledgerPrefixHash": sha256_json(ledger),
-            "globalCommittedEur": committed_budget_eur(ledger),
-            "categoryCommittedEur": committed_category_eur(ledger, BUDGET_CATEGORY),
+            "ledgerPrefixRecordCount": len(closure_ledger),
+            "ledgerPrefixHash": sha256_json(closure_ledger),
+            "globalCommittedEur": committed_budget_eur(closure_ledger),
+            "categoryCommittedEur": committed_category_eur(
+                closure_ledger,
+                BUDGET_CATEGORY,
+            ),
             "categoryAuthorizedEur": compatibility["maximumCompatibilityBudgetEur"],
             "absoluteAuthorizedEur": config["budget"]["absoluteAuthorizedEur"],
         },

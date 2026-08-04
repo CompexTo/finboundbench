@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "purposebound-finance.local-attack-suite.v2",
+  "recordedAt": "2026-08-04T23:39:23.992000+00:00",
+  "status": "passed",
+  "benchmarkCommit": "f9a47bbce8f8be536260d218f042f584f0b04b5d",
+  "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+  "attacks": [
+    {
+      "attack_id": "stale_filter_configuration",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/purpose-bound-contracts.service.spec.ts",
+        "services/api/test/unit/v2/platform-data-preparation.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "wrong_endpoint_receiving_full_data",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/runner/src/providers/adapters.test.ts"
+      ]
+    },
+    {
+      "attack_id": "projection_substitution",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/platform-data-preparation.spec.ts",
+        "services/runner/src/backends/backends.test.ts"
+      ]
+    },
+    {
+      "attack_id": "dataset_substitution",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/platform-data-preparation.spec.ts",
+        "services/runner/src/backends/backends.test.ts"
+      ]
+    },
+    {
+      "attack_id": "model_substitution",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/runner/src/local-models/ollama-model.test.ts",
+        "services/runner/src/providers/adapters.test.ts"
+      ]
+    },
+    {
+      "attack_id": "prompt_substitution",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/runner/src/local-models/ollama-model.test.ts",
+        "services/runner/src/providers/adapters.test.ts"
+      ]
+    },
+    {
+      "attack_id": "output_schema_substitution",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/runner/src/local-models/ollama-model.test.ts",
+        "services/runner/src/providers/adapters.test.ts"
+      ]
+    },
+    {
+      "attack_id": "weakened_dp_settings",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/privacy-platform.spec.ts",
+        "services/api/test/unit/v2/evidence-v2.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "privacy_budget_bypass",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/privacy-platform.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "output_leakage",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/native-output-release.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "unauthorized_artifact_release",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/native-output-release.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "unauthorized_egress",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/purpose-capability-enforcer.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "secret_leakage",
+      "expected_decision": "DENY_AND_SENTINEL_ABSENT",
+      "source_references": [
+        "services/runner/src/secrets/secrets.test.ts",
+        "services/runner/src/providers/adapters.test.ts"
+      ]
+    },
+    {
+      "attack_id": "evidence_tampering",
+      "expected_decision": "DETECT",
+      "source_references": [
+        "services/api/test/unit/v2/evidence-v2.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "execution_after_approval_expiry",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/confidential-execution-contract.spec.ts",
+        "services/runner/src/backends/backends.test.ts"
+      ]
+    },
+    {
+      "attack_id": "execution_after_revocation",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/confidential-execution-contract.spec.ts",
+        "services/api/test/unit/v2/lineage.spec.ts"
+      ]
+    },
+    {
+      "attack_id": "undeclared_tool",
+      "expected_decision": "DENY",
+      "source_references": [
+        "services/api/test/unit/v2/purpose-capability-enforcer.spec.ts"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "commandDescription": "pnpm --filter @compex/api test:unit -- --runTestsByPath test/unit/confidential-execution-contract.spec.ts test/unit/v2/evidence-v2.spec.ts test/unit/v2/lineage.spec.ts test/unit/v2/native-output-release.spec.ts test/unit/v2/platform-data-preparation.spec.ts test/unit/v2/privacy-platform.spec.ts test/unit/v2/purpose-bound-contracts.service.spec.ts test/unit/v2/purpose-capability-enforcer.spec.ts",
+      "exitCode": 0,
+      "durationSeconds": 5.428,
+      "stdoutSha256": "6a35caf17ee0bab564fbade4e565208598650ee0ff4b22843b34f6d0fe0c38b0",
+      "stderrSha256": "7c200513324b9a74e3fd34aafad9ab15d9ac8a7aa23b43bb783dc62dba0cedf2",
+      "stdoutTail": [
+        "[use-node22] node = v22.22.2 (expected v22.x)",
+        "[use-node22] pnpm = 9.12.0",
+        "",
+        "> @compex/api@0.1.0-local-rc test:unit C:\\Users\\FRHMMH01\\Compex-platform\\services\\api",
+        "> jest --config jest.config.cjs --runInBand \"--runTestsByPath\" \"test/unit/confidential-execution-contract.spec.ts\" \"test/unit/v2/evidence-v2.spec.ts\" \"test/unit/v2/lineage.spec.ts\" \"test/unit/v2/native-output-release.spec.ts\" \"test/unit/v2/platform-data-preparation.spec.ts\" \"test/unit/v2/privacy-platform.spec.ts\" \"test/unit/v2/purpose-bound-contracts.service.spec.ts\" \"test/unit/v2/purpose-capability-enforcer.spec.ts\"",
+        ""
+      ],
+      "stderrTail": [
+        "ts-jest[config] (WARN) ",
+        "    The \"ts-jest\" config option \"isolatedModules\" is deprecated and will be removed in v30.0.0. Please use \"isolatedModules: true\" in C:/Users/FRHMMH01/Compex-platform/services/api/tsconfig.json instead, see https://www.typescriptlang.org/tsconfig/#isolatedModules",
+        "  ",
+        "PASS test/unit/v2/evidence-v2.spec.ts",
+        "PASS test/unit/v2/purpose-bound-contracts.service.spec.ts",
+        "PASS test/unit/confidential-execution-contract.spec.ts",
+        "PASS test/unit/v2/privacy-platform.spec.ts",
+        "PASS test/unit/v2/lineage.spec.ts",
+        "PASS test/unit/v2/platform-data-preparation.spec.ts",
+        "PASS test/unit/v2/native-output-release.spec.ts",
+        "PASS test/unit/v2/purpose-capability-enforcer.spec.ts",
+        "",
+        "Test Suites: 8 passed, 8 total",
+        "Tests:       123 passed, 123 total",
+        "Snapshots:   0 total",
+        "Time:        2.43 s",
+        "Ran all test suites within paths \"test/unit/confidential-execution-contract.spec.ts\", \"test/unit/v2/evidence-v2.spec.ts\", \"test/unit/v2/lineage.spec.ts\", \"test/unit/v2/native-output-release.spec.ts\", \"test/unit/v2/platform-data-preparation.spec.ts\", \"test/unit/v2/privacy-platform.spec.ts\", \"test/unit/v2/purpose-bound-contracts.service.spec.ts\", \"test/unit/v2/purpose-capability-enforcer.spec.ts\"."
+      ]
+    },
+    {
+      "commandDescription": "pnpm --filter @compex/runner test",
+      "exitCode": 0,
+      "durationSeconds": 5.663,
+      "stdoutSha256": "f12b06da7a036f6edd888ee46a36f75465590ae1439680b9ec378dbc92114694",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutTail": [
+        "ok 31 - reference tampering and expiration fail closed",
+        "  ---",
+        "  duration_ms: 0.8993",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: persisted surface scanner reports files and records containing the sentinel",
+        "ok 32 - persisted surface scanner reports files and records containing the sentinel",
+        "  ---",
+        "  duration_ms: 7.7518",
+        "  type: 'test'",
+        "  ...",
+        "1..32",
+        "# tests 32",
+        "# suites 0",
+        "# pass 32",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 782.5019"
+      ],
+      "stderrTail": []
+    }
+  ],
+  "excludedThreats": [
+    {
+      "threat": "malicious_host_root_or_administrator",
+      "reason": "Outside the trusted-host local threat model; reserved for a future hardware-attested AWS Nitro backend."
+    }
+  ]
+}

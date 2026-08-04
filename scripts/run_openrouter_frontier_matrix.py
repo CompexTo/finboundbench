@@ -16,6 +16,7 @@ from purposebench.v2.frontier_matrix import (
     load_frontier_matrix,
     reserve_budget,
     settle_budget,
+    validate_frontier_smoke_gate,
 )
 from purposebench.v2.pilots import write_new_v2_artifact
 from purposebench.v2.remote_pilot import build_remote_manifest, run_remote_pilot
@@ -71,16 +72,18 @@ def main() -> None:
                     }
                 )
                 continue
-            smoke_manifest = json.loads(smoke_manifest_path.read_text(encoding="utf-8"))
-            if (
-                smoke_manifest.get("status") != "passed"
-                or smoke_manifest.get("model") != model["modelId"]
-            ):
+            try:
+                validate_frontier_smoke_gate(
+                    benchmark_root,
+                    smoke_manifest_path,
+                    model,
+                )
+            except (OSError, TypeError, ValueError) as error:
                 failures.append(
                     {
                         "modelId": model["modelId"],
-                        "errorType": "FailedSmokeGate",
-                        "error": "one-record frontier smoke did not pass for this model",
+                        "errorType": "InvalidSmokeGate",
+                        "error": str(error),
                         "committedMatrixBudgetEur": str(
                             committed_budget_eur(read_jsonl(ledger_path))
                         ),
@@ -117,6 +120,7 @@ def main() -> None:
                 "modelManifest": config["modelManifestPath"],
                 "phase": args.phase,
             }
+            manifest["modelManifestHash"] = model["manifestHash"]
             manifest["budget"] = {
                 "reservationId": settlement["reservationId"],
                 "authorizedCostEur": reservation["authorizedCostEur"],
@@ -191,6 +195,7 @@ def main() -> None:
                 "modelManifest": config["modelManifestPath"],
                 "phase": args.phase,
             }
+            manifest["modelManifestHash"] = model["manifestHash"]
             manifest["budget"] = {
                 "reservationId": reservation_id,
                 "authorizedCostEur": config["perInvocationAuthorizedCostEur"],

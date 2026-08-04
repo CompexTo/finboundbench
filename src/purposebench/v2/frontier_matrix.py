@@ -9,10 +9,84 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from purposebench.utils import append_jsonl, read_jsonl, sha256_json
+from purposebench.utils import append_jsonl, read_jsonl, sha256_file, sha256_json
 from purposebench.v2.remote_pilot import validate_remote_model_manifest
 
 BUDGET_LEDGER = Path("results/v2/raw/inference/openrouter-frontier-budget.jsonl")
+
+
+def validate_frontier_smoke_gate(
+    benchmark_root: Path,
+    smoke_manifest_path: Path,
+    model: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate a one-record gate and its ledger prefix before a paid pilot."""
+    manifest_root = (benchmark_root / "results/v2/manifests").resolve()
+    resolved_manifest = smoke_manifest_path.resolve()
+    if manifest_root not in resolved_manifest.parents or not resolved_manifest.is_file():
+        raise ValueError("frontier smoke manifest is outside the manifest directory")
+    manifest = json.loads(resolved_manifest.read_text(encoding="utf-8"))
+    if (
+        manifest.get("schemaVersion")
+        != "purposebound-finance.remote-pilot-manifest.v2"
+        or manifest.get("status") != "passed"
+        or manifest.get("model") != model["modelId"]
+        or manifest.get("frontierMatrix", {}).get("phase") != "smoke"
+    ):
+        raise ValueError("frontier smoke manifest identity is invalid")
+
+    raw_root = (benchmark_root / "results/v2/raw/inference").resolve()
+    raw_path = (benchmark_root / str(manifest.get("rawArtifact", ""))).resolve()
+    if (
+        raw_root not in raw_path.parents
+        or not raw_path.is_file()
+        or sha256_file(raw_path) != manifest.get("rawArtifactSha256")
+    ):
+        raise ValueError("frontier smoke raw artifact integrity failed")
+    passed = [row for row in read_jsonl(raw_path) if row.get("status") == "passed"]
+    if not passed:
+        raise ValueError("frontier smoke raw artifact has no passing attempt")
+    successful = passed[-1]
+    if (
+        successful.get("recordCount") != 1
+        or successful.get("releaseAllowed") is not True
+        or successful.get("modelManifestHash") != model["manifestHash"]
+        or successful.get("pinnedModelId") != model["modelId"]
+        or successful.get("modelProvider") != "OPENROUTER"
+    ):
+        raise ValueError("frontier smoke did not pass for the current model manifest")
+
+    budget = manifest.get("budget")
+    if not isinstance(budget, dict):
+        raise TypeError("frontier smoke budget evidence is missing")
+    if budget.get("ledgerArtifact") != str(BUDGET_LEDGER).replace("\\", "/"):
+        raise ValueError("frontier smoke budget ledger substitution detected")
+    ledger_rows = read_jsonl(benchmark_root / BUDGET_LEDGER)
+    prefix_count = budget.get("ledgerPrefixRecordCount")
+    if (
+        not isinstance(prefix_count, int)
+        or prefix_count < 1
+        or prefix_count > len(ledger_rows)
+        or sha256_json(ledger_rows[:prefix_count]) != budget.get("ledgerPrefixHash")
+    ):
+        raise ValueError("frontier smoke budget ledger prefix integrity failed")
+    reservation_id = budget.get("reservationId")
+    settlements = [
+        row
+        for row in ledger_rows[:prefix_count]
+        if row.get("recordType") == "budget_settlement"
+        and row.get("reservationId") == reservation_id
+    ]
+    if (
+        len(settlements) != 1
+        or settlements[0].get("modelId") != model["modelId"]
+        or settlements[0].get("phase") != "smoke"
+        or settlements[0].get("outcome") != "passed"
+        or float(settlements[0].get("budgetDebitEur", -1))
+        != float(budget.get("budgetDebitEur", -2))
+    ):
+        raise ValueError("frontier smoke budget settlement is invalid")
+    return successful
 
 
 def load_frontier_matrix(

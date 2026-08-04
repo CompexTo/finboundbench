@@ -1,0 +1,411 @@
+{
+  "schemaVersion": "purposebound-finance.privacy-attack-pilot.v2",
+  "recordedAt": "2026-08-04T23:42:05.767571+00:00",
+  "status": "passed",
+  "seed": 20260802,
+  "design": "Deterministic controlled observations validate attack measurement and comparison plumbing; they are not population estimates.",
+  "measurements": [
+    {
+      "attack": "membership_inference",
+      "condition": "ordinary",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "calibrated_roc_auc": 1.0,
+        "best_balanced_accuracy": 1.0,
+        "membership_advantage": 1.0,
+        "member_samples": 6,
+        "nonmember_samples": 6
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "attribute_inference",
+      "condition": "ordinary",
+      "meaningful": true,
+      "risk_score": 0.75,
+      "metrics": {
+        "accuracy": 0.875,
+        "balanced_accuracy": 0.875,
+        "majority_baseline": 0.5,
+        "attribute_advantage": 0.75,
+        "samples": 8
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "repeated_query_averaging",
+      "condition": "ordinary",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "queries": 4,
+        "single_query_absolute_error": 0.0,
+        "averaged_absolute_error": 0.0,
+        "absolute_error_reduction": 0.0,
+        "success": true
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "differencing",
+      "condition": "ordinary",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "inferred_contribution": 1.0,
+        "absolute_error": 0.0,
+        "success": true
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "aggregate_reconstruction",
+      "condition": "ordinary",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "queries": 4,
+        "variables": 4,
+        "matrix_rank": 4,
+        "full_column_rank": true,
+        "reconstruction_accuracy": 1.0,
+        "reconstruction_rmse": 0.0,
+        "majority_baseline": 0.5,
+        "reconstruction_advantage": 1.0
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "membership_inference",
+      "condition": "governed_non_dp",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "calibrated_roc_auc": 1.0,
+        "best_balanced_accuracy": 1.0,
+        "membership_advantage": 1.0,
+        "member_samples": 6,
+        "nonmember_samples": 6
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "attribute_inference",
+      "condition": "governed_non_dp",
+      "meaningful": true,
+      "risk_score": 0.75,
+      "metrics": {
+        "accuracy": 0.875,
+        "balanced_accuracy": 0.875,
+        "majority_baseline": 0.5,
+        "attribute_advantage": 0.75,
+        "samples": 8
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "repeated_query_averaging",
+      "condition": "governed_non_dp",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "queries": 2,
+        "single_query_absolute_error": 0.0,
+        "averaged_absolute_error": 0.0,
+        "absolute_error_reduction": 0.0,
+        "success": true
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "differencing",
+      "condition": "governed_non_dp",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "inferred_contribution": 1.0,
+        "absolute_error": 0.0,
+        "success": true
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "aggregate_reconstruction",
+      "condition": "governed_non_dp",
+      "meaningful": true,
+      "risk_score": 1.0,
+      "metrics": {
+        "queries": 4,
+        "variables": 4,
+        "matrix_rank": 4,
+        "full_column_rank": true,
+        "reconstruction_accuracy": 1.0,
+        "reconstruction_rmse": 0.0,
+        "majority_baseline": 0.5,
+        "reconstruction_advantage": 1.0
+      },
+      "utility": {
+        "accuracy": 0.873
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "membership_inference",
+      "condition": "governed_dp",
+      "meaningful": true,
+      "risk_score": 0.16666666666666674,
+      "metrics": {
+        "calibrated_roc_auc": 0.5277777777777778,
+        "best_balanced_accuracy": 0.5833333333333334,
+        "membership_advantage": 0.16666666666666674,
+        "member_samples": 6,
+        "nonmember_samples": 6
+      },
+      "utility": {
+        "accuracy": 0.863
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "attribute_inference",
+      "condition": "governed_dp",
+      "meaningful": true,
+      "risk_score": 0.25,
+      "metrics": {
+        "accuracy": 0.625,
+        "balanced_accuracy": 0.625,
+        "majority_baseline": 0.5,
+        "attribute_advantage": 0.25,
+        "samples": 8
+      },
+      "utility": {
+        "accuracy": 0.863
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "repeated_query_averaging",
+      "condition": "governed_dp",
+      "meaningful": true,
+      "risk_score": 0.0,
+      "metrics": {
+        "queries": 2,
+        "single_query_absolute_error": 3.0,
+        "averaged_absolute_error": 3.0,
+        "absolute_error_reduction": 0.0,
+        "success": false
+      },
+      "utility": {
+        "accuracy": 0.863
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "differencing",
+      "condition": "governed_dp",
+      "meaningful": true,
+      "risk_score": 0.0,
+      "metrics": {
+        "inferred_contribution": -1.8999999999999986,
+        "absolute_error": 2.8999999999999986,
+        "success": false
+      },
+      "utility": {
+        "accuracy": 0.863
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    },
+    {
+      "attack": "aggregate_reconstruction",
+      "condition": "governed_dp",
+      "meaningful": true,
+      "risk_score": 0.0,
+      "metrics": {
+        "queries": 4,
+        "variables": 4,
+        "matrix_rank": 4,
+        "full_column_rank": true,
+        "reconstruction_accuracy": 0.0,
+        "reconstruction_rmse": 0.7516648189186454,
+        "majority_baseline": 0.5,
+        "reconstruction_advantage": 0.0
+      },
+      "utility": {
+        "accuracy": 0.863
+      },
+      "limitations": [
+        "These are empirical attacks against specified observations, not universal guarantees.",
+        "Governance controls access and evidence but does not by itself provide differential privacy.",
+        "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+        "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+        "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "attack": "aggregate_reconstruction",
+      "ordinary_risk": 1.0,
+      "governed_non_dp_risk": 1.0,
+      "governed_dp_risk": 0.0,
+      "governance_only_risk_change": 0.0,
+      "dp_risk_reduction_vs_ordinary": 1.0,
+      "dp_risk_reduction_vs_governed_non_dp": 1.0
+    },
+    {
+      "attack": "attribute_inference",
+      "ordinary_risk": 0.75,
+      "governed_non_dp_risk": 0.75,
+      "governed_dp_risk": 0.25,
+      "governance_only_risk_change": 0.0,
+      "dp_risk_reduction_vs_ordinary": 0.5,
+      "dp_risk_reduction_vs_governed_non_dp": 0.5
+    },
+    {
+      "attack": "differencing",
+      "ordinary_risk": 1.0,
+      "governed_non_dp_risk": 1.0,
+      "governed_dp_risk": 0.0,
+      "governance_only_risk_change": 0.0,
+      "dp_risk_reduction_vs_ordinary": 1.0,
+      "dp_risk_reduction_vs_governed_non_dp": 1.0
+    },
+    {
+      "attack": "membership_inference",
+      "ordinary_risk": 1.0,
+      "governed_non_dp_risk": 1.0,
+      "governed_dp_risk": 0.16666666666666674,
+      "governance_only_risk_change": 0.0,
+      "dp_risk_reduction_vs_ordinary": 0.8333333333333333,
+      "dp_risk_reduction_vs_governed_non_dp": 0.8333333333333333
+    },
+    {
+      "attack": "repeated_query_averaging",
+      "ordinary_risk": 1.0,
+      "governed_non_dp_risk": 1.0,
+      "governed_dp_risk": 0.0,
+      "governance_only_risk_change": 0.0,
+      "dp_risk_reduction_vs_ordinary": 1.0,
+      "dp_risk_reduction_vs_governed_non_dp": 1.0
+    }
+  ],
+  "limitations": [
+    "These are empirical attacks against specified observations, not universal guarantees.",
+    "Governance controls access and evidence but does not by itself provide differential privacy.",
+    "Differential privacy bounds a declared adjacency and release process; it does not prevent every leakage mode.",
+    "Repeated-query and differencing results depend on whether releases share or independently consume budget.",
+    "Aggregate reconstruction is meaningful only when the query system is sufficiently informative."
+  ]
+}

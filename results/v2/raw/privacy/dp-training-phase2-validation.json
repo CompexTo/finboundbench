@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "purposebound-finance.dp-training-pilot.v2",
+  "recordedAt": "2026-08-04T23:42:05.763904+00:00",
+  "status": "passed",
+  "seed": 20260802,
+  "dataset": {
+    "kind": "deterministic_synthetic_tabular",
+    "records": 512,
+    "features": 8,
+    "positiveLabels": 248,
+    "sha256": "7d5c77777d0f398c3e9b180a8fd423aeaa91a8f52a052b665444349d89a6862f"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "torch": "2.13.0+cpu",
+    "opacus": "1.6.0",
+    "device": "cpu"
+  },
+  "results": [
+    {
+      "config_name": "non_dp",
+      "private": false,
+      "actual_epsilon": null,
+      "delta": null,
+      "accountant": null,
+      "noise_multiplier": null,
+      "clipping_norm": null,
+      "sample_rate": 0.07804878048780488,
+      "batch_size": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8725490196078431,
+        "binary_log_loss": 0.34765362133938155
+      },
+      "runtime_seconds": 0.13771780004026368,
+      "model_hash": "54388565f29191de013d6736e8bec6cbcb8bf17a79709a2605d955320243b2ac",
+      "ledger_record": null
+    },
+    {
+      "config_name": "weak_dp",
+      "private": true,
+      "actual_epsilon": 13.274465080942651,
+      "delta": 1e-05,
+      "accountant": "rdp",
+      "noise_multiplier": 0.7,
+      "clipping_norm": 1.0,
+      "sample_rate": 0.07692307692307693,
+      "batch_size": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8529411764705882,
+        "binary_log_loss": 0.35717371275163545
+      },
+      "runtime_seconds": 0.25762799999210984,
+      "model_hash": "3135426c20f2116396298e2e5a6188a7b0d8c07baf535d23cc10a77aca48718d",
+      "ledger_record": null
+    },
+    {
+      "config_name": "medium_dp",
+      "private": true,
+      "actual_epsilon": 5.161475206080968,
+      "delta": 1e-05,
+      "accountant": "rdp",
+      "noise_multiplier": 1.1,
+      "clipping_norm": 1.0,
+      "sample_rate": 0.07692307692307693,
+      "batch_size": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8529411764705882,
+        "binary_log_loss": 0.35712707103126873
+      },
+      "runtime_seconds": 0.15428209997480735,
+      "model_hash": "db0924a83a35c0b236e17647b60dad02ecda9cd3d43abfb52609bbafc06b81d2",
+      "ledger_record": null
+    },
+    {
+      "config_name": "stronger_dp",
+      "private": true,
+      "actual_epsilon": 2.4968387038561017,
+      "delta": 1e-05,
+      "accountant": "rdp",
+      "noise_multiplier": 1.7,
+      "clipping_norm": 1.0,
+      "sample_rate": 0.07692307692307693,
+      "batch_size": 32,
+      "steps": 104,
+      "epochs": 8,
+      "utility": {
+        "accuracy": 0.8627450980392157,
+        "binary_log_loss": 0.35728212984314367
+      },
+      "runtime_seconds": 0.18501189997186884,
+      "model_hash": "9b3ee7f1f12050089e2bb086f54a7fcd7b5f87852ae6da1b174573936350bc8e",
+      "ledger_record": null
+    }
+  ],
+  "limitations": [
+    "This is a local research pilot, not a production model or paper-scale result.",
+    "Opacus secure_mode is disabled for reproducible, fast experimentation; a production release must retrain with a cryptographically secure RNG.",
+    "Differential privacy applies to the declared adjacency and release process and does not prevent every form of leakage."
+  ]
+}

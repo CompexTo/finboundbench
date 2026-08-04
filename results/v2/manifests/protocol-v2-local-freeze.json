@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "purposebound-finance.protocol-freeze.v2",
+  "recordedAt": "2026-08-04T23:48:57.131509+00:00",
+  "status": "FROZEN_WITH_LIMITATIONS",
+  "protocolId": "protocol-v2-local",
+  "scope": "LOCAL_IMPLEMENTATION_AND_BOUNDED_REMOTE_PILOTS",
+  "paperScaleComplete": false,
+  "researchCommit": "b4fac30cf1663be082b9e052496650be953cc91f",
+  "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+  "evidenceAudit": {
+    "path": "results/v2/derived/protocol-v2-local-evidence-audit.json",
+    "auditHash": "a6dc3d189557da623c3cafcfda19e12a4082d36bd38558e87f96cdee5d8e6730"
+  },
+  "artifactCount": 21,
+  "artifacts": [
+    {
+      "path": "configs/v2/protocol-v2-local.yaml",
+      "sha256": "fbf8d50a58ad47e1689710617acdda70918f002fe7e8793c9c0a71bd2912c67b",
+      "sizeBytes": 2636
+    },
+    {
+      "path": "configs/v2/openrouter-phase2.json",
+      "sha256": "c9acfd7f098644ceaa0741b3ed7a187c043129d957ce413c9a8ac12d2e47bd1e",
+      "sizeBytes": 4467
+    },
+    {
+      "path": "configs/v2/openrouter-condition-pilot-consent.json",
+      "sha256": "ce31980e1f6f184d2670c5d80000f9762abfb96cefda687c7feb58ebe6d7ae42",
+      "sizeBytes": 1494
+    },
+    {
+      "path": "docs/v2/PROTOCOL_READINESS.md",
+      "sha256": "fcc0f0b183bca402d52ed72cb82bca5bcbf751212f285fc8d8f13331e1c233c1",
+      "sizeBytes": 2972
+    },
+    {
+      "path": "docs/v2/PHASE2_RESULTS.md",
+      "sha256": "1ba408fb1e17662311c445bef1d069f78a4c322849239415d1c59f786761ab04",
+      "sizeBytes": 4225
+    },
+    {
+      "path": "results/v2/derived/protocol-v2-local-evidence-audit.json",
+      "sha256": "226bb534ae14781ea10234f864325c3b57f209190553b3b4ae3f18d1ae2568d8",
+      "sizeBytes": 7529
+    },
+    {
+      "path": "results/v2/derived/openrouter-claude-closure.json",
+      "sha256": "8be2ee85fcb23564ad58be76cf29a2562a7501960644394ce9e2c03e6f4e7495",
+      "sizeBytes": 3455
+    },
+    {
+      "path": "results/v2/derived/openrouter-position-diagnostic.json",
+      "sha256": "5ecf15f3955e26204db1517ba78956b1ba3be056a229900f4cd8f0b39bc526d9",
+      "sizeBytes": 5841
+    },
+    {
+      "path": "results/v2/derived/openrouter-reduced-governed-matrix.json",
+      "sha256": "79309aa493589d774835c765a35213522162da8d037d654672256bc8dde90b72",
+      "sizeBytes": 7812
+    },
+    {
+      "path": "results/v2/derived/openrouter-full-condition-pilot.json",
+      "sha256": "c81b01c6b5226ec0b5b410834b492dfe50ba7cf6916713ed91142d4d42a04ff5",
+      "sizeBytes": 6433
+    },
+    {
+      "path": "results/v2/raw/privacy/dp-training-phase2-validation.json",
+      "sha256": "b889d60b74d5b7bba5c58a79749d67463bcd0818b9353801c675f8ea353e6403",
+      "sizeBytes": 3400
+    },
+    {
+      "path": "results/v2/raw/privacy/privacy-attack-phase2-validation.json",
+      "sha256": "c04760df4cf4b9e15cd3eb3462df5b7279844dfaaa312736bf9f4c1f97df9664",
+      "sizeBytes": 17352
+    },
+    {
+      "path": "results/v2/raw/platform/local-attack-suite-phase2.json",
+      "sha256": "2eccfbd93f87dfa3617e38b31038b7fb4954f7d6686af03774940750f91c23c8",
+      "sizeBytes": 8477
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+      "sha256": "06633da79ee35fb4e05e773414aa5f0c7418876c6883e297d21af08e1ab9774f",
+      "sizeBytes": 67253
+    },
+    {
+      "path": "results/v2/manifests/hmda-2024-dc-source.json",
+      "sha256": "2150656b0a7c4bc21b56ccaf415069a25bc66bfb130d1c9a43d47b062ec6f745",
+      "sizeBytes": 1355
+    },
+    {
+      "path": "results/v2/manifests/hmda-2024-dc-transform.json",
+      "sha256": "3ab80de90fdc7df0a23253e75b78c5970df0b3e40d650613c099fc03e486ca9f",
+      "sizeBytes": 7805
+    },
+    {
+      "path": "results/v2/manifests/cfpb-2024-01-dc-source.json",
+      "sha256": "61ece09987f202c0cd91d0f31aa0efc87a76a7109d4c99620090e237862b60cf",
+      "sizeBytes": 1580
+    },
+    {
+      "path": "results/v2/manifests/cfpb-2024-01-dc-transform.json",
+      "sha256": "b8969efeda8939e026802247d99b503cf094e350d794316ea8f4e9c38b862ee8",
+      "sizeBytes": 7040
+    },
+    {
+      "path": "docs/v2/model-manifests/gemma4-31b.json",
+      "sha256": "1a0bce0b7602327e0717c69b98170e48fa0853b0bcb762a141ef5b6fe30e5149",
+      "sizeBytes": 1859
+    },
+    {
+      "path": "docs/v2/model-manifests/qwen3-4b.json",
+      "sha256": "937715f0240c236e1832913a33350e465383422a80e926763a97d4248284609e",
+      "sizeBytes": 2029
+    },
+    {
+      "path": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+      "sha256": "969a7200f8547f3c82d4b36024f24d0f83a2a15044a42d09acdca46b2f5226d0",
+      "sizeBytes": 10161
+    }
+  ],
+  "changePolicy": "Any material post-freeze change requires a protocol deviation entry and a new freeze manifest; this manifest remains immutable.",
+  "limitations": [
+    "This freezes a local implementation and bounded-pilot evidence snapshot, not a completed paper-scale experiment.",
+    "Retained provider and rate-limit failures are evidence; they were not retried or replaced by fallback routes.",
+    "The controlled condition pilot used one eight-record invocation per attempted condition and is not a population or causal estimate.",
+    "The privacy-attack pilot validates measurement plumbing over controlled observations and is not a universal leakage guarantee.",
+    "The trusted-host threat model excludes a malicious host administrator; hardware attestation was not deployed."
+  ],
+  "manifestHash": "72e99e0b2a550391af3afdcf90fc3a77bc100801460571e6817f42883a2c9c6c"
+}

@@ -39,8 +39,17 @@ def test_protocol_v2_dataset_and_model_references_are_self_contained() -> None:
 
     assert protocol["protocol_id"] == "protocol-v2-local"
     assert protocol["evidence_schema"] == "compex-evidence-v2"
-    assert protocol["freeze"]["status"] == "NOT_FROZEN"
-    _root_path(protocol["freeze"]["readiness_document"])
+    freeze = protocol["freeze"]
+    assert freeze["status"] == "FROZEN_WITH_LIMITATIONS"
+    assert freeze["scope"] == "LOCAL_IMPLEMENTATION_AND_BOUNDED_REMOTE_PILOTS"
+    assert freeze["paper_scale_complete"] is False
+    for key in (
+        "readiness_document",
+        "results_document",
+        "evidence_audit",
+        "freeze_manifest",
+    ):
+        _root_path(freeze[key])
 
     for dataset in protocol["official_datasets"].values():
         assert dataset["readiness"] == "READY"
@@ -70,3 +79,32 @@ def test_protocol_v2_dataset_and_model_references_are_self_contained() -> None:
 
     _root_path(protocol["remote_models"]["manifest"])
     _root_path(protocol["remote_models"]["matrix_config"])
+    _root_path(protocol["remote_models"]["phase2_config"])
+    _root_path(protocol["privacy_training"]["validation_artifact"])
+    _root_path(protocol["privacy_attacks"]["validation_artifact"])
+    _root_path(protocol["platform_security"]["attack_suite"])
+
+    audit = _load_json(_root_path(freeze["evidence_audit"]))
+    audit_hash = audit.pop("auditHash")
+    assert audit_hash == hashlib.sha256(
+        canonical_json(audit).encode("utf-8")
+    ).hexdigest()
+    assert audit["status"] == "PASSED_WITH_RETAINED_FAILURES"
+    assert audit["paperScaleComplete"] is False
+
+    freeze_manifest = _load_json(_root_path(freeze["freeze_manifest"]))
+    manifest_hash = freeze_manifest.pop("manifestHash")
+    assert manifest_hash == hashlib.sha256(
+        canonical_json(freeze_manifest).encode("utf-8")
+    ).hexdigest()
+    assert freeze_manifest["status"] == freeze["status"]
+    assert freeze_manifest["scope"] == freeze["scope"]
+    assert freeze_manifest["paperScaleComplete"] is False
+    assert freeze_manifest["evidenceAudit"]["auditHash"] == audit_hash
+    assert freeze_manifest["artifactCount"] == len(freeze_manifest["artifacts"])
+    paths = [item["path"] for item in freeze_manifest["artifacts"]]
+    assert len(paths) == len(set(paths))
+    for artifact in freeze_manifest["artifacts"]:
+        path = _root_path(artifact["path"])
+        assert artifact["sha256"] == sha256_file(path)
+        assert artifact["sizeBytes"] == path.stat().st_size

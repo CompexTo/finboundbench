@@ -363,3 +363,8 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   Opus 4.8: a current previous-generation frontier model whose live Amazon
   Bedrock ZDR route reports 100% five-minute uptime, strict structured output,
   and reasoning disabled by default. It receives one gate attempt only.
+- The manifest-bound 2,048-token Claude Sonnet 5 attempt also returned HTTP
+  400, rejecting the output-token-floor hypothesis and raising the ledger to
+  EUR 7.00424502. Sonnet 5 is closed. Opus 4.8 is the last authorized
+  Claude-family compatibility candidate; a failure will be reported rather
+  than followed by more paid diagnostics.

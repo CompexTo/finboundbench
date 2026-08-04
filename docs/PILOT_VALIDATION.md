@@ -118,3 +118,24 @@ Date: 2026-08-03
 
 This gate validates the local experimental plumbing only. It is not a
 forty-record pilot, a population estimate, a paper claim, or a freeze result.
+
+## Protocol-v2-local forty-record feasibility checkpoint
+
+Date: 2026-08-04
+
+- Preserved checkpoint:
+  `results/v2/raw/inference/forty-record-multi-model-pilot.jsonl.partial`
+- Checkpoint SHA-256:
+  `b6f8428ee71db7bc7961a979ff658123dfa64b5fe8d72eec452eff3f67bae85e`
+- Coverage attempted: 20 complete HMDA-derived pairs, six inference
+  conditions, and two pinned local models.
+- Qwen completed all six condition batches. Gemma's first full-data batch
+  failed closed at the bound 1,200-second deadline; the retained record reports
+  1,200.029 seconds and `ReadTimeout`.
+- The longer bounded Gemma retry did not produce a new checkpoint record after
+  host suspension. The run was stopped without promoting the `.partial` file.
+
+Result: the local 31B path is infeasible on this host for the forty-record
+matrix. This checkpoint is failed/incomplete evidence, not a benchmark result.
+The separately governed OpenRouter pilot may establish remote-path feasibility,
+but it remains a distinct condition and cannot be reported as local execution.

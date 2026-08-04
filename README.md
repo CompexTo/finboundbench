@@ -51,11 +51,11 @@ make build-agent
 ```
 
 Required Compex variables are `COMPEX_BASE_URL`, `COMPEX_API_KEY`,
-`COMPEX_ORG_ID`, and `COMPEX_WORKSPACE_ID`. The current Compex execution schema
-persists container environment metadata, so commercial model API keys are
-rejected by default. Use a local endpoint with a non-secret placeholder key for
-the smoke/pilot or add secure secret-reference support to Compex in a separately
-reviewed platform change.
+`COMPEX_ORG_ID`, and `COMPEX_WORKSPACE_ID`. The original v1 container adapter
+persists container environment metadata, so it continues to reject commercial
+model API keys. Protocol v2 uses the separately reviewed platform secret-reference
+path for its governed remote condition; it accepts only a reference to
+`OPENROUTER_API_KEY`, never a key in an execution DTO or recorded artifact.
 
 Run:
 

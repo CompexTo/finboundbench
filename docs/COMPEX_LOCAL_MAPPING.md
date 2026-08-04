@@ -184,13 +184,18 @@ and CPU limits, `Privileged: false`, and `no-new-privileges:true`. The worker
 currently forwards only `none` or Docker `bridge` for one-shot executions.
 A model endpoint requires `bridge`; offline projection stays at `none`.
 
-The local model-agent image must receive no commercial secret in its recorded
-environment. The current platform has no secret-reference injection mechanism
-for arbitrary execution containers. Consequently, the adapter must reject a
-non-placeholder model API key instead of persisting it in `ExecutionRun.env`.
-This limitation permits a local endpoint whose key is a non-secret placeholder
-(for example `local`) but blocks a commercial-key full run until secure secret
-injection exists.
+The original local model-agent image must receive no commercial secret in its
+recorded environment. That v1 adapter therefore rejects a non-placeholder model
+API key instead of persisting it in `ExecutionRun.env`. Protocol v2 does not
+weaken that rule: its governed OpenRouter condition runs through the platform's
+separate secret-reference model adapter. The execution contract contains only
+the reference identity and hash; the trusted runner resolves the value for the
+single allowlisted provider call and disposes the lease afterward.
+
+The v2 remote condition is not represented as local Docker isolation. It is
+classified as `REMOTE_PROVIDER_PROCESSING`, pseudonymizes direct identifiers,
+transmits only the approved projection, and requires native output release
+validation before a result is marked releasable.
 
 No model identifier, temperature, seed, prompt, or token schema exists natively
 in Compex. The research container must pass these to the OpenAI-compatible model

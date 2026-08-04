@@ -9,10 +9,15 @@
 - `OUTPUT_CONTROL` exists in the platform policy schema but is advisory in the
   inspected implementation. Structured-output and sentinel checks are emitted
   by the research-owned agent running inside Compex and are labelled as such.
-- The current arbitrary-execution schema persists environment metadata and has
-  no secure secret-reference mechanism. The Compex condition therefore rejects
-  commercial model keys and is limited to endpoints that accept a non-secret
-  placeholder credential until that platform capability is added and reviewed.
+- The original v1 arbitrary-execution adapter persists environment metadata and
+  therefore still rejects commercial model keys. The protocol-v2 remote
+  condition uses the reviewed platform secret-reference adapter instead. Its
+  projection is processed by OpenRouter and the selected upstream provider, so
+  it is explicitly classified as remote processing rather than local execution.
+- Per-request OpenRouter controls require parameter support, deny providers that
+  collect data, require zero-data-retention routing, and disable fallbacks.
+  These controls reduce retention and substitution risk but do not make remote
+  processing equivalent to an offline or hardware-attested local backend.
 - The benchmark uses deterministic synthetic records. Results may not transfer
   to real financial distributions, longer conversations, multimodal inputs, or
   production tool chains.

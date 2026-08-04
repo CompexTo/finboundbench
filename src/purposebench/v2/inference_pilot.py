@@ -150,6 +150,7 @@ def condition_prompts(
     elif condition in {
         ExperimentCondition.COMPEX_GOVERNED_LOCAL,
         ExperimentCondition.COMPEX_GOVERNED_LOCAL_OUTPUT_CONTROLS,
+        ExperimentCondition.COMPEX_GOVERNED_REMOTE,
     }:
         system = (
             "Immutable purpose contract: perform mortgage application triage using only the "
@@ -744,8 +745,11 @@ def build_inference_manifest(
                 ),
             },
             "compex_governed_remote": {
-                "status": "blocked",
-                "reason": "OPENAI_API_KEY is not configured in .env.research.local",
+                "status": "separate_pilot",
+                "reason": (
+                    "The governed OpenRouter condition is recorded by the separate "
+                    "checkpointed remote pilot."
+                ),
                 "keyValueInspected": False,
             },
         },

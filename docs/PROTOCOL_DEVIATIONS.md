@@ -167,3 +167,45 @@ tests after tag `protocol-v1` must be appended here before additional runs.
 - These incomplete archives are acquisition diagnostics, not source datasets
   or benchmark results. The eventual source manifest alone defines the exact
   official snapshot used for transformation.
+
+## 2026-08-04 - bounded CFPB acquisition attempts remain incomplete
+
+- A 16-range version-locked retry was stopped after the official host repeatedly
+  throttled requests. Its 16 recovery segments remain under
+  `data/v2/raw/cfpb-complaints.csv.zip.failed-throttled-16-20260803.segments`
+  (38,797,312 bytes). The canonical tree digest is
+  `19e93cce65e3a4985bfa348c9a06929dec7f0054f82c438b1842409f5a47c501`.
+- A lower-concurrency four-range retry ran across a host suspension and process
+  lifetime boundary without completing. Its 13 recovery files remain under
+  `data/v2/raw/cfpb-complaints.csv.zip.failed-host-lifetime-4-20260804.segments`
+  (600,834,048 bytes). The canonical tree digest is
+  `e211ad4199ec8620242f070fb69212049b39dc84e72ebb126c2bd28eea8e7af6`.
+- Each tree digest hashes the UTF-8, newline-separated, path-sorted records
+  `<relative-path><TAB><byte-length><TAB><file-sha256>` with no trailing newline.
+  Neither directory is a source snapshot or eligible transformation input.
+
+## 2026-08-04 - local forty-record feasibility failure and remote fallback
+
+- The append-only local checkpoint is preserved as
+  `results/v2/raw/inference/forty-record-multi-model-pilot.jsonl.partial`
+  (SHA-256 `b6f8428ee71db7bc7961a979ff658123dfa64b5fe8d72eec452eff3f67bae85e`).
+  It contains six successful Qwen condition batches and one retained Gemma
+  full-data timeout at 1,200.029 seconds.
+- A Gemma retry with the predeclared 2,700,000-millisecond deadline crossed a
+  host suspension/lifetime boundary and produced no additional result record.
+  The two exact stuck pilot processes were stopped after confirming the
+  checkpoint had not advanced. The failed recorded attempt was not removed or
+  rewritten.
+- Local `gemma4:31b` is therefore operationally infeasible for this 40-record
+  pilot on the current host. The partial local matrix is diagnostic only and is
+  not a successful multi-model pilot or a paper claim.
+- Before any remote request, a separate governed OpenRouter fallback was added
+  for the exact model `google/gemma-3-27b-it`. It uses only the approved
+  pseudonymized projection, one default-deny allowlisted call, strict structured
+  output, no retries or provider fallbacks, provider data-collection denial,
+  zero-data-retention routing, native Compex release validation, and a EUR 0.25
+  execution cap.
+- Remote results will be stored separately and classified as
+  `REMOTE_PROVIDER_PROCESSING`. They do not replace, complete, or rewrite the
+  failed local checkpoint. No API key value is recorded in the protocol,
+  command line, execution DTO, logs, or evidence artifacts.

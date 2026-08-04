@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "purposebound-finance.remote-pilot-manifest.v2",
+  "recordedAt": "2026-08-04T20:05:36.155798+00:00",
+  "status": "passed",
+  "rawArtifact": "results/v2/raw/inference/openrouter-frontier-smoke-meta-llama-llama-4-maverick.jsonl",
+  "rawArtifactSha256": "7aae1409a85560e1dde809b5b0264b538a0dd0bf230cb764ff68852aa95aa653",
+  "attemptCount": 2,
+  "failedAttemptCount": 1,
+  "model": "meta-llama/llama-4-maverick",
+  "processingClassification": "REMOTE_PROVIDER_PROCESSING",
+  "cost": {
+    "amount": 0.0001148,
+    "amountEur": 0.0001148,
+    "currency": "USD",
+    "pricingSource": "RESEARCH_MANIFEST_CONSERVATIVE_USD_EUR_PARITY_CEILING",
+    "pricingTimestamp": "2026-08-04T19:45:21.121Z"
+  },
+  "providerReportedCost": {
+    "amount": 0.0001148,
+    "source": "OPENROUTER_RESPONSE_USAGE_COST",
+    "unit": "OPENROUTER_CREDITS"
+  },
+  "pairMetrics": null,
+  "localFallback": {
+    "artifact": "results/v2/raw/inference/forty-record-multi-model-pilot.jsonl.partial",
+    "artifactSha256": "b6f8428ee71db7bc7961a979ff658123dfa64b5fe8d72eec452eff3f67bae85e",
+    "failedGemmaAttempts": 1,
+    "reason": "The local 31B forty-record batch exceeded its bounded runtime."
+  },
+  "limitations": [
+    "The transmitted projection was processed remotely through OpenRouter.",
+    "Public official records are protected research assets, not confidential data.",
+    "Synthetic internal fields were denied and were not transmitted.",
+    "Pseudonymization reduces direct identifiers but is not anonymization.",
+    "This pilot validates governed plumbing and is not a paper claim."
+  ],
+  "frontierMatrix": {
+    "matrixHash": "9e92254fb39e9b361377cf1b37d2deae0dde0e46c1433541f8a2b08fb4bbc319",
+    "modelManifest": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+    "phase": "smoke"
+  },
+  "budget": {
+    "reservationId": "c01b58e1-a164-477a-86c6-13c9b0aacad1",
+    "authorizedCostEur": 0.25,
+    "budgetDebitEur": 0.0001148,
+    "providerReportedCost": {
+      "amount": 0.0001148,
+      "source": "OPENROUTER_RESPONSE_USAGE_COST",
+      "unit": "OPENROUTER_CREDITS"
+    },
+    "committedMatrixBudgetEur": 3.7532468,
+    "totalAuthorizedCostEur": 10.0,
+    "ledgerArtifact": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 24,
+    "ledgerPrefixHash": "e69857db1c8c0c71c4e441ab3e96f8d05885ac4afc0bbcf467c70c70f7e91d80"
+  }
+}

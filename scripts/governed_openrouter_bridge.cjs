@@ -92,8 +92,12 @@ async function main() {
     const providerOnly = Array.isArray(manifest.providerRouting?.only)
       ? manifest.providerRouting.only.map(String)
       : [];
-    if (providerOnly.length !== 1) {
-      throw new Error('OpenRouter model manifest must pin one provider route');
+    if (
+      providerOnly.length !== 1
+      || manifest.providerRouting?.allowFallbacks !== false
+      || manifest.providerRouting?.zeroDataRetention !== true
+    ) {
+      throw new Error('OpenRouter model manifest must pin one ZDR provider route');
     }
     for (const required of ['response_format', 'structured_outputs']) {
       if (!supportedParameters.includes(required)) {

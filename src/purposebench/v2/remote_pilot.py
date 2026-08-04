@@ -166,9 +166,17 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
     routing = manifest["providerRouting"]
     if (
         not isinstance(routing, dict)
-        or len(routing.get("only", [])) != 1
+        or not isinstance(routing.get("only"), list)
+        or len(routing["only"]) != 1
+        or not re.fullmatch(
+            r"[a-z0-9][a-z0-9-]*(?:/[a-z0-9][a-z0-9-]*)?",
+            str(routing["only"][0]),
+        )
         or routing.get("allowFallbacks") is not False
         or routing.get("zeroDataRetention") is not True
+        or not re.fullmatch(
+            r"[a-f0-9]{64}", str(manifest["routingEndpointSnapshotSha256"])
+        )
     ):
         raise ValueError("remote model provider route is not pinned and ZDR-bound")
     prices = manifest["budgetCeilingUsdPerToken"]

@@ -1,9 +1,15 @@
 from pathlib import Path
 
-from purposebench.utils import sha256_file
+import pytest
+
+from purposebench.utils import sha256_file, sha256_json
 from purposebench.v2.experiments import ExperimentCondition
 from purposebench.v2.inference_pilot import condition_prompts, load_paired_records
-from purposebench.v2.remote_pilot import _node_binary, prepare_remote_batch
+from purposebench.v2.remote_pilot import (
+    _node_binary,
+    prepare_remote_batch,
+    validate_remote_model_manifest,
+)
 
 
 def _dataset_path() -> Path:
@@ -46,3 +52,57 @@ def test_one_record_remote_smoke_can_retain_an_incomplete_pair() -> None:
 
 def test_remote_bridge_resolves_a_supported_node_runtime() -> None:
     assert Path(_node_binary()).is_file()
+
+
+def _remote_manifest() -> dict[str, object]:
+    manifest: dict[str, object] = {
+        "artifactSlug": "provider-model",
+        "budgetCeilingUsdPerToken": {
+            "prompt": "0.000001",
+            "completion": "0.000002",
+        },
+        "canonicalSlug": "provider/model-20260804",
+        "capturedAt": "2026-08-04T00:00:00Z",
+        "contextSize": 4096,
+        "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+        "metadataResponseSha256": "a" * 64,
+        "modelId": "provider/model-20260804",
+        "modelVersion": "provider/model-20260804",
+        "provider": "OPENROUTER",
+        "providerRouting": {
+            "only": ["provider/region"],
+            "allowFallbacks": False,
+            "zeroDataRetention": True,
+        },
+        "routingEndpointSnapshotSha256": "b" * 64,
+        "supportedParameters": [
+            "max_completion_tokens",
+            "response_format",
+            "structured_outputs",
+        ],
+    }
+    manifest["manifestHash"] = sha256_json(manifest)
+    return manifest
+
+
+def test_remote_manifest_accepts_provider_specific_output_token_parameter() -> None:
+    manifest = _remote_manifest()
+    assert validate_remote_model_manifest(manifest)["manifestHash"] == manifest["manifestHash"]
+
+
+@pytest.mark.parametrize(
+    "routing",
+    [
+        {"only": "provider", "allowFallbacks": False, "zeroDataRetention": True},
+        {"only": ["provider"], "allowFallbacks": True, "zeroDataRetention": True},
+        {"only": ["provider"], "allowFallbacks": False, "zeroDataRetention": False},
+    ],
+)
+def test_remote_manifest_rejects_unbound_provider_routing(routing: object) -> None:
+    manifest = _remote_manifest()
+    manifest["providerRouting"] = routing
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    with pytest.raises(ValueError, match="provider route"):
+        validate_remote_model_manifest(manifest)

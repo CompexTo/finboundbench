@@ -57,3 +57,13 @@ while preserving the absolute EUR 10 stop.
 These runs validate governed remote processing and compare model behavior. They
 do not show that the transmitted projection remained local, and smoke or pilot
 results are not paper claims.
+
+## Retained smoke checkpoint
+
+The second sweep produced complete, validated one-record results for GPT-5.6
+Luna, Kimi K3, and Llama 4 Maverick. Gemma 4 and DeepSeek V4 Pro returned
+provider HTTP 429 from their pinned routes, while Claude Opus 5 returned HTTP
+400. All three failures remain in their append-only partial streams. After
+settling the successful calls to their conservative token costs, the cumulative
+ledger debit is EUR 3.7532468. No pilot interpretation is allowed until each
+model's smoke gate passes.

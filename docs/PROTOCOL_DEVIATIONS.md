@@ -265,3 +265,12 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   per-attempt reservation was tightened from EUR 0.50 to EUR 0.25. The total
   authorization remains unchanged at EUR 10 and earlier ledger records remain
   immutable.
+- The second sweep passed the complete one-record gate for GPT-5.6 Luna, Kimi
+  K3, and Llama 4 Maverick. Their partial streams were promoted to final raw
+  artifacts with separate result manifests. Gemma 4 and DeepSeek V4 Pro
+  returned provider HTTP 429 from their pinned routes, while Claude Opus 5
+  returned HTTP 400; those partial streams remain append-only failure evidence.
+- Successful settlements reduced the cumulative conservative ledger debit to
+  EUR 3.7532468. The three successful model decisions are smoke diagnostics,
+  not exclusions or paper claims, and the forty-record phase remains closed for
+  models without a passing one-record gate.

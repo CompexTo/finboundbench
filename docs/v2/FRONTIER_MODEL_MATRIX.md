@@ -65,6 +65,9 @@ These runs validate governed remote processing and compare model behavior. They
 do not show that the transmitted projection remained local, and smoke or pilot
 results are not paper claims.
 
+The completed pilot and its interpretation limits are reported in
+`docs/v2/FRONTIER_MODEL_RESULTS.md`.
+
 ## Retained smoke checkpoint
 
 The second sweep produced complete, validated one-record results for GPT-5.6

@@ -1,0 +1,350 @@
+{
+  "schemaVersion": "purposebound-finance.frontier-comparison.v2",
+  "derivedAt": "2026-08-04T20:37:07.602526+00:00",
+  "matrixHash": "1e1b6bb0bdc167e857bad1fc7a38b3d79f4751c3807da353b5e24e0c1547af43",
+  "dataset": "data/v2/generated/hmda-2024-dc-pairs.jsonl",
+  "datasetSha256": "b1f40648d1a89efb31539ea3864d7e636e0217e22d3bf3fd91d2030d1cb304f6",
+  "transmittedRecordHash": "975fa058705a7d0e139f8cfbcec54dbb81cddc7ed04a7b9e0db209b4c32f6357",
+  "eligibleModelCount": 5,
+  "configuredModelCount": 6,
+  "recordsPerModel": 40,
+  "pairsPerModel": 20,
+  "models": [
+    {
+      "modelId": "google/gemma-4-26b-a4b-it",
+      "canonicalSlug": "google/gemma-4-26b-a4b-it-20260403",
+      "providerRoute": [
+        "nextbit/bf16"
+      ],
+      "status": "PASSED",
+      "records": 40,
+      "pairs": 20,
+      "decisionCounts": {
+        "MANUAL_REVIEW": 22,
+        "STANDARD_REVIEW": 18
+      },
+      "manualReviewRate": 0.55,
+      "standardReviewRate": 0.45,
+      "riskScore": {
+        "minimum": 5.0,
+        "mean": 34.5,
+        "maximum": 85.0,
+        "populationStdDev": 25.04495957273639
+      },
+      "paired": {
+        "decisionAgreementRate": 1.0,
+        "riskScoreExactAgreementRate": 1.0,
+        "meanAbsoluteRiskScoreDelta": 0.0
+      },
+      "durationSeconds": 7.091,
+      "tokenUse": {
+        "inputTokens": 10936,
+        "outputTokens": 540,
+        "totalTokens": 11476
+      },
+      "conservativeDebitEur": 0.0014743199999999999,
+      "providerReportedCost": {
+        "amount": 0.00147432,
+        "source": "OPENROUTER_RESPONSE_USAGE_COST",
+        "unit": "OPENROUTER_CREDITS"
+      }
+    },
+    {
+      "modelId": "openai/gpt-5.6-luna",
+      "canonicalSlug": "openai/gpt-5.6-luna-20260709",
+      "providerRoute": [
+        "azure"
+      ],
+      "status": "PASSED",
+      "records": 40,
+      "pairs": 20,
+      "decisionCounts": {
+        "MANUAL_REVIEW": 24,
+        "STANDARD_REVIEW": 16
+      },
+      "manualReviewRate": 0.6,
+      "standardReviewRate": 0.4,
+      "riskScore": {
+        "minimum": 12.0,
+        "mean": 49.1,
+        "maximum": 78.0,
+        "populationStdDev": 22.122160834782843
+      },
+      "paired": {
+        "decisionAgreementRate": 1.0,
+        "riskScoreExactAgreementRate": 1.0,
+        "meanAbsoluteRiskScoreDelta": 0.0
+      },
+      "durationSeconds": 3.711,
+      "tokenUse": {
+        "inputTokens": 8092,
+        "outputTokens": 284,
+        "totalTokens": 8376
+      },
+      "conservativeDebitEur": 0.009796000000000001,
+      "providerReportedCost": {
+        "amount": 0.009796,
+        "source": "OPENROUTER_RESPONSE_USAGE_COST",
+        "unit": "OPENROUTER_CREDITS"
+      }
+    },
+    {
+      "modelId": "anthropic/claude-opus-4.8",
+      "status": "INELIGIBLE_SMOKE_GATE",
+      "failedSmokeAttempts": 1,
+      "pilotNetworkCalls": 0
+    },
+    {
+      "modelId": "deepseek/deepseek-v4-pro",
+      "canonicalSlug": "deepseek/deepseek-v4-pro-20260423",
+      "providerRoute": [
+        "parasail/fp8"
+      ],
+      "status": "PASSED",
+      "records": 40,
+      "pairs": 20,
+      "decisionCounts": {
+        "MANUAL_REVIEW": 30,
+        "STANDARD_REVIEW": 10
+      },
+      "manualReviewRate": 0.75,
+      "standardReviewRate": 0.25,
+      "riskScore": {
+        "minimum": 1.0,
+        "mean": 4.0,
+        "maximum": 5.0,
+        "populationStdDev": 1.7320508075688772
+      },
+      "paired": {
+        "decisionAgreementRate": 1.0,
+        "riskScoreExactAgreementRate": 1.0,
+        "meanAbsoluteRiskScoreDelta": 0.0
+      },
+      "durationSeconds": 10.543,
+      "tokenUse": {
+        "inputTokens": 8798,
+        "outputTokens": 422,
+        "totalTokens": 9220
+      },
+      "conservativeDebitEur": 0.01677708,
+      "providerReportedCost": {
+        "amount": 0.01677708,
+        "source": "OPENROUTER_RESPONSE_USAGE_COST",
+        "unit": "OPENROUTER_CREDITS"
+      }
+    },
+    {
+      "modelId": "moonshotai/kimi-k3",
+      "canonicalSlug": "moonshotai/kimi-k3-20260715",
+      "providerRoute": [
+        "morph"
+      ],
+      "status": "PASSED",
+      "records": 40,
+      "pairs": 20,
+      "decisionCounts": {
+        "MANUAL_REVIEW": 26,
+        "STANDARD_REVIEW": 14
+      },
+      "manualReviewRate": 0.65,
+      "standardReviewRate": 0.35,
+      "riskScore": {
+        "minimum": 18.0,
+        "mean": 48.15,
+        "maximum": 78.0,
+        "populationStdDev": 18.276419233536966
+      },
+      "paired": {
+        "decisionAgreementRate": 1.0,
+        "riskScoreExactAgreementRate": 1.0,
+        "meanAbsoluteRiskScoreDelta": 0.0
+      },
+      "durationSeconds": 8.641,
+      "tokenUse": {
+        "inputTokens": 8476,
+        "outputTokens": 288,
+        "totalTokens": 8764
+      },
+      "conservativeDebitEur": 0.029748,
+      "providerReportedCost": {
+        "amount": 0.0286124,
+        "source": "OPENROUTER_RESPONSE_USAGE_COST",
+        "unit": "OPENROUTER_CREDITS"
+      }
+    },
+    {
+      "modelId": "meta-llama/llama-4-maverick",
+      "canonicalSlug": "meta-llama/llama-4-maverick-17b-128e-instruct",
+      "providerRoute": [
+        "deepinfra/base"
+      ],
+      "status": "PASSED",
+      "records": 40,
+      "pairs": 20,
+      "decisionCounts": {
+        "MANUAL_REVIEW": 18,
+        "STANDARD_REVIEW": 22
+      },
+      "manualReviewRate": 0.45,
+      "standardReviewRate": 0.55,
+      "riskScore": {
+        "minimum": 0.0,
+        "mean": 0.5,
+        "maximum": 1.0,
+        "populationStdDev": 0.5
+      },
+      "paired": {
+        "decisionAgreementRate": 1.0,
+        "riskScoreExactAgreementRate": 1.0,
+        "meanAbsoluteRiskScoreDelta": 0.0
+      },
+      "durationSeconds": 9.686,
+      "tokenUse": {
+        "inputTokens": 8115,
+        "outputTokens": 459,
+        "totalTokens": 8574
+      },
+      "conservativeDebitEur": 0.0019901999999999997,
+      "providerReportedCost": {
+        "amount": 0.0019902,
+        "source": "OPENROUTER_RESPONSE_USAGE_COST",
+        "unit": "OPENROUTER_CREDITS"
+      }
+    }
+  ],
+  "crossModel": {
+    "passingModelIds": [
+      "deepseek/deepseek-v4-pro",
+      "google/gemma-4-26b-a4b-it",
+      "meta-llama/llama-4-maverick",
+      "moonshotai/kimi-k3",
+      "openai/gpt-5.6-luna"
+    ],
+    "unanimousDecisionRecords": 12,
+    "unanimousDecisionRate": 0.3,
+    "majorityDecisionCounts": {
+      "MANUAL_REVIEW": 26,
+      "STANDARD_REVIEW": 14
+    },
+    "pairwise": [
+      {
+        "leftModelId": "deepseek/deepseek-v4-pro",
+        "rightModelId": "google/gemma-4-26b-a4b-it",
+        "decisionAgreementRate": 0.7,
+        "riskScoreSpearmanCorrelation": 0.4469827755643239
+      },
+      {
+        "leftModelId": "deepseek/deepseek-v4-pro",
+        "rightModelId": "meta-llama/llama-4-maverick",
+        "decisionAgreementRate": 0.5,
+        "riskScoreSpearmanCorrelation": 0.11547005383792515
+      },
+      {
+        "leftModelId": "deepseek/deepseek-v4-pro",
+        "rightModelId": "moonshotai/kimi-k3",
+        "decisionAgreementRate": 0.9,
+        "riskScoreSpearmanCorrelation": 0.19023794624226834
+      },
+      {
+        "leftModelId": "deepseek/deepseek-v4-pro",
+        "rightModelId": "openai/gpt-5.6-luna",
+        "decisionAgreementRate": 0.65,
+        "riskScoreSpearmanCorrelation": -0.1402280560373889
+      },
+      {
+        "leftModelId": "google/gemma-4-26b-a4b-it",
+        "rightModelId": "meta-llama/llama-4-maverick",
+        "decisionAgreementRate": 0.5,
+        "riskScoreSpearmanCorrelation": -0.2199422947118084
+      },
+      {
+        "leftModelId": "google/gemma-4-26b-a4b-it",
+        "rightModelId": "moonshotai/kimi-k3",
+        "decisionAgreementRate": 0.7,
+        "riskScoreSpearmanCorrelation": 0.18766272996118724
+      },
+      {
+        "leftModelId": "google/gemma-4-26b-a4b-it",
+        "rightModelId": "openai/gpt-5.6-luna",
+        "decisionAgreementRate": 0.45,
+        "riskScoreSpearmanCorrelation": -0.2796921205628653
+      },
+      {
+        "leftModelId": "meta-llama/llama-4-maverick",
+        "rightModelId": "moonshotai/kimi-k3",
+        "decisionAgreementRate": 0.6,
+        "riskScoreSpearmanCorrelation": 0.29481738963820076
+      },
+      {
+        "leftModelId": "meta-llama/llama-4-maverick",
+        "rightModelId": "openai/gpt-5.6-luna",
+        "decisionAgreementRate": 0.75,
+        "riskScoreSpearmanCorrelation": 0.11276669750513757
+      },
+      {
+        "leftModelId": "moonshotai/kimi-k3",
+        "rightModelId": "openai/gpt-5.6-luna",
+        "decisionAgreementRate": 0.55,
+        "riskScoreSpearmanCorrelation": 0.44904102460998646
+      }
+    ]
+  },
+  "budget": {
+    "authorizedEur": 10.0,
+    "committedEur": 7.31403062,
+    "remainingEur": 2.68596938,
+    "pilotConservativeDebitEur": 0.0597856,
+    "knownProviderReportedCostOpenRouterCredits": 0.06279612,
+    "failedCallsWithoutCostEvidenceRemainFullyDebited": true
+  },
+  "sourceArtifacts": [
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-google-gemma-4-26b-a4b-it.jsonl",
+      "sha256": "1e344f40f19f654a2605ec4588134da03e49ca2b76300043db08b7ae2f909e39"
+    },
+    {
+      "path": "results/v2/manifests/openrouter-frontier-pilot-google-gemma-4-26b-a4b-it.json",
+      "sha256": "f028578c100e07f6f58aefa901db6ec177ad899f6e56a1503c62b6155327589d"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-openai-gpt-5-6-luna.jsonl",
+      "sha256": "c44208277a6f1b1cc9c59a799d89c52bb7dab8f377885fafc5f7551d64d8d1b7"
+    },
+    {
+      "path": "results/v2/manifests/openrouter-frontier-pilot-openai-gpt-5-6-luna.json",
+      "sha256": "fe5059a0366e986bcfc224afb6b556a003970565a065fac9d7fad178884ea6b6"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-deepseek-deepseek-v4-pro.jsonl",
+      "sha256": "426de87a0fc10ffeb4fc125ad1ee92ecdc50417b98afb687f44f2e276d5a5d11"
+    },
+    {
+      "path": "results/v2/manifests/openrouter-frontier-pilot-deepseek-deepseek-v4-pro.json",
+      "sha256": "ce0a0102e67763b7355f91cc05f2b0770a80ba59ff87f7765be520dfa00eb9a5"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-moonshotai-kimi-k3.jsonl",
+      "sha256": "3a9ba4f14e364566ae8116818b465da7bb76e1806aed743f913b8bf2cc9b0553"
+    },
+    {
+      "path": "results/v2/manifests/openrouter-frontier-pilot-moonshotai-kimi-k3.json",
+      "sha256": "51865f1ea8e2d526e54787c6ebd7c82c7c6c48fdda72fe00c6bfa19bc237334e"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-meta-llama-llama-4-maverick.jsonl",
+      "sha256": "41fe1181a1574a711f13b3f792de872ab69b03224ef8df8ee9bbcd276038b1d2"
+    },
+    {
+      "path": "results/v2/manifests/openrouter-frontier-pilot-meta-llama-llama-4-maverick.json",
+      "sha256": "001cc78f631134ef243d07d6ec54ac6816cf999c64ef883d9dd3ab4f5bfdf83d"
+    }
+  ],
+  "limitations": [
+    "This is a 40-record diagnostic pilot, not a population estimate.",
+    "Risk-score scales are model-specific; rank correlations do not make them calibrated.",
+    "Paired agreement tests the selected transformations only and is not a general fairness guarantee.",
+    "Claude is absent from cross-model metrics because no Claude smoke gate passed.",
+    "Remote processing occurred through OpenRouter under pinned ZDR routes."
+  ],
+  "comparisonHash": "f6ed1455494443903399e7f48f3064695dd8d8638971ae0c92a39b662a452798"
+}

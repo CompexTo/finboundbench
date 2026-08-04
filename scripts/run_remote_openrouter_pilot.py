@@ -47,6 +47,7 @@ def main() -> None:
     parser.add_argument("--platform-root", type=Path, required=True)
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--pairs", type=int, required=True)
+    parser.add_argument("--records", type=int)
     parser.add_argument("--raw-name", required=True)
     parser.add_argument("--manifest-name", required=True)
     parser.add_argument("--local-fallback", type=Path, required=True)
@@ -58,6 +59,7 @@ def main() -> None:
         platform_root=args.platform_root.resolve(),
         dataset_path=args.dataset.resolve(),
         pair_limit=args.pairs,
+        record_limit=args.records,
         output_name=args.raw_name,
         workload_image_digest=_image_digest(args.image),
     )

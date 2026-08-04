@@ -121,6 +121,7 @@ def run_remote_pilot(
     platform_root: Path,
     dataset_path: Path,
     pair_limit: int,
+    record_limit: int | None,
     output_name: str,
     workload_image_digest: str,
     seed: int = 20260802,
@@ -132,7 +133,10 @@ def run_remote_pilot(
     if final_path.exists():
         raise FileExistsError(final_path)
     final_path.parent.mkdir(parents=True, exist_ok=True)
-    dedupe = f"openrouter-gemma-3-27b-it|{REMOTE_CONDITION.value}|pairs={pair_limit}"
+    if record_limit is not None and record_limit < 1:
+        raise ValueError("record_limit must be positive when provided")
+    scope = f"records={record_limit}" if record_limit is not None else f"pairs={pair_limit}"
+    dedupe = f"openrouter-gemma-3-27b-it|{REMOTE_CONDITION.value}|{scope}"
     successful = {
         row["dedupeKey"]
         for row in read_jsonl(partial_path)
@@ -140,6 +144,12 @@ def run_remote_pilot(
     }
     if dedupe not in successful:
         rows = load_paired_records(dataset_path, pair_limit)
+        if record_limit is not None:
+            rows = rows[:record_limit]
+        pair_counts: dict[str, int] = {}
+        for row in rows:
+            pair_id = str(row["pair_id"])
+            pair_counts[pair_id] = pair_counts.get(pair_id, 0) + 1
         case_ids = [str(row["case_id"]) for row in rows]
         schema = response_schema(case_ids)
         dataset_sha256 = sha256_file(dataset_path)
@@ -234,7 +244,8 @@ def run_remote_pilot(
                     "\\", "/"
                 ),
                 "datasetSha256": dataset_sha256,
-                "pairCount": pair_limit,
+                "pairCount": len(pair_counts),
+                "completePairCount": sum(count == 2 for count in pair_counts.values()),
                 "recordCount": len(rows),
                 "condition": REMOTE_CONDITION.value,
                 "conditionPlan": CONDITION_PLANS[REMOTE_CONDITION].model_dump(
@@ -257,7 +268,11 @@ def run_remote_pilot(
                 "normalizedResultsHash": sha256_json(normalized),
                 "releaseAllowed": True,
                 "disclosureFindings": findings,
-                "pairMetrics": _pair_agreement(normalized, rows),
+                "pairMetrics": (
+                    _pair_agreement(normalized, rows)
+                    if all(count == 2 for count in pair_counts.values())
+                    else None
+                ),
                 "modelEvidence": evidence,
                 "nativeReleaseEvidence": native_release,
             }

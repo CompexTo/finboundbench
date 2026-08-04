@@ -36,3 +36,9 @@ def test_remote_prompt_uses_the_immutable_purpose_contract() -> None:
     )["system"]
     assert "Immutable purpose contract" in prompt
     assert "No tools or network calls are authorized" in prompt
+
+
+def test_one_record_remote_smoke_can_retain_an_incomplete_pair() -> None:
+    rows = load_paired_records(_dataset_path(), pair_limit=1)[:1]
+    assert len(rows) == 1
+    assert len({str(row["pair_id"]) for row in rows}) == 1

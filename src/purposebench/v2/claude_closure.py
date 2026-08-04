@@ -165,4 +165,3 @@ def build_claude_closure_report(root: Path, config_path: Path) -> dict[str, Any]
     material.pop("closureHash")
     report["closureHash"] = sha256_json(material)
     return report
-

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "purposebound-finance.claude-closure.v2",
+  "status": "FORMALLY_CLOSED",
+  "closedAt": "2026-08-04T22:58:48.512976+00:00",
+  "closureReason": "NO_TESTED_CLAUDE_OPENROUTER_COMBINATION_SATISFIED_EXECUTION_CONTRACT",
+  "decision": "NO_ADDITIONAL_CLAUDE_ATTEMPT_WITHOUT_NEW_MATERIAL_METADATA",
+  "evidenceCommit": "f94d4ef3dce9c64a94c6f8dd63c0e69e01680080",
+  "selectedCandidate": {
+    "modelId": "anthropic/claude-opus-5",
+    "canonicalCatalogSlug": "anthropic/claude-opus-5-20260723",
+    "route": "amazon-bedrock",
+    "modelManifestHash": "a7b69a21e56b906b5879d8e766124255565267b54d640b14b6fabb58d6e3692d",
+    "contractHash": "56dd3cc516c1bb567004e08dc74ac8d6b6772f0be41fa553134c2462f0f78a56"
+  },
+  "gates": {
+    "gate0": "PASSED_LOCAL_ONLY",
+    "gate1": "FAILED_CLOSED_PROVIDER_ROUTING",
+    "gate2": "NOT_RUN_GATE1_REQUIRED",
+    "gate3": "NOT_RUN_GATE2_REQUIRED",
+    "gate4": "NOT_RUN_POSITION_DIAGNOSTIC_REQUIRED"
+  },
+  "newAuthorization": {
+    "maximumProviderAttempts": 3,
+    "providerCallsMade": 1,
+    "automaticRetries": 0,
+    "fallbacks": 0,
+    "unusedAttemptCapacity": 2,
+    "unusedAttemptsAreNotARequirement": true
+  },
+  "failureInventory": {
+    "priorFailureCount": 13,
+    "newFailureCount": 1,
+    "totalDocumentedFailures": 14,
+    "matchingPriorRoutingFingerprints": 5,
+    "safeResponseBodySha256": "198ee507b619f43dcb721951f73a5abb48497aa2c2c4556fede526d7b54123a5",
+    "priorArtifacts": [
+      {
+        "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-opus-4-8.jsonl.partial",
+        "sha256": "7a7930405431c4f3a173b343a65b140476b93ac9961105e02ad14902d381c06f",
+        "failureCount": 1
+      },
+      {
+        "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-opus-5.jsonl.partial",
+        "sha256": "73f34e8121c70438af121acb93fe61eb24f9f3f03f4703df5fc5b18af15bec3d",
+        "failureCount": 8
+      },
+      {
+        "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-sonnet-5.jsonl.partial",
+        "sha256": "17b5106e9b74799d39d2cfb5dc755dea17bcefb54edd09bb8753674d444977d3",
+        "failureCount": 4
+      }
+    ],
+    "currentArtifact": "results/v2/raw/inference/openrouter-phase2-claude-gate1-provider-attempt1.jsonl.partial",
+    "currentArtifactSha256": "fe223cc4b1fb4c31b1e5dc3a90268f79de22780ff7a2c96621496ac3039263bb"
+  },
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 91,
+    "ledgerPrefixHash": "0ce6f91807396ffce045d61e80ee6d4ccd78fdc38b1a161e1fb1c0268a743297",
+    "globalCommittedEur": 8.40239384,
+    "categoryCommittedEur": 0.5,
+    "categoryAuthorizedEur": 1.5,
+    "absoluteAuthorizedEur": 12.90239384
+  },
+  "providerPolicy": {
+    "gateway": "OPENROUTER",
+    "directAnthropicApiUsed": false,
+    "credentialReference": "OPENROUTER_API_KEY",
+    "routePinned": true,
+    "fallbackAllowed": false,
+    "zeroDataRetentionRequired": true
+  },
+  "remainingExperimentPolicy": {
+    "claudeEligible": false,
+    "continueWithEligibleModels": true,
+    "eligibleModelIds": [
+      "openai/gpt-5.6-luna",
+      "deepseek/deepseek-v4-pro",
+      "google/gemma-4-26b-a4b-it",
+      "moonshotai/kimi-k3",
+      "meta-llama/llama-4-maverick"
+    ]
+  },
+  "closureHash": "b25a70693ee1899041d78de022343351a755563901fd69197218be0d9fa56af1"
+}

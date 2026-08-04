@@ -15,9 +15,9 @@ function requireInput(value, label) {
 }
 
 function loadResearchKey(platformRoot) {
-  if (process.env[KEY_NAME]) return false;
   const environmentPath = path.join(platformRoot, '.env.research.local');
   if (!fs.existsSync(environmentPath)) {
+    if (process.env[KEY_NAME]) return { loadedFromFile: false, previousValue: undefined };
     throw new Error('OPENROUTER_API_KEY_NOT_CONFIGURED');
   }
   const matches = fs.readFileSync(environmentPath, 'utf8')
@@ -37,8 +37,9 @@ function loadResearchKey(platformRoot) {
   if (!value || /[\r\n\0]/.test(value)) {
     throw new Error('OPENROUTER_API_KEY_NOT_CONFIGURED');
   }
+  const previousValue = process.env[KEY_NAME];
   process.env[KEY_NAME] = value;
-  return true;
+  return { loadedFromFile: true, previousValue };
 }
 
 async function main() {
@@ -47,7 +48,7 @@ async function main() {
     throw new Error('COMPEX_PLATFORM_ROOT must name the local Compex repository');
   }
   const input = requireInput(JSON.parse(fs.readFileSync(0, 'utf8')), 'bridge input');
-  const loadedFromFile = loadResearchKey(platformRoot);
+  const keyState = loadResearchKey(platformRoot);
   try {
     const types = require(path.join(platformRoot, 'packages', 'types', 'dist', 'index.js'));
     const {
@@ -169,7 +170,10 @@ async function main() {
     });
     process.stdout.write(JSON.stringify({ ...result, nativeRelease }));
   } finally {
-    if (loadedFromFile) delete process.env[KEY_NAME];
+    if (keyState.loadedFromFile) {
+      if (keyState.previousValue === undefined) delete process.env[KEY_NAME];
+      else process.env[KEY_NAME] = keyState.previousValue;
+    }
   }
 }
 

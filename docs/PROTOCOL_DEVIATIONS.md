@@ -209,3 +209,13 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   `REMOTE_PROVIDER_PROCESSING`. They do not replace, complete, or rewrite the
   failed local checkpoint. No API key value is recorded in the protocol,
   command line, execution DTO, logs, or evidence artifacts.
+- The first one-record remote attempt failed closed before provider processing
+  because the system Node 16 runtime lacked the Fetch API and `DOMException`.
+  The platform commercial transport was replaced by bounded native HTTPS and
+  the research bridge now selects the installed Node 22 runtime required by the
+  platform. That failed attempt remains in the remote checkpoint.
+- The next retained attempt reached OpenRouter but returned HTTP 401 for the
+  already-present process credential. No credential value was inspected or
+  printed and no model result was accepted. A value supplied through the
+  gitignored `.env.research.local` now takes precedence over a stale process
+  credential for the benchmark bridge and is restored/removed after the call.

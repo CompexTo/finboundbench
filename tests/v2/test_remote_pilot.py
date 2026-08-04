@@ -3,7 +3,7 @@ from pathlib import Path
 from purposebench.utils import sha256_file
 from purposebench.v2.experiments import ExperimentCondition
 from purposebench.v2.inference_pilot import condition_prompts, load_paired_records
-from purposebench.v2.remote_pilot import prepare_remote_batch
+from purposebench.v2.remote_pilot import _node_binary, prepare_remote_batch
 
 
 def _dataset_path() -> Path:
@@ -42,3 +42,7 @@ def test_one_record_remote_smoke_can_retain_an_incomplete_pair() -> None:
     rows = load_paired_records(_dataset_path(), pair_limit=1)[:1]
     assert len(rows) == 1
     assert len({str(row["pair_id"]) for row in rows}) == 1
+
+
+def test_remote_bridge_resolves_a_supported_node_runtime() -> None:
+    assert Path(_node_binary()).is_file()

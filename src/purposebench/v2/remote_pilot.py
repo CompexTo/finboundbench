@@ -5,6 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
+import shutil
 import subprocess
 import time
 import uuid
@@ -42,6 +44,36 @@ REMOTE_MODEL_MANIFEST = Path(
 )
 REMOTE_TIMEOUT_MS = 300_000
 REMOTE_MAXIMUM_COST_EUR = 0.25
+
+
+def _node_binary() -> str:
+    candidates: list[str] = []
+    configured = os.environ.get("COMPEX_NODE_BINARY")
+    if configured:
+        candidates.append(configured)
+    discovered = shutil.which("node")
+    if discovered:
+        candidates.append(discovered)
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        candidates.append(str(Path(local_app_data) / "hermes" / "node" / "node.exe"))
+    checked: set[str] = set()
+    for candidate in candidates:
+        resolved = str(Path(candidate).resolve())
+        if resolved in checked or not Path(resolved).is_file():
+            continue
+        checked.add(resolved)
+        version = subprocess.run(
+            [resolved, "--version"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+        match = re.fullmatch(r"v(\d+)\.\d+\.\d+\s*", version.stdout)
+        if version.returncode == 0 and match and int(match.group(1)) >= 20:
+            return resolved
+    raise RuntimeError("Compex remote bridge requires Node.js 20 or newer")
 
 
 def prepare_remote_batch(
@@ -97,7 +129,7 @@ def invoke_openrouter_bridge(
     environment = os.environ.copy()
     environment["COMPEX_PLATFORM_ROOT"] = str(platform_root)
     completed = subprocess.run(
-        ["node", str(benchmark_root / "scripts" / "governed_openrouter_bridge.cjs")],
+        [_node_binary(), str(benchmark_root / "scripts" / "governed_openrouter_bridge.cjs")],
         input=json.dumps(payload, sort_keys=True, separators=(",", ":")),
         capture_output=True,
         text=True,

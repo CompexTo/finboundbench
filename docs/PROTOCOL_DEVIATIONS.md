@@ -219,3 +219,26 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   printed and no model result was accepted. A value supplied through the
   gitignored `.env.research.local` now takes precedence over a stale process
   credential for the benchmark bridge and is restored/removed after the call.
+
+## 2026-08-04 - frontier remote matrix supersedes the single-model fallback
+
+- Before a successful remote result, the single Gemma 3 fallback was replaced
+  with a research-owned six-model matrix requested for the final benchmark:
+  Gemma 4 31B, GPT-5.6 Luna, Claude Opus 5, DeepSeek V4 Pro, Kimi K3, and
+  Llama 4 Maverick. The earlier two failed one-record attempts remain unchanged.
+- Exact OpenRouter IDs, canonical catalog slugs, metadata-response hashes,
+  advertised parameter support, reasoning defaults, context sizes, and pricing
+  were captured in
+  `docs/v2/model-manifests/openrouter-frontier-2026-08-04.json` before calls.
+- Model choice, price tables, the matrix, the cumulative budget ledger, and all
+  result orchestration remain in the research repository. The platform's
+  OpenRouter adapter was made model-neutral: caller-owned immutable manifests
+  provide pricing and supported-parameter metadata.
+- Every provider attempt reserves EUR 0.50 before execution. Successful calls
+  settle to conservative manifest-derived cost; failed calls without complete
+  cost evidence retain the full reservation as a debit. The append-only matrix
+  ledger rejects any reservation that would exceed the user-authorized EUR 10
+  total.
+- USD is treated as EUR at parity for the research ceiling. This intentionally
+  overstates rather than understates the expected EUR cost under the rates
+  observed at capture time; it is budget evidence, not financial reporting.

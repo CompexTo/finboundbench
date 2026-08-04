@@ -73,14 +73,36 @@ async function main() {
       'secrets',
       'secret-providers.js',
     ));
-    const manifestPath = path.resolve(platformRoot, String(input.manifestRelativePath || ''));
-    const manifestRoot = path.resolve(platformRoot, 'docs', 'v2', 'model-manifests');
-    if (manifestPath !== manifestRoot && !manifestPath.startsWith(`${manifestRoot}${path.sep}`)) {
-      throw new Error('Model manifest escaped docs/v2/model-manifests');
+    const manifest = requireInput(input.modelManifest, 'model manifest');
+    const manifestMaterial = { ...manifest };
+    delete manifestMaterial.manifestHash;
+    if (
+      manifest.provider !== 'OPENROUTER'
+      || manifest.endpoint !== 'https://openrouter.ai/api/v1/chat/completions'
+      || manifest.modelVersion !== manifest.modelId
+      || /(?:^|[-_.:/@])(latest|current|default|stable|preview|auto)(?:$|[-_.:/@])/i
+        .test(String(manifest.modelId || ''))
+      || types.hashCanonicalJson(manifestMaterial) !== manifest.manifestHash
+    ) {
+      throw new Error('OpenRouter model manifest identity or integrity changed');
     }
-    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-    if (manifest.provider !== 'OPENROUTER' || manifest.modelId !== 'google/gemma-3-27b-it') {
-      throw new Error('OpenRouter model manifest identity changed');
+    const supportedParameters = Array.isArray(manifest.supportedParameters)
+      ? manifest.supportedParameters.map(String)
+      : [];
+    for (const required of ['max_tokens', 'response_format', 'structured_outputs']) {
+      if (!supportedParameters.includes(required)) {
+        throw new Error(`OpenRouter model does not support required parameter: ${required}`);
+      }
+    }
+    const promptRate = Number(manifest.budgetCeilingUsdPerToken?.prompt);
+    const completionRate = Number(manifest.budgetCeilingUsdPerToken?.completion);
+    if (
+      !Number.isFinite(promptRate)
+      || promptRate < 0
+      || !Number.isFinite(completionRate)
+      || completionRate < 0
+    ) {
+      throw new Error('OpenRouter model manifest pricing is invalid');
     }
     const prompts = requireInput(input.prompts, 'prompts');
     const responseSchema = requireInput(input.responseSchema, 'responseSchema');
@@ -108,7 +130,7 @@ async function main() {
       executionMode: 'REMOTE',
       workloadImageDigest: input.workloadImageDigest,
       temperature: 0,
-      seed: input.seed,
+      ...(supportedParameters.includes('seed') ? { seed: input.seed } : {}),
       topP: 1,
       reasoningSetting: 'DISABLED',
       outputTokenLimit: input.outputTokenLimit,
@@ -124,7 +146,33 @@ async function main() {
       },
       providerMetadataTimestamp: manifest.capturedAt,
     };
-    const result = await new OpenRouterModelAdapter({ secrets }).invoke({
+    const costCalculator = {
+      calculate: ({ modelId, tokens }) => {
+        if (modelId !== manifest.modelId) {
+          return {
+            amount: null,
+            currency: 'USD',
+            amountEur: null,
+            pricingSource: 'MODEL_SUBSTITUTION',
+            pricingTimestamp: manifest.capturedAt,
+          };
+        }
+        const amount = tokens.inputTokens * promptRate
+          + tokens.outputTokens * completionRate;
+        return {
+          amount,
+          currency: 'USD',
+          amountEur: amount,
+          pricingSource: 'RESEARCH_MANIFEST_CONSERVATIVE_USD_EUR_PARITY_CEILING',
+          pricingTimestamp: manifest.capturedAt,
+        };
+      },
+    };
+    const result = await new OpenRouterModelAdapter({
+      secrets,
+      costCalculator,
+      supportedParameters,
+    }).invoke({
       contractHash: input.contractHash,
       model,
       selectedFields: input.selectedFields,
@@ -146,7 +194,7 @@ async function main() {
           protectedValuesAllowed: true,
         }],
       },
-      maximumAuthorizedCostEur: 0.25,
+      maximumAuthorizedCostEur: input.maximumAuthorizedCostEur,
     });
 
     const { evaluateNativeOutputRelease } = require(path.join(

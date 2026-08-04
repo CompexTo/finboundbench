@@ -1,0 +1,90 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from purposebench.v2.frontier_matrix import (
+    committed_budget_eur,
+    load_frontier_matrix,
+    reserve_budget,
+    settle_budget,
+)
+
+
+def test_frontier_matrix_pins_six_required_model_families() -> None:
+    config, models = load_frontier_matrix(
+        Path.cwd(),
+        Path("configs/v2/openrouter-frontier-matrix.json").resolve(),
+    )
+    ids = [model["modelId"] for model in models]
+    assert ids == config["modelIds"]
+    assert len(ids) == 6
+    assert any("gpt-5.6-luna" in model_id for model_id in ids)
+    assert any("claude-opus-5" in model_id for model_id in ids)
+    assert any("deepseek-v4" in model_id for model_id in ids)
+    assert any("kimi-k3" in model_id for model_id in ids)
+    assert all(
+        {"max_tokens", "response_format", "structured_outputs"}.issubset(
+            model["supportedParameters"]
+        )
+        for model in models
+    )
+
+
+def test_budget_ledger_reserves_before_call_and_settles_down(tmp_path: Path) -> None:
+    ledger = tmp_path / "budget.jsonl"
+    first, _ = reserve_budget(
+        ledger,
+        model_id="provider/model-a",
+        phase="smoke",
+        authorized_cost_eur=0.5,
+        total_authorized_cost_eur=1.0,
+    )
+    second, committed = reserve_budget(
+        ledger,
+        model_id="provider/model-b",
+        phase="smoke",
+        authorized_cost_eur=0.5,
+        total_authorized_cost_eur=1.0,
+    )
+    assert committed == 1.0
+    assert settle_budget(
+        ledger,
+        reservation_id=first,
+        model_id="provider/model-a",
+        phase="smoke",
+        budget_debit_eur=0.1,
+        outcome="passed",
+    ) == 0.6
+    assert committed_budget_eur(
+        [json.loads(line) for line in ledger.read_text(encoding="utf-8").splitlines()]
+    ) == 0.6
+    with pytest.raises(ValueError, match="already settled"):
+        settle_budget(
+            ledger,
+            reservation_id=first,
+            model_id="provider/model-a",
+            phase="smoke",
+            budget_debit_eur=0.1,
+            outcome="passed",
+        )
+    assert second
+
+
+def test_budget_ledger_fails_closed_at_total_cap(tmp_path: Path) -> None:
+    ledger = tmp_path / "budget.jsonl"
+    reserve_budget(
+        ledger,
+        model_id="provider/model-a",
+        phase="pilot",
+        authorized_cost_eur=0.6,
+        total_authorized_cost_eur=1.0,
+    )
+    with pytest.raises(RuntimeError, match="BUDGET_EXHAUSTED"):
+        reserve_budget(
+            ledger,
+            model_id="provider/model-b",
+            phase="pilot",
+            authorized_cost_eur=0.5,
+            total_authorized_cost_eur=1.0,
+        )

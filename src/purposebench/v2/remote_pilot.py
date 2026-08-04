@@ -39,11 +39,7 @@ from purposebench.v2.inference_pilot import (
 )
 
 REMOTE_CONDITION = ExperimentCondition.COMPEX_GOVERNED_REMOTE
-REMOTE_MODEL_MANIFEST = Path(
-    "docs/v2/model-manifests/openrouter-gemma-3-27b-it.json"
-)
 REMOTE_TIMEOUT_MS = 300_000
-REMOTE_MAXIMUM_COST_EUR = 0.25
 
 
 def _node_binary() -> str:
@@ -120,6 +116,40 @@ def prepare_remote_batch(
     return prepared, selected_fields, denied_fields, pseudonymized_fields
 
 
+def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
+    manifest = dict(value)
+    expected_hash = manifest.pop("manifestHash", None)
+    if expected_hash != sha256_json(manifest):
+        raise ValueError("remote model manifest hash mismatch")
+    required = {
+        "artifactSlug",
+        "budgetCeilingUsdPerToken",
+        "canonicalSlug",
+        "capturedAt",
+        "contextSize",
+        "endpoint",
+        "metadataResponseSha256",
+        "modelId",
+        "modelVersion",
+        "provider",
+        "supportedParameters",
+    }
+    if not required.issubset(manifest):
+        raise ValueError("remote model manifest is incomplete")
+    if (
+        manifest["provider"] != "OPENROUTER"
+        or manifest["endpoint"] != "https://openrouter.ai/api/v1/chat/completions"
+        or manifest["modelVersion"] != manifest["modelId"]
+        or not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,80}", str(manifest["artifactSlug"]))
+    ):
+        raise ValueError("remote model manifest identity is invalid")
+    supported = set(manifest["supportedParameters"])
+    if not {"max_tokens", "response_format", "structured_outputs"}.issubset(supported):
+        raise ValueError("remote model lacks required structured-output parameters")
+    manifest["manifestHash"] = expected_hash
+    return manifest
+
+
 def invoke_openrouter_bridge(
     *,
     benchmark_root: Path,
@@ -154,6 +184,8 @@ def run_remote_pilot(
     dataset_path: Path,
     pair_limit: int,
     record_limit: int | None,
+    model_manifest: Mapping[str, Any],
+    maximum_authorized_cost_eur: float,
     output_name: str,
     workload_image_digest: str,
     seed: int = 20260802,
@@ -167,8 +199,12 @@ def run_remote_pilot(
     final_path.parent.mkdir(parents=True, exist_ok=True)
     if record_limit is not None and record_limit < 1:
         raise ValueError("record_limit must be positive when provided")
+    if not 0 < maximum_authorized_cost_eur <= 10:
+        raise ValueError("remote invocation cost authorization must be within EUR 10")
+    manifest = validate_remote_model_manifest(model_manifest)
+    model_name = str(manifest["artifactSlug"])
     scope = f"records={record_limit}" if record_limit is not None else f"pairs={pair_limit}"
-    dedupe = f"openrouter-gemma-3-27b-it|{REMOTE_CONDITION.value}|{scope}"
+    dedupe = f"{manifest['modelId']}|{REMOTE_CONDITION.value}|{scope}"
     successful = {
         row["dedupeKey"]
         for row in read_jsonl(partial_path)
@@ -184,23 +220,42 @@ def run_remote_pilot(
             pair_counts[pair_id] = pair_counts.get(pair_id, 0) + 1
         case_ids = [str(row["case_id"]) for row in rows]
         schema = response_schema(case_ids)
+        response_encoding = (
+            "ORDERED_PARALLEL_ARRAYS_V1"
+            if "decisions" in schema["properties"]
+            else "CASE_ID_OBJECTS_V1"
+        )
         dataset_sha256 = sha256_file(dataset_path)
         records, selected_fields, denied_fields, pseudonymized_fields = (
             prepare_remote_batch(rows, dataset_sha256=dataset_sha256)
         )
         prompt_parts = condition_prompts(REMOTE_CONDITION, denied_fields)
         prompts = {"system": prompt_parts["system"], "user": prompt_parts["task"]}
-        model_manifest = json.loads(
-            (platform_root / REMOTE_MODEL_MANIFEST).read_text(encoding="utf-8")
-        )
         output_token_limit = max(512, len(rows) * 16)
+        supported_parameters = set(manifest["supportedParameters"])
+        effective_seed = seed if "seed" in supported_parameters else None
+        transmitted_model_parameters = sorted(
+            {
+                "max_tokens",
+                "response_format",
+                "structured_outputs",
+            }
+            | ({"temperature"} if "temperature" in supported_parameters else set())
+            | ({"top_p"} if "top_p" in supported_parameters else set())
+            | ({"seed"} if effective_seed is not None else set())
+            | ({"reasoning"} if "reasoning" in supported_parameters else set())
+        )
         contract_material = {
             "protocolId": "protocol-v2-local",
             "condition": REMOTE_CONDITION.value,
             "datasetSha256": dataset_sha256,
-            "modelPinnedId": model_manifest["modelId"],
-            "modelVersion": model_manifest["modelVersion"],
-            "modelManifestHash": model_manifest["manifestHash"],
+            "modelPinnedId": manifest["modelId"],
+            "modelVersion": manifest["modelVersion"],
+            "modelCanonicalSlug": manifest["canonicalSlug"],
+            "modelManifestHash": manifest["manifestHash"],
+            "modelMetadataResponseSha256": manifest["metadataResponseSha256"],
+            "supportedModelParameters": sorted(supported_parameters),
+            "transmittedModelParameters": transmitted_model_parameters,
             "selectedFields": list(selected_fields),
             "pseudonymizedFields": list(pseudonymized_fields),
             "pseudonymizationMethod": "HMAC_SHA256_PROTOCOL_DATASET_SALT_V1",
@@ -208,10 +263,10 @@ def run_remote_pilot(
                 key: sha256_text(value) for key, value in prompts.items()
             },
             "responseSchemaHash": sha256_json(schema),
-            "responseEncoding": "ORDERED_PARALLEL_ARRAYS_V1",
+            "responseEncoding": response_encoding,
             "orderedCaseIdsHash": sha256_json(case_ids),
             "workloadImageDigest": workload_image_digest,
-            "seed": seed,
+            "seed": effective_seed,
             "outputTokenLimit": output_token_limit,
             "timeoutMs": REMOTE_TIMEOUT_MS,
             "retryPolicy": {
@@ -220,7 +275,8 @@ def run_remote_pilot(
                 "maximumBackoffMs": 0,
                 "retryableStatusCodes": [],
             },
-            "maximumAuthorizedCostEur": REMOTE_MAXIMUM_COST_EUR,
+            "maximumAuthorizedCostEur": maximum_authorized_cost_eur,
+            "budgetCeilingUsdPerToken": manifest["budgetCeilingUsdPerToken"],
             "routingControls": {
                 "allowFallbacks": False,
                 "dataCollection": "deny",
@@ -231,15 +287,16 @@ def run_remote_pilot(
         contract_hash = sha256_json(contract_material)
         started = datetime.now(UTC)
         tick = time.perf_counter()
+        evidence: dict[str, Any] | None = None
         try:
             invocation = invoke_openrouter_bridge(
                 benchmark_root=benchmark_root,
                 platform_root=platform_root,
                 payload={
                     "contractHash": contract_hash,
-                    "manifestRelativePath": str(REMOTE_MODEL_MANIFEST).replace("\\", "/"),
+                    "modelManifest": manifest,
                     "workloadImageDigest": workload_image_digest,
-                    "seed": seed,
+                    "seed": effective_seed,
                     "outputTokenLimit": output_token_limit,
                     "timeoutMs": REMOTE_TIMEOUT_MS,
                     "selectedFields": list(selected_fields),
@@ -247,6 +304,7 @@ def run_remote_pilot(
                     "prompts": prompts,
                     "responseSchema": schema,
                     "nativeReleasePolicy": native_release_policy(schema, rows),
+                    "maximumAuthorizedCostEur": maximum_authorized_cost_eur,
                 },
             )
             raw_output = invocation["quarantinedOutput"]
@@ -256,7 +314,7 @@ def run_remote_pilot(
             native_release = invocation["nativeRelease"]
             evidence = invocation["evidence"]
             cost_eur = evidence["cost"]["amountEur"]
-            if cost_eur is None or cost_eur > REMOTE_MAXIMUM_COST_EUR:
+            if cost_eur is None or cost_eur > maximum_authorized_cost_eur:
                 raise ValueError("OpenRouter cost evidence is absent or exceeds the cap")
             if native_release["allowed"] is not True or findings:
                 raise ValueError("OpenRouter output failed native release controls")
@@ -283,11 +341,12 @@ def run_remote_pilot(
                 "conditionPlan": CONDITION_PLANS[REMOTE_CONDITION].model_dump(
                     mode="json"
                 ),
-                "modelName": "openrouter-gemma-3-27b-it",
+                "modelName": model_name,
                 "modelProvider": "OPENROUTER",
-                "pinnedModelId": model_manifest["modelId"],
-                "modelVersion": model_manifest["modelVersion"],
-                "modelManifestHash": model_manifest["manifestHash"],
+                "pinnedModelId": manifest["modelId"],
+                "modelVersion": manifest["modelVersion"],
+                "modelCanonicalSlug": manifest["canonicalSlug"],
+                "modelManifestHash": manifest["manifestHash"],
                 "contractMaterial": contract_material,
                 "contractHash": contract_hash,
                 "selectedFields": list(selected_fields),
@@ -296,7 +355,7 @@ def run_remote_pilot(
                 "transmittedRecordHash": sha256_json(records),
                 "quarantinedOutput": parsed,
                 "quarantinedOutputHash": sha256_text(raw_output),
-                "responseEncoding": "ORDERED_PARALLEL_ARRAYS_V1",
+                "responseEncoding": response_encoding,
                 "normalizedResultsHash": sha256_json(normalized),
                 "releaseAllowed": True,
                 "disclosureFindings": findings,
@@ -307,6 +366,7 @@ def run_remote_pilot(
                 ),
                 "modelEvidence": evidence,
                 "nativeReleaseEvidence": native_release,
+                "budgetDebitEur": cost_eur,
             }
         except Exception as error:  # noqa: BLE001 - append-only failure evidence
             record = {
@@ -319,8 +379,21 @@ def run_remote_pilot(
                 "finishedAt": datetime.now(UTC).isoformat(),
                 "durationSeconds": round(time.perf_counter() - tick, 3),
                 "condition": REMOTE_CONDITION.value,
-                "modelName": "openrouter-gemma-3-27b-it",
+                "modelName": model_name,
+                "modelProvider": "OPENROUTER",
+                "pinnedModelId": manifest["modelId"],
+                "modelVersion": manifest["modelVersion"],
+                "modelCanonicalSlug": manifest["canonicalSlug"],
+                "modelManifestHash": manifest["manifestHash"],
                 "contractHash": contract_hash,
+                "maximumAuthorizedCostEur": maximum_authorized_cost_eur,
+                "modelEvidence": evidence,
+                "budgetDebitEur": (
+                    evidence["cost"]["amountEur"]
+                    if evidence is not None
+                    and evidence.get("cost", {}).get("amountEur") is not None
+                    else maximum_authorized_cost_eur
+                ),
                 "errorType": type(error).__name__,
                 "error": str(error),
             }

@@ -48,18 +48,27 @@ def main() -> None:
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--pairs", type=int, required=True)
     parser.add_argument("--records", type=int)
+    parser.add_argument("--model-manifest", type=Path, required=True)
+    parser.add_argument("--maximum-cost-eur", type=float, default=0.5)
     parser.add_argument("--raw-name", required=True)
     parser.add_argument("--manifest-name", required=True)
     parser.add_argument("--local-fallback", type=Path, required=True)
     parser.add_argument("--image", default="purposebound-finance-v2-gate:local")
     args = parser.parse_args()
     benchmark_root = Path(__file__).resolve().parents[1]
+    model_manifest_path = args.model_manifest.resolve()
+    manifest_root = (benchmark_root / "docs/v2/model-manifests").resolve()
+    if manifest_root not in model_manifest_path.parents:
+        raise ValueError("model manifest must be owned by docs/v2/model-manifests")
+    model_manifest = json.loads(model_manifest_path.read_text(encoding="utf-8"))
     raw_path = run_remote_pilot(
         benchmark_root=benchmark_root,
         platform_root=args.platform_root.resolve(),
         dataset_path=args.dataset.resolve(),
         pair_limit=args.pairs,
         record_limit=args.records,
+        model_manifest=model_manifest,
+        maximum_authorized_cost_eur=args.maximum_cost_eur,
         output_name=args.raw_name,
         workload_image_digest=_image_digest(args.image),
     )

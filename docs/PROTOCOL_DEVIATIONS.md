@@ -344,3 +344,9 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   their first call: Gemma 4 26B A4B on NextBit BF16 and Claude Sonnet 5 on
   Azure Global. The four already passing models and their artifacts are not
   rerun. Each substitute still requires its own one-record gate.
+- Gemma 4 26B A4B passed its one-record gate on NextBit BF16 with a EUR
+  0.0000708 conservative debit. Claude Sonnet 5 returned HTTP 400 before model
+  execution when pinned to the exact `azure/global` tag. The ledger is EUR
+  6.25424502. Because GPT Luna already passed through the documented broad
+  `azure` provider selector, one final Claude attempt normalizes only that
+  selector; no other contract field changes.

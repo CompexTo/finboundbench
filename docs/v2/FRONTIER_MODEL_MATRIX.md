@@ -101,3 +101,11 @@ Cerebras route returned HTTP 400 with body hash
 Claude again returned the same HTTP 400 body, now classified only as involving
 the provider-routing layer. Including those retained failures, the cumulative
 ledger debit is EUR 5.00417422.
+
+Gemma 4 26B A4B subsequently passed its one-record gate through NextBit BF16.
+Claude Sonnet 5 failed on both `azure/global` and the normalized `azure`
+selector. Those calls used a 512-token output limit while Claude's advertised
+low reasoning effort maps to a provider minimum of 1,024 reasoning tokens. The
+next Claude diagnostic binds a 2,048-token minimum output allocation without
+changing the EUR 0.25 call cap. The cumulative debit before that attempt is EUR
+6.50424502.

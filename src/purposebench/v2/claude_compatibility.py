@@ -494,8 +494,61 @@ def _safe_provider_failure(error: Exception, manifest: Mapping[str, Any]) -> dic
     return diagnostic
 
 
-def _gate_artifact_stem(gate: int) -> str:
-    return f"openrouter-phase2-claude-gate{gate}"
+def _effective_phase2_provider_calls(root: Path, gate: int | None = None) -> int:
+    calls: dict[str, int] = {}
+    paths = set(
+        (root / "results/v2/raw/inference").glob(
+            "openrouter-phase2-claude-gate*.jsonl*"
+        )
+    )
+    for path in paths:
+        for row in read_jsonl(path):
+            if (
+                row.get("recordType") == "claude_compatibility_gate"
+                and isinstance(row.get("evidenceId"), str)
+                and (gate is None or row.get("gate") == gate)
+            ):
+                calls[row["evidenceId"]] = int(row.get("providerCalls", 0))
+            elif (
+                row.get("recordType") == "evidence_correction"
+                and isinstance(row.get("originalEvidenceId"), str)
+                and row["originalEvidenceId"] in calls
+            ):
+                calls[row["originalEvidenceId"]] = int(
+                    row.get("correctedProviderCalls", 0)
+                )
+    return sum(calls.values())
+
+
+def _gate_artifact_stem(root: Path, gate: int) -> tuple[str, int]:
+    base = f"openrouter-phase2-claude-gate{gate}"
+    provider_attempt = _effective_phase2_provider_calls(root, gate) + 1
+    paths = (
+        root / f"results/v2/raw/inference/{base}.jsonl",
+        root / f"results/v2/raw/inference/{base}.jsonl.partial",
+        root / f"results/v2/manifests/{base}.json",
+    )
+    if not any(path.exists() for path in paths):
+        return base, provider_attempt
+    return f"{base}-provider-attempt{provider_attempt}", provider_attempt
+
+
+def _passed_gate_manifest(root: Path, gate: int) -> Path | None:
+    manifests = []
+    for path in (root / "results/v2/manifests").glob(
+        f"openrouter-phase2-claude-gate{gate}*.json"
+    ):
+        value = json.loads(path.read_text(encoding="utf-8"))
+        if (
+            value.get("schemaVersion")
+            == "purposebound-finance.claude-compatibility-manifest.v2"
+            and value.get("status") == "PASSED"
+            and value.get("gate") == gate
+        ):
+            manifests.append(path)
+    if len(manifests) > 1:
+        raise RuntimeError(f"Claude Gate {gate} has multiple passing manifests")
+    return manifests[0] if manifests else None
 
 
 def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int) -> Path:
@@ -509,11 +562,13 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
         or gate0_value.get("checks", {}).get("exactContractFakeTransportProbePassed") is not True
     ):
         raise RuntimeError("Claude Gate 0 has not passed")
-    if gate == 2:
-        gate1 = root / "results/v2/manifests/openrouter-phase2-claude-gate1.json"
-        if not gate1.is_file() or json.loads(gate1.read_text(encoding="utf-8")).get("status") != "PASSED":
-            raise RuntimeError("Claude Gate 1 has not passed")
+    if gate == 2 and _passed_gate_manifest(root, 1) is None:
+        raise RuntimeError("Claude Gate 1 has not passed")
     compatibility = config["claudeCompatibility"]
+    if _effective_phase2_provider_calls(root) >= int(
+        compatibility["maximumSmokeAttempts"]
+    ):
+        raise RuntimeError("Claude compatibility provider-attempt limit reached")
     dataset_path = root / config["dataset"]
     rows = load_paired_records(dataset_path, pair_limit=4 if gate == 2 else 1)
     if gate == 1:
@@ -540,7 +595,7 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
     manifest = config["modelManifestValue"]
     if repeated_failed_combination(root, manifest["manifestHash"], contract_hash):
         raise RuntimeError("Identical failed Claude combination is not eligible to rerun")
-    stem = _gate_artifact_stem(gate)
+    stem, provider_attempt = _gate_artifact_stem(root, gate)
     final_path = root / f"results/v2/raw/inference/{stem}.jsonl"
     partial_path = final_path.with_suffix(".jsonl.partial")
     manifest_path = root / f"results/v2/manifests/{stem}.json"
@@ -619,6 +674,7 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
             "evidenceId": str(uuid.uuid4()),
             "status": "passed",
             "gate": gate,
+            "providerAttempt": provider_attempt,
             "startedAt": started.isoformat(),
             "finishedAt": datetime.now(UTC).isoformat(),
             "durationSeconds": round(time.perf_counter() - tick, 3),
@@ -656,6 +712,7 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
             "schemaVersion": "purposebound-finance.claude-compatibility-manifest.v2",
             "status": "PASSED",
             "gate": gate,
+            "providerAttempt": provider_attempt,
             "modelId": manifest["modelId"],
             "modelManifestHash": manifest["manifestHash"],
             "actionPolicyHash": config["actionPolicyHash"],
@@ -697,6 +754,7 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
                 "evidenceId": str(uuid.uuid4()),
                 "status": "failed",
                 "gate": gate,
+                "providerAttempt": provider_attempt,
                 "startedAt": started.isoformat(),
                 "finishedAt": datetime.now(UTC).isoformat(),
                 "durationSeconds": round(time.perf_counter() - tick, 3),

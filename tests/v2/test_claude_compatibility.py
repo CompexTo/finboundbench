@@ -3,11 +3,68 @@ from pathlib import Path
 
 from purposebench.utils import sha256_json
 from purposebench.v2.claude_compatibility import (
+    _effective_phase2_provider_calls,
+    _gate_artifact_stem,
+    _passed_gate_manifest,
     _safe_provider_failure,
     assessment_schema,
     load_phase_configuration,
     repeated_failed_combination,
 )
+
+
+def test_reconciled_pretransport_failure_preserves_first_provider_attempt(
+    tmp_path: Path,
+) -> None:
+    raw = tmp_path / "results/v2/raw/inference"
+    raw.mkdir(parents=True)
+    artifact = raw / "openrouter-phase2-claude-gate1.jsonl.partial"
+    rows = [
+        {
+            "recordType": "claude_compatibility_gate",
+            "evidenceId": "failure-1",
+            "status": "failed",
+            "gate": 1,
+            "providerCalls": 1,
+        },
+        {
+            "recordType": "evidence_correction",
+            "originalEvidenceId": "failure-1",
+            "correctedProviderCalls": 0,
+        },
+    ]
+    artifact.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+
+    assert _effective_phase2_provider_calls(tmp_path) == 0
+    assert _gate_artifact_stem(tmp_path, 1) == (
+        "openrouter-phase2-claude-gate1-provider-attempt1",
+        1,
+    )
+
+
+def test_gate_manifest_discovery_ignores_reconciliation(tmp_path: Path) -> None:
+    manifests = tmp_path / "results/v2/manifests"
+    manifests.mkdir(parents=True)
+    (manifests / "openrouter-phase2-claude-gate1-pretransport-reconciliation.json").write_text(
+        json.dumps({"status": "RECONCILED", "gate": 1}),
+        encoding="utf-8",
+    )
+    assert _passed_gate_manifest(tmp_path, 1) is None
+    passing = manifests / "openrouter-phase2-claude-gate1-provider-attempt1.json"
+    passing.write_text(
+        json.dumps(
+            {
+                "schemaVersion": "purposebound-finance.claude-compatibility-manifest.v2",
+                "status": "PASSED",
+                "gate": 1,
+            }
+        ),
+        encoding="utf-8",
+    )
+    assert _passed_gate_manifest(tmp_path, 1) == passing
 
 
 def test_phase_configuration_binds_budget_metadata_and_action_policy() -> None:

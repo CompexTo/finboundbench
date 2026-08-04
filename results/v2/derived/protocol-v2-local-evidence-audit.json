@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "purposebound-finance.phase2-evidence-audit.v2",
+  "recordedAt": "2026-08-04T23:46:00.771987+00:00",
+  "status": "PASSED_WITH_RETAINED_FAILURES",
+  "protocolId": "protocol-v2-local",
+  "scope": "LOCAL_IMPLEMENTATION_AND_BOUNDED_REMOTE_PILOTS",
+  "paperScaleComplete": false,
+  "provenance": {
+    "researchCommit": "ab35c68d14c2bd5310ad07284b42228b529df789",
+    "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+    "platformEvidenceCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3"
+  },
+  "checks": {
+    "derivedReportIntegrity": "PASSED",
+    "rawArtifactIntegrity": "PASSED",
+    "budgetLedgerIntegrity": "PASSED",
+    "openRouterOnlyPolicy": "PASSED",
+    "secretPersistence": "PASSED",
+    "nativeReleaseEvidence": "PASSED",
+    "dpTrainingValidation": "PASSED",
+    "privacyAttackValidation": "PASSED",
+    "platformAttackSuite": "PASSED"
+  },
+  "experiments": {
+    "claudeCompatibility": "FORMALLY_CLOSED",
+    "positionDiagnostic": "COMPLETE_WITH_MODEL_FAILURE",
+    "reducedGovernedMatrix": "COMPLETE_WITH_MODEL_FAILURE",
+    "fullConditionPilot": "COMPLETE_WITH_FAILURES"
+  },
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerRecordCount": 147,
+    "ledgerHash": "de58b147fb47146a9ae8c29aec4a882ac68874b9d9f50072870300469aa5bd36",
+    "priorCommittedEur": 7.90239384,
+    "additionalAuthorizedEur": 5.0,
+    "additionalSpentEur": 1.11023534,
+    "additionalRemainingEur": 3.88976466,
+    "absoluteAuthorizedEur": 12.90239384,
+    "globalCommittedEur": 9.01262918,
+    "globalRemainingEur": 3.88976466,
+    "categoryCommittedEur": {
+      "new_claude_compatibility": 0.5,
+      "position_diagnostic": 0.099562,
+      "reduced_matrix": 0.26121234,
+      "full_condition_pilot": 0.249461
+    },
+    "phaseReservationCount": 30,
+    "phaseSettlementCount": 30
+  },
+  "providerPolicy": {
+    "gateway": "OPENROUTER",
+    "credentialReference": {
+      "provider": "LOCAL_ENV_REFERENCE",
+      "reference": "OPENROUTER_API_KEY"
+    },
+    "directProviderApisAllowed": false,
+    "fallbackAllowed": false,
+    "zeroDataRetentionRequired": true,
+    "providerDataCollectionAllowed": false,
+    "secretPersistenceScan": {
+      "credentialReference": {
+        "provider": "LOCAL_ENV_REFERENCE",
+        "reference": "OPENROUTER_API_KEY"
+      },
+      "trackedSecretValueHits": 0,
+      "gitHistorySecretValueHits": 0,
+      "keyValueRecorded": false,
+      "keyValueHashed": false
+    }
+  },
+  "remoteExecution": {
+    "artifactCount": 8,
+    "recordCount": 29,
+    "successfulRecords": 25,
+    "failedClosedRecords": 4,
+    "providerCalls": 29,
+    "automaticRetries": 0,
+    "fallbacks": 0,
+    "gateway": "OPENROUTER",
+    "zeroDataRetentionRequired": true
+  },
+  "privacyValidation": {
+    "trainingConfigurations": [
+      "medium_dp",
+      "non_dp",
+      "stronger_dp",
+      "weak_dp"
+    ],
+    "privateConfigurationsWithActualEpsilon": 3,
+    "attackMeasurements": 15,
+    "attackComparisons": 5
+  },
+  "platformValidation": {
+    "status": "passed",
+    "attackCount": 17,
+    "gateCount": 2
+  },
+  "artifacts": {
+    "claudeClosure": {
+      "path": "results/v2/derived/openrouter-claude-closure.json",
+      "sha256": "8be2ee85fcb23564ad58be76cf29a2562a7501960644394ce9e2c03e6f4e7495",
+      "selfHash": "b25a70693ee1899041d78de022343351a755563901fd69197218be0d9fa56af1"
+    },
+    "positionDiagnostic": {
+      "path": "results/v2/derived/openrouter-position-diagnostic.json",
+      "sha256": "5ecf15f3955e26204db1517ba78956b1ba3be056a229900f4cd8f0b39bc526d9",
+      "selfHash": "9e349abdeca6be1eb1abfc274cff901caa4618df00510cd59811a5959bd4631d"
+    },
+    "reducedGovernedMatrix": {
+      "path": "results/v2/derived/openrouter-reduced-governed-matrix.json",
+      "sha256": "79309aa493589d774835c765a35213522162da8d037d654672256bc8dde90b72",
+      "selfHash": "eb26f9a95fe50c7d9a216ee4802a5cd31dd8677fc9c3528f7eefed2694adfc2a"
+    },
+    "fullConditionPilot": {
+      "path": "results/v2/derived/openrouter-full-condition-pilot.json",
+      "sha256": "c81b01c6b5226ec0b5b410834b492dfe50ba7cf6916713ed91142d4d42a04ff5",
+      "selfHash": "e76930a8d5c176b8c4d89f19c549ba72709c760ed81663a9fa521893809b276e"
+    },
+    "dpTrainingValidation": {
+      "path": "results/v2/raw/privacy/dp-training-phase2-validation.json",
+      "sha256": "b889d60b74d5b7bba5c58a79749d67463bcd0818b9353801c675f8ea353e6403"
+    },
+    "privacyAttackValidation": {
+      "path": "results/v2/raw/privacy/privacy-attack-phase2-validation.json",
+      "sha256": "c04760df4cf4b9e15cd3eb3462df5b7279844dfaaa312736bf9f4c1f97df9664"
+    },
+    "platformAttackSuite": {
+      "path": "results/v2/raw/platform/local-attack-suite-phase2.json",
+      "sha256": "2eccfbd93f87dfa3617e38b31038b7fb4954f7d6686af03774940750f91c23c8"
+    }
+  },
+  "remoteRawArtifacts": [
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-claude-gate1-provider-attempt1.jsonl.partial",
+      "sha256": "fe223cc4b1fb4c31b1e5dc3a90268f79de22780ff7a2c96621496ac3039263bb",
+      "recordCount": 1
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-position-openai-gpt-5-6-luna.jsonl",
+      "sha256": "9ebbd451a6bca42c7c5f4c5c59d22f600ced3ab795d9e949e325e31a2524a033",
+      "recordCount": 11
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-position-deepseek-deepseek-v4-pro.jsonl.partial",
+      "sha256": "fb44c124a97b45c4737cc1b34fbb43d75b95f38d1eb237671966049f42948b39",
+      "recordCount": 1
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-reduced-openai-gpt-5-6-luna.jsonl",
+      "sha256": "acc710a06d2db010e327c53d24f91dd38c637efabae319cbf478e3530541d392",
+      "recordCount": 3
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-reduced-google-gemma-4-26b-a4b-it.jsonl.partial",
+      "sha256": "52450ae63c01c3472ba145b1b6c9be6c8b89a4f9ae1d210cbf5938f4f4104f79",
+      "recordCount": 2
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-reduced-moonshotai-kimi-k3.jsonl",
+      "sha256": "875e5bf7209bb10c3327c891d9a5ec2fd5a41a0ec000aa39fe604cb6b83c9b53",
+      "recordCount": 3
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-reduced-meta-llama-llama-4-maverick.jsonl",
+      "sha256": "8e4337a4c49f71ff5cbd6380ed437c5413f43341cbbf476e20ba1d3e7560bcbf",
+      "recordCount": 3
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-phase2-full-condition-pilot-moonshotai-kimi-k3.jsonl",
+      "sha256": "962eed0bbb38039829ee80dbdfa9f80ac7f49aed84595926126d5c0c709c29b9",
+      "recordCount": 5
+    }
+  ],
+  "limitations": [
+    "This freezes a local implementation and bounded-pilot evidence snapshot, not a completed paper-scale experiment.",
+    "Retained provider and rate-limit failures are evidence; they were not retried or replaced by fallback routes.",
+    "The controlled condition pilot used one eight-record invocation per attempted condition and is not a population or causal estimate.",
+    "The privacy-attack pilot validates measurement plumbing over controlled observations and is not a universal leakage guarantee.",
+    "The trusted-host threat model excludes a malicious host administrator; hardware attestation was not deployed."
+  ],
+  "auditHash": "a6dc3d189557da623c3cafcfda19e12a4082d36bd38558e87f96cdee5d8e6730"
+}

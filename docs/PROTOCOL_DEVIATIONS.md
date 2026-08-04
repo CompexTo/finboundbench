@@ -323,3 +323,9 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   disabled setting that the route cannot represent. Both settings are bound by
   the model-manifest and contract hashes. The platform change is a generic
   OpenRouter capability feature and contains no benchmark model selection.
+- That bounded retry did not pass either gate. Claude returned the identical
+  response-body hash after changing from `effort: none` to `effort: low`, and
+  Gemma still reported the provider-routing field after omitting reasoning.
+  This falsifies the reasoning-control hypothesis and raises the conservative
+  ledger debit to EUR 5.50417422. No further reasoning variants are authorized;
+  the remaining diagnosis is restricted to the selected provider route.

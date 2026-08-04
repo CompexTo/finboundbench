@@ -29,6 +29,8 @@ def test_frontier_matrix_pins_six_required_model_families() -> None:
         )
         for model in models
     )
+    assert config["phases"]["smoke"] == {"pairLimit": 1, "recordLimit": 1}
+    assert config["phases"]["pilot"] == {"pairLimit": 20, "recordLimit": None}
 
 
 def test_budget_ledger_reserves_before_call_and_settles_down(tmp_path: Path) -> None:
@@ -69,6 +71,27 @@ def test_budget_ledger_reserves_before_call_and_settles_down(tmp_path: Path) -> 
             outcome="passed",
         )
     assert second
+
+
+def test_budget_ledger_rejects_mismatched_or_duplicate_settlement() -> None:
+    rows = [
+        {
+            "recordType": "budget_reservation",
+            "reservationId": "r1",
+            "modelId": "provider/model-a",
+            "phase": "smoke",
+            "authorizedCostEur": 0.5,
+        },
+        {
+            "recordType": "budget_settlement",
+            "reservationId": "r1",
+            "modelId": "provider/model-b",
+            "phase": "smoke",
+            "budgetDebitEur": 0.1,
+        },
+    ]
+    with pytest.raises(ValueError, match="does not match"):
+        committed_budget_eur(rows)
 
 
 def test_budget_ledger_fails_closed_at_total_cap(tmp_path: Path) -> None:

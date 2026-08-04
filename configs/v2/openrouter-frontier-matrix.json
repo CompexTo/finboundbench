@@ -2,6 +2,7 @@
   "schemaVersion": "purposebound-finance.openrouter-frontier-matrix.v2",
   "protocolId": "protocol-v2-local",
   "modelManifest": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+  "documentation": "docs/v2/FRONTIER_MODEL_MATRIX.md",
   "totalAuthorizedCostEur": 10.0,
   "perInvocationAuthorizedCostEur": 0.5,
   "dataset": "data/v2/generated/hmda-2024-dc-pairs.jsonl",

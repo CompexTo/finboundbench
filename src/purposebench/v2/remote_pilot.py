@@ -141,11 +141,33 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         or manifest["endpoint"] != "https://openrouter.ai/api/v1/chat/completions"
         or manifest["modelVersion"] != manifest["modelId"]
         or not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,80}", str(manifest["artifactSlug"]))
+        or re.search(
+            r"(?:^|[-_.:/@])(latest|current|default|stable|preview|auto)(?:$|[-_.:/@])",
+            str(manifest["modelId"]),
+            re.IGNORECASE,
+        )
+        or not re.fullmatch(r"[a-f0-9]{64}", str(manifest["metadataResponseSha256"]))
+        or not isinstance(manifest["contextSize"], int)
+        or manifest["contextSize"] < 1
     ):
         raise ValueError("remote model manifest identity is invalid")
+    if not isinstance(manifest["supportedParameters"], list):
+        raise TypeError("remote model supported parameters are invalid")
     supported = set(manifest["supportedParameters"])
+    if len(supported) != len(manifest["supportedParameters"]):
+        raise ValueError("remote model supported parameters contain duplicates")
     if not {"max_tokens", "response_format", "structured_outputs"}.issubset(supported):
         raise ValueError("remote model lacks required structured-output parameters")
+    prices = manifest["budgetCeilingUsdPerToken"]
+    if not isinstance(prices, dict):
+        raise TypeError("remote model budget pricing is invalid")
+    for field in ("prompt", "completion"):
+        try:
+            price = float(prices[field])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError("remote model budget pricing is invalid") from error
+        if not 0 <= price < 1:
+            raise ValueError("remote model budget pricing is invalid")
     manifest["manifestHash"] = expected_hash
     return manifest
 
@@ -234,12 +256,13 @@ def run_remote_pilot(
         output_token_limit = max(512, len(rows) * 16)
         supported_parameters = set(manifest["supportedParameters"])
         effective_seed = seed if "seed" in supported_parameters else None
+        required_provider_capabilities = [
+            "max_tokens",
+            "response_format",
+            "structured_outputs",
+        ]
         transmitted_model_parameters = sorted(
-            {
-                "max_tokens",
-                "response_format",
-                "structured_outputs",
-            }
+            {"max_tokens", "response_format"}
             | ({"temperature"} if "temperature" in supported_parameters else set())
             | ({"top_p"} if "top_p" in supported_parameters else set())
             | ({"seed"} if effective_seed is not None else set())
@@ -255,6 +278,7 @@ def run_remote_pilot(
             "modelManifestHash": manifest["manifestHash"],
             "modelMetadataResponseSha256": manifest["metadataResponseSha256"],
             "supportedModelParameters": sorted(supported_parameters),
+            "requiredProviderCapabilities": required_provider_capabilities,
             "transmittedModelParameters": transmitted_model_parameters,
             "selectedFields": list(selected_fields),
             "pseudonymizedFields": list(pseudonymized_fields),
@@ -427,6 +451,11 @@ def build_remote_manifest(
         "model": successful[0]["pinnedModelId"] if successful else None,
         "processingClassification": "REMOTE_PROVIDER_PROCESSING",
         "cost": successful[0]["modelEvidence"]["cost"] if successful else None,
+        "providerReportedCost": (
+            successful[0]["modelEvidence"].get("providerReportedCost")
+            if successful
+            else None
+        ),
         "pairMetrics": successful[0]["pairMetrics"] if successful else None,
         "localFallback": {
             "artifact": str(local_fallback_path.relative_to(benchmark_root)).replace(

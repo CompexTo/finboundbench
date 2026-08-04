@@ -53,6 +53,40 @@ def main() -> None:
         artifact_stem = f"openrouter-frontier-{args.phase}-{slug}"
         raw_path = benchmark_root / "results/v2/raw/inference" / f"{artifact_stem}.jsonl"
         manifest_path = benchmark_root / "results/v2/manifests" / f"{artifact_stem}.json"
+        if args.phase == "pilot":
+            smoke_manifest_path = (
+                benchmark_root
+                / "results/v2/manifests"
+                / f"openrouter-frontier-smoke-{slug}.json"
+            )
+            if not smoke_manifest_path.exists():
+                failures.append(
+                    {
+                        "modelId": model["modelId"],
+                        "errorType": "MissingSmokeGate",
+                        "error": "one-record frontier smoke is not complete",
+                        "committedMatrixBudgetEur": str(
+                            committed_budget_eur(read_jsonl(ledger_path))
+                        ),
+                    }
+                )
+                continue
+            smoke_manifest = json.loads(smoke_manifest_path.read_text(encoding="utf-8"))
+            if (
+                smoke_manifest.get("status") != "passed"
+                or smoke_manifest.get("model") != model["modelId"]
+            ):
+                failures.append(
+                    {
+                        "modelId": model["modelId"],
+                        "errorType": "FailedSmokeGate",
+                        "error": "one-record frontier smoke did not pass for this model",
+                        "committedMatrixBudgetEur": str(
+                            committed_budget_eur(read_jsonl(ledger_path))
+                        ),
+                    }
+                )
+                continue
         if raw_path.exists() and manifest_path.exists():
             successes.append({"modelId": model["modelId"], "status": "already_complete"})
             continue
@@ -133,6 +167,9 @@ def main() -> None:
                 row for row in read_jsonl(raw_path) if row.get("status") == "passed"
             ][-1]
             debit = float(successful["budgetDebitEur"])
+            provider_reported_cost = successful["modelEvidence"].get(
+                "providerReportedCost"
+            )
             committed = settle_budget(
                 ledger_path,
                 reservation_id=reservation_id,
@@ -140,6 +177,7 @@ def main() -> None:
                 phase=args.phase,
                 budget_debit_eur=debit,
                 outcome="passed",
+                provider_reported_cost=provider_reported_cost,
             )
             settled = True
             ledger_rows = read_jsonl(ledger_path)
@@ -157,6 +195,7 @@ def main() -> None:
                 "reservationId": reservation_id,
                 "authorizedCostEur": config["perInvocationAuthorizedCostEur"],
                 "budgetDebitEur": debit,
+                "providerReportedCost": provider_reported_cost,
                 "committedMatrixBudgetEur": committed,
                 "totalAuthorizedCostEur": config["totalAuthorizedCostEur"],
                 "ledgerArtifact": str(BUDGET_LEDGER).replace("\\", "/"),

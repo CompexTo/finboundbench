@@ -242,3 +242,6 @@ tests after tag `protocol-v1` must be appended here before additional runs.
 - USD is treated as EUR at parity for the research ceiling. This intentionally
   overstates rather than understates the expected EUR cost under the rates
   observed at capture time; it is budget evidence, not financial reporting.
+- Successful evidence retains both the manifest-derived conservative debit and
+  OpenRouter's provider-reported account charge. The reported value remains
+  labelled in OpenRouter credits and is not silently reclassified as EUR.

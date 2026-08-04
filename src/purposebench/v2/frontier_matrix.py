@@ -44,20 +44,39 @@ def load_frontier_matrix(
 
 
 def committed_budget_eur(rows: Sequence[Mapping[str, Any]]) -> float:
-    reservations: dict[str, float] = {}
+    reservations: dict[str, dict[str, Any]] = {}
+    settled: set[str] = set()
     for row in rows:
         reservation_id = str(row["reservationId"])
         if row["recordType"] == "budget_reservation":
             if reservation_id in reservations:
                 raise ValueError("duplicate budget reservation")
-            reservations[reservation_id] = float(row["authorizedCostEur"])
+            authorized = float(row["authorizedCostEur"])
+            if authorized <= 0:
+                raise ValueError("budget reservation must be positive")
+            reservations[reservation_id] = {
+                "amount": authorized,
+                "modelId": row["modelId"],
+                "phase": row["phase"],
+            }
         elif row["recordType"] == "budget_settlement":
             if reservation_id not in reservations:
                 raise ValueError("budget settlement has no reservation")
-            reservations[reservation_id] = float(row["budgetDebitEur"])
+            if reservation_id in settled:
+                raise ValueError("budget reservation has duplicate settlements")
+            reservation = reservations[reservation_id]
+            debit = float(row["budgetDebitEur"])
+            if (
+                row["modelId"] != reservation["modelId"]
+                or row["phase"] != reservation["phase"]
+                or not 0 <= debit <= reservation["amount"]
+            ):
+                raise ValueError("budget settlement does not match its reservation")
+            reservation["amount"] = debit
+            settled.add(reservation_id)
         else:
             raise ValueError("unknown frontier budget record type")
-    return round(sum(reservations.values()), 9)
+    return round(sum(float(item["amount"]) for item in reservations.values()), 9)
 
 
 def reserve_budget(
@@ -68,6 +87,8 @@ def reserve_budget(
     authorized_cost_eur: float,
     total_authorized_cost_eur: float,
 ) -> tuple[str, float]:
+    if authorized_cost_eur <= 0 or authorized_cost_eur > total_authorized_cost_eur:
+        raise ValueError("budget reservation is outside the total authorization")
     current = committed_budget_eur(read_jsonl(ledger_path))
     if current + authorized_cost_eur > total_authorized_cost_eur:
         raise RuntimeError("OPENROUTER_FRONTIER_EUR_10_BUDGET_EXHAUSTED")
@@ -97,6 +118,7 @@ def settle_budget(
     phase: str,
     budget_debit_eur: float,
     outcome: str,
+    provider_reported_cost: Mapping[str, Any] | None = None,
 ) -> float:
     rows = read_jsonl(ledger_path)
     matching = [
@@ -114,6 +136,8 @@ def settle_budget(
     ):
         raise ValueError("budget reservation is already settled")
     authorized = float(matching[0]["authorizedCostEur"])
+    if matching[0]["modelId"] != model_id or matching[0]["phase"] != phase:
+        raise ValueError("budget settlement does not match its reservation")
     if not 0 <= budget_debit_eur <= authorized:
         raise ValueError("budget settlement exceeds its reservation")
     append_jsonl(
@@ -126,6 +150,11 @@ def settle_budget(
             "modelId": model_id,
             "phase": phase,
             "budgetDebitEur": budget_debit_eur,
+            "providerReportedCost": (
+                dict(provider_reported_cost)
+                if provider_reported_cost is not None
+                else None
+            ),
             "outcome": outcome,
         },
     )

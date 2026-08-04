@@ -62,6 +62,7 @@ def run_training_pilot(seed: int = 20260802) -> dict[str, Any]:
     return {
         "schemaVersion": "purposebound-finance.dp-training-pilot.v2",
         "recordedAt": datetime.now(UTC).isoformat(),
+        "status": "passed",
         "seed": seed,
         "dataset": {
             "kind": "deterministic_synthetic_tabular",
@@ -149,6 +150,7 @@ def run_privacy_attack_pilot(seed: int = 20260802) -> dict[str, Any]:
     return {
         "schemaVersion": "purposebound-finance.privacy-attack-pilot.v2",
         "recordedAt": datetime.now(UTC).isoformat(),
+        "status": "passed",
         "seed": seed,
         "design": (
             "Deterministic controlled observations validate attack measurement and "

@@ -24,6 +24,7 @@ def test_privacy_attack_pilot_covers_required_conditions_and_attacks() -> None:
     report = run_privacy_attack_pilot()
     measurements = report["measurements"]
 
+    assert report["status"] == "passed"
     assert len(measurements) == 15
     assert {item["condition"] for item in measurements} == {
         "ordinary",

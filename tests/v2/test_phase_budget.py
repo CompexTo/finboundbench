@@ -4,6 +4,7 @@ import pytest
 
 from purposebench.v2.phase_budget import (
     committed_category_eur,
+    reconcile_pretransport_failure,
     reserve_phase_budget,
     settle_phase_budget,
 )
@@ -74,3 +75,15 @@ def test_phase_budget_preserves_failed_reservation(tmp_path: Path) -> None:
         outcome="failed_conservative_debit",
     )
     assert category == 0.5
+    global_reconciled, category_reconciled = reconcile_pretransport_failure(
+        ledger,
+        reservation_id=reservation,
+        model_id="anthropic/claude-opus-5",
+        phase="claude_gate_1",
+        category="new_claude_compatibility",
+        authorization_id="phase2-20260805",
+        evidence_artifact="failure.jsonl.partial",
+        evidence_artifact_sha256="a" * 64,
+    )
+    assert global_reconciled == 0
+    assert category_reconciled == 0

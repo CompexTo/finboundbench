@@ -43,12 +43,12 @@ function loadResearchKey(platformRoot) {
   return { loadedFromFile: true, previousValue };
 }
 
-async function main() {
-  const platformRoot = path.resolve(process.env.COMPEX_PLATFORM_ROOT || '');
+async function executeBridgeInput(platformRootInput, inputValue, adapterOverrides = {}) {
+  const platformRoot = path.resolve(platformRootInput || '');
   if (!platformRoot || !fs.existsSync(path.join(platformRoot, 'services', 'runner'))) {
     throw new Error('COMPEX_PLATFORM_ROOT must name the local Compex repository');
   }
-  const input = requireInput(JSON.parse(fs.readFileSync(0, 'utf8')), 'bridge input');
+  const input = requireInput(inputValue, 'bridge input');
   const keyState = loadResearchKey(platformRoot);
   try {
     const types = require(path.join(platformRoot, 'packages', 'types', 'dist', 'index.js'));
@@ -211,7 +211,7 @@ async function main() {
       effectiveModelId: manifest.modelId,
       modelVersion,
       modelIdImmutability: 'PINNED',
-      endpoint: manifest.endpoint,
+      endpoint,
       executionMode: 'REMOTE',
       workloadImageDigest: input.workloadImageDigest,
       temperature: 0,
@@ -272,6 +272,9 @@ async function main() {
       ...(reasoningEffort === undefined ? {} : { reasoningEffort }),
       ...(reasoningEnabled === undefined ? {} : { reasoningEnabled }),
       reasoningDisableStrategy,
+      ...(adapterOverrides.transport === undefined
+        ? {}
+        : { transport: adapterOverrides.transport }),
     }).invoke({
       contractHash: input.contractHash,
       model,
@@ -332,11 +335,11 @@ async function main() {
         expectedPolicyHash: input.actionPolicyHash,
       });
     }
-    process.stdout.write(JSON.stringify({
+    return {
       ...result,
       nativeRelease,
       ...(governedActionBatch === undefined ? {} : { governedActionBatch }),
-    }));
+    };
   } finally {
     if (keyState.loadedFromFile) {
       if (keyState.previousValue === undefined) delete process.env[KEY_NAME];
@@ -345,7 +348,13 @@ async function main() {
   }
 }
 
-main().catch((error) => {
+async function main() {
+  const input = requireInput(JSON.parse(fs.readFileSync(0, 'utf8')), 'bridge input');
+  const result = await executeBridgeInput(process.env.COMPEX_PLATFORM_ROOT, input);
+  process.stdout.write(JSON.stringify(result));
+}
+
+function reportFailure(error) {
   if (error && typeof error === 'object' && error.diagnostic) {
     process.stderr.write(`PROVIDER_SAFE_ERROR:${JSON.stringify(error.diagnostic)}`);
     process.exitCode = 1;
@@ -354,4 +363,8 @@ main().catch((error) => {
   const message = error instanceof Error ? error.message : String(error);
   process.stderr.write(message.includes(KEY_NAME) ? 'OPENROUTER_API_KEY_NOT_CONFIGURED' : message);
   process.exitCode = 1;
-});
+}
+
+module.exports = { executeBridgeInput };
+
+if (require.main === module) main().catch(reportFailure);

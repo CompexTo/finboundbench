@@ -32,6 +32,14 @@ def committed_category_eur(
             if not 0 <= debit <= reservations[reservation_id]:
                 raise ValueError("categorized settlement exceeds its reservation")
             reservations[reservation_id] = debit
+        elif row.get("recordType") == "budget_reconciliation":
+            if reservation_id not in reservations:
+                raise ValueError("categorized reconciliation has no reservation")
+            previous = float(row["previousBudgetDebitEur"])
+            revised = float(row["revisedBudgetDebitEur"])
+            if previous != reservations[reservation_id] or not 0 <= revised <= previous:
+                raise ValueError("categorized reconciliation is invalid")
+            reservations[reservation_id] = revised
     return round(sum(reservations.values()), 9)
 
 
@@ -141,6 +149,62 @@ def settle_phase_budget(
                 else None
             ),
             "outcome": outcome,
+        },
+    )
+    updated = read_jsonl(ledger_path)
+    return committed_budget_eur(updated), committed_category_eur(updated, category)
+
+
+def reconcile_pretransport_failure(
+    ledger_path: Path,
+    *,
+    reservation_id: str,
+    model_id: str,
+    phase: str,
+    category: str,
+    authorization_id: str,
+    evidence_artifact: str,
+    evidence_artifact_sha256: str,
+) -> tuple[float, float]:
+    rows = read_jsonl(ledger_path)
+    settlements = [
+        row
+        for row in rows
+        if row.get("recordType") == "budget_settlement"
+        and row.get("reservationId") == reservation_id
+    ]
+    if len(settlements) != 1 or settlements[0].get("outcome") != "failed_conservative_debit":
+        raise ValueError("pre-transport reconciliation requires one conservative settlement")
+    settlement = settlements[0]
+    if (
+        settlement.get("modelId") != model_id
+        or settlement.get("phase") != phase
+        or settlement.get("budgetCategory") != category
+        or settlement.get("authorizationId") != authorization_id
+        or any(
+            row.get("recordType") == "budget_reconciliation"
+            and row.get("reservationId") == reservation_id
+            for row in rows
+        )
+    ):
+        raise ValueError("pre-transport reconciliation identity is invalid")
+    previous = float(settlement["budgetDebitEur"])
+    append_jsonl(
+        ledger_path,
+        {
+            "schemaVersion": "purposebound-finance.frontier-budget.v2",
+            "recordType": "budget_reconciliation",
+            "reservationId": reservation_id,
+            "recordedAt": datetime.now(UTC).isoformat(),
+            "modelId": model_id,
+            "phase": phase,
+            "budgetCategory": category,
+            "authorizationId": authorization_id,
+            "previousBudgetDebitEur": previous,
+            "revisedBudgetDebitEur": 0.0,
+            "reason": "PRE_TRANSPORT_FAILURE_PROVEN",
+            "evidenceArtifact": evidence_artifact,
+            "evidenceArtifactSha256": evidence_artifact_sha256,
         },
     )
     updated = read_jsonl(ledger_path)

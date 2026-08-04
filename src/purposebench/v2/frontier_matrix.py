@@ -197,6 +197,7 @@ def load_frontier_matrix(
 def committed_budget_eur(rows: Sequence[Mapping[str, Any]]) -> float:
     reservations: dict[str, dict[str, Any]] = {}
     settled: set[str] = set()
+    reconciled: set[str] = set()
     for row in rows:
         reservation_id = str(row["reservationId"])
         if row["recordType"] == "budget_reservation":
@@ -225,6 +226,25 @@ def committed_budget_eur(rows: Sequence[Mapping[str, Any]]) -> float:
                 raise ValueError("budget settlement does not match its reservation")
             reservation["amount"] = debit
             settled.add(reservation_id)
+        elif row["recordType"] == "budget_reconciliation":
+            if reservation_id not in reservations or reservation_id not in settled:
+                raise ValueError("budget reconciliation has no settled reservation")
+            if reservation_id in reconciled:
+                raise ValueError("budget reservation has duplicate reconciliations")
+            reservation = reservations[reservation_id]
+            previous = float(row["previousBudgetDebitEur"])
+            revised = float(row["revisedBudgetDebitEur"])
+            if (
+                row["modelId"] != reservation["modelId"]
+                or row["phase"] != reservation["phase"]
+                or previous != reservation["amount"]
+                or not 0 <= revised <= previous
+                or row.get("reason") != "PRE_TRANSPORT_FAILURE_PROVEN"
+                or not isinstance(row.get("evidenceArtifactSha256"), str)
+            ):
+                raise ValueError("budget reconciliation is invalid")
+            reservation["amount"] = revised
+            reconciled.add(reservation_id)
         else:
             raise ValueError("unknown frontier budget record type")
     return round(sum(float(item["amount"]) for item in reservations.values()), 9)

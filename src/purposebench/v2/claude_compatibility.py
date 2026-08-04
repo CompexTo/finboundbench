@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import time
 import uuid
 from collections.abc import Mapping, Sequence
@@ -225,6 +226,7 @@ def build_contract_material(
     prompts: Mapping[str, str],
     gate: int,
     platform_commit: str,
+    bridge_sha256: str,
 ) -> dict[str, Any]:
     manifest = config["modelManifestValue"]
     return {
@@ -257,12 +259,21 @@ def build_contract_material(
         "maximumCalls": 1,
         "retryCount": 0,
         "platformCommit": platform_commit,
+        "openRouterBridgeSha256": bridge_sha256,
     }
 
 
 def repeated_failed_combination(root: Path, manifest_hash: str, contract_hash: str) -> bool:
-    pattern = "openrouter-frontier-smoke-anthropic-claude-*.jsonl.partial"
-    for path in (root / "results/v2/raw/inference").glob(pattern):
+    patterns = (
+        "openrouter-frontier-smoke-anthropic-claude-*.jsonl.partial",
+        "openrouter-phase2-claude-gate*.jsonl.partial",
+    )
+    paths = {
+        path
+        for pattern in patterns
+        for path in (root / "results/v2/raw/inference").glob(pattern)
+    }
+    for path in paths:
         for row in read_jsonl(path):
             if (
                 row.get("status") == "failed"
@@ -363,6 +374,27 @@ def run_gate_zero(root: Path, platform_root: Path, config_path: Path) -> Path:
     )
     if module_probe.returncode != 0:
         raise RuntimeError("Claude Gate 0 native validators failed to load")
+    probe_environment = os.environ.copy()
+    probe_environment["COMPEX_PLATFORM_ROOT"] = str(platform_root)
+    contract_probe = subprocess.run(
+        [sys.executable, str(root / "scripts/probe_openrouter_phase2_contract.py")],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        env=probe_environment,
+        timeout=30,
+        check=False,
+    )
+    if contract_probe.returncode != 0:
+        raise RuntimeError("Claude Gate 0 exact contract fake-transport probe failed")
+    probe_result = json.loads(contract_probe.stdout)
+    if (
+        probe_result.get("status") != "PASSED"
+        or probe_result.get("externalProviderCalls") != 0
+        or probe_result.get("nativeReleaseAllowed") is not True
+        or probe_result.get("governedRecordCount") != 1
+    ):
+        raise RuntimeError("Claude Gate 0 exact contract fake-transport evidence is invalid")
     schema = assessment_schema(1, config["actionPolicyValue"])
     prompts = assessment_prompts()
     secret_scan = _secret_scan(root, platform_root)
@@ -397,6 +429,7 @@ def run_gate_zero(root: Path, platform_root: Path, config_path: Path) -> Path:
             "evidenceWriterReady": True,
             "cleanupHandlerReady": True,
             "budgetReservationPreflightPassed": True,
+            "exactContractFakeTransportProbePassed": True,
         },
         "secretPersistenceScan": secret_scan,
         "previousClaudeFailuresPreserved": previous_failures,
@@ -409,11 +442,13 @@ def run_gate_zero(root: Path, platform_root: Path, config_path: Path) -> Path:
         },
         "providerCalls": 0,
     }
-    return write_new_v2_artifact(
-        root,
-        Path("results/v2/manifests/openrouter-claude-gate0-20260805.json"),
-        evidence,
+    original = root / "results/v2/manifests/openrouter-claude-gate0-20260805.json"
+    destination = (
+        Path("results/v2/manifests/openrouter-claude-gate0-recheck-20260805.json")
+        if original.exists()
+        else Path("results/v2/manifests/openrouter-claude-gate0-20260805.json")
     )
+    return write_new_v2_artifact(root, destination, evidence)
 
 
 def _safe_provider_failure(error: Exception, manifest: Mapping[str, Any]) -> dict[str, Any]:
@@ -467,8 +502,12 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
     if gate not in {1, 2}:
         raise ValueError("Paid Claude compatibility gate must be one or two")
     config = load_phase_configuration(root, config_path)
-    gate0 = root / "results/v2/manifests/openrouter-claude-gate0-20260805.json"
-    if not gate0.is_file() or json.loads(gate0.read_text(encoding="utf-8")).get("status") != "PASSED":
+    gate0 = root / "results/v2/manifests/openrouter-claude-gate0-recheck-20260805.json"
+    gate0_value = json.loads(gate0.read_text(encoding="utf-8")) if gate0.is_file() else {}
+    if (
+        gate0_value.get("status") != "PASSED"
+        or gate0_value.get("checks", {}).get("exactContractFakeTransportProbePassed") is not True
+    ):
         raise RuntimeError("Claude Gate 0 has not passed")
     if gate == 2:
         gate1 = root / "results/v2/manifests/openrouter-phase2-claude-gate1.json"
@@ -495,6 +534,7 @@ def run_paid_gate(root: Path, platform_root: Path, config_path: Path, gate: int)
         prompts=prompts,
         gate=gate,
         platform_commit=platform_commit,
+        bridge_sha256=sha256_file(root / "scripts/governed_openrouter_bridge.cjs"),
     )
     contract_hash = sha256_json(contract_material)
     manifest = config["modelManifestValue"]

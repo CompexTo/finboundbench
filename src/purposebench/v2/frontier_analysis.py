@@ -222,6 +222,7 @@ def analyze_frontier_pilots(
     summaries: list[dict[str, Any]] = []
     exclusions: list[dict[str, Any]] = []
     compatibility_artifacts: list[dict[str, str]] = []
+    pilot_ledger_prefix_counts: list[int] = []
     for model in models:
         slug = model["artifactSlug"]
         manifest_path = (
@@ -231,6 +232,8 @@ def analyze_frontier_pilots(
         )
         if manifest_path.exists():
             summaries.append(_passed_summary(benchmark_root, config, model, manifest_path))
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            pilot_ledger_prefix_counts.append(manifest["budget"]["ledgerPrefixRecordCount"])
             continue
         partial_path = (
             benchmark_root
@@ -277,6 +280,8 @@ def analyze_frontier_pilots(
         )
     ledger_path = benchmark_root / BUDGET_LEDGER
     ledger = read_jsonl(ledger_path)
+    pilot_prefix_count = max(pilot_ledger_prefix_counts)
+    pilot_ledger = ledger[:pilot_prefix_count]
     analysis_manifest = {
         "schemaVersion": "purposebound-finance.frontier-analysis.v2",
         "matrixHash": config["modelMatrixHash"],
@@ -284,9 +289,10 @@ def analyze_frontier_pilots(
         "passedPilotModels": len(summaries),
         "excludedPilotModels": len(exclusions),
         "totalAuthorizedCostEur": config["totalAuthorizedCostEur"],
-        "committedCostEur": committed_budget_eur(ledger),
+        "committedCostEur": committed_budget_eur(pilot_ledger),
         "budgetLedger": str(BUDGET_LEDGER).replace("\\", "/"),
-        "budgetLedgerSha256": sha256_file(ledger_path),
+        "budgetLedgerPrefixRecordCount": pilot_prefix_count,
+        "budgetLedgerPrefixHash": sha256_json(pilot_ledger),
         "sourceRawArtifacts": [
             {"path": row["rawArtifact"], "sha256": row["rawArtifactSha256"]}
             for row in summaries

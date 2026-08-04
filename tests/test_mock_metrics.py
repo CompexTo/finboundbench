@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import yaml
@@ -86,7 +87,7 @@ def test_output_guard_redacts_disclosure_without_rewriting_decision(tmp_path: Pa
     )
     adapter = OpenAICompatibleAdapter()
     adapter.last_attempts = [{"attempt": 1, "status": "ok"}]
-    adapter._call = lambda _payload: {  # type: ignore[method-assign]
+    adapter._call = lambda _payload: {  # type: ignore[assignment]
         "model": "fake-model",
         "choices": [{"message": {"content": raw}}],
         "usage": {},
@@ -113,7 +114,7 @@ def test_invalid_model_output_fails_closed(tmp_path: Path) -> None:
     repo = Path(__file__).resolve().parents[1]
     policy = yaml.safe_load((repo / "policies" / f"{case.workflow}.yaml").read_text())
     adapter = OpenAICompatibleAdapter()
-    adapter._call = lambda _payload: {  # type: ignore[method-assign]
+    adapter._call = lambda _payload: {  # type: ignore[assignment]
         "model": "fake-model",
         "choices": [{"message": {"content": ""}}],
         "usage": {},
@@ -133,7 +134,7 @@ def test_invalid_model_output_fails_closed(tmp_path: Path) -> None:
 
 
 def test_optional_model_contract_is_part_of_exact_payload() -> None:
-    response_format = {
+    response_format: dict[str, Any] = {
         "type": "json_schema",
         "json_schema": {
             "name": "result",

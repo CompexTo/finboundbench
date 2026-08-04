@@ -411,3 +411,26 @@ tests after tag `protocol-v1` must be appended here before additional runs.
 - This pre-freeze change closes the official CFPB acquisition gate. It does not
   make the incomplete local multi-condition pilot successful and does not
   authorize a protocol tag or paper claim.
+
+## 2026-08-04 - frontier three-execution replication completes without retries
+
+- The five models admitted by the one-record gate each received exactly three
+  planned 40-record executions. All 15 planned attempts were made; 13 released
+  validated output and two failed closed. No failed attempt was retried.
+- Kimi repetition 2 returned invalid response choices. Gemma repetition 3
+  returned truncated JSON. Neither produced release evidence, and each retains
+  its full EUR 0.25 conservative debit.
+- Across successful attempts, exact record-level decision stability was 90.0%
+  for Gemma, 52.5% for GPT-5.6 Luna, 100.0% for DeepSeek, 100.0% for Kimi, and
+  70.0% for Llama. Exact risk-score stability was 0.0%, 0.0%, 100.0%, 55.0%,
+  and 65.0%, respectively.
+- GPT-5.6 Luna repetition 2 changed decisions in 8 of 20 identical approved
+  projected pairs; its other two attempts and all other released attempts had
+  zero paired influence. The transmitted-record and contract-without-repetition
+  hashes remained unchanged, so the result is classified as execution
+  instability rather than prohibited-field transmission.
+- The append-only conservative ledger closes at EUR 7.90239384 of the EUR 10
+  authorization, leaving EUR 2.09760616. These replications complete the
+  three-execution remote diagnostic only; they do not complete the full
+  multi-condition paper matrix, freeze protocol v2, authorize tags, or start
+  AWS packaging.

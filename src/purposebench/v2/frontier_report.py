@@ -76,6 +76,7 @@ def build_frontier_comparison(
     finished_at: list[str] = []
     transmitted_hashes: set[str] = set()
     pilot_debit = 0.0
+    pilot_ledger_prefix_counts: list[int] = []
     for model in models:
         slug = model["artifactSlug"]
         raw_relative = Path(
@@ -119,6 +120,7 @@ def build_frontier_comparison(
             or manifest.get("rawArtifactSha256") != sha256_file(raw_path)
         ):
             raise ValueError(f"frontier pilot manifest integrity failed: {model['modelId']}")
+        pilot_ledger_prefix_counts.append(manifest["budget"]["ledgerPrefixRecordCount"])
         row = _passed_row(raw_path)
         if (
             row.get("recordCount") != 40
@@ -227,6 +229,7 @@ def build_frontier_comparison(
         majority_counts[counts.most_common(1)[0][0]] += 1
 
     ledger_rows = read_jsonl(benchmark_root / BUDGET_LEDGER)
+    ledger_rows = ledger_rows[: max(pilot_ledger_prefix_counts)]
     known_provider_cost = sum(
         float(row["providerReportedCost"]["amount"])
         for row in ledger_rows

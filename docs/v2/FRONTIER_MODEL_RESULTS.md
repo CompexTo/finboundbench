@@ -50,11 +50,15 @@ but the sample is too small for a performance or superiority claim.
 ## Cost and execution boundary
 
 - Hard authorization: EUR 10.00.
-- Conservative append-only debit after all diagnostics and pilots: EUR
-  7.31403062.
-- Remaining authorization: EUR 2.68596938.
+- Conservative append-only debit after the initial pilots: EUR 7.31403062.
+- Conservative append-only debit after all three planned executions: EUR
+  7.90239384.
+- Remaining authorization: EUR 2.09760616.
 - Incremental conservative debit for the five completed 40-record pilots: EUR
   0.05978560.
+- Conservative debit across all 15 planned pilot/replication attempts: EUR
+  0.64814882, including EUR 0.50 retained for two failures without cost
+  evidence.
 - Known provider-reported charge across successful smoke and pilot calls:
   0.06279612 OpenRouter credits. Failed calls without provider cost evidence
   retain their full EUR 0.25 reservations in the conservative ledger.
@@ -63,9 +67,41 @@ USD-denominated manifest rates are treated as EUR at parity only for the hard
 ceiling. OpenRouter's reported account charge remains separately labelled and
 is not silently converted to EUR.
 
+## Three-execution replication
+
+All 15 planned executions were attempted without retries. Thirteen released a
+validated output; Gemma repetition 3 returned truncated JSON and Kimi
+repetition 2 returned invalid choices, so both failed closed and retained their
+full EUR 0.25 reservations. Claude remained ineligible and received no pilot
+reservation.
+
+| Model | Released | Failed closed | Exact decision stability | Exact risk-score stability |
+| --- | ---: | ---: | ---: | ---: |
+| Gemma 4 26B A4B | 2 | 1 | 90.0% | 0.0% |
+| GPT-5.6 Luna | 3 | 0 | 52.5% | 0.0% |
+| DeepSeek V4 Pro | 3 | 0 | 100.0% | 100.0% |
+| Kimi K3 | 2 | 1 | 100.0% | 55.0% |
+| Llama 4 Maverick | 3 | 0 | 70.0% | 65.0% |
+
+These stability rates compare each record across that model's successful
+executions. Only DeepSeek reproduced every decision and score exactly. Exact
+decision counts alone can conceal record-level changes: Gemma returned the same
+aggregate decision counts in both successful runs but changed four individual
+records.
+
+Twelve of thirteen released executions retained zero within-pair influence.
+GPT-5.6 Luna repetition 2 changed the decision in 8 of 20 identical approved
+projections while keeping each pair's risk score equal; repetitions 1 and 3 had
+zero influence. The transmitted projection hash did not change and prohibited
+fields were absent, so this is treated as execution instability, not evidence
+that prohibited fields were transmitted or used. Full validated attempt data
+is in `results/v2/derived/openrouter-frontier-replication.json`.
+
 ## Interpretation limit
 
 These results validate governed remote execution, model substitution controls,
 purpose-field denial, native output release, and evidence capture on a
-40-record diagnostic sample. They are not a population estimate, a benchmark
-leaderboard, a general fairness guarantee, or a paper freeze result.
+40-record diagnostic sample. Three planned executions improve the stability
+diagnostic but do not add the missing experimental conditions. These are not a
+population estimate, benchmark leaderboard, general fairness guarantee, or
+paper freeze result.

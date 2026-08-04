@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -43,7 +44,7 @@ def test_schema_and_response_validation_bind_every_case_id() -> None:
     case_ids = ["case-a", "case-b"]
     schema = response_schema(case_ids)
     assert schema["properties"]["results"]["minItems"] == 2
-    value = {
+    value: dict[str, Any] = {
         "results": [
             {
                 "case_id": case_id,
@@ -63,7 +64,7 @@ def test_large_batch_uses_compact_order_bound_response() -> None:
     case_ids = [f"case-{index:02d}" for index in range(40)]
     schema = response_schema(case_ids)
     assert set(schema["properties"]) == {"decisions", "risk_scores"}
-    value = {
+    value: dict[str, Any] = {
         "decisions": ["STANDARD_REVIEW"] * 20 + ["MANUAL_REVIEW"] * 20,
         "risk_scores": list(range(40)),
     }

@@ -1,6 +1,7 @@
 {
   "budgetLedger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
-  "budgetLedgerSha256": "2f733e8754f1a8c6eb0854d26fe88fc1c4a6cc93884cb851857e2a2a71b10e10",
+  "budgetLedgerPrefixHash": "51cbfddff71bb77a38456c513d2149490a28084f26d2ebcc30c08b3bedb2a029",
+  "budgetLedgerPrefixRecordCount": 66,
   "committedCostEur": 7.31403062,
   "excludedPilotModels": 1,
   "exclusionsArtifact": "results/v2/derived/openrouter-frontier-pilot-exclusions.csv",

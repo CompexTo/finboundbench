@@ -16,4 +16,5 @@ def test_frontier_analysis_validates_pilots_and_retains_exclusion() -> None:
     assert [row["modelId"] for row in exclusions] == ["anthropic/claude-opus-4.8"]
     assert exclusions[0]["pilotReservationCreated"] is False
     assert exclusions[0]["claudeFamilyFailedSmokeAttempts"] == 13
-    assert manifest["committedCostEur"] < manifest["totalAuthorizedCostEur"]
+    assert manifest["committedCostEur"] == 7.31403062
+    assert manifest["budgetLedgerPrefixRecordCount"] > 0

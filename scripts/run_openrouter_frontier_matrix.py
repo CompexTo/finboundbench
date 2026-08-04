@@ -82,8 +82,12 @@ def main() -> None:
                     }
                 )
         committed = committed_budget_eur(read_jsonl(ledger_path))
-        reservation = len(eligible) * float(config["perInvocationAuthorizedCostEur"])
-        fits = committed + reservation <= float(config["totalAuthorizedCostEur"])
+        maximum_reservation = len(eligible) * float(
+            config["perInvocationAuthorizedCostEur"]
+        )
+        fits = committed + maximum_reservation <= float(
+            config["totalAuthorizedCostEur"]
+        )
         print(
             json.dumps(
                 {
@@ -93,8 +97,11 @@ def main() -> None:
                     "eligibleModels": eligible,
                     "errors": errors,
                     "committedBudgetEur": committed,
-                    "maximumAdditionalReservationEur": reservation,
-                    "maximumCommittedAfterEur": round(committed + reservation, 9),
+                    "maximumAdditionalReservationEur": maximum_reservation,
+                    "maximumCommittedAfterEur": round(
+                        committed + maximum_reservation,
+                        9,
+                    ),
                     "totalAuthorizedCostEur": config["totalAuthorizedCostEur"],
                     "withinBudget": fits,
                 },
@@ -212,7 +219,7 @@ def main() -> None:
             if not settlements:
                 raise RuntimeError(f"raw artifact has no passed budget settlement for {model['modelId']}")
             settlement = settlements[-1]
-            reservation = next(
+            reservation_row = next(
                 row
                 for row in ledger_rows
                 if row["recordType"] == "budget_reservation"
@@ -228,7 +235,7 @@ def main() -> None:
             manifest["modelManifestHash"] = model["manifestHash"]
             manifest["budget"] = {
                 "reservationId": settlement["reservationId"],
-                "authorizedCostEur": reservation["authorizedCostEur"],
+                "authorizedCostEur": reservation_row["authorizedCostEur"],
                 "budgetDebitEur": settlement["budgetDebitEur"],
                 "committedMatrixBudgetEur": committed_budget_eur(ledger_rows),
                 "totalAuthorizedCostEur": config["totalAuthorizedCostEur"],

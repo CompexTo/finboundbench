@@ -10,7 +10,7 @@ def test_pairs_share_allowed_projection(tmp_path: Path) -> None:
     path = tmp_path / "cases.jsonl"
     generate_dataset(path, cases_per_workflow=2, seed=123)
     cases = [BenchmarkCase.model_validate(row) for row in read_jsonl(path)]
-    pairs = {}
+    pairs: dict[str, list[BenchmarkCase]] = {}
     for case in cases:
         pairs.setdefault(case.pair_id, []).append(case)
     for pair in pairs.values():

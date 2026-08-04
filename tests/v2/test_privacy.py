@@ -330,9 +330,12 @@ def test_training_presets_and_clear_optional_dependency_failure(
         True,
         True,
     ]
-    assert [
+    noise_multipliers = [
         config.noise_multiplier for config in configs[1:]
-    ] == sorted(config.noise_multiplier for config in configs[1:])
+        if config.noise_multiplier is not None
+    ]
+    assert len(noise_multipliers) == 3
+    assert noise_multipliers == sorted(noise_multipliers)
 
     def unavailable() -> Any:
         raise OptionalPrivacyDependencyError(

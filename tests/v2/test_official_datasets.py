@@ -5,7 +5,7 @@ import io
 import json
 import zipfile
 from collections.abc import Iterator, Mapping
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
@@ -372,8 +372,8 @@ def test_cfpb_bounded_query_downloads_csv_and_transforms(
     raw = root / "complaints.csv"
     source_manifest_path = root / "source.json"
     query = CFPBQuery(
-        date_received_min="2024-01-01",
-        date_received_max="2024-02-01",
+        date_received_min=date(2024, 1, 1),
+        date_received_max=date(2024, 2, 1),
         state="dc",
     )
 
@@ -416,14 +416,14 @@ def test_cfpb_bounded_query_downloads_csv_and_transforms(
 def test_cfpb_query_rejects_unbounded_requests() -> None:
     with pytest.raises(ValueError, match="two-letter"):
         CFPBQuery(
-            date_received_min="2024-01-01",
-            date_received_max="2024-02-01",
+            date_received_min=date(2024, 1, 1),
+            date_received_max=date(2024, 2, 1),
             state="",
         )
     with pytest.raises(ValueError, match="31 days"):
         CFPBQuery(
-            date_received_min="2024-01-01",
-            date_received_max="2024-03-01",
+            date_received_min=date(2024, 1, 1),
+            date_received_max=date(2024, 3, 1),
             state="DC",
         )
 

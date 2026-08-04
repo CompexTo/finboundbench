@@ -335,3 +335,12 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   `amazon-bedrock/us-east-1` and Gemma to `deepinfra/turbo`, with fresh endpoint
   hashes, exact supported-parameter lists, and conservative price ceilings.
   All privacy, fallback, schema, one-call, and EUR 0.25 controls remain fixed.
+- The exact regional attempt did not resolve either upstream defect: Gemma 4
+  31B returned HTTP 405 and Claude Opus 5 returned the same HTTP 400 body. The
+  ledger is now EUR 6.00417422, and both exact model IDs are closed to further
+  calls. Their append-only failures remain negative compatibility evidence.
+- To retain the user-requested Gemma 4 and Claude families without weakening
+  governance, the active matrix substitutes current catalog siblings before
+  their first call: Gemma 4 26B A4B on NextBit BF16 and Claude Sonnet 5 on
+  Azure Global. The four already passing models and their artifacts are not
+  rerun. Each substitute still requires its own one-record gate.

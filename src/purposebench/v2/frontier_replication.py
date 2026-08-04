@@ -6,6 +6,7 @@ import json
 import os
 from collections import Counter
 from collections.abc import Mapping
+from hashlib import sha256
 from pathlib import Path
 from statistics import fmean
 from typing import Any
@@ -31,6 +32,30 @@ def _artifact_stem(slug: str, repetition: int) -> str:
 
 def _budget_phase(repetition: int) -> str:
     return "pilot" if repetition == 1 else f"pilot_rep{repetition}"
+
+
+def _replication_ledger_prefix(
+    ledger_path: Path,
+    ledger: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], str]:
+    phases = {_budget_phase(repetition) for repetition in (1, 2, 3)}
+    last_settlement = max(
+        (
+            index
+            for index, row in enumerate(ledger)
+            if row.get("recordType") == "budget_settlement"
+            and row.get("phase") in phases
+        ),
+        default=-1,
+    )
+    if last_settlement < 0:
+        raise ValueError("frontier replication budget settlements are missing")
+    record_count = last_settlement + 1
+    raw_lines = ledger_path.read_bytes().splitlines(keepends=True)
+    if len(raw_lines) != len(ledger):
+        raise ValueError("frontier replication budget ledger framing is invalid")
+    prefix = b"".join(raw_lines[:record_count])
+    return ledger[:record_count], sha256(prefix).hexdigest()
 
 
 def _validate_budget_settlement(
@@ -239,6 +264,10 @@ def build_frontier_replication_report(
         raise ValueError("frontier replication requires exactly 40 records")
     ledger_path = benchmark_root / BUDGET_LEDGER
     ledger = read_jsonl(ledger_path)
+    replication_ledger, replication_ledger_hash = _replication_ledger_prefix(
+        ledger_path,
+        ledger,
+    )
     model_results: list[dict[str, Any]] = []
     successful_attempts = 0
     failed_attempts = 0
@@ -365,9 +394,10 @@ def build_frontier_replication_report(
             "models": model_results,
             "budget": {
                 "authorizedEur": config["totalAuthorizedCostEur"],
-                "committedEur": committed_budget_eur(ledger),
+                "committedEur": committed_budget_eur(replication_ledger),
                 "remainingEur": round(
-                    float(config["totalAuthorizedCostEur"]) - committed_budget_eur(ledger),
+                    float(config["totalAuthorizedCostEur"])
+                    - committed_budget_eur(replication_ledger),
                     9,
                 ),
                 "threeAttemptConservativeDebitEur": round(replication_debit, 9),
@@ -376,7 +406,7 @@ def build_frontier_replication_report(
                     9,
                 ),
                 "budgetLedger": BUDGET_LEDGER.as_posix(),
-                "budgetLedgerSha256": sha256_file(ledger_path),
+                "budgetLedgerSha256": replication_ledger_hash,
                 "failedCallsWithoutCostEvidenceRemainFullyDebited": True,
             },
             "limitations": [

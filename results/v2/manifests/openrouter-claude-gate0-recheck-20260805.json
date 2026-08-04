@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "purposebound-finance.claude-gate-zero.v2",
+  "recordedAt": "2026-08-04T22:52:45.806237+00:00",
+  "status": "PASSED",
+  "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+  "researchCommit": "2bcc9eb30caec99e67e10014f0d96076b07a8f91",
+  "phaseConfiguration": "configs/v2/openrouter-phase2.json",
+  "modelManifest": "results/v2/manifests/openrouter-claude-model-20260804T223732Z.json",
+  "modelManifestHash": "a7b69a21e56b906b5879d8e766124255565267b54d640b14b6fabb58d6e3692d",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "responseSchemaHash": "aac6fc3e2e0b2862eef535caaa78bbbe35c0d417eb0bdd7dfb627f220b0a850f",
+  "promptHashes": {
+    "system": "f392f01b54afdf2d21126b07ffce6a9c9ab7ceaea06f310fb1617d51161d40e8",
+    "user": "2e57ddc713fa3d4e27c50591820254187f72edf81bcc833aaf2363a354023fbd"
+  },
+  "checks": {
+    "openRouterAdapterBuilt": true,
+    "openRouterTransportTestsPassed": true,
+    "secretReferenceResolved": true,
+    "modelManifestValidated": true,
+    "routeMetadataValidated": true,
+    "schemaValidatorLoaded": true,
+    "nativeReleaseValidatorLoaded": true,
+    "batchMapperLoaded": true,
+    "evidenceWriterReady": true,
+    "cleanupHandlerReady": true,
+    "budgetReservationPreflightPassed": true,
+    "exactContractFakeTransportProbePassed": true
+  },
+  "secretPersistenceScan": {
+    "credentialReference": {
+      "provider": "LOCAL_ENV_REFERENCE",
+      "reference": "OPENROUTER_API_KEY"
+    },
+    "trackedSecretValueHits": 0,
+    "gitHistorySecretValueHits": 0,
+    "keyValueRecorded": false,
+    "keyValueHashed": false
+  },
+  "previousClaudeFailuresPreserved": 13,
+  "budget": {
+    "committedEur": 7.90239384,
+    "categoryCommittedEur": 0.0,
+    "maximumNextReservationEur": 0.5,
+    "categoryAuthorizedEur": 1.5,
+    "absoluteAuthorizedEur": 12.90239384
+  },
+  "providerCalls": 0
+}

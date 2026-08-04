@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "purposebound-finance.pretransport-reconciliation.v2",
+  "status": "RECONCILED",
+  "failureArtifact": "results/v2/raw/inference/openrouter-phase2-claude-gate1.jsonl.partial",
+  "originalFailureArtifactSha256": "1d669f2fbe3b18099c48dce4a0db0b094467a04ed3596d6f77d23f4d37e4ccdd",
+  "correctedFailureArtifactSha256": "08a3c6b15679f3b7095d8330a64a71faabd96f6ce17cc9135e82db7a8253c473",
+  "originalEvidenceId": "fb3947eb-ee5d-42ed-abb8-9a363fdac4c9",
+  "correctedProviderCalls": 0,
+  "correctedConservativeDebitEur": 0.0,
+  "budgetReservationId": "f1be79bb-8a29-46aa-ab42-5db0eb5b0f23",
+  "budgetLedgerPrefixRecordCount": 89,
+  "budgetLedgerPrefixHash": "9423e9e17d9674764607f77fbcfd49a66422bb02ff2eadd0d4e586d786a82f49",
+  "globalCommittedEur": 7.90239384,
+  "categoryCommittedEur": 0.0,
+  "buggyBridgeCommit": "7689423389187b18d13324238414c4fe10d99077",
+  "buggyBridgeSha256": "44c9664c022ef953762b3b4ae780cd47f445ab78c57a9474b56ecc9adb3c8bc0",
+  "correctedBridgeCommit": "2bcc9eb30caec99e67e10014f0d96076b07a8f91",
+  "correctedBridgeSha256": "0f497d7ae6da3802c0a2ad97c2f6d0b448fc3ab9cd6ecb993589696c1668dc94",
+  "correctedContractProbe": {
+    "contractHash": "56dd3cc516c1bb567004e08dc74ac8d6b6772f0be41fa553134c2462f0f78a56",
+    "externalProviderCalls": 0,
+    "fakeTransportCalls": 1,
+    "governedRecordCount": 1,
+    "nativeReleaseAllowed": true,
+    "status": "PASSED"
+  },
+  "providerCallOccurred": false,
+  "originalEvidenceRetainedAppendOnly": true
+}

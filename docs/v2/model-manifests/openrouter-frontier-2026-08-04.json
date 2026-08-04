@@ -23,8 +23,9 @@
       "routingEndpointSnapshotSha256": "17b063e2fd7eb3f70a9c759ac2223617ea1fc5f6b97e198c7c68eb15f26e305c",
       "routingCapturedAt": "2026-08-04T20:16:39.770967+00:00",
       "reasoning": {"mandatory": false, "defaultEnabled": false},
+      "reasoningDisableStrategy": "OMIT",
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "2a50f34441faf1528d8a2a3aa7e3c639813c910944b1351042b45e8d29e3de4a"
+      "manifestHash": "15297f43faf327267cee5857abaa8a45ade7604be2ba2a69d92622929b831c8a"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -67,9 +68,9 @@
       "routingEndpointTag": "amazon-bedrock",
       "routingEndpointSnapshotSha256": "a270d8f075b1d12b9a5f8a217177ce707d96a5d44031b5b6fbf973450552e3f7",
       "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "xhigh", "high", "medium", "low"], "defaultEffort": "high"},
-      "reasoningDisableStrategy": "EFFORT_NONE",
+      "reasoningSetting": "LOW",
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "8cb98068e15d596a91d669d33faaaab551bbef0ed4bd7b99932d54add92f4d72"
+      "manifestHash": "4e553627f8e89101aa6a7477b96a86f64edd5b7e2e4f520b4bd6ac6a4038879b"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -139,5 +140,5 @@
       "manifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e"
     }
   ],
-  "matrixHash": "812a995f4afb5751a5102aa7ae973a546fa7b537a56f4d61970fd983da2a93c5"
+  "matrixHash": "550716e15b5f9fa02562e1ae1aa48fb28a549807f0a965750d7ecfc7948de038"
 }

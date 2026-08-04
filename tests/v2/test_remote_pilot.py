@@ -100,6 +100,29 @@ def test_remote_manifest_rejects_unknown_reasoning_disable_strategy() -> None:
         validate_remote_model_manifest(manifest)
 
 
+def test_remote_manifest_only_omits_reasoning_when_the_default_is_disabled() -> None:
+    manifest = _remote_manifest()
+    manifest["supportedParameters"] = [
+        "max_tokens",
+        "reasoning",
+        "response_format",
+        "structured_outputs",
+    ]
+    manifest["reasoning"] = {"mandatory": False, "defaultEnabled": False}
+    manifest["reasoningDisableStrategy"] = "OMIT"
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    assert validate_remote_model_manifest(manifest)["reasoningDisableStrategy"] == "OMIT"
+
+    manifest["reasoning"] = {"mandatory": False, "defaultEnabled": True}
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    with pytest.raises(ValueError, match="safely omit"):
+        validate_remote_model_manifest(manifest)
+
+
 @pytest.mark.parametrize(
     "routing",
     [

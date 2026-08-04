@@ -93,6 +93,7 @@ async function main() {
       ? manifest.providerRouting.only.map(String)
       : [];
     const reasoningDisableStrategy = manifest.reasoningDisableStrategy || 'ENABLED_FALSE';
+    const reasoningSetting = manifest.reasoningSetting || 'DISABLED';
     if (
       providerOnly.length !== 1
       || manifest.providerRouting?.allowFallbacks !== false
@@ -100,8 +101,11 @@ async function main() {
     ) {
       throw new Error('OpenRouter model manifest must pin one ZDR provider route');
     }
-    if (!['ENABLED_FALSE', 'EFFORT_NONE'].includes(reasoningDisableStrategy)) {
+    if (!['ENABLED_FALSE', 'EFFORT_NONE', 'OMIT'].includes(reasoningDisableStrategy)) {
       throw new Error('OpenRouter reasoning disable strategy is invalid');
+    }
+    if (!['DISABLED', 'LOW', 'MEDIUM', 'HIGH'].includes(reasoningSetting)) {
+      throw new Error('OpenRouter reasoning setting is invalid');
     }
     for (const required of ['response_format', 'structured_outputs']) {
       if (!supportedParameters.includes(required)) {
@@ -152,7 +156,7 @@ async function main() {
       temperature: 0,
       ...(supportedParameters.includes('seed') ? { seed: input.seed } : {}),
       topP: 1,
-      reasoningSetting: 'DISABLED',
+      reasoningSetting,
       outputTokenLimit: input.outputTokenLimit,
       promptHashes,
       responseSchemaHash: types.hashCanonicalJson(responseSchema),

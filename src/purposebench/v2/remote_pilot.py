@@ -155,9 +155,16 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("remote model manifest identity is invalid")
     if not isinstance(manifest["supportedParameters"], list):
         raise TypeError("remote model supported parameters are invalid")
-    if manifest.get("reasoningDisableStrategy", "ENABLED_FALSE") not in {
+    reasoning_setting = manifest.get("reasoningSetting", "DISABLED")
+    reasoning_disable_strategy = manifest.get(
+        "reasoningDisableStrategy", "ENABLED_FALSE"
+    )
+    if reasoning_setting not in {"DISABLED", "LOW", "MEDIUM", "HIGH"}:
+        raise ValueError("remote model reasoning setting is invalid")
+    if reasoning_disable_strategy not in {
         "ENABLED_FALSE",
         "EFFORT_NONE",
+        "OMIT",
     }:
         raise ValueError("remote model reasoning disable strategy is invalid")
     supported = set(manifest["supportedParameters"])
@@ -168,6 +175,13 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         or not {"max_tokens", "max_completion_tokens"}.intersection(supported)
     ):
         raise ValueError("remote model lacks required structured-output parameters")
+    if reasoning_setting != "DISABLED" and "reasoning" not in supported:
+        raise ValueError("remote model cannot apply its pinned reasoning setting")
+    if reasoning_disable_strategy == "OMIT" and (
+        reasoning_setting != "DISABLED"
+        or manifest.get("reasoning", {}).get("defaultEnabled") is not False
+    ):
+        raise ValueError("remote model cannot safely omit disabled reasoning")
     routing = manifest["providerRouting"]
     if (
         not isinstance(routing, dict)
@@ -281,6 +295,10 @@ def run_remote_pilot(
         prompts = {"system": prompt_parts["system"], "user": prompt_parts["task"]}
         output_token_limit = max(512, len(rows) * 16)
         supported_parameters = set(manifest["supportedParameters"])
+        reasoning_setting = manifest.get("reasoningSetting", "DISABLED")
+        reasoning_disable_strategy = manifest.get(
+            "reasoningDisableStrategy", "ENABLED_FALSE"
+        )
         output_token_parameter = (
             "max_tokens"
             if "max_tokens" in supported_parameters
@@ -297,7 +315,15 @@ def run_remote_pilot(
             | ({"temperature"} if "temperature" in supported_parameters else set())
             | ({"top_p"} if "top_p" in supported_parameters else set())
             | ({"seed"} if effective_seed is not None else set())
-            | ({"reasoning"} if "reasoning" in supported_parameters else set())
+            | (
+                {"reasoning"}
+                if "reasoning" in supported_parameters
+                and not (
+                    reasoning_setting == "DISABLED"
+                    and reasoning_disable_strategy == "OMIT"
+                )
+                else set()
+            )
         )
         contract_material = {
             "protocolId": "protocol-v2-local",
@@ -332,6 +358,8 @@ def run_remote_pilot(
             },
             "maximumAuthorizedCostEur": maximum_authorized_cost_eur,
             "budgetCeilingUsdPerToken": manifest["budgetCeilingUsdPerToken"],
+            "reasoningSetting": reasoning_setting,
+            "reasoningDisableStrategy": reasoning_disable_strategy,
             "routingControls": {
                 "allowFallbacks": False,
                 "dataCollection": "deny",

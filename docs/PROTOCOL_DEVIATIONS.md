@@ -315,3 +315,11 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   body as before with only the fixed `FIELD_provider` hint. Their failures stay
   appended; the DeepSeek partial was promoted to final raw evidence. The
   cumulative conservative debit is EUR 5.00417422.
+- The repeated Gemma and Claude HTTP 400 results show that the shared disabled
+  reasoning representation is not portable across their selected routes.
+  Gemma's catalog says reasoning defaults off, so its next manifest omits the
+  redundant reasoning field. Claude's catalog does not advertise a `none`
+  effort, so its next manifest truthfully requests `LOW` instead of recording a
+  disabled setting that the route cannot represent. Both settings are bound by
+  the model-manifest and contract hashes. The platform change is a generic
+  OpenRouter capability feature and contains no benchmark model selection.

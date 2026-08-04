@@ -29,10 +29,11 @@ platform rejects it as substitution.
   is eligible for interpretation. The pilot gate rechecks the raw-artifact
   hash, current model-manifest hash, native release, and budget-ledger prefix.
 - Phase 2 runs the 20 complete paired cases (40 records) once per passing model.
-- Reasoning is explicitly disabled when the model advertises the OpenRouter
-  reasoning parameter. The hashed research manifest binds whether the request
-  uses `enabled: false` or `effort: none`; unsupported sampling parameters are
-  omitted and the provider must support every parameter actually transmitted.
+- Reasoning behavior is explicit and model-capability-aware in the hashed
+  research manifest. It is disabled where the selected route represents that
+  setting, omitted when the model already defaults it off, and otherwise pinned
+  to a declared effort. Unsupported parameters are omitted and the provider
+  must support every parameter actually transmitted.
 - Provider fallback is disabled. Routing requires zero data retention and
   denies providers that collect request data. Each model also pins one exact
   ZDR-capable upstream endpoint slug and its endpoint-metadata hash; this avoids

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "purposebound-finance.reduced-matrix-manifest.v2",
+  "status": "PASSED",
+  "scope": "ELIGIBLE_MODELS_AFTER_COMPATIBILITY_EXCLUSIONS",
+  "modelId": "openai/gpt-5.6-luna",
+  "modelManifestHash": "519552ef7257d5ed0dc195439ff8f7bfa0dd839d2efc70ecc99d921899a6429a",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "positionDiagnosticReportHash": "9e349abdeca6be1eb1abfc274cff901caa4618df00510cd59811a5959bd4631d",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-openai-gpt-5-6-luna.jsonl",
+  "rawArtifactSha256": "acc710a06d2db010e327c53d24f91dd38c637efabae319cbf478e3530541d392",
+  "smokeCalls": 1,
+  "matrixRepetitions": 2,
+  "matrixRecordCountPerRepetition": 40,
+  "providerCalls": 3,
+  "retryCount": 0,
+  "budgetLedgerPrefixRecordCount": 121,
+  "budgetLedgerPrefixHash": "5da5de62247d815b3e97ad2a82f81e2c8d5969372f49cb577edc18e974303e22",
+  "budgetCategory": "reduced_matrix",
+  "categoryCommittedEur": 0.037702,
+  "globalCommittedEur": 8.53965784
+}

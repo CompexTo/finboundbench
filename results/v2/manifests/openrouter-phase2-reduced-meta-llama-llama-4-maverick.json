@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "purposebound-finance.reduced-matrix-manifest.v2",
+  "status": "PASSED",
+  "scope": "ELIGIBLE_MODELS_AFTER_COMPATIBILITY_EXCLUSIONS",
+  "modelId": "meta-llama/llama-4-maverick",
+  "modelManifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "positionDiagnosticReportHash": "9e349abdeca6be1eb1abfc274cff901caa4618df00510cd59811a5959bd4631d",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-meta-llama-llama-4-maverick.jsonl",
+  "rawArtifactSha256": "8e4337a4c49f71ff5cbd6380ed437c5413f43341cbbf476e20ba1d3e7560bcbf",
+  "smokeCalls": 1,
+  "matrixRepetitions": 2,
+  "matrixRecordCountPerRepetition": 40,
+  "providerCalls": 3,
+  "retryCount": 0,
+  "budgetLedgerPrefixRecordCount": 137,
+  "budgetLedgerPrefixHash": "4da90ba257dac2d67f1e8de0207c166bbc2b02feb624ea6510f95c0843e803a4",
+  "budgetCategory": "reduced_matrix",
+  "categoryCommittedEur": 0.26121234,
+  "globalCommittedEur": 8.76316818
+}

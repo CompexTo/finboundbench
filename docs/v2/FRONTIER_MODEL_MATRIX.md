@@ -9,9 +9,9 @@ and the conservative price table.
 
 | Family | Requested model ID | Catalog canonical slug |
 | --- | --- | --- |
-| Gemma 4 | `google/gemma-4-31b-it` | `google/gemma-4-31b-it-20260402` |
+| Gemma 4 | `google/gemma-4-26b-a4b-it` | `google/gemma-4-26b-a4b-it-20260403` |
 | GPT Luna | `openai/gpt-5.6-luna` | `openai/gpt-5.6-luna-20260709` |
-| Claude | `anthropic/claude-opus-5` | `anthropic/claude-opus-5-20260723` |
+| Claude | `anthropic/claude-sonnet-5` | `anthropic/claude-sonnet-5-20260630` |
 | DeepSeek | `deepseek/deepseek-v4-pro` | `deepseek/deepseek-v4-pro-20260423` |
 | Kimi | `moonshotai/kimi-k3` | `moonshotai/kimi-k3-20260715` |
 | Llama | `meta-llama/llama-4-maverick` | `meta-llama/llama-4-maverick-17b-128e-instruct` |
@@ -21,6 +21,10 @@ and automatic-router aliases. OpenRouter's canonical slugs are retained as
 catalog-version evidence even though the catalog does not accept those slugs as
 callable IDs. Every response must echo the exact requested model ID or the
 platform rejects it as substitution.
+
+Gemma 4 26B A4B and Claude Sonnet 5 are family-preserving substitutes. Their
+newer siblings, Gemma 4 31B and Claude Opus 5, were closed after repeated
+provider-routing failures; those negative artifacts remain in the repository.
 
 ## Controlled execution
 

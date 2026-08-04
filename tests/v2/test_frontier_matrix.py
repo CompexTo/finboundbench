@@ -21,7 +21,7 @@ def test_frontier_matrix_pins_six_required_model_families() -> None:
     assert ids == config["modelIds"]
     assert len(ids) == 6
     assert any("gpt-5.6-luna" in model_id for model_id in ids)
-    assert any("claude-opus-5" in model_id for model_id in ids)
+    assert any("claude-" in model_id for model_id in ids)
     assert any("deepseek-v4" in model_id for model_id in ids)
     assert any("kimi-k3" in model_id for model_id in ids)
     assert all(

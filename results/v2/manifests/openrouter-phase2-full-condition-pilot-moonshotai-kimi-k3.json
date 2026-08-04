@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "purposebound-finance.full-condition-pilot-manifest.v2",
+  "status": "COMPLETE_WITH_FAILURES",
+  "modelId": "moonshotai/kimi-k3",
+  "modelManifestHash": "e363c91aac9ad53fea1c9fc155af36703a917e9b6c9c94fbb1b429dbee11b864",
+  "controlledExposureConsentHash": "0163c8c71a5b339e3e4f6f967c2ab4d56540ccf6d783af0aae7b65a849d7cbc0",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-full-condition-pilot-moonshotai-kimi-k3.jsonl",
+  "rawArtifactSha256": "962eed0bbb38039829ee80dbdfa9f80ac7f49aed84595926126d5c0c709c29b9",
+  "conditionCount": 5,
+  "passedConditions": 4,
+  "failedConditions": 1,
+  "providerCalls": 5,
+  "retryCount": 0,
+  "budgetLedgerPrefixRecordCount": 147,
+  "budgetLedgerPrefixHash": "de58b147fb47146a9ae8c29aec4a882ac68874b9d9f50072870300469aa5bd36",
+  "budgetCategory": "full_condition_pilot",
+  "categoryCommittedEur": 0.249461,
+  "globalCommittedEur": 9.01262918
+}

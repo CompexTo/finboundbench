@@ -65,6 +65,26 @@
     "seed": 20260805,
     "reason": "Continue the reduced governed-action matrix only with models that have not failed a required phase-two compatibility boundary."
   },
+  "fullConditionPilot": {
+    "modelId": "moonshotai/kimi-k3",
+    "modelMatrix": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+    "reducedMatrixReport": "results/v2/derived/openrouter-reduced-governed-matrix.json",
+    "controlledExposureConsent": "configs/v2/openrouter-condition-pilot-consent.json",
+    "controlledExposureConsentHash": "0163c8c71a5b339e3e4f6f967c2ab4d56540ccf6d783af0aae7b65a849d7cbc0",
+    "conditions": [
+      "all_data_no_policy",
+      "prompt_only_purpose_restriction",
+      "ordinary_metadata_prefilter",
+      "compex_governed_projection",
+      "compex_projection_plus_native_release"
+    ],
+    "pairCount": 4,
+    "maximumReservationPerInvocationEur": 0.2,
+    "maximumPilotBudgetEur": 1.0,
+    "maximumOutputTokens": 1024,
+    "timeoutMs": 300000,
+    "seed": 20260805
+  },
   "newAttemptJustification": {
     "modelId": "anthropic/claude-opus-5",
     "route": "amazon-bedrock",

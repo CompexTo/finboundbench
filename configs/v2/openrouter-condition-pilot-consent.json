@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "purposebound-finance.controlled-remote-exposure-consent.v2",
+  "consentId": "protocol-v2-local-openrouter-condition-pilot-20260805",
+  "scope": {
+    "dataset": "data/v2/generated/hmda-2024-dc-pairs.jsonl",
+    "pairCount": 4,
+    "assetClassification": "PROTECTED_PUBLIC_RESEARCH_ASSET",
+    "confidentialRecords": false,
+    "syntheticInternalFields": true,
+    "permittedConditions": [
+      "all_data_no_policy",
+      "prompt_only_purpose_restriction",
+      "ordinary_metadata_prefilter",
+      "compex_governed_projection",
+      "compex_projection_plus_native_release"
+    ],
+    "conditionsPermittedToTransmitSyntheticInternalFields": [
+      "all_data_no_policy",
+      "prompt_only_purpose_restriction"
+    ]
+  },
+  "controls": {
+    "gateway": "OPENROUTER",
+    "zeroDataRetentionRequired": true,
+    "providerDataCollectionAllowed": false,
+    "fallbackAllowed": false,
+    "identifiersPseudonymized": true,
+    "toolsAllowed": false,
+    "automaticRetries": 0,
+    "nativeReleaseValidationRequiredForEverySuccessfulOutput": true,
+    "realInternalCustomerDataPermitted": false
+  },
+  "purpose": "Measure whether controlled synthetic purpose-incompatible fields affect frontier-model risk assessments while holding model, records, schema, and action policy fixed.",
+  "authorizationBasis": "Explicit OpenRouter research condition policy supplied by the repository owner.",
+  "consentHash": "0163c8c71a5b339e3e4f6f967c2ab4d56540ccf6d783af0aae7b65a849d7cbc0"
+}

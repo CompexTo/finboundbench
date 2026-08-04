@@ -150,6 +150,15 @@ def build_position_report(root: Path) -> dict[str, Any]:
     ]
     ledger_path = root / "results/v2/raw/inference/openrouter-frontier-budget.jsonl"
     ledger = read_jsonl(ledger_path)
+    position_settlements = [
+        index
+        for index, row in enumerate(ledger)
+        if row.get("recordType") == "budget_settlement"
+        and row.get("reservationId") == deepseek_rows[0]["budget"]["reservationId"]
+    ]
+    if len(position_settlements) != 1:
+        raise ValueError("position diagnostic budget settlement changed")
+    position_ledger = ledger[: position_settlements[0] + 1]
     report = {
         "schemaVersion": "purposebound-finance.position-analysis.v2",
         "status": "COMPLETE_WITH_MODEL_FAILURE",
@@ -203,10 +212,13 @@ def build_position_report(root: Path) -> dict[str, Any]:
         ],
         "budget": {
             "ledger": ledger_path.relative_to(root).as_posix(),
-            "ledgerPrefixRecordCount": len(ledger),
-            "ledgerPrefixHash": sha256_json(ledger),
-            "categoryCommittedEur": committed_category_eur(ledger, POSITION_CATEGORY),
-            "globalCommittedEur": committed_budget_eur(ledger),
+            "ledgerPrefixRecordCount": len(position_ledger),
+            "ledgerPrefixHash": sha256_json(position_ledger),
+            "categoryCommittedEur": committed_category_eur(
+                position_ledger,
+                POSITION_CATEGORY,
+            ),
+            "globalCommittedEur": committed_budget_eur(position_ledger),
         },
         "limitations": [
             "This is an eligible-model continuation after Claude closure, not Claude Gate 3.",

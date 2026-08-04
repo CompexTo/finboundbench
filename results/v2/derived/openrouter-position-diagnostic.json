@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "purposebound-finance.position-analysis.v2",
+  "status": "COMPLETE_WITH_MODEL_FAILURE",
+  "scope": "ELIGIBLE_MODELS_AFTER_CLAUDE_CLOSURE",
+  "claudeGate3": false,
+  "models": [
+    {
+      "modelId": "openai/gpt-5.6-luna",
+      "status": "PASSED",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-position-openai-gpt-5-6-luna.jsonl",
+      "rawArtifactSha256": "9ebbd451a6bca42c7c5f4c5c59d22f600ced3ab795d9e949e325e31a2524a033",
+      "invocationCount": 11,
+      "providerCalls": 11,
+      "layouts": [
+        {
+          "layout": "adjacent_pairs",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.0325,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.07000000000000006,
+          "governedActionAgreementWithOriginal": 0.75,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "deterministic_shuffle",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.060000000000000026,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.14,
+          "governedActionAgreementWithOriginal": 0.5,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "full_batch",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.055000000000000014,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.10000000000000003,
+          "governedActionAgreementWithOriginal": 0.75,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "original_order",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.0,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.0,
+          "governedActionAgreementWithOriginal": 1.0,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "reversed_order",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.15749999999999997,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.22999999999999998,
+          "governedActionAgreementWithOriginal": 0.75,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "separated_pairs",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.017499999999999988,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.02999999999999997,
+          "governedActionAgreementWithOriginal": 1.0,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "singleton_calls",
+          "comparableObservations": 2,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.13000000000000003,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.16000000000000003,
+          "governedActionAgreementWithOriginal": 1.0,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        },
+        {
+          "layout": "small_batches",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.05000000000000001,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.14,
+          "governedActionAgreementWithOriginal": 0.5,
+          "rawRecommendationAgreementWithOriginal": 0.5
+        },
+        {
+          "layout": "swapped_ab_positions",
+          "comparableObservations": 8,
+          "meanAbsoluteScoreDeltaFromOriginal": 0.03000000000000002,
+          "maximumAbsoluteScoreDeltaFromOriginal": 0.060000000000000026,
+          "governedActionAgreementWithOriginal": 1.0,
+          "rawRecommendationAgreementWithOriginal": 1.0
+        }
+      ],
+      "caseStability": {
+        "observedCases": 40,
+        "repeatedlyObservedCases": 8,
+        "governedActionStableCases": 4,
+        "governedActionStabilityRate": 0.5,
+        "rawRecommendationStableCases": 4,
+        "rawRecommendationStabilityRate": 0.5,
+        "meanScoreRange": 0.245,
+        "maximumScoreRange": 0.34
+      },
+      "recommendationPolicyDisagreement": {
+        "eligibleObservations": 4,
+        "disagreementCount": 0,
+        "disagreementRate": 0.0
+      },
+      "eligibleForReducedGovernedMatrix": true
+    },
+    {
+      "modelId": "deepseek/deepseek-v4-pro",
+      "status": "FAILED_CLOSED",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-position-deepseek-deepseek-v4-pro.jsonl.partial",
+      "rawArtifactSha256": "fb44c124a97b45c4737cc1b34fbb43d75b95f38d1eb237671966049f42948b39",
+      "providerCalls": 1,
+      "failedInvocation": "original_order-batch1",
+      "providerDiagnostic": {
+        "category": "UNKNOWN_SAFE_CLASS",
+        "fieldHints": [],
+        "httpStatus": null,
+        "providerCode": null,
+        "requestId": null,
+        "responseBodySha256": null,
+        "selectedProviderRoute": "parasail/fp8"
+      },
+      "eligibleForReducedGovernedMatrix": false,
+      "priorFrontierReplicationsRemainInScope": true
+    }
+  ],
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 115,
+    "ledgerPrefixHash": "b21b9e8043f0d86c03d8b19bb153bb82d73937a164e18dfde1ee41c9a50a633c",
+    "categoryCommittedEur": 0.099562,
+    "globalCommittedEur": 8.50195584
+  },
+  "limitations": [
+    "This is an eligible-model continuation after Claude closure, not Claude Gate 3.",
+    "The diagnostic uses four focal pairs; only the full-batch layout includes all 40 records.",
+    "DeepSeek stopped after its first failed invocation and was not retried.",
+    "The results diagnose position and batch sensitivity and are not population estimates."
+  ],
+  "reportHash": "9e349abdeca6be1eb1abfc274cff901caa4618df00510cd59811a5959bd4631d"
+}

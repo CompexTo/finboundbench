@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "purposebound-finance.remote-pilot-manifest.v2",
+  "recordedAt": "2026-08-04T21:10:59.737583+00:00",
+  "status": "passed",
+  "rawArtifact": "results/v2/raw/inference/openrouter-frontier-pilot-rep3-moonshotai-kimi-k3.jsonl",
+  "rawArtifactSha256": "0baa2e421a3c59170e72bcdb094d2a0293dc2f293f68cdbccfacfb1a38db728c",
+  "attemptCount": 1,
+  "failedAttemptCount": 0,
+  "model": "moonshotai/kimi-k3",
+  "processingClassification": "REMOTE_PROVIDER_PROCESSING",
+  "cost": {
+    "amount": 0.029748,
+    "amountEur": 0.029748,
+    "currency": "USD",
+    "pricingSource": "RESEARCH_MANIFEST_CONSERVATIVE_USD_EUR_PARITY_CEILING",
+    "pricingTimestamp": "2026-08-04T19:45:21.121Z"
+  },
+  "providerReportedCost": {
+    "amount": 0.0286124,
+    "source": "OPENROUTER_RESPONSE_USAGE_COST",
+    "unit": "OPENROUTER_CREDITS"
+  },
+  "pairMetrics": {
+    "decisionAgreementRate": 1.0,
+    "decisionAgreements": 20,
+    "fullAgreements": 20,
+    "maximumAbsoluteRiskScoreDifference": 0,
+    "meanAbsoluteRiskScoreDifference": 0.0,
+    "pairedInfluenceRate": 0.0,
+    "pairedInfluences": 0,
+    "pairs": 20,
+    "riskScoreAgreementRate": 1.0,
+    "riskScoreAgreements": 20
+  },
+  "repetition": 3,
+  "localFallback": {
+    "artifact": "results/v2/raw/inference/forty-record-multi-model-pilot.jsonl.partial",
+    "artifactSha256": "b6f8428ee71db7bc7961a979ff658123dfa64b5fe8d72eec452eff3f67bae85e",
+    "failedGemmaAttempts": 1,
+    "reason": "The local 31B forty-record batch exceeded its bounded runtime."
+  },
+  "limitations": [
+    "The transmitted projection was processed remotely through OpenRouter.",
+    "Public official records are protected research assets, not confidential data.",
+    "Synthetic internal fields were denied and were not transmitted.",
+    "Pseudonymization reduces direct identifiers but is not anonymization.",
+    "This pilot validates governed plumbing and is not a paper claim."
+  ],
+  "frontierMatrix": {
+    "matrixHash": "1e1b6bb0bdc167e857bad1fc7a38b3d79f4751c3807da353b5e24e0c1547af43",
+    "modelManifest": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+    "phase": "pilot",
+    "repetition": 3
+  },
+  "modelManifestHash": "e363c91aac9ad53fea1c9fc155af36703a917e9b6c9c94fbb1b429dbee11b864",
+  "budget": {
+    "reservationId": "ff30b1ac-c6e3-4cca-ad83-1f33d61858e5",
+    "authorizedCostEur": 0.25,
+    "budgetDebitEur": 0.029748,
+    "providerReportedCost": {
+      "amount": 0.0286124,
+      "source": "OPENROUTER_RESPONSE_USAGE_COST",
+      "unit": "OPENROUTER_CREDITS"
+    },
+    "committedMatrixBudgetEur": 7.90040364,
+    "totalAuthorizedCostEur": 10.0,
+    "ledgerArtifact": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 84,
+    "ledgerPrefixHash": "275b03612a4f21a42dec45956e1315b84a82f4ec6161196a23f9bfee302914e0"
+  }
+}

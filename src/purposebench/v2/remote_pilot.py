@@ -132,6 +132,8 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         "modelId",
         "modelVersion",
         "provider",
+        "providerRouting",
+        "routingEndpointSnapshotSha256",
         "supportedParameters",
     }
     if not required.issubset(manifest):
@@ -156,8 +158,19 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
     supported = set(manifest["supportedParameters"])
     if len(supported) != len(manifest["supportedParameters"]):
         raise ValueError("remote model supported parameters contain duplicates")
-    if not {"max_tokens", "response_format", "structured_outputs"}.issubset(supported):
+    if (
+        not {"response_format", "structured_outputs"}.issubset(supported)
+        or not {"max_tokens", "max_completion_tokens"}.intersection(supported)
+    ):
         raise ValueError("remote model lacks required structured-output parameters")
+    routing = manifest["providerRouting"]
+    if (
+        not isinstance(routing, dict)
+        or len(routing.get("only", [])) != 1
+        or routing.get("allowFallbacks") is not False
+        or routing.get("zeroDataRetention") is not True
+    ):
+        raise ValueError("remote model provider route is not pinned and ZDR-bound")
     prices = manifest["budgetCeilingUsdPerToken"]
     if not isinstance(prices, dict):
         raise TypeError("remote model budget pricing is invalid")
@@ -255,14 +268,19 @@ def run_remote_pilot(
         prompts = {"system": prompt_parts["system"], "user": prompt_parts["task"]}
         output_token_limit = max(512, len(rows) * 16)
         supported_parameters = set(manifest["supportedParameters"])
+        output_token_parameter = (
+            "max_tokens"
+            if "max_tokens" in supported_parameters
+            else "max_completion_tokens"
+        )
         effective_seed = seed if "seed" in supported_parameters else None
         required_provider_capabilities = [
-            "max_tokens",
+            output_token_parameter,
             "response_format",
             "structured_outputs",
         ]
         transmitted_model_parameters = sorted(
-            {"max_tokens", "response_format"}
+            {output_token_parameter, "response_format"}
             | ({"temperature"} if "temperature" in supported_parameters else set())
             | ({"top_p"} if "top_p" in supported_parameters else set())
             | ({"seed"} if effective_seed is not None else set())
@@ -304,6 +322,7 @@ def run_remote_pilot(
             "routingControls": {
                 "allowFallbacks": False,
                 "dataCollection": "deny",
+                "providerOnly": manifest["providerRouting"]["only"],
                 "requireParameters": True,
                 "zeroDataRetention": True,
             },

@@ -4,7 +4,7 @@
   "modelManifest": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
   "documentation": "docs/v2/FRONTIER_MODEL_MATRIX.md",
   "totalAuthorizedCostEur": 10.0,
-  "perInvocationAuthorizedCostEur": 0.5,
+  "perInvocationAuthorizedCostEur": 0.25,
   "dataset": "data/v2/generated/hmda-2024-dc-pairs.jsonl",
   "localFallback": "results/v2/raw/inference/forty-record-multi-model-pilot.jsonl.partial",
   "phases": {

@@ -24,7 +24,8 @@ def test_frontier_matrix_pins_six_required_model_families() -> None:
     assert any("deepseek-v4" in model_id for model_id in ids)
     assert any("kimi-k3" in model_id for model_id in ids)
     assert all(
-        {"max_tokens", "response_format", "structured_outputs"}.issubset(
+        {"response_format", "structured_outputs"}.issubset(model["supportedParameters"])
+        and {"max_tokens", "max_completion_tokens"}.intersection(
             model["supportedParameters"]
         )
         for model in models

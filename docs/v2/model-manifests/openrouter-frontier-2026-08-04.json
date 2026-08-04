@@ -15,11 +15,15 @@
       "metadataResponseSha256": "70af1d69138c9fab1a35075822f2394777d9151463ed0517cdc41c648ae01c5c",
       "contextSize": 262144,
       "catalogPricingUsdPerToken": {"prompt": "0.0000001", "completion": "0.00000034"},
-      "budgetCeilingUsdPerToken": {"prompt": "0.0000001", "completion": "0.00000034"},
-      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "logprobs", "max_tokens", "min_p", "presence_penalty", "reasoning", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_a", "top_k", "top_logprobs", "top_p"],
+      "budgetCeilingUsdPerToken": {"prompt": "0.00000013", "completion": "0.00000038"},
+      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "max_tokens", "min_p", "presence_penalty", "reasoning", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_p"],
+      "providerRouting": {"only": ["deepinfra/fp8"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "deepinfra/fp8",
+      "routingEndpointSnapshotSha256": "385b73d6ff79ff273f390fb98336ed1c553b56f4303acbb09b879ce8fda79296",
       "reasoning": {"mandatory": false, "defaultEnabled": false},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "0d0634a1b957313209558ead00f746e75d4a461b2989e8514fd04b4a99377872"
+      "manifestHash": "c0dbb3ccc6806bc4a526d0a5daeb6a94bac841449c089f9f3aacff29f8b7e952"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -34,10 +38,14 @@
       "contextSize": 1050000,
       "catalogPricingUsdPerToken": {"prompt": "0.0000001", "completion": "0.0000006"},
       "budgetCeilingUsdPerToken": {"prompt": "0.000001", "completion": "0.000006"},
-      "supportedParameters": ["include_reasoning", "max_completion_tokens", "max_tokens", "reasoning", "reasoning_effort", "response_format", "seed", "structured_outputs", "tool_choice", "tools"],
+      "supportedParameters": ["include_reasoning", "max_completion_tokens", "reasoning", "reasoning_effort", "response_format", "seed", "structured_outputs", "tool_choice", "tools"],
+      "providerRouting": {"only": ["azure"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "azure",
+      "routingEndpointSnapshotSha256": "ca2f0a32799fb08728525560dabd605a3b1d5bfc7136d0c950c1e2f897c3ca42",
       "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "xhigh", "high", "medium", "low", "none"], "defaultEffort": "medium"},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "8e97c3119bb3cc0c29205c5a60e5d25234515d10d589bcd2dc75bcb2a2ccc9a0"
+      "manifestHash": "519552ef7257d5ed0dc195439ff8f7bfa0dd839d2efc70ecc99d921899a6429a"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -52,10 +60,14 @@
       "contextSize": 1000000,
       "catalogPricingUsdPerToken": {"prompt": "0.000005", "completion": "0.000025"},
       "budgetCeilingUsdPerToken": {"prompt": "0.000005", "completion": "0.000025"},
-      "supportedParameters": ["include_reasoning", "max_completion_tokens", "max_tokens", "reasoning", "reasoning_effort", "response_format", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "verbosity"],
+      "supportedParameters": ["include_reasoning", "max_tokens", "reasoning", "reasoning_effort", "response_format", "stop", "structured_outputs", "tool_choice", "tools", "verbosity"],
+      "providerRouting": {"only": ["amazon-bedrock"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "amazon-bedrock",
+      "routingEndpointSnapshotSha256": "a270d8f075b1d12b9a5f8a217177ce707d96a5d44031b5b6fbf973450552e3f7",
       "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "xhigh", "high", "medium", "low"], "defaultEffort": "high"},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "3f7e2763fc4a249323168f8f1843d3df952e171c94b32a87ed7343a7d21c47bf"
+      "manifestHash": "aa49fbf5353760c6de839d91fd66bf6e38b23f9aafa736c9240d875c3f623d81"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -69,11 +81,15 @@
       "metadataResponseSha256": "86b41fb8cc82f4aa898c8763151d5e17702ec495145de854e6499ef410cfbafe",
       "contextSize": 1048576,
       "catalogPricingUsdPerToken": {"prompt": "0.000000435", "completion": "0.00000087"},
-      "budgetCeilingUsdPerToken": {"prompt": "0.000000435", "completion": "0.00000087"},
-      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "logprobs", "max_tokens", "min_p", "presence_penalty", "reasoning", "reasoning_effort", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_logprobs", "top_p"],
+      "budgetCeilingUsdPerToken": {"prompt": "0.0000013", "completion": "0.0000026"},
+      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "max_tokens", "min_p", "presence_penalty", "reasoning", "reasoning_effort", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_p"],
+      "providerRouting": {"only": ["deepinfra/fp4"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "deepinfra/fp4",
+      "routingEndpointSnapshotSha256": "1b4a80d5a63acf973126857b8b479ef4bb49250940d2dee69d042a4b9a798c9b",
       "reasoning": {"mandatory": false, "supportedEfforts": ["xhigh", "high"], "defaultEffort": "high"},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "d65eff6a8638a49b8138139b3b97d1acd55a8d6be645a0028b6a68185cfdb9e9"
+      "manifestHash": "0936db759657f869fc65ef83234393a7bad20546ca9d9e69e084114e59714b1c"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -89,9 +105,13 @@
       "catalogPricingUsdPerToken": {"prompt": "0.000003", "completion": "0.000015"},
       "budgetCeilingUsdPerToken": {"prompt": "0.000003", "completion": "0.000015"},
       "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "logprobs", "max_tokens", "min_p", "presence_penalty", "reasoning", "reasoning_effort", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_logprobs", "top_p"],
+      "providerRouting": {"only": ["morph"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "morph",
+      "routingEndpointSnapshotSha256": "27e9c99eee478d1100dba12445ea7530b1037a1795354f8be01b0f709a325d29",
       "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "high", "low"], "defaultEffort": "max"},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "42335f8e739b910eb44121804510a04189dad9d6dd1545a127cb4ee5225644fb"
+      "manifestHash": "e363c91aac9ad53fea1c9fc155af36703a917e9b6c9c94fbb1b429dbee11b864"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -106,11 +126,15 @@
       "contextSize": 1048576,
       "catalogPricingUsdPerToken": {"prompt": "0.0000002", "completion": "0.0000008"},
       "budgetCeilingUsdPerToken": {"prompt": "0.0000002", "completion": "0.0000008"},
-      "supportedParameters": ["frequency_penalty", "logit_bias", "logprobs", "max_tokens", "min_p", "presence_penalty", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_logprobs", "top_p"],
+      "supportedParameters": ["frequency_penalty", "logit_bias", "max_tokens", "min_p", "presence_penalty", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "top_k", "top_p"],
+      "providerRouting": {"only": ["deepinfra/base"], "allowFallbacks": false, "zeroDataRetention": true},
+      "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
+      "routingEndpointTag": "deepinfra/base",
+      "routingEndpointSnapshotSha256": "a70a0c2f83588d57ccbfaf09af559f562200c7be02d3c2fb2be61b694901d895",
       "reasoning": null,
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "8ad6d61660541dc1310150703bb918d15956e71ec02925949ea046f9a69fbe5f"
+      "manifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e"
     }
   ],
-  "matrixHash": "f0beedfcc1b0f0bb475f41a99fbb7ce9d2559ef987af85269f3e51a4abcc1fa8"
+  "matrixHash": "9e92254fb39e9b361377cf1b37d2deae0dde0e46c1433541f8a2b08fb4bbc319"
 }

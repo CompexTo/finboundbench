@@ -89,10 +89,22 @@ async function main() {
     const supportedParameters = Array.isArray(manifest.supportedParameters)
       ? manifest.supportedParameters.map(String)
       : [];
-    for (const required of ['max_tokens', 'response_format', 'structured_outputs']) {
+    const providerOnly = Array.isArray(manifest.providerRouting?.only)
+      ? manifest.providerRouting.only.map(String)
+      : [];
+    if (providerOnly.length !== 1) {
+      throw new Error('OpenRouter model manifest must pin one provider route');
+    }
+    for (const required of ['response_format', 'structured_outputs']) {
       if (!supportedParameters.includes(required)) {
         throw new Error(`OpenRouter model does not support required parameter: ${required}`);
       }
+    }
+    if (
+      !supportedParameters.includes('max_tokens')
+      && !supportedParameters.includes('max_completion_tokens')
+    ) {
+      throw new Error('OpenRouter model does not support an output-token parameter');
     }
     const promptRate = Number(manifest.budgetCeilingUsdPerToken?.prompt);
     const completionRate = Number(manifest.budgetCeilingUsdPerToken?.completion);
@@ -168,10 +180,20 @@ async function main() {
         };
       },
     };
+    const { evaluateNativeOutputRelease } = require(path.join(
+      platformRoot,
+      'services',
+      'api',
+      'dist',
+      'confidential-execution',
+      'release',
+      'native-output-release.js',
+    ));
     const result = await new OpenRouterModelAdapter({
       secrets,
       costCalculator,
       supportedParameters,
+      providerOnly,
     }).invoke({
       contractHash: input.contractHash,
       model,
@@ -197,15 +219,6 @@ async function main() {
       maximumAuthorizedCostEur: input.maximumAuthorizedCostEur,
     });
 
-    const { evaluateNativeOutputRelease } = require(path.join(
-      platformRoot,
-      'services',
-      'api',
-      'dist',
-      'confidential-execution',
-      'release',
-      'native-output-release.js',
-    ));
     const nativeRelease = evaluateNativeOutputRelease({
       contractHash: input.contractHash,
       evaluatedAt: new Date().toISOString(),

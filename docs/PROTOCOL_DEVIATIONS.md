@@ -245,3 +245,23 @@ tests after tag `protocol-v1` must be appended here before additional runs.
 - Successful evidence retains both the manifest-derived conservative debit and
   OpenRouter's provider-reported account charge. The reported value remains
   labelled in OpenRouter credits and is not silently reclassified as EUR.
+- The first frontier smoke sweep began from the pre-commit checkpoint during an
+  interrupted command. All six failures remain append-only evidence. GPT Luna
+  and Claude returned provider HTTP 404, Gemma returned HTTP 405, and DeepSeek,
+  Kimi, and Llama completed their provider call before the bridge discovered
+  that the native API release module had not yet been built.
+- Those six attempts conservatively debit EUR 3 in the matrix ledger. Exact
+  provider charges were unavailable because the bridge failed before returning
+  model evidence. The bridge now resolves the native release module before the
+  paid provider call, so the same local readiness defect cannot consume another
+  model request.
+- Before retrying, live ZDR endpoint metadata was captured for one pinned
+  upstream route per model. GPT Luna was changed to its Azure-supported
+  `max_completion_tokens` parameter, Claude's unsupported sampling parameter
+  was omitted for Amazon Bedrock, and Gemma was pinned away from the endpoint
+  that returned HTTP 405. These are provider-capability corrections before any
+  successful smoke result, not exclusions based on model decisions.
+- Because the first sweep already retained a conservative EUR 3 debit, the
+  per-attempt reservation was tightened from EUR 0.50 to EUR 0.25. The total
+  authorization remains unchanged at EUR 10 and earlier ledger records remain
+  immutable.

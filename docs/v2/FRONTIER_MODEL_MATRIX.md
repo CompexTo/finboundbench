@@ -32,22 +32,27 @@ platform rejects it as substitution.
   reasoning parameter. Unsupported sampling parameters are omitted and the
   provider is required to support every parameter actually transmitted.
 - Provider fallback is disabled. Routing requires zero data retention and
-  denies providers that collect request data.
+  denies providers that collect request data. Each model also pins one exact
+  ZDR-capable upstream endpoint slug and its endpoint-metadata hash; this avoids
+  silently changing the host implementation while keeping OpenRouter as the
+  single allowlisted network destination.
 - The selected projection is pseudonymized before the one allowlisted HTTPS
   call. Synthetic internal fields are denied and never transmitted.
 
 ## Cost boundary
 
-The cumulative authorization is EUR 10. Each attempt first reserves EUR 0.50
-in an append-only ledger. A successful attempt settles to the conservative
+The cumulative authorization is EUR 10. The first failed sweep reserved EUR
+0.50 per attempt and conservatively retained EUR 3.00. Subsequent attempts
+reserve EUR 0.25 in an append-only ledger. A successful attempt settles to the conservative
 manifest-derived token cost; an attempt without complete cost evidence retains
 the entire reservation as a debit. The ledger rejects a new reservation when
 it would cross EUR 10.
 
 For the ceiling only, one USD is treated as one EUR. Successful evidence also
 records OpenRouter's reported account charge separately in OpenRouter credits.
-The planned twelve calls reserve at most EUR 6 before settlement, leaving room
-for bounded diagnostic retries while preserving the absolute EUR 10 stop.
+After the retained first-sweep debit, the planned retry and pilot calls reserve
+at most another EUR 3 before settlement, leaving bounded diagnostic headroom
+while preserving the absolute EUR 10 stop.
 
 These runs validate governed remote processing and compare model behavior. They
 do not show that the transmitted projection remained local, and smoke or pilot

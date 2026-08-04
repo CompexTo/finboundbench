@@ -35,6 +35,7 @@ def main() -> None:
     parser.add_argument("--repetition", type=int, choices=(1, 2, 3), default=1)
     parser.add_argument("--model-id", action="append", dest="model_ids")
     parser.add_argument("--image", default="purposebound-finance-v2-gate:local")
+    parser.add_argument("--preflight", action="store_true")
     args = parser.parse_args()
     if args.phase == "smoke" and args.repetition != 1:
         parser.error("smoke supports repetition 1 only")
@@ -48,6 +49,61 @@ def main() -> None:
     dataset = (benchmark_root / config["dataset"]).resolve()
     local_fallback = (benchmark_root / config["localFallback"]).resolve()
     ledger_path = benchmark_root / BUDGET_LEDGER
+    if args.preflight:
+        eligible: list[str] = []
+        errors: list[dict[str, str]] = []
+        for model in models:
+            if model["modelId"] not in requested:
+                continue
+            slug = model["artifactSlug"]
+            try:
+                validate_frontier_smoke_gate(
+                    benchmark_root,
+                    benchmark_root
+                    / "results/v2/manifests"
+                    / f"openrouter-frontier-smoke-{slug}.json",
+                    model,
+                )
+                if args.phase == "pilot" and args.repetition > 1:
+                    validate_frontier_pilot_gate(
+                        benchmark_root,
+                        benchmark_root
+                        / "results/v2/manifests"
+                        / f"openrouter-frontier-pilot-{slug}.json",
+                        model,
+                    )
+                eligible.append(model["modelId"])
+            except (OSError, TypeError, ValueError) as error:
+                errors.append(
+                    {
+                        "modelId": model["modelId"],
+                        "errorType": type(error).__name__,
+                        "error": str(error),
+                    }
+                )
+        committed = committed_budget_eur(read_jsonl(ledger_path))
+        reservation = len(eligible) * float(config["perInvocationAuthorizedCostEur"])
+        fits = committed + reservation <= float(config["totalAuthorizedCostEur"])
+        print(
+            json.dumps(
+                {
+                    "preflight": True,
+                    "phase": args.phase,
+                    "repetition": args.repetition,
+                    "eligibleModels": eligible,
+                    "errors": errors,
+                    "committedBudgetEur": committed,
+                    "maximumAdditionalReservationEur": reservation,
+                    "maximumCommittedAfterEur": round(committed + reservation, 9),
+                    "totalAuthorizedCostEur": config["totalAuthorizedCostEur"],
+                    "withinBudget": fits,
+                },
+                sort_keys=True,
+            )
+        )
+        if errors or not fits:
+            raise SystemExit(1)
+        return
     image_digest = _image_digest(args.image)
     successes: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []

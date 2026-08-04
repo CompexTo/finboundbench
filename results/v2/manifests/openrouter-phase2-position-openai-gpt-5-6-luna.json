@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "purposebound-finance.position-diagnostic-manifest.v2",
+  "status": "PASSED",
+  "scope": "ELIGIBLE_MODELS_AFTER_CLAUDE_CLOSURE",
+  "claudeGate3": false,
+  "modelId": "openai/gpt-5.6-luna",
+  "modelManifestHash": "519552ef7257d5ed0dc195439ff8f7bfa0dd839d2efc70ecc99d921899a6429a",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-position-openai-gpt-5-6-luna.jsonl",
+  "rawArtifactSha256": "9ebbd451a6bca42c7c5f4c5c59d22f600ced3ab795d9e949e325e31a2524a033",
+  "invocationCount": 11,
+  "providerCalls": 11,
+  "retryCount": 0,
+  "layouts": [
+    "adjacent_pairs",
+    "deterministic_shuffle",
+    "full_batch",
+    "original_order",
+    "reversed_order",
+    "separated_pairs",
+    "singleton_calls",
+    "small_batches",
+    "swapped_ab_positions"
+  ],
+  "budgetLedgerPrefixRecordCount": 113,
+  "budgetLedgerPrefixHash": "b37b43fe744c48ef2a54659e7065efa4abcbcd3371fa4d9c29deb3b36242a330",
+  "budgetCategory": "position_diagnostic",
+  "categoryCommittedEur": 0.049562,
+  "globalCommittedEur": 8.45195584
+}

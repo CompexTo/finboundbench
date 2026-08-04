@@ -28,6 +28,21 @@
     "outputTokenLimit": 2048,
     "timeoutMs": 300000
   },
+  "eligiblePositionDiagnostic": {
+    "modelIds": [
+      "openai/gpt-5.6-luna",
+      "deepseek/deepseek-v4-pro"
+    ],
+    "modelMatrix": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+    "pairCount": 4,
+    "maximumReservationPerInvocationEur": 0.05,
+    "maximumDiagnosticBudgetEur": 1.5,
+    "maximumOutputTokens": 3072,
+    "timeoutMs": 300000,
+    "seed": 20260805,
+    "claudeGate3": false,
+    "reason": "Claude Gate 1 failed closed; continue the position diagnostic with eligible GPT and DeepSeek models only."
+  },
   "newAttemptJustification": {
     "modelId": "anthropic/claude-opus-5",
     "route": "amazon-bedrock",

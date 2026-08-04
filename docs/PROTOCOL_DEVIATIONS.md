@@ -302,3 +302,9 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   ceiling now match the replacement route, and the exact endpoint objects hash
   to the snapshots bound in the model manifests. This is a pre-smoke capacity
   correction; single-route pinning and disabled fallback are unchanged.
+- The next Claude diagnostic still returned HTTP 400. Its OpenRouter envelope
+  exposed only numeric code 400, not a canonical error type or provider code;
+  the safe diagnostic retained only that code and the response-body SHA-256.
+  The cumulative conservative debit became EUR 4.2532468. Before another call,
+  the generic diagnostic was extended to classify only fixed-vocabulary field
+  and error-kind hints found in the provider message, never the message itself.

@@ -82,3 +82,9 @@ captured and hash-verified. Gemma 4 is now pinned to `cerebras/fp16`, and
 DeepSeek V4 Pro to `parasail/fp8`; their supported-parameter sets and price
 ceilings were replaced with those exact endpoints' values. Provider fallback
 remains disabled.
+
+The first typed-diagnostic Claude attempt again returned HTTP 400. OpenRouter's
+body exposed only numeric code 400, with no canonical type or provider code;
+the retained body hash is
+`198ee507b619f43dcb721951f73a5abb48497aa2c2c4556fede526d7b54123a5`.
+The cumulative conservative debit is EUR 4.2532468.

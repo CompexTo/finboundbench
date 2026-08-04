@@ -15,15 +15,16 @@
       "metadataResponseSha256": "70af1d69138c9fab1a35075822f2394777d9151463ed0517cdc41c648ae01c5c",
       "contextSize": 262144,
       "catalogPricingUsdPerToken": {"prompt": "0.0000001", "completion": "0.00000034"},
-      "budgetCeilingUsdPerToken": {"prompt": "0.00000013", "completion": "0.00000038"},
-      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "max_tokens", "min_p", "presence_penalty", "reasoning", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_p"],
-      "providerRouting": {"only": ["deepinfra/fp8"], "allowFallbacks": false, "zeroDataRetention": true},
+      "budgetCeilingUsdPerToken": {"prompt": "0.00000099", "completion": "0.00000149"},
+      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "max_tokens", "presence_penalty", "reasoning", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_p"],
+      "providerRouting": {"only": ["cerebras/fp16"], "allowFallbacks": false, "zeroDataRetention": true},
       "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
-      "routingEndpointTag": "deepinfra/fp8",
-      "routingEndpointSnapshotSha256": "385b73d6ff79ff273f390fb98336ed1c553b56f4303acbb09b879ce8fda79296",
+      "routingEndpointTag": "cerebras/fp16",
+      "routingEndpointSnapshotSha256": "17b063e2fd7eb3f70a9c759ac2223617ea1fc5f6b97e198c7c68eb15f26e305c",
+      "routingCapturedAt": "2026-08-04T20:16:39.770967+00:00",
       "reasoning": {"mandatory": false, "defaultEnabled": false},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "c0dbb3ccc6806bc4a526d0a5daeb6a94bac841449c089f9f3aacff29f8b7e952"
+      "manifestHash": "2a50f34441faf1528d8a2a3aa7e3c639813c910944b1351042b45e8d29e3de4a"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -82,15 +83,16 @@
       "metadataResponseSha256": "86b41fb8cc82f4aa898c8763151d5e17702ec495145de854e6499ef410cfbafe",
       "contextSize": 1048576,
       "catalogPricingUsdPerToken": {"prompt": "0.000000435", "completion": "0.00000087"},
-      "budgetCeilingUsdPerToken": {"prompt": "0.0000013", "completion": "0.0000026"},
-      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "max_tokens", "min_p", "presence_penalty", "reasoning", "reasoning_effort", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_p"],
-      "providerRouting": {"only": ["deepinfra/fp4"], "allowFallbacks": false, "zeroDataRetention": true},
+      "budgetCeilingUsdPerToken": {"prompt": "0.00000174", "completion": "0.00000348"},
+      "supportedParameters": ["frequency_penalty", "include_reasoning", "logit_bias", "logprobs", "max_tokens", "presence_penalty", "reasoning", "reasoning_effort", "repetition_penalty", "response_format", "seed", "stop", "structured_outputs", "temperature", "tool_choice", "tools", "top_k", "top_logprobs", "top_p"],
+      "providerRouting": {"only": ["parasail/fp8"], "allowFallbacks": false, "zeroDataRetention": true},
       "routingMetadataSource": "https://openrouter.ai/api/v1/endpoints/zdr",
-      "routingEndpointTag": "deepinfra/fp4",
-      "routingEndpointSnapshotSha256": "1b4a80d5a63acf973126857b8b479ef4bb49250940d2dee69d042a4b9a798c9b",
+      "routingEndpointTag": "parasail/fp8",
+      "routingEndpointSnapshotSha256": "ab08c16ab998f97bcfa94cac30319caf9c6c5d5374bb7988375859035190c875",
+      "routingCapturedAt": "2026-08-04T20:16:39.770967+00:00",
       "reasoning": {"mandatory": false, "supportedEfforts": ["xhigh", "high"], "defaultEffort": "high"},
       "capturedAt": "2026-08-04T19:45:21.121Z",
-      "manifestHash": "0936db759657f869fc65ef83234393a7bad20546ca9d9e69e084114e59714b1c"
+      "manifestHash": "4e5705417f448ad493a87ab056c3a6cf5526137b0b30a2b36ef95732dd10005d"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -137,5 +139,5 @@
       "manifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e"
     }
   ],
-  "matrixHash": "dc9083761d8053d838913562c229b1174f2eb4eb2e2d4abf7e12a63076123913"
+  "matrixHash": "812a995f4afb5751a5102aa7ae973a546fa7b537a56f4d61970fd983da2a93c5"
 }

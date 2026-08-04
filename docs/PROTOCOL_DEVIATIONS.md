@@ -274,13 +274,20 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   EUR 3.7532468. The three successful model decisions are smoke diagnostics,
   not exclusions or paper claims, and the forty-record phase remains closed for
   models without a passing one-record gate.
-- Before retrying Claude, its HTTP 400 was traced to the provider-specific
-  representation used to disable reasoning. The model manifest now binds
-  `EFFORT_NONE` instead of the default `ENABLED_FALSE`; the generic platform
-  adapter supports both strategies without naming or selecting a benchmark
-  model. This changes Claude's manifest hash and the containing matrix hash.
-  Existing successful smoke artifacts retain their original matrix-hash
-  evidence and are not rewritten.
+- Claude's HTTP 400 may reflect the provider-specific representation used to
+  disable reasoning. The bounded retry hypothesis changes its model manifest
+  from `ENABLED_FALSE` to `EFFORT_NONE`; the generic platform adapter supports
+  both strategies without naming or selecting a benchmark model. This is not
+  treated as confirmed until the one-record gate passes.
+- Gemma and DeepSeek are moved from the rate-limited routes to live ZDR routes
+  captured before retry: Cerebras FP16 for Gemma and Parasail FP8 for DeepSeek.
+  Their endpoint capabilities, conservative price ceilings, endpoint hashes,
+  model-manifest hashes, and the containing matrix hash all change.
+- Existing successful smoke artifacts retain their original matrix-hash
+  evidence and are not rewritten. Pilot eligibility now revalidates the raw
+  artifact hash, the one-record native release, the model-specific manifest
+  hash, and the append-only budget-ledger prefix. An unrelated matrix member's
+  route change therefore cannot invalidate a passing model-specific gate.
 - Claude's first call under the corrected manifest still returned HTTP 400 and
   remains appended to its partial stream, raising the cumulative conservative
   debit to EUR 4.0032468. The platform had reduced all non-success responses to
@@ -288,3 +295,10 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   Before another paid diagnostic call, the generic provider boundary was
   changed to retain only allowlisted error type/provider code values and a body
   hash; free-text provider messages stay quarantined.
+- Before retrying the two HTTP 429 failures, fresh OpenRouter ZDR endpoint
+  metadata was captured. Gemma 4 moved from `deepinfra/fp8` to
+  `cerebras/fp16`, and DeepSeek V4 Pro moved from `deepinfra/fp4` to
+  `parasail/fp8`. Each model's supported parameters and conservative price
+  ceiling now match the replacement route, and the exact endpoint objects hash
+  to the snapshots bound in the model manifests. This is a pre-smoke capacity
+  correction; single-route pinning and disabled fallback are unchanged.

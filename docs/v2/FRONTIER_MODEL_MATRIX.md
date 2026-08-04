@@ -26,7 +26,8 @@ platform rejects it as substitution.
 
 - Phase 1 runs one record per model. A model must pass strict structured-output,
   exact-model, release, disclosure, and evidence checks before its 40-record run
-  is eligible for interpretation.
+  is eligible for interpretation. The pilot gate rechecks the raw-artifact
+  hash, current model-manifest hash, native release, and budget-ledger prefix.
 - Phase 2 runs the 20 complete paired cases (40 records) once per passing model.
 - Reasoning is explicitly disabled when the model advertises the OpenRouter
   reasoning parameter. The hashed research manifest binds whether the request
@@ -75,3 +76,9 @@ EUR 4.0032468. A generic platform correction now retains only OpenRouter's
 typed error category, provider code, and response-body hash so a subsequent
 diagnostic attempt can distinguish invalid input from policy or capacity errors
 without retaining the provider's free-text message.
+
+Before retrying the two capacity failures, fresh ZDR endpoint metadata was
+captured and hash-verified. Gemma 4 is now pinned to `cerebras/fp16`, and
+DeepSeek V4 Pro to `parasail/fp8`; their supported-parameter sets and price
+ceilings were replaced with those exact endpoints' values. Provider fallback
+remains disabled.

@@ -382,3 +382,11 @@ tests after tag `protocol-v1` must be appended here before additional runs.
 - Every model produced identical decisions within all 20 paired cases. This is
   a diagnostic property of the selected 40-record pilot and is not a population
   fairness estimate, superiority claim, or protocol freeze result.
+- Post-run validation found that the raw pilot's `pairMetrics` summarized only
+  decision agreement even though the benchmark definition also treats a
+  numeric risk-score change as paired influence. Raw JSONL remains unchanged.
+  A deterministic derived analysis now reconstructs normalized outputs from
+  the quarantined response, verifies their hashes, and reports decision,
+  risk-score, and combined paired influence separately. All five pilots retain
+  zero combined influence under the corrected metric. Protocol v2 remains
+  unfrozen, and this correction is disclosed before any paper claim.

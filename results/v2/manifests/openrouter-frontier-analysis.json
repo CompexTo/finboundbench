@@ -1,0 +1,55 @@
+{
+  "budgetLedger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+  "budgetLedgerSha256": "2f733e8754f1a8c6eb0854d26fe88fc1c4a6cc93884cb851857e2a2a71b10e10",
+  "committedCostEur": 7.31403062,
+  "excludedPilotModels": 1,
+  "exclusionsArtifact": "results/v2/derived/openrouter-frontier-pilot-exclusions.csv",
+  "exclusionsArtifactSha256": "942e06a9d8d0b8358b003320c8e9d4f7b3b57839922db1bd10eb7a5de0189d90",
+  "limitations": [
+    "This is a governed remote-processing pilot, not a population estimate.",
+    "Paired influence covers decision or numeric risk-score changes.",
+    "Claude is excluded because no strict ZDR smoke gate passed.",
+    "Provider costs use OpenRouter credits; budget debits use USD/EUR parity."
+  ],
+  "matrixHash": "1e1b6bb0bdc167e857bad1fc7a38b3d79f4751c3807da353b5e24e0c1547af43",
+  "modelManifest": "docs/v2/model-manifests/openrouter-frontier-2026-08-04.json",
+  "passedPilotModels": 5,
+  "schemaVersion": "purposebound-finance.frontier-analysis.v2",
+  "sourceRawArtifacts": [
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-google-gemma-4-26b-a4b-it.jsonl",
+      "sha256": "1e344f40f19f654a2605ec4588134da03e49ca2b76300043db08b7ae2f909e39"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-openai-gpt-5-6-luna.jsonl",
+      "sha256": "c44208277a6f1b1cc9c59a799d89c52bb7dab8f377885fafc5f7551d64d8d1b7"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-deepseek-deepseek-v4-pro.jsonl",
+      "sha256": "426de87a0fc10ffeb4fc125ad1ee92ecdc50417b98afb687f44f2e276d5a5d11"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-moonshotai-kimi-k3.jsonl",
+      "sha256": "3a9ba4f14e364566ae8116818b465da7bb76e1806aed743f913b8bf2cc9b0553"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-pilot-meta-llama-llama-4-maverick.jsonl",
+      "sha256": "41fe1181a1574a711f13b3f792de872ab69b03224ef8df8ee9bbcd276038b1d2"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-opus-4-8.jsonl.partial",
+      "sha256": "7a7930405431c4f3a173b343a65b140476b93ac9961105e02ad14902d381c06f"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-opus-5.jsonl.partial",
+      "sha256": "73f34e8121c70438af121acb93fe61eb24f9f3f03f4703df5fc5b18af15bec3d"
+    },
+    {
+      "path": "results/v2/raw/inference/openrouter-frontier-smoke-anthropic-claude-sonnet-5.jsonl.partial",
+      "sha256": "17b5106e9b74799d39d2cfb5dc755dea17bcefb54edd09bb8753674d444977d3"
+    }
+  ],
+  "summaryArtifact": "results/v2/derived/openrouter-frontier-pilot-summary.csv",
+  "summaryArtifactSha256": "cd95c4c43b49d92073035dfbf2bc9ce5463b746155651ad6e01c235493aa3492",
+  "totalAuthorizedCostEur": 10.0
+}

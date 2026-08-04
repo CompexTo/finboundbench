@@ -8,6 +8,7 @@ from purposebench.v2.inference_pilot import (
     MODEL_TIMEOUTS_MS,
     DirectOllamaInvoker,
     _disclosure_findings,
+    _pair_agreement,
     _validate_response,
     condition_prompts,
     load_paired_records,
@@ -76,6 +77,24 @@ def test_large_batch_uses_compact_order_bound_response() -> None:
     value["risk_scores"] = value["risk_scores"][:-1]
     with pytest.raises(ValueError, match="array counts"):
         _validate_response(value, case_ids)
+
+
+def test_pair_metrics_treat_risk_score_changes_as_influence() -> None:
+    rows = [
+        {"case_id": "a", "pair_id": "pair-1"},
+        {"case_id": "b", "pair_id": "pair-1"},
+    ]
+    metrics = _pair_agreement(
+        [
+            {"case_id": "a", "decision": "STANDARD_REVIEW", "risk_score": 20},
+            {"case_id": "b", "decision": "STANDARD_REVIEW", "risk_score": 21},
+        ],
+        rows,
+    )
+    assert metrics["decisionAgreementRate"] == 1.0
+    assert metrics["riskScoreAgreementRate"] == 0.0
+    assert metrics["pairedInfluenceRate"] == 1.0
+    assert metrics["meanAbsoluteRiskScoreDifference"] == 1.0
 
 
 def test_compact_prompt_binds_output_indexes_to_input_order() -> None:

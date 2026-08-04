@@ -476,15 +476,31 @@ def invoke_governed_bridge(
 
 
 def _pair_agreement(results: Sequence[Mapping[str, Any]], rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
-    decisions = {str(result["case_id"]): result["decision"] for result in results}
-    by_pair: dict[str, list[str]] = {}
+    outputs = {
+        str(result["case_id"]): (str(result["decision"]), int(result["risk_score"]))
+        for result in results
+    }
+    by_pair: dict[str, list[tuple[str, int]]] = {}
     for row in rows:
-        by_pair.setdefault(str(row["pair_id"]), []).append(decisions[str(row["case_id"])])
-    agreements = sum(len(values) == 2 and len(set(values)) == 1 for values in by_pair.values())
+        by_pair.setdefault(str(row["pair_id"]), []).append(outputs[str(row["case_id"])])
+    complete = [values for values in by_pair.values() if len(values) == 2]
+    decision_agreements = sum(values[0][0] == values[1][0] for values in complete)
+    score_agreements = sum(values[0][1] == values[1][1] for values in complete)
+    full_agreements = sum(values[0] == values[1] for values in complete)
+    absolute_score_differences = [abs(values[0][1] - values[1][1]) for values in complete]
     return {
         "pairs": len(by_pair),
-        "decisionAgreements": agreements,
-        "decisionAgreementRate": agreements / len(by_pair),
+        "decisionAgreements": decision_agreements,
+        "decisionAgreementRate": decision_agreements / len(by_pair),
+        "riskScoreAgreements": score_agreements,
+        "riskScoreAgreementRate": score_agreements / len(by_pair),
+        "fullAgreements": full_agreements,
+        "pairedInfluences": len(by_pair) - full_agreements,
+        "pairedInfluenceRate": (len(by_pair) - full_agreements) / len(by_pair),
+        "meanAbsoluteRiskScoreDifference": (
+            sum(absolute_score_differences) / len(absolute_score_differences)
+        ),
+        "maximumAbsoluteRiskScoreDifference": max(absolute_score_differences),
     }
 
 

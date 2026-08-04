@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "purposebound-finance.full-condition-analysis.v2",
+  "status": "COMPLETE_WITH_FAILURES",
+  "modelId": "moonshotai/kimi-k3",
+  "modelManifestHash": "e363c91aac9ad53fea1c9fc155af36703a917e9b6c9c94fbb1b429dbee11b864",
+  "controlledExposureConsent": "configs/v2/openrouter-condition-pilot-consent.json",
+  "controlledExposureConsentHash": "0163c8c71a5b339e3e4f6f967c2ab4d56540ccf6d783af0aae7b65a849d7cbc0",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-full-condition-pilot-moonshotai-kimi-k3.jsonl",
+  "rawArtifactSha256": "962eed0bbb38039829ee80dbdfa9f80ac7f49aed84595926126d5c0c709c29b9",
+  "conditionResults": [
+    {
+      "condition": "all_data_no_policy",
+      "status": "PASSED",
+      "prohibitedSyntheticFieldsTransmitted": true,
+      "identifiersPseudonymized": true,
+      "releasePolicyMode": "NATIVE_COMPEX_SCHEMA_BOUND",
+      "providerCalls": 1,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.013257,
+      "releaseAllowed": true,
+      "disclosureFindingCount": 0,
+      "pairedPurpose": {
+        "pairs": 4,
+        "governedActionInfluencedPairs": 4,
+        "governedActionInfluenceRate": 1.0,
+        "scoreDifferentPairs": 4,
+        "scoreDifferenceRate": 1.0,
+        "meanAbsolutePairScoreDifference": 0.8300000000000001,
+        "maximumAbsolutePairScoreDifference": 0.8400000000000001
+      },
+      "comparisonWithAllDataNoPolicy": {
+        "comparedRecords": 8,
+        "governedActionAgreementRate": 1.0,
+        "rawRecommendationAgreementRate": 1.0,
+        "meanAbsoluteScoreDifference": 0.0,
+        "maximumAbsoluteScoreDifference": 0.0
+      }
+    },
+    {
+      "condition": "prompt_only_purpose_restriction",
+      "status": "FAILED",
+      "prohibitedSyntheticFieldsTransmitted": true,
+      "identifiersPseudonymized": true,
+      "releasePolicyMode": "NATIVE_COMPEX_SCHEMA_BOUND",
+      "providerCalls": 1,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.2,
+      "providerDiagnostic": {
+        "category": "RATE_LIMIT",
+        "fieldHints": [
+          "provider"
+        ],
+        "httpStatus": 429,
+        "providerCode": "429",
+        "requestId": null,
+        "responseBodySha256": "530a6a73a6ec3060dac2b9696cd611237209c13e5747d695f0d2281747bc5ac0",
+        "selectedProviderRoute": "morph"
+      }
+    },
+    {
+      "condition": "ordinary_metadata_prefilter",
+      "status": "PASSED",
+      "prohibitedSyntheticFieldsTransmitted": false,
+      "identifiersPseudonymized": true,
+      "releasePolicyMode": "NATIVE_COMPEX_SCHEMA_BOUND",
+      "providerCalls": 1,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.011208,
+      "releaseAllowed": true,
+      "disclosureFindingCount": 0,
+      "pairedPurpose": {
+        "pairs": 4,
+        "governedActionInfluencedPairs": 0,
+        "governedActionInfluenceRate": 0.0,
+        "scoreDifferentPairs": 0,
+        "scoreDifferenceRate": 0.0,
+        "meanAbsolutePairScoreDifference": 0.0,
+        "maximumAbsolutePairScoreDifference": 0.0
+      },
+      "comparisonWithAllDataNoPolicy": {
+        "comparedRecords": 8,
+        "governedActionAgreementRate": 0.5,
+        "rawRecommendationAgreementRate": 0.25,
+        "meanAbsoluteScoreDifference": 0.41500000000000004,
+        "maximumAbsoluteScoreDifference": 0.6200000000000001
+      }
+    },
+    {
+      "condition": "compex_governed_projection",
+      "status": "PASSED",
+      "prohibitedSyntheticFieldsTransmitted": false,
+      "identifiersPseudonymized": true,
+      "releasePolicyMode": "NATIVE_COMPEX_SCHEMA_BOUND",
+      "providerCalls": 1,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.012813000000000001,
+      "releaseAllowed": true,
+      "disclosureFindingCount": 0,
+      "pairedPurpose": {
+        "pairs": 4,
+        "governedActionInfluencedPairs": 0,
+        "governedActionInfluenceRate": 0.0,
+        "scoreDifferentPairs": 0,
+        "scoreDifferenceRate": 0.0,
+        "meanAbsolutePairScoreDifference": 0.0,
+        "maximumAbsolutePairScoreDifference": 0.0
+      },
+      "comparisonWithAllDataNoPolicy": {
+        "comparedRecords": 8,
+        "governedActionAgreementRate": 0.5,
+        "rawRecommendationAgreementRate": 0.375,
+        "meanAbsoluteScoreDifference": 0.41500000000000004,
+        "maximumAbsoluteScoreDifference": 0.74
+      }
+    },
+    {
+      "condition": "compex_projection_plus_native_release",
+      "status": "PASSED",
+      "prohibitedSyntheticFieldsTransmitted": false,
+      "identifiersPseudonymized": true,
+      "releasePolicyMode": "NATIVE_COMPEX_FULL",
+      "providerCalls": 1,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.012183,
+      "releaseAllowed": true,
+      "disclosureFindingCount": 0,
+      "pairedPurpose": {
+        "pairs": 4,
+        "governedActionInfluencedPairs": 0,
+        "governedActionInfluenceRate": 0.0,
+        "scoreDifferentPairs": 0,
+        "scoreDifferenceRate": 0.0,
+        "meanAbsolutePairScoreDifference": 0.0,
+        "maximumAbsolutePairScoreDifference": 0.0
+      },
+      "comparisonWithAllDataNoPolicy": {
+        "comparedRecords": 8,
+        "governedActionAgreementRate": 0.5,
+        "rawRecommendationAgreementRate": 0.375,
+        "meanAbsoluteScoreDifference": 0.41500000000000004,
+        "maximumAbsoluteScoreDifference": 0.74
+      }
+    }
+  ],
+  "passedConditionCount": 4,
+  "failedConditionCount": 1,
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 147,
+    "ledgerPrefixHash": "de58b147fb47146a9ae8c29aec4a882ac68874b9d9f50072870300469aa5bd36",
+    "categoryCommittedEur": 0.249461,
+    "categoryAuthorizedEur": 1.0,
+    "globalCommittedEur": 9.01262918,
+    "absoluteAuthorizedEur": 12.90239384
+  },
+  "limitations": [
+    "The prompt-only condition was rate-limited and was not retried, so it has no outcome comparison.",
+    "Each condition has one eight-record invocation; differences cannot be separated from sampling variability.",
+    "The full-data conditions used public records plus synthetic internal fields, never real internal customer data.",
+    "All identifiers were pseudonymized and every successful output passed a native Compex release policy."
+  ],
+  "reportHash": "e76930a8d5c176b8c4d89f19c549ba72709c760ed81663a9fa521893809b276e"
+}

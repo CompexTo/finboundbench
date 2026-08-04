@@ -28,6 +28,17 @@ remote_models:
   matrix_config: configs/v2/openrouter-frontier-matrix.json
   readiness: READY_WITH_GITIGNORED_OPENROUTER_API_KEY
   total_authorized_cost_eur: 10.0
+official_datasets:
+  hmda_2024_dc:
+    source_manifest: results/v2/manifests/hmda-2024-dc-source.json
+    transformation_manifest: results/v2/manifests/hmda-2024-dc-transform.json
+    paired_asset: data/v2/generated/hmda-2024-dc-pairs.jsonl
+    readiness: READY
+  cfpb_2024_01_dc:
+    source_manifest: results/v2/manifests/cfpb-2024-01-dc-source.json
+    transformation_manifest: results/v2/manifests/cfpb-2024-01-dc-transform.json
+    paired_asset: data/v2/generated/cfpb-2024-01-dc-pairs.jsonl
+    readiness: READY
 privacy_training:
   configurations: [non_dp, weak_dp, medium_dp, stronger_dp]
   delta: 0.00001
@@ -40,3 +51,6 @@ trusted_host:
   backend_type: LOCAL_HARDENED_DOCKER
   hardware_attestation: false
   host_trust_required: true
+freeze:
+  status: NOT_FROZEN
+  readiness_document: docs/v2/PROTOCOL_READINESS.md

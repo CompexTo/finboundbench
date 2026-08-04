@@ -1,0 +1,49 @@
+{
+  "schema": "compex-ollama-model-manifest-v2",
+  "modelTag": "gemma4:31b",
+  "pinnedModelId": "gemma4:31b@sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "manifestDigest": "sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "modelRevision": "sha256:6316f0629137b426c9d9b853ffc4c8209589f30ee39aebede6285096c0ff47e7",
+  "parameterCount": 31273089132,
+  "parameterSize": "31.3B",
+  "quantization": "Q4_K_M",
+  "format": "gguf",
+  "contextSize": 262144,
+  "inferenceEngine": "OLLAMA",
+  "inferenceEngineVersion": "0.32.5",
+  "downloadSource": "registry.ollama.ai/library/gemma4:31b",
+  "layers": [
+    {
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "digest": "sha256:0940386273ff9ddd5ede7c5ddaa0e925b50154e198ea977fb64aa1ca94a3a137",
+      "sizeBytes": 474
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.model",
+      "digest": "sha256:280af6832eca23cb322c4dcc65edfea98a21b8f8ab07dc7553bd6f7e6e7a3313",
+      "sizeBytes": 19868969920
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.license",
+      "digest": "sha256:7339fa418c9ad3e8e12e74ad0fd26a9cc4be8703f9c110728a992b193be85cb2",
+      "sizeBytes": 11355
+    },
+    {
+      "mediaType": "application/vnd.ollama.image.params",
+      "digest": "sha256:56380ca2ab89f1f68c283f4d50863c0bcab52ae3f1b9a88e4ab5617b176f71a3",
+      "sizeBytes": 42
+    }
+  ],
+  "capabilities": ["completion", "vision", "tools", "thinking"],
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i7-9850H CPU @ 2.60GHz",
+    "physicalCores": 6,
+    "logicalProcessors": 12,
+    "ramBytes": 34121879552,
+    "gpu": "NVIDIA Quadro T1000",
+    "gpuVramBytes": 4294967296,
+    "gpuDriver": "572.16"
+  },
+  "capturedAt": "2026-08-02T13:02:43.508Z",
+  "manifestHash": "8f0eb5cafc55cf2ae698c31eb22c8aa96c9563c7bfbded55c6b9389df659485f"
+}

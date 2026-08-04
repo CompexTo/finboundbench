@@ -390,3 +390,24 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   risk-score, and combined paired influence separately. All five pilots retain
   zero combined influence under the corrected metric. Protocol v2 remains
   unfrozen, and this correction is disclosed before any paper claim.
+
+## 2026-08-04 - bounded official CFPB query completes the source gate
+
+- The failed bulk-download artifacts above remain unchanged and ineligible as
+  source data. The acquisition implementation now also supports the CFPB's
+  official complaint-search CSV export.
+- Before the first bounded download, `CFPBQuery` was constrained to one
+  two-letter state and a maximum 31-day closed-open date interval. This avoids
+  accidentally requesting the whole live database; the current CFPB API also
+  caps filtered exports at 100,000 complaints.
+- The completed query covers District of Columbia complaints received from
+  2024-01-01 through 2024-01-31. It yielded 699 public source rows. Its raw
+  checksum is `b4cb36d0d78ee09fb0997a18d435b92287dc47742442365510b7e0be7dcce7c5`.
+- Stable SHA-256 bottom-k sampling with seed `20260802` produced 20 pairs / 40
+  records. The transformed checksum is
+  `cc2db97813934a94a3153b26f79fb9b9612b9b126987c442145feaac7e68cf9c`;
+  pair validation confirms approved fields are identical and only the six
+  synthetic internal fields change.
+- This pre-freeze change closes the official CFPB acquisition gate. It does not
+  make the incomplete local multi-condition pilot successful and does not
+  authorize a protocol tag or paper claim.

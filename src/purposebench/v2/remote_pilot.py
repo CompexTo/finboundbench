@@ -155,6 +155,13 @@ def validate_remote_model_manifest(value: Mapping[str, Any]) -> dict[str, Any]:
         raise ValueError("remote model manifest identity is invalid")
     if not isinstance(manifest["supportedParameters"], list):
         raise TypeError("remote model supported parameters are invalid")
+    minimum_output_tokens = manifest.get("minimumOutputTokenLimit", 0)
+    if (
+        not isinstance(minimum_output_tokens, int)
+        or minimum_output_tokens < 0
+        or minimum_output_tokens >= manifest["contextSize"]
+    ):
+        raise ValueError("remote model minimum output token limit is invalid")
     reasoning_setting = manifest.get("reasoningSetting", "DISABLED")
     reasoning_disable_strategy = manifest.get(
         "reasoningDisableStrategy", "ENABLED_FALSE"
@@ -293,7 +300,11 @@ def run_remote_pilot(
         )
         prompt_parts = condition_prompts(REMOTE_CONDITION, denied_fields)
         prompts = {"system": prompt_parts["system"], "user": prompt_parts["task"]}
-        output_token_limit = max(512, len(rows) * 16)
+        output_token_limit = max(
+            512,
+            len(rows) * 16,
+            int(manifest.get("minimumOutputTokenLimit", 0)),
+        )
         supported_parameters = set(manifest["supportedParameters"])
         reasoning_setting = manifest.get("reasoningSetting", "DISABLED")
         reasoning_disable_strategy = manifest.get(

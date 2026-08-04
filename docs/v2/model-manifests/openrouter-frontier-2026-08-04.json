@@ -70,8 +70,9 @@
       "routingCapturedAt": "2026-08-04T20:28:03.412715+00:00",
       "reasoning": {"mandatory": false, "defaultEnabled": true, "supportedEfforts": ["max", "xhigh", "high", "medium", "low"], "defaultEffort": "high"},
       "reasoningSetting": "LOW",
+      "minimumOutputTokenLimit": 2048,
       "capturedAt": "2026-08-04T20:28:03.412715+00:00",
-      "manifestHash": "929410bd3c42ffca31a7c5dd718bdd3ce4bf14a42d3c549b04fa7f03e4e9f602"
+      "manifestHash": "43023e6a74cd896057fb943d0e8f44502424bdcad77691a1694fc8872065526b"
     },
     {
       "schema": "purposebound-finance.openrouter-model-manifest.v2",
@@ -141,5 +142,5 @@
       "manifestHash": "021a12fc380393de1e50ee14f29958a271846457f5edc755cbacb5278db50c5e"
     }
   ],
-  "matrixHash": "a356d5c57c997b9514981f74aeb72522d1948739cb9b614f7e92695cf7723930"
+  "matrixHash": "cac89d3205ed48defba354f49d7deae0721cd863f9b9277257c8c9d04d92a4a5"
 }

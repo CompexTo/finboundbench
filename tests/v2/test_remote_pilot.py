@@ -90,6 +90,22 @@ def test_remote_manifest_accepts_provider_specific_output_token_parameter() -> N
     assert validate_remote_model_manifest(manifest)["manifestHash"] == manifest["manifestHash"]
 
 
+def test_remote_manifest_validates_model_specific_minimum_output_tokens() -> None:
+    manifest = _remote_manifest()
+    manifest["minimumOutputTokenLimit"] = 2048
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    assert validate_remote_model_manifest(manifest)["minimumOutputTokenLimit"] == 2048
+
+    manifest["minimumOutputTokenLimit"] = 4096
+    manifest["manifestHash"] = sha256_json(
+        {key: value for key, value in manifest.items() if key != "manifestHash"}
+    )
+    with pytest.raises(ValueError, match="minimum output token"):
+        validate_remote_model_manifest(manifest)
+
+
 def test_remote_manifest_rejects_unknown_reasoning_disable_strategy() -> None:
     manifest = _remote_manifest()
     manifest["reasoningDisableStrategy"] = "PROVIDER_DEFAULT"

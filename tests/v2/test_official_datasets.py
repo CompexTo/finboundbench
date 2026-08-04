@@ -17,11 +17,14 @@ import pytest
 from purposebench.utils import canonical_json
 from purposebench.v2.datasets import (
     ASSET_CLASSIFICATION,
+    CFPB_COMPLAINTS_API_URL,
     CFPB_COMPLAINTS_DOWNLOAD_URL,
     HMDA_DATA_BROWSER_CSV_URL,
     PROHIBITED_INTERNAL_FIELDS,
+    CFPBQuery,
     HMDAQuery,
     download_cfpb_complaints,
+    download_cfpb_complaints_query,
     download_hmda,
     transform_cfpb_complaints,
     transform_hmda,
@@ -353,6 +356,76 @@ def test_cfpb_download_and_transform_offline_fixture(
     )
     assert any(record["fields"].get("zip_code") is None for record in records)
     assert any("not a statistical sample" in limitation for limitation in manifest.limitations)
+
+
+def test_cfpb_bounded_query_downloads_csv_and_transforms(
+    tmp_path: Path,
+) -> None:
+    csv_bytes = (FIXTURES / "cfpb_complaints_sample.csv").read_bytes()
+    client = FakeStreamingClient(
+        FakeStreamingResponse(
+            _chunks(csv_bytes),
+            headers={"ETag": '"bounded-query-fixture"', "Content-Type": "text/csv"},
+        )
+    )
+    root = tmp_path / "v2" / "cfpb-query"
+    raw = root / "complaints.csv"
+    source_manifest_path = root / "source.json"
+    query = CFPBQuery(
+        date_received_min="2024-01-01",
+        date_received_max="2024-02-01",
+        state="dc",
+    )
+
+    source_manifest = download_cfpb_complaints_query(
+        query,
+        raw_output_path=raw,
+        manifest_output_path=source_manifest_path,
+        client=client,
+        retrieved_at=RETRIEVED_AT,
+    )
+
+    assert source_manifest.source_url == CFPB_COMPLAINTS_API_URL
+    assert source_manifest.source_parameters == {
+        "date_received_min": "2024-01-01",
+        "date_received_max": "2024-02-01",
+        "state": "DC",
+        "field": "all",
+        "format": "csv",
+        "no_aggs": "true",
+        "sort": "created_date_asc",
+    }
+    assert "bounded-query-fixture" in source_manifest.source_version
+    assert client.calls[0]["params"] == source_manifest.source_parameters
+
+    transformed = root / "complaint-pairs.jsonl"
+    transform_manifest = transform_cfpb_complaints(
+        raw_path=raw,
+        source_manifest_path=source_manifest_path,
+        transformed_output_path=transformed,
+        manifest_output_path=root / "transform.json",
+        sample_size=5,
+        seed=42,
+    )
+    records = _read_jsonl(transformed)
+    _assert_pair_invariants(records)
+    assert transform_manifest.base_records == 5
+    assert transform_manifest.sampling.source_records_scanned == 5
+
+
+def test_cfpb_query_rejects_unbounded_requests() -> None:
+    with pytest.raises(ValueError, match="two-letter"):
+        CFPBQuery(
+            date_received_min="2024-01-01",
+            date_received_max="2024-02-01",
+            state="",
+        )
+    with pytest.raises(ValueError, match="31 days"):
+        CFPBQuery(
+            date_received_min="2024-01-01",
+            date_received_max="2024-03-01",
+            state="DC",
+        )
 
 
 def test_stream_download_resumes_only_after_matching_prefix_suffix_and_etag(

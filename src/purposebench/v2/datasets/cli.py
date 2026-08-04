@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
+from datetime import date
 from pathlib import Path
 from typing import Annotated
 
 import typer
 
 from purposebench.v2.datasets.cfpb_complaints import (
+    CFPBQuery,
     download_cfpb_complaints,
+    download_cfpb_complaints_query,
     transform_cfpb_complaints,
 )
 from purposebench.v2.datasets.hmda import (
@@ -77,6 +80,28 @@ def download_cfpb_command(
         overwrite=overwrite,
         resume=resume,
         parallel_ranges=parallel_ranges,
+    )
+    typer.echo(manifest.model_dump_json(indent=2))
+
+
+@app.command("download-cfpb-query")
+def download_cfpb_query_command(
+    date_received_min: Annotated[date, typer.Option()],
+    date_received_max: Annotated[date, typer.Option()],
+    state: Annotated[str, typer.Option()],
+    raw_output: Annotated[Path, typer.Option()],
+    manifest_output: Annotated[Path, typer.Option()],
+    overwrite: Annotated[bool, typer.Option()] = False,
+) -> None:
+    manifest = download_cfpb_complaints_query(
+        CFPBQuery(
+            date_received_min=date_received_min,
+            date_received_max=date_received_max,
+            state=state,
+        ),
+        raw_output_path=raw_output,
+        manifest_output_path=manifest_output,
+        overwrite=overwrite,
     )
     typer.echo(manifest.model_dump_json(indent=2))
 

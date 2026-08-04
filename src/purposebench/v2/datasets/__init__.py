@@ -6,9 +6,12 @@ from purposebench.v2.datasets.augment import (
     validate_augmented_pairs,
 )
 from purposebench.v2.datasets.cfpb_complaints import (
+    CFPB_COMPLAINTS_API_URL,
     CFPB_COMPLAINTS_DOWNLOAD_URL,
     CFPB_COMPLAINTS_PAGE_URL,
+    CFPBQuery,
     download_cfpb_complaints,
+    download_cfpb_complaints_query,
     transform_cfpb_complaints,
 )
 from purposebench.v2.datasets.common import (
@@ -27,17 +30,20 @@ from purposebench.v2.datasets.hmda import (
 
 __all__ = [
     "ASSET_CLASSIFICATION",
+    "CFPB_COMPLAINTS_API_URL",
     "CFPB_COMPLAINTS_DOWNLOAD_URL",
     "CFPB_COMPLAINTS_PAGE_URL",
     "HMDA_DATA_BROWSER_CSV_URL",
     "HMDA_DATA_PUBLICATION_URL",
     "PROHIBITED_INTERNAL_FIELDS",
+    "CFPBQuery",
     "DataFieldDefinition",
     "HMDAQuery",
     "SourceArtifactManifest",
     "TransformationManifest",
     "augment_with_synthetic_internal_pairs",
     "download_cfpb_complaints",
+    "download_cfpb_complaints_query",
     "download_hmda",
     "transform_cfpb_complaints",
     "transform_hmda",

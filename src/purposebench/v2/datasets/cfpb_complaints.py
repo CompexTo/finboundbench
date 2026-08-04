@@ -7,8 +7,11 @@ import hashlib
 import io
 import zipfile
 from collections.abc import Iterator
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
+from typing import Any, TextIO
+
+from pydantic import BaseModel, ConfigDict, field_validator, model_validator
 
 from purposebench.utils import canonical_json, sha256_file
 from purposebench.v2.datasets.augment import (
@@ -40,9 +43,12 @@ from purposebench.v2.datasets.common import (
 )
 
 CFPB_COMPLAINTS_DOWNLOAD_URL = "https://files.consumerfinance.gov/ccdb/complaints.csv.zip"
+CFPB_COMPLAINTS_API_URL = (
+    "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/"
+)
 CFPB_COMPLAINTS_PAGE_URL = "https://www.consumerfinance.gov/data-research/consumer-complaints/"
 CFPB_COMPLAINTS_FIELD_REFERENCE_URL = "https://cfpb.github.io/api/ccdb/fields.html"
-CFPB_TRANSFORMATION_VERSION = "cfpb-complaints-public-pairs-v2.0.0"
+CFPB_TRANSFORMATION_VERSION = "cfpb-complaints-public-pairs-v2.1.0"
 
 CFPB_LICENSE_USE_NOTES = (
     "The CFPB states that published complaint data are freely available to use, analyze, and build on.",
@@ -151,6 +157,49 @@ CFPB_REQUIRED_FIELDS = {
 }
 
 
+class CFPBQuery(BaseModel):
+    """A deliberately bounded official complaint-search export.
+
+    The CFPB export endpoint ignores ``size`` when a CSV format is requested,
+    so a state and a short, closed-open date interval are mandatory. This
+    prevents an accidental replacement of the multi-gigabyte bulk download.
+    """
+
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+    date_received_min: date
+    date_received_max: date
+    state: str
+
+    @field_validator("state", mode="before")
+    @classmethod
+    def _normalize_state(cls, value: Any) -> str:
+        state = str(value).strip().upper()
+        if len(state) != 2 or not state.isalpha():
+            raise ValueError("CFPB query state must be a two-letter code")
+        return state
+
+    @model_validator(mode="after")
+    def _require_bounded_interval(self) -> CFPBQuery:
+        days = (self.date_received_max - self.date_received_min).days
+        if days < 1:
+            raise ValueError("CFPB query maximum date must be after minimum date")
+        if days > 31:
+            raise ValueError("CFPB query interval must not exceed 31 days")
+        return self
+
+    def parameters(self) -> dict[str, str]:
+        return {
+            "date_received_min": self.date_received_min.isoformat(),
+            "date_received_max": self.date_received_max.isoformat(),
+            "state": self.state,
+            "field": "all",
+            "format": "csv",
+            "no_aggs": "true",
+            "sort": "created_date_asc",
+        }
+
+
 def download_cfpb_complaints(
     *,
     raw_output_path: Path,
@@ -223,12 +272,97 @@ def download_cfpb_complaints(
     return manifest
 
 
+def download_cfpb_complaints_query(
+    query: CFPBQuery,
+    *,
+    raw_output_path: Path,
+    manifest_output_path: Path,
+    client: StreamingHttpClient | None = None,
+    retrieved_at: datetime | None = None,
+    timeout_seconds: float = 120.0,
+    overwrite: bool = False,
+    max_bytes: int = 100_000_000,
+) -> SourceArtifactManifest:
+    """Download a bounded official CFPB search export as CSV."""
+
+    ensure_available((raw_output_path, manifest_output_path), overwrite=overwrite)
+    parameters = query.parameters()
+    result = download_with_optional_client(
+        client=client,
+        url=CFPB_COMPLAINTS_API_URL,
+        params=parameters,
+        output_path=raw_output_path,
+        timeout_seconds=timeout_seconds,
+        overwrite=overwrite,
+        max_bytes=max_bytes,
+    )
+    timestamp = retrieval_timestamp(retrieved_at)
+    query_hash = hashlib.sha256(
+        canonical_json(parameters).encode("utf-8")
+    ).hexdigest()
+    manifest = SourceArtifactManifest(
+        dataset_id="cfpb_consumer_complaints",
+        source_name="CFPB Consumer Complaint Database bounded search CSV",
+        official_dataset_page=CFPB_COMPLAINTS_PAGE_URL,
+        source_url=CFPB_COMPLAINTS_API_URL,
+        source_parameters=parameters,
+        source_version=source_version(
+            "cfpb-consumer-complaints",
+            f"search-api-v1-query-{query_hash}",
+            result.response_headers,
+            timestamp,
+        ),
+        retrieved_at=timestamp,
+        response_headers=result.response_headers,
+        source_sha256=result.sha256,
+        source_bytes=result.bytes_written,
+        raw_filename=Path(raw_output_path).name,
+        license_use_notes=CFPB_LICENSE_USE_NOTES,
+    )
+    write_manifest(manifest_output_path, manifest, overwrite=overwrite)
+    return manifest
+
+
+def _iter_normalized_complaint_rows(
+    text: TextIO,
+) -> Iterator[dict[str, str | None]]:
+    reader = csv.DictReader(text)
+    if reader.fieldnames is None:
+        raise ValueError("CFPB complaint CSV has no header")
+    missing = sorted(CFPB_REQUIRED_FIELDS - set(reader.fieldnames))
+    if missing:
+        raise ValueError(f"CFPB source is missing required columns: {missing}")
+    selected_fields = tuple(
+        source_name for source_name in CFPB_FIELD_MAP if source_name in reader.fieldnames
+    )
+    for source in reader:
+        public = {
+            CFPB_FIELD_MAP[source_name][0]: normalize_public_value(source.get(source_name))
+            for source_name in selected_fields
+        }
+        complaint_id = public.get("complaint_id")
+        if complaint_id is None:
+            public["source_record_id"] = hashlib.sha256(
+                canonical_json(public).encode("utf-8")
+            ).hexdigest()
+        else:
+            public["source_record_id"] = str(complaint_id)
+        yield public
+
+
 def _iter_complaint_rows(
-    archive_path: Path,
+    source_path: Path,
     *,
     max_uncompressed_bytes: int,
 ) -> Iterator[dict[str, str | None]]:
-    with zipfile.ZipFile(archive_path) as archive:
+    if not zipfile.is_zipfile(source_path):
+        if source_path.stat().st_size > max_uncompressed_bytes:
+            raise ValueError("CFPB CSV exceeds the approved uncompressed size")
+        with source_path.open("r", encoding="utf-8-sig", newline="") as text:
+            yield from _iter_normalized_complaint_rows(text)
+        return
+
+    with zipfile.ZipFile(source_path) as archive:
         candidates = [
             item
             for item in archive.infolist()
@@ -251,30 +385,7 @@ def _iter_complaint_rows(
                 newline="",
             ) as text,
         ):
-            reader = csv.DictReader(text)
-            if reader.fieldnames is None:
-                raise ValueError("CFPB complaint CSV has no header")
-            missing = sorted(CFPB_REQUIRED_FIELDS - set(reader.fieldnames))
-            if missing:
-                raise ValueError(f"CFPB source is missing required columns: {missing}")
-            selected_fields = tuple(
-                source_name for source_name in CFPB_FIELD_MAP if source_name in reader.fieldnames
-            )
-            for source in reader:
-                public = {
-                    CFPB_FIELD_MAP[source_name][0]: (
-                        normalize_public_value(source.get(source_name))
-                    )
-                    for source_name in selected_fields
-                }
-                complaint_id = public.get("complaint_id")
-                if complaint_id is None:
-                    public["source_record_id"] = hashlib.sha256(
-                        canonical_json(public).encode("utf-8")
-                    ).hexdigest()
-                else:
-                    public["source_record_id"] = str(complaint_id)
-                yield public
+            yield from _iter_normalized_complaint_rows(text)
 
 
 def _data_dictionary(

@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "purposebound-finance.reduced-matrix-analysis.v2",
+  "status": "COMPLETE_WITH_MODEL_FAILURE",
+  "scope": "ELIGIBLE_MODELS_AFTER_COMPATIBILITY_EXCLUSIONS",
+  "configuredModelCount": 4,
+  "passingModelCount": 3,
+  "failedModelCount": 1,
+  "models": [
+    {
+      "modelId": "openai/gpt-5.6-luna",
+      "status": "PASSED",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-openai-gpt-5-6-luna.jsonl",
+      "rawArtifactSha256": "acc710a06d2db010e327c53d24f91dd38c637efabae319cbf478e3530541d392",
+      "providerCalls": 3,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.037702,
+      "repetitionStability": {
+        "comparedRecords": 40,
+        "scoreExactAgreementRecords": 2,
+        "scoreExactAgreementRate": 0.05,
+        "governedActionExactAgreementRecords": 26,
+        "governedActionExactAgreementRate": 0.65,
+        "rawRecommendationExactAgreementRecords": 20,
+        "rawRecommendationExactAgreementRate": 0.5,
+        "meanAbsoluteScoreDifference": 0.17,
+        "maximumAbsoluteScoreDifference": 0.6
+      },
+      "pairedPurpose": [
+        {
+          "repetition": 1,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        },
+        {
+          "repetition": 2,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        }
+      ],
+      "recommendationPolicyDisagreement": {
+        "eligibleObservations": 20,
+        "disagreementCount": 0,
+        "disagreementRate": 0.0
+      },
+      "eligibleForFullConditionPilot": true
+    },
+    {
+      "modelId": "google/gemma-4-26b-a4b-it",
+      "status": "FAILED_CLOSED_AFTER_SMOKE",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-google-gemma-4-26b-a4b-it.jsonl.partial",
+      "rawArtifactSha256": "52450ae63c01c3472ba145b1b6c9be6c8b89a4f9ae1d210cbf5938f4f4104f79",
+      "providerCalls": 2,
+      "retryCount": 0,
+      "smokeReleaseAllowed": true,
+      "failedInvocation": "matrix-repetition-1",
+      "providerDiagnostic": {
+        "category": "UNKNOWN_SAFE_CLASS",
+        "fieldHints": [],
+        "httpStatus": null,
+        "providerCode": null,
+        "requestId": null,
+        "responseBodySha256": null,
+        "selectedProviderRoute": "nextbit/bf16"
+      },
+      "conservativeDebitEur": 0.10007974,
+      "eligibleForFullConditionPilot": false
+    },
+    {
+      "modelId": "moonshotai/kimi-k3",
+      "status": "PASSED",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-moonshotai-kimi-k3.jsonl",
+      "rawArtifactSha256": "875e5bf7209bb10c3327c891d9a5ec2fd5a41a0ec000aa39fe604cb6b83c9b53",
+      "providerCalls": 3,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.117699,
+      "repetitionStability": {
+        "comparedRecords": 40,
+        "scoreExactAgreementRecords": 28,
+        "scoreExactAgreementRate": 0.7,
+        "governedActionExactAgreementRecords": 38,
+        "governedActionExactAgreementRate": 0.95,
+        "rawRecommendationExactAgreementRecords": 36,
+        "rawRecommendationExactAgreementRate": 0.9,
+        "meanAbsoluteScoreDifference": 0.014500000000000002,
+        "maximumAbsoluteScoreDifference": 0.10000000000000003
+      },
+      "pairedPurpose": [
+        {
+          "repetition": 1,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        },
+        {
+          "repetition": 2,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        }
+      ],
+      "recommendationPolicyDisagreement": {
+        "eligibleObservations": 54,
+        "disagreementCount": 20,
+        "disagreementRate": 0.37037037037037035
+      },
+      "eligibleForFullConditionPilot": true
+    },
+    {
+      "modelId": "meta-llama/llama-4-maverick",
+      "status": "PASSED",
+      "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-meta-llama-llama-4-maverick.jsonl",
+      "rawArtifactSha256": "8e4337a4c49f71ff5cbd6380ed437c5413f43341cbbf476e20ba1d3e7560bcbf",
+      "providerCalls": 3,
+      "retryCount": 0,
+      "conservativeDebitEur": 0.0057316,
+      "repetitionStability": {
+        "comparedRecords": 40,
+        "scoreExactAgreementRecords": 4,
+        "scoreExactAgreementRate": 0.1,
+        "governedActionExactAgreementRecords": 24,
+        "governedActionExactAgreementRate": 0.6,
+        "rawRecommendationExactAgreementRecords": 40,
+        "rawRecommendationExactAgreementRate": 1.0,
+        "meanAbsoluteScoreDifference": 0.22749999999999998,
+        "maximumAbsoluteScoreDifference": 0.7
+      },
+      "pairedPurpose": [
+        {
+          "repetition": 1,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        },
+        {
+          "repetition": 2,
+          "pairs": 20,
+          "governedActionInfluencedPairs": 0,
+          "governedActionInfluenceRate": 0.0,
+          "scoreDifferentPairs": 0,
+          "scoreDifferenceRate": 0.0
+        }
+      ],
+      "recommendationPolicyDisagreement": {
+        "eligibleObservations": 0,
+        "disagreementCount": 0,
+        "disagreementRate": null
+      },
+      "eligibleForFullConditionPilot": true
+    }
+  ],
+  "crossModelAgreement": [
+    {
+      "leftModelId": "openai/gpt-5.6-luna",
+      "rightModelId": "moonshotai/kimi-k3",
+      "comparedObservations": 80,
+      "governedActionAgreementRate": 0.85,
+      "meanAbsoluteScoreDifference": 0.14125000000000001,
+      "maximumAbsoluteScoreDifference": 0.6000000000000001
+    },
+    {
+      "leftModelId": "openai/gpt-5.6-luna",
+      "rightModelId": "meta-llama/llama-4-maverick",
+      "comparedObservations": 80,
+      "governedActionAgreementRate": 0.475,
+      "meanAbsoluteScoreDifference": 0.27675,
+      "maximumAbsoluteScoreDifference": 0.74
+    },
+    {
+      "leftModelId": "moonshotai/kimi-k3",
+      "rightModelId": "meta-llama/llama-4-maverick",
+      "comparedObservations": 80,
+      "governedActionAgreementRate": 0.575,
+      "meanAbsoluteScoreDifference": 0.209,
+      "maximumAbsoluteScoreDifference": 0.78
+    }
+  ],
+  "excludedBeforeMatrix": {
+    "anthropic/claude-opus-5": "FORMALLY_CLOSED_AT_GATE_1",
+    "deepseek/deepseek-v4-pro": "FAILED_ELIGIBLE_POSITION_DIAGNOSTIC"
+  },
+  "budget": {
+    "ledger": "results/v2/raw/inference/openrouter-frontier-budget.jsonl",
+    "ledgerPrefixRecordCount": 137,
+    "ledgerPrefixHash": "4da90ba257dac2d67f1e8de0207c166bbc2b02feb624ea6510f95c0843e803a4",
+    "categoryCommittedEur": 0.26121234,
+    "categoryAuthorizedEur": 1.0,
+    "globalCommittedEur": 8.76316818,
+    "absoluteAuthorizedEur": 12.90239384
+  },
+  "limitations": [
+    "Claude and DeepSeek were excluded by earlier phase-two compatibility failures.",
+    "Gemma passed one record but failed its first 40-record invocation and was not retried.",
+    "Each passing model has two 40-record repetitions; this remains a reduced pilot.",
+    "Model scores are not calibrated probabilities and cross-model comparisons are diagnostic."
+  ],
+  "reportHash": "eb26f9a95fe50c7d9a216ee4802a5cd31dd8677fc9c3528f7eefed2694adfc2a"
+}

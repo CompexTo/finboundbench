@@ -329,3 +329,9 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   This falsifies the reasoning-control hypothesis and raises the conservative
   ledger debit to EUR 5.50417422. No further reasoning variants are authorized;
   the remaining diagnosis is restricted to the selected provider route.
+- Live ZDR metadata shows the broad `amazon-bedrock` selector has a distinct
+  healthy regional endpoint, while Gemma has a separate healthy DeepInfra
+  Turbo route. The final route-only smoke attempt therefore pins Claude to
+  `amazon-bedrock/us-east-1` and Gemma to `deepinfra/turbo`, with fresh endpoint
+  hashes, exact supported-parameter lists, and conservative price ceilings.
+  All privacy, fallback, schema, one-call, and EUR 0.25 controls remain fixed.

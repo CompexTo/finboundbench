@@ -344,9 +344,22 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   their first call: Gemma 4 26B A4B on NextBit BF16 and Claude Sonnet 5 on
   Azure Global. The four already passing models and their artifacts are not
   rerun. Each substitute still requires its own one-record gate.
+- Gemma 4 26B A4B passed that gate. Claude Sonnet 5 returned provider-routing
+  HTTP 400 both with the endpoint tag `azure/global` and the normalized
+  provider selector `azure`; both failures remain append-only evidence. The
+  calls used a 512-token output limit, but OpenRouter documents a 1,024-token
+  minimum reasoning allocation for Anthropic reasoning. Before one final
+  Claude call, its manifest therefore binds a 2,048-token minimum output limit.
+  The per-call EUR 0.25 cap and all routing/privacy controls remain unchanged;
+  cumulative conservative debit before that call is EUR 6.50424502.
 - Gemma 4 26B A4B passed its one-record gate on NextBit BF16 with a EUR
   0.0000708 conservative debit. Claude Sonnet 5 returned HTTP 400 before model
   execution when pinned to the exact `azure/global` tag. The ledger is EUR
   6.25424502. Because GPT Luna already passed through the documented broad
   `azure` provider selector, one final Claude attempt normalizes only that
   selector; no other contract field changes.
+- The broad Azure selector also returned HTTP 400 for Claude Sonnet 5, closing
+  that ID at a cumulative EUR 6.50424502. The final Claude-family candidate is
+  Opus 4.8: a current previous-generation frontier model whose live Amazon
+  Bedrock ZDR route reports 100% five-minute uptime, strict structured output,
+  and reasoning disabled by default. It receives one gate attempt only.

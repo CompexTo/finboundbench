@@ -368,3 +368,8 @@ tests after tag `protocol-v1` must be appended here before additional runs.
   EUR 7.00424502. Sonnet 5 is closed. Opus 4.8 is the last authorized
   Claude-family compatibility candidate; a failure will be reported rather
   than followed by more paid diagnostics.
+- Claude Opus 4.8 returned the same provider-layer HTTP 400 class on its first
+  and only attempt. No Claude model passed the required ZDR, no-fallback,
+  strict-schema smoke gate, so the Claude forty-record phase is closed and no
+  more Claude calls are authorized. The conservative ledger is EUR 7.25424502.
+  The five active models with passing gates may proceed to the pilot phase.

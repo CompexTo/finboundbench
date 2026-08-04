@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "purposebound-finance.reduced-matrix-manifest.v2",
+  "status": "PASSED",
+  "scope": "ELIGIBLE_MODELS_AFTER_COMPATIBILITY_EXCLUSIONS",
+  "modelId": "moonshotai/kimi-k3",
+  "modelManifestHash": "e363c91aac9ad53fea1c9fc155af36703a917e9b6c9c94fbb1b429dbee11b864",
+  "actionPolicyHash": "4ac07f125e214ad8a18e5afc0472f5f97e020d0231e53072023fed3804d9bd54",
+  "positionDiagnosticReportHash": "9e349abdeca6be1eb1abfc274cff901caa4618df00510cd59811a5959bd4631d",
+  "rawArtifact": "results/v2/raw/inference/openrouter-phase2-reduced-moonshotai-kimi-k3.jsonl",
+  "rawArtifactSha256": "875e5bf7209bb10c3327c891d9a5ec2fd5a41a0ec000aa39fe604cb6b83c9b53",
+  "smokeCalls": 1,
+  "matrixRepetitions": 2,
+  "matrixRecordCountPerRepetition": 40,
+  "providerCalls": 3,
+  "retryCount": 0,
+  "budgetLedgerPrefixRecordCount": 131,
+  "budgetLedgerPrefixHash": "0f1561d0d9adcf7442b2307fae0fbf72c5acd198c4e0a4202b71bab8cf32bb24",
+  "budgetCategory": "reduced_matrix",
+  "categoryCommittedEur": 0.25548074,
+  "globalCommittedEur": 8.75743658
+}

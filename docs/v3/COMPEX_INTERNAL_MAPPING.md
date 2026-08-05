@@ -13,7 +13,7 @@ Public research artifacts use **PSBE-Runtime** only.
 | native fail-closed release | `services/api/src/confidential-execution/release/native-output-release.ts` | broad validator chain exists; attack coverage must map to stable IDs |
 | tool/network/data-flow limits | `services/api/src/confidential-execution/capability-enforcement/purpose-capability-enforcer.ts` | generic enforcer exists; universal mediation in real execution path not yet established |
 | privacy budget and DP analysis | privacy ledger and DP analysis modules under confidential execution | useful primitives; durable transactional ledger and production secure-RNG DP path not established |
-| evidence component/root verification | `services/api/src/confidential-execution/evidence-v2/evidence-v2.ts` | deterministic library exists; independent v3 verifier and persistence integration needed |
+| evidence component/root verification | `services/api/src/confidential-execution/evidence-v2/evidence-v2.ts` plus `evidence-v3/evidence-semantic-verifier.ts` | v2 integrity plus 16-claim semantic verifier implemented at platform commit `f5494b2`; external root anchoring and orchestration integration remain |
 | hardened non-TEE execution | runner local hardened Docker backend | implemented and tested; host remains trusted |
 | remote commercial model | commercial/OpenRouter adapter | v2 route controls exist; v3 paid execution remains blocked |
 | TEE/Nitro | confidential backend interface and Nitro stub | correctly `NOT_CONFIGURED`; excluded until non-TEE freeze |

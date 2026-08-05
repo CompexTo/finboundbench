@@ -1,0 +1,136 @@
+{
+  "artifacts": [
+    {
+      "bytes": 9700,
+      "path": "configs/v3/protocol-v3-psbe-no-tee.yaml",
+      "repository": "research",
+      "sha256": "5799e7a1c4e48df88a548cf4e575359708ddb3885ab5f92896d9482d9c5c6a63"
+    },
+    {
+      "bytes": 3096,
+      "path": "configs/v3/dry-run-v3.yaml",
+      "repository": "research",
+      "sha256": "4fce8de8deb463088ca8524b73eac0321bd04c3fcab01625c19c6b980831d532"
+    },
+    {
+      "bytes": 9190,
+      "path": "docs/v3/FORMAL_PSBE_DEFINITION.md",
+      "repository": "research",
+      "sha256": "8effec54aa86e2508c1b0f8904c9426694b01242386b573fabfffd97709158b8"
+    },
+    {
+      "bytes": 11073,
+      "path": "docs/v3/FINBOUNDBENCH_SPEC.md",
+      "repository": "research",
+      "sha256": "e40eee0416adf89b59fcf48873977168e5f4ca2e14f2d9859c75930dad562736"
+    },
+    {
+      "bytes": 4781,
+      "path": "docs/v3/HYPOTHESES.md",
+      "repository": "research",
+      "sha256": "0b17264614e02e0beec903dd2eeff3f27338fb9c4460f08b58fc12d701f23874"
+    },
+    {
+      "bytes": 7811,
+      "path": "docs/v3/STATISTICAL_PLAN.md",
+      "repository": "research",
+      "sha256": "ccf818e73338c727756ef63239981a4604221eb652134ad95152ab2d71a7ec39"
+    },
+    {
+      "bytes": 4346,
+      "path": "docs/v3/COST_PLAN.md",
+      "repository": "research",
+      "sha256": "1b6d44eafc18bdc54d02cde03a413c75444eeaa66bed51b41bfc888f5a37ae73"
+    },
+    {
+      "bytes": 7983,
+      "path": "docs/v3/IMPLEMENTATION_AUDIT.md",
+      "repository": "research",
+      "sha256": "ce013f67ea55e8f477f59c062b999b4200a6a924c89123120cf28a4e4ef12973"
+    },
+    {
+      "bytes": 4373,
+      "path": "src/purposebench/v3/attacks.py",
+      "repository": "research",
+      "sha256": "5c057acac2987d5a67e01a076e5ebe0c6c6ba5eb4c8fe101e23f7496fd66626c"
+    },
+    {
+      "bytes": 9266,
+      "path": "src/purposebench/v3/protocol.py",
+      "repository": "research",
+      "sha256": "e3a02cfbf0a126b0ea91af2fa8219fae7da9c2ea484925dffb5183b73f33ede0"
+    },
+    {
+      "bytes": 27490,
+      "path": "src/purposebench/v3/dry_run.py",
+      "repository": "research",
+      "sha256": "fe018fd927a14c6a525011c7143bd23cd91fde2f411c35327fab51325ee73f49"
+    },
+    {
+      "bytes": 508,
+      "path": "scripts/run_v3_no_cost_dry_run.py",
+      "repository": "research",
+      "sha256": "12552e2b113a460ec1b65c2cf96aa4f4c9f9311080ba858237e9296aff467a41"
+    },
+    {
+      "bytes": 506,
+      "path": "scripts/verify_v3_no_cost_dry_run.py",
+      "repository": "research",
+      "sha256": "33f2b5e1b201605af7d2d516e4f522ddfb90a9eb09dead2adb5877c35379d607"
+    },
+    {
+      "bytes": 301,
+      "path": "paper/generated/results_placeholder.tex",
+      "repository": "research",
+      "sha256": "125020d8dfe44a8bd53bb3a462c8687b6f07ed6f1e5781e5cf4cbab7528ecf55"
+    },
+    {
+      "bytes": 184,
+      "path": "paper/generated/claim_traceability.csv",
+      "repository": "research",
+      "sha256": "31aff34819c1c569c39d7b280a129ce054f2a9970d9b578aadb74fe210150779"
+    },
+    {
+      "bytes": 17536,
+      "path": "services/api/src/confidential-execution/evidence-v3/evidence-semantic-verifier.ts",
+      "repository": "platform",
+      "sha256": "7c57a1f664fb015c11ae8708c530afb4d25c02726c70feb93fa64441c0d9524c"
+    },
+    {
+      "bytes": 12476,
+      "path": "services/api/test/unit/v3/evidence-semantic-verifier.spec.ts",
+      "repository": "platform",
+      "sha256": "31221f7938cc2a8babcc7d41c2b2d24546e8f57a25aae0704ed866d593cef953"
+    }
+  ],
+  "awsActionsPermitted": false,
+  "confirmatoryClaimsPermitted": false,
+  "dryRunId": "protocol-v3-psbe-no-tee-dry-run",
+  "freezeManifestHash": "eb669c715514da952b751dcc2a7c63df91e3ee78b6c6b6fa0ffa55c34fabb29f",
+  "frozenAt": "2026-08-05T12:00:00.000Z",
+  "hardwareAttestation": false,
+  "paidProviderCallsPermitted": 0,
+  "protocolId": "protocol-v3-psbe-no-tee",
+  "providerSecretPermitted": false,
+  "repositoryBindings": {
+    "platformCommit": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+    "researchCommit": "876de33b31229a136339fc5bac05e9d0c5fe9c97"
+  },
+  "repositoryStateAtFreeze": {
+    "platform": {
+      "commit": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+      "tracked_diff_sha256": "f9204a60598bb9216fc58c9d4a2342c7742198eedcf9caf546fc80d80d6f0cbe",
+      "tracked_tree_dirty": true
+    },
+    "platformScopeBoundByArtifactHashes": true,
+    "research": {
+      "commit": "876de33b31229a136339fc5bac05e9d0c5fe9c97",
+      "tracked_diff_sha256": null,
+      "tracked_tree_dirty": false
+    },
+    "unrelatedUserChangesIncluded": false
+  },
+  "schemaVersion": "finboundbench.dry-run-freeze.v3",
+  "scope": "NO_COST_NON_TEE_TEST_DOUBLES_NO_RESEARCH_CLAIMS",
+  "status": "FROZEN_INSTRUMENTATION_ONLY"
+}

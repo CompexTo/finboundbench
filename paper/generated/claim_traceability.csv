@@ -1,0 +1,2 @@
+claim_id,hypothesis_id,estimand,population,raw_manifest,analysis_artifact,paper_location,status,limitation_ids
+PLACEHOLDER,NONE,NONE,NONE,NONE,NONE,Results,NO_CONFIRMATORY_RESULT,NONE

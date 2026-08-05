@@ -1,23 +1,40 @@
 \documentclass[sigconf,anonymous,review]{acmart}
 
-\title{Authorized to See, Forbidden to Use: Measuring Silent Cross-Purpose Influence in Financial AI Agents}
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+\title{Authorized to See, Forbidden to Use: Purpose-Selective Bounded
+Execution for Financial AI}
 
 \begin{document}
 \begin{abstract}
-Purpose limitation constrains not only who may access financial data, but why it may be used. We introduce a benchmark and purpose-bound execution method for measuring silent cross-purpose influence in financial AI agents. The final abstract must be written only after experimental results are frozen.
+Financial organizations may be authorized to hold confidential attributes for
+one purpose while being prohibited from using them for another. Existing
+confidential-computing and agent-control mechanisms do not by themselves show
+that a system preserves the attribute's approved utility while preventing its
+cross-purpose influence. We define Purpose-Selective Bounded Execution (PSBE)
+and FinBoundBench, a paired financial-AI protocol that measures authorized
+utility, prohibited influence, cross-layer compromise, evidence reconstruction,
+privacy, availability, and overhead. This review draft intentionally contains
+no empirical result claim; the abstract will be completed only from frozen
+confirmatory artifacts.
 \end{abstract}
+
+\keywords{financial AI, purpose limitation, confidential computing, agent
+security, differential privacy, provenance}
 
 \maketitle
 
-\section{Introduction}
-\section{Related Work}
-\section{Problem Definition and Threat Model}
-\section{PurposeBound-Finance Benchmark}
-\section{Purpose-Bound Execution Runtime}
-\section{Experimental Setup}
-\section{Results}
-\section{Limitations and Ethics}
-\section{Conclusion}
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_definition_threat_model}
+\input{sections/04_benchmark}
+\input{sections/05_runtime}
+\input{sections/06_experimental_setup}
+\input{sections/07_results}
+\input{sections/08_limitations_ethics}
+\input{sections/09_conclusion}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}

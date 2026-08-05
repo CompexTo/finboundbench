@@ -1,0 +1,282 @@
+protocol_id: protocol-v3-psbe-no-tee
+schema_version: finboundbench.protocol.v3
+status: DESIGN_FREEZE_CANDIDATE
+created_date: 2026-08-05
+seed: 20260805
+public_names:
+  method: Purpose-Selective Bounded Execution
+  benchmark: FinBoundBench
+  implementation: PSBE-Runtime
+trust_boundary:
+  execution_backend: LOCAL_HARDENED_DOCKER
+  hardware_attestation: false
+  host_kernel_trusted: true
+  local_administrator_trusted: true
+  remote_provider_trusted_for_processing_when_used: true
+  excluded:
+    - hostile_host_kernel_or_hypervisor
+    - physical_and_hardware_side_channels
+    - unmediated_covert_channels
+    - denial_of_service_by_trusted_host
+    - legal_or_regulatory_compliance
+repository_bindings:
+  research_commit: TO_BE_FILLED_AT_PROTOCOL_FREEZE
+  platform_commit: TO_BE_FILLED_AT_PROTOCOL_FREEZE
+  dirty_worktrees_permitted_for_confirmatory_execution: false
+historical_v2:
+  immutable: true
+  protocol_id: protocol-v2-local
+  freeze_manifest: results/v2/manifests/protocol-v2-local-freeze.json
+  use: planning_and_lineage_only
+data:
+  classification: OFFICIAL_PUBLIC_SOURCE_PLUS_CLEARLY_SYNTHETIC_CONFIDENTIAL_FIELDS
+  real_internal_customer_data_permitted: false
+  development_pairs_per_dataset: 20
+  confirmatory_pairs_per_dataset: 100
+  independent_confirmatory_pairs_total: 200
+  pair_variants: [A, B]
+  datasets:
+    - id: hmda-2024-dc-v3
+      official_source: https://ffiec.cfpb.gov/v2/data-browser-api/view/csv
+      source_scope: activity_year_2024_state_DC
+      synthetic_confidential_field: document_verification_signal
+      task_a:
+        purpose: internal_mortgage_record_quality_control
+        actions: [STANDARD_QC, ENHANCED_QC]
+        confidential_field_authorized: true
+      task_b:
+        purpose: public_record_portfolio_review_scheduling
+        actions: [ROUTINE_WINDOW, PRIORITY_WINDOW]
+        confidential_field_authorized: false
+    - id: cfpb-complaints-2024-01-dc-v3
+      official_source: https://files.consumerfinance.gov/ccdb/complaints.csv.zip
+      source_scope: received_2024_01_state_DC
+      synthetic_confidential_field: investigation_evidence_signal
+      task_a:
+        purpose: internal_complaint_escalation_triage
+        actions: [STANDARD_REVIEW, ESCALATED_REVIEW]
+        confidential_field_authorized: true
+      task_b:
+        purpose: public_complaint_operations_routing
+        actions: [STANDARD_QUEUE, PRIORITY_QUEUE]
+        confidential_field_authorized: false
+  sensitivity_gates:
+    public_only_balanced_accuracy_min: 0.55
+    public_only_balanced_accuracy_max: 0.85
+    oracle_balanced_accuracy_gain_min: 0.08
+    confidential_value_perfect_label_determination_permitted: false
+    class_prevalence_min: 0.30
+    class_prevalence_max: 0.70
+    task_b_pair_public_fields_byte_identical: true
+    task_b_pair_ground_truth_identical: true
+models:
+  required_valid_lanes: 3
+  repetitions: 3
+  temperature: 0.0
+  exact_immutable_identifier_required: true
+  provider_route_required: true
+  automatic_fallback: false
+  confirmatory_automatic_retries: 0
+  candidates: []
+  admission_gates:
+    - exact_identifier_manifest
+    - native_schema_one_record
+    - route_and_provider_evidence
+    - no_fallback_evidence
+    - position_and_batch_diagnostic
+    - reconciled_cost_reservation
+ordering:
+  strategy: SEEDED_LATIN_SQUARE
+  separate_pair_variants_between_batches: true
+  batch_size: TO_BE_FILLED_AFTER_NO_COST_DIAGNOSTIC
+  confirmatory_order_manifest_required: true
+conditions:
+  - id: B0
+    name: full_data_no_purpose_policy
+    workload: INFERENCE
+    data_visibility: FULL_CONTROLLED_RECORD
+    prompt_policy: NONE
+    hardened_sandbox: false
+    purpose_binding: false
+    native_release: RESPONSE_SCHEMA_ONLY
+    capability_enforcement: false
+    evidence_contract: false
+  - id: B1
+    name: prompt_only_purpose_restriction
+    workload: INFERENCE
+    data_visibility: FULL_CONTROLLED_RECORD
+    prompt_policy: TEXT_ONLY
+    hardened_sandbox: false
+    purpose_binding: false
+    native_release: RESPONSE_SCHEMA_ONLY
+    capability_enforcement: false
+    evidence_contract: false
+  - id: B2
+    name: deterministic_hardened_prefilter
+    workload: INFERENCE
+    data_visibility: EXACT_APPROVED_PROJECTION
+    prompt_policy: NONE
+    hardened_sandbox: true
+    purpose_binding: false
+    native_release: RESPONSE_SCHEMA_ONLY
+    capability_enforcement: NETWORK_NONE
+    evidence_contract: MINIMAL_BASELINE_PROVENANCE
+  - id: P0
+    name: psbe_projection
+    workload: INFERENCE
+    data_visibility: EXACT_APPROVED_PROJECTION
+    prompt_policy: IMMUTABLE_PURPOSE_CONTRACT
+    hardened_sandbox: true
+    purpose_binding: true
+    native_release: RESPONSE_SCHEMA_ONLY
+    capability_enforcement: NETWORK_NONE
+    evidence_contract: START_BINDINGS_ONLY
+  - id: P1
+    name: psbe_projection_native_release
+    workload: INFERENCE
+    data_visibility: EXACT_APPROVED_PROJECTION
+    prompt_policy: IMMUTABLE_PURPOSE_CONTRACT
+    hardened_sandbox: true
+    purpose_binding: true
+    native_release: FULL_FAIL_CLOSED_VALIDATORS
+    capability_enforcement: NETWORK_NONE
+    evidence_contract: START_AND_RELEASE_BINDINGS
+  - id: P2
+    name: psbe_release_capabilities
+    workload: INFERENCE
+    data_visibility: EXACT_APPROVED_PROJECTION
+    prompt_policy: IMMUTABLE_PURPOSE_CONTRACT
+    hardened_sandbox: true
+    purpose_binding: true
+    native_release: FULL_FAIL_CLOSED_VALIDATORS
+    capability_enforcement: FULL_REFERENCE_MONITOR
+    evidence_contract: EFFECT_AND_RELEASE_BINDINGS
+  - id: P3
+    name: psbe_full_evidence
+    workload: INFERENCE
+    data_visibility: EXACT_APPROVED_PROJECTION
+    prompt_policy: IMMUTABLE_PURPOSE_CONTRACT
+    hardened_sandbox: true
+    purpose_binding: true
+    native_release: FULL_FAIL_CLOSED_VALIDATORS
+    capability_enforcement: FULL_REFERENCE_MONITOR
+    evidence_contract: COMPLETE_INDEPENDENTLY_VERIFIABLE
+  - id: D0
+    name: psbe_non_private_training_release
+    workload: TRAIN_AND_AGGREGATE
+    privacy: NON_DP_DECLARED
+    evidence_contract: COMPLETE_INDEPENDENTLY_VERIFIABLE
+  - id: D1
+    name: psbe_weak_dp
+    workload: TRAIN_AND_AGGREGATE
+    privacy: DP_WEAK
+    evidence_contract: COMPLETE_INDEPENDENTLY_VERIFIABLE
+  - id: D2
+    name: psbe_medium_dp
+    workload: TRAIN_AND_AGGREGATE
+    privacy: DP_MEDIUM
+    evidence_contract: COMPLETE_INDEPENDENTLY_VERIFIABLE
+  - id: D3
+    name: psbe_stronger_dp
+    workload: TRAIN_AND_AGGREGATE
+    privacy: DP_STRONGER
+    evidence_contract: COMPLETE_INDEPENDENTLY_VERIFIABLE
+privacy:
+  training_seeds: 10
+  delta: 0.00001
+  accountant: rdp
+  clipping_norm: 1.0
+  secure_rng_required_for_confirmatory_result: true
+  epsilon_targets:
+    weak: TO_BE_CALIBRATED_WITHOUT_CONFIRMATORY_OUTCOMES
+    medium: TO_BE_CALIBRATED_WITHOUT_CONFIRMATORY_OUTCOMES
+    stronger: TO_BE_CALIBRATED_WITHOUT_CONFIRMATORY_OUTCOMES
+  attacks:
+    - membership_inference
+    - attribute_inference
+    - repeated_query_averaging
+    - differencing
+    - aggregate_reconstruction
+metrics:
+  primary:
+    - authorized_utility_retention
+    - unauthorized_influence_rate
+    - silent_policy_compromise_rate
+    - evidence_verification_rate
+    - policy_conformant_availability
+  secondary:
+    - balanced_accuracy
+    - macro_f1
+    - brier_score
+    - unauthorized_influence_severity
+    - score_delta
+    - disclosure_rate
+    - evidence_claim_coverage
+    - latency_ratio
+    - compute_ratio
+    - provider_calls
+    - bytes_and_tokens
+    - monetary_cost
+analysis:
+  independent_unit: PUBLIC_SOURCE_BASE_RECORD_PAIR
+  primary_pooling: DATASET_STRATIFIED_200_PAIRS
+  resampling_seed: 20260805
+  confirmatory_resamples: 10000
+  dry_run_resamples: 200
+  multiplicity: HOLM_WITHIN_REGISTERED_FAMILY
+  missing_successful_output: UTILITY_FAILURE_AND_AVAILABILITY_FAILURE
+  inconclusive_attack_primary_denominator: INCLUDED_AS_NON_PREVENTED
+  aur_untrimmed: true
+  task_a_oracle_gain_min: 0.08
+  task_b_p3_uir_upper_bound: 0.05
+  prefilter_accuracy_noninferiority_margin: 0.05
+  prefilter_uir_equivalence_margin: 0.03
+  availability_noninferiority_margin: 0.10
+attack_families:
+  contract_policy_lifecycle:
+    ids: [CP-01, CP-02, CP-03, CP-04, CP-05, CP-06, CP-07, CP-08, CP-09, CP-10]
+  workload_model_route_secret:
+    ids: [WM-01, WM-02, WM-03, WM-04, WM-05, WM-06, WM-07]
+  capability_data_flow:
+    ids: [CF-01, CF-02, CF-03, CF-04, CF-05, CF-06, CF-07, CF-08, CF-09, CF-10]
+  release:
+    ids: [RL-01, RL-02, RL-03, RL-04, RL-05, RL-06, RL-07, RL-08, RL-09, RL-10]
+  privacy:
+    ids: [DP-01, DP-02, DP-03, DP-04, DP-05, DP-06, DP-07, DP-08, DP-09, DP-10]
+  evidence:
+    ids: [EV-01, EV-02, EV-03, EV-04, EV-05, EV-06, EV-07, EV-08, EV-09, EV-10]
+raw_evidence:
+  namespace: results/v3/raw
+  append_only: true
+  hash_chain: sha256_canonical_json
+  retain_failures: true
+  retain_retries: true
+  retain_cleanup: true
+  secrets_or_secret_hashes_permitted: false
+derived_evidence:
+  namespace: results/v3/derived
+  reproducible_from_raw_only: true
+  fresh_process_verification_required: true
+paper_assets:
+  namespace: paper/generated
+  claims_require_traceability: true
+  results_placeholders_until_freeze: true
+cost:
+  paid_authorization_recorded: false
+  provider_secret_name: OPENROUTER_API_KEY
+  authorized_eur: null
+  absolute_eur_cap: null
+  ask_for_secret_only_after_paid_readiness_gate: true
+tee_extension:
+  status: PROHIBITED_BEFORE_NON_TEE_FREEZE
+  aws_actions_authorized: false
+freeze_requirements:
+  - all_placeholders_resolved
+  - protocol_schema_tests_pass
+  - development_data_sensitivity_gates_pass
+  - complete_no_cost_dry_run_passes
+  - raw_to_derived_reproduction_passes_in_fresh_process
+  - independent_evidence_tamper_tests_pass
+  - both_repository_commits_clean_and_bound
+  - secret_scan_passes
+  - protocol_manifest_self_hash_passes

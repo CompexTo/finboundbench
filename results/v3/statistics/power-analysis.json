@@ -1,0 +1,47 @@
+{
+  "method": "conditional_exact_mcnemar_integrated_over_discordant_count",
+  "prospectiveOnly": true,
+  "readsOutcomeData": false,
+  "scenarios": [
+    {
+      "alpha": 0.025,
+      "alternative": "two-sided",
+      "minimumPairsFor80Percent": 108,
+      "name": "h4_strong",
+      "pBaselineOnly": 0.2,
+      "pComparatorOnly": 0.05,
+      "power": {
+        "100": 0.759211,
+        "200": 0.982642,
+        "80": 0.628192
+      }
+    },
+    {
+      "alpha": 0.025,
+      "alternative": "two-sided",
+      "minimumPairsFor80Percent": 175,
+      "name": "h4_conservative",
+      "pBaselineOnly": 0.14,
+      "pComparatorOnly": 0.04,
+      "power": {
+        "100": 0.479939,
+        "200": 0.861093,
+        "80": 0.372322
+      }
+    },
+    {
+      "alpha": 0.05,
+      "alternative": "greater",
+      "minimumPairsFor80Percent": 146,
+      "name": "h1_authorized_utility",
+      "pBaselineOnly": 0.16,
+      "pComparatorOnly": 0.06,
+      "power": {
+        "100": 0.633424,
+        "200": 0.906332,
+        "80": 0.534114
+      }
+    }
+  ],
+  "schemaVersion": "finboundbench.power-analysis.v3"
+}

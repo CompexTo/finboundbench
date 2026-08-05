@@ -1,0 +1,45 @@
+{
+  "awsActions": 0,
+  "eventCounts": {
+    "attackAttempts": 705,
+    "inferenceBatches": 504,
+    "privacyTestDoubleRuns": 12,
+    "total": 1221
+  },
+  "executionRepositoryHeads": {
+    "platform": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+    "research": "42b0b77f8f0f2e9f46e05497a492d68aad3741b2"
+  },
+  "files": [
+    {
+      "bytes": 144714,
+      "path": "generated/development-pairs.jsonl",
+      "sha256": "79139d3bd6f117142c3edea6571e49a387435feacaf5f718d09135a15ab3c72d"
+    },
+    {
+      "bytes": 7712976,
+      "path": "raw/events.jsonl",
+      "sha256": "3fd4697fddba379b3531401d18b95194fe9067279edfb40ca579e8712467e113"
+    },
+    {
+      "bytes": 29132,
+      "path": "derived/instrumentation-report.json",
+      "sha256": "f3ed6cd9084cf437233f52246938a2b23db3cd3785e354cb9d525bc50ecac94f"
+    }
+  ],
+  "freezeManifestHash": "eb669c715514da952b751dcc2a7c63df91e3ee78b6c6b6fa0ffa55c34fabb29f",
+  "frozenRepositoryBindings": {
+    "platformCommit": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+    "researchCommit": "876de33b31229a136339fc5bac05e9d0c5fe9c97"
+  },
+  "hardwareAttestation": false,
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "lastEventHash": "8ff848111aa929cf24ed9a02b85719e06e5007470d445ea0150239dfce89896a",
+  "manifestHash": "749da835f862e1c78546569b042d9c6353079b725d5d98c8da6221be41aa6f99",
+  "paidCostEur": 0,
+  "paidSecretRead": false,
+  "providerCalls": 0,
+  "researchClaimsPermitted": false,
+  "schemaVersion": "finboundbench.dry-run-manifest.v3",
+  "status": "PASSED_INSTRUMENTATION_ONLY"
+}

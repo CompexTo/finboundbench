@@ -1,0 +1,57 @@
+{
+  "dataSources": {
+    "attacks": "results\\v3\\attack-suite\\raw\\events.jsonl",
+    "availability": "results\\v3\\availability-overhead\\raw\\events.jsonl",
+    "confirmatory": "results\\v3\\confirmatory-reduced\\raw\\events.jsonl",
+    "dp": "results\\v3\\dp-experiments\\raw\\events.jsonl",
+    "evidence": "results\\v3\\evidence-verification\\raw\\events.jsonl"
+  },
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "limitations": [
+    "All metrics computed from test double data.",
+    "This analysis validates metric computation plumbing only.",
+    "Research claims require live experimental execution."
+  ],
+  "metrics": {
+    "AUR": {
+      "b0_pass_rate": 0.8267,
+      "description": "Authorized Utility Retention",
+      "p3_pass_rate": 0.7722,
+      "value": 0.9341
+    },
+    "EVC": {
+      "description": "Evidence Verification Coverage",
+      "full_coverage": 20,
+      "total": 20,
+      "value": 1.0
+    },
+    "SPCR": {
+      "description": "Silent Policy Compromise Rate",
+      "silent_compromise": 57,
+      "total": 235,
+      "value": 0.2426
+    },
+    "UIR": {
+      "description": "Unauthorized Influence Rate",
+      "release_denied": 66,
+      "total": 330,
+      "value": 0.2
+    },
+    "availability": {
+      "description": "Availability",
+      "successes": 345,
+      "total": 350,
+      "value": 0.9857
+    },
+    "overhead": {
+      "b2_avg_ms": 985.78,
+      "description": "Execution Overhead (P3/B2)",
+      "p3_avg_ms": 1292.98,
+      "value": 1.3116
+    }
+  },
+  "reportHash": "4fb1effb745063dd1fa57160cb3b4af1e0c18fad8d23df7855a753017b090fc6",
+  "researchClaimsPermitted": false,
+  "schemaVersion": "finboundbench.statistical-report.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY"
+}

@@ -1,0 +1,49 @@
+{
+  "byFamily": {
+    "capability_data_flow": {
+      "PREVENTED": 20,
+      "SILENT_COMPROMISE": 20
+    },
+    "contract_policy_lifecycle": {
+      "PREVENTED": 43,
+      "SILENT_COMPROMISE": 7
+    },
+    "evidence": {
+      "PREVENTED": 10,
+      "SILENT_COMPROMISE": 10
+    },
+    "privacy": {
+      "PREVENTED": 30,
+      "SUCCEEDED_DETECTED": 10
+    },
+    "release": {
+      "PREVENTED": 30,
+      "SILENT_COMPROMISE": 20
+    },
+    "workload_model_route_secret": {
+      "PREVENTED": 35
+    }
+  },
+  "detectionRate": 0.7574468085106383,
+  "failClosedRate": 0.0,
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "limitations": [
+    "All attacks use deterministic test double oracle.",
+    "This run validates attack classification plumbing only.",
+    "No real attack was executed against the runtime.",
+    "Security claims require live attack execution."
+  ],
+  "outcomeCounts": {
+    "PREVENTED": 168,
+    "SILENT_COMPROMISE": 57,
+    "SUCCEEDED_DETECTED": 10
+  },
+  "preventionRate": 0.7148936170212766,
+  "registeredAttackIds": 57,
+  "reportHash": "3ab8fbc2283287489b0c89309cc7f31862a6471da7198894fa5c916a3828d2b0",
+  "researchClaimsPermitted": false,
+  "schemaVersion": "finboundbench.attack-report.v3",
+  "silentCompromiseRate": 0.2425531914893617,
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalAttacks": 235
+}

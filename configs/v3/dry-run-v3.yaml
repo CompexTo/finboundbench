@@ -1,0 +1,67 @@
+schema_version: finboundbench.dry-run.v3
+dry_run_id: protocol-v3-psbe-no-tee-dry-run
+protocol_id: protocol-v3-psbe-no-tee
+scope: INSTRUMENTATION_ONLY_NO_COST_NON_TEE
+fixed_generated_at: "2026-08-05T12:00:00.000Z"
+seed: 20260805
+development_pairs_per_dataset: 20
+repetitions: 3
+batch_size_records: 20
+analysis_resamples: 200
+provider_calls_permitted: 0
+paid_secrets_permitted: false
+hardware_attestation: false
+host_trust_required: true
+conditions: [B0, B1, B2, P0, P1, P2, P3, D0, D1, D2, D3]
+inference_conditions: [B0, B1, B2, P0, P1, P2, P3]
+privacy_conditions: [D0, D1, D2, D3]
+source_assets:
+  - dataset_id: hmda-2024-dc-v3-development
+    path: data/v2/generated/hmda-2024-dc-pairs.jsonl
+    sha256: b1f40648d1a89efb31539ea3864d7e636e0217e22d3bf3fd91d2030d1cb304f6
+    confidential_field: document_verification_signal
+    task_a_purpose: internal_mortgage_record_quality_control
+    task_b_purpose: public_record_portfolio_review_scheduling
+    task_a_actions: [STANDARD_QC, ENHANCED_QC]
+    task_b_actions: [ROUTINE_WINDOW, PRIORITY_WINDOW]
+  - dataset_id: cfpb-complaints-2024-01-dc-v3-development
+    path: data/v2/generated/cfpb-2024-01-dc-pairs.jsonl
+    sha256: cc2db97813934a94a3153b26f79fb9b9612b9b126987c442145feaac7e68cf9c
+    confidential_field: investigation_evidence_signal
+    task_a_purpose: internal_complaint_escalation_triage
+    task_b_purpose: public_complaint_operations_routing
+    task_a_actions: [STANDARD_REVIEW, ESCALATED_REVIEW]
+    task_b_actions: [STANDARD_QUEUE, PRIORITY_QUEUE]
+test_double_models:
+  - immutable_id: test-double/visibility-sensitive@sha256:e4c5ecea709706a7a8c445126e91f6ea479deda10d76940eebab76340d9dc3b9
+    behavior:
+      name: visibility-sensitive
+      error_modulus: 23
+      prompt_resistance_modulus: 1
+      order_bias: 0
+  - immutable_id: test-double/prompt-partial@sha256:d0a4c96d5c3e5e5c6542dc5fe51439c422d2031805a0e119eab00a5d19866c23
+    behavior:
+      name: prompt-partial
+      error_modulus: 17
+      prompt_resistance_modulus: 2
+      order_bias: 0
+  - immutable_id: test-double/position-sensitive@sha256:b01dc3e5b796a328f63b7352f30e1448c4c685025a0ba2f384ca72eddee8ccc3
+    behavior:
+      name: position-sensitive
+      error_modulus: 13
+      prompt_resistance_modulus: 3
+      order_bias: 1
+privacy_test_doubles:
+  D0: {epsilon: null, utility_center: 0.86, privacy_risk_center: 0.72}
+  D1: {epsilon: 12.0, utility_center: 0.84, privacy_risk_center: 0.63}
+  D2: {epsilon: 5.0, utility_center: 0.82, privacy_risk_center: 0.55}
+  D3: {epsilon: 2.5, utility_center: 0.78, privacy_risk_center: 0.49}
+privacy_dry_run_seeds: 3
+results_namespace: results/v3/dry-run
+generated_data_path: results/v3/dry-run/generated/development-pairs.jsonl
+raw_events_path: results/v3/dry-run/raw/events.jsonl
+derived_report_path: results/v3/dry-run/derived/instrumentation-report.json
+run_manifest_path: results/v3/dry-run/manifests/run-manifest.json
+freeze_manifest_path: results/v3/manifests/protocol-v3-psbe-no-tee-dry-run-freeze.json
+paper_placeholder_path: paper/generated/results_placeholder.tex
+confirmatory_result_claims_permitted: false

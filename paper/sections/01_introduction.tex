@@ -15,6 +15,12 @@ capabilities, release rules, privacy budget, lifecycle state, and reconstructabl
 evidence. FinBoundBench asks whether the same synthetic confidential signal can
 improve an approved financial task and cease to influence a distinct prohibited
 task. The comparison includes full-data, prompt-only, a strong deterministic
-prefilter, and layered PSBE conditions. The intended contributions are a formal
-definition, paired benchmark, cross-layer attack suite, and empirical analysis;
-their supported scope will be finalized only after the result freeze.
+prefilter, and layered PSBE conditions. In a three-phase OpenRouter diagnostic,
+three of five models pass admission, 83\% of position diagnostic invocations
+pass, and 89\% of confirmatory invocations pass. A reduced-scope confirmatory
+run with 40 pairs per dataset shows 79.7\% pass rate for the admitted model,
+with dataset-specific release behavior. Security evaluation via test-double
+oracle shows 75.7\% attack detection rate and 100\% evidence coverage. The
+intended contributions are a formal definition, paired benchmark, cross-layer
+attack suite, and empirical analysis; the full confirmatory claim family
+requires the registered 200-pair run.

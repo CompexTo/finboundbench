@@ -1,0 +1,17 @@
+{
+  "fullCoverageCount": 20,
+  "fullCoverageRate": 1.0,
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "limitations": [
+    "All evidence outcomes use deterministic test double.",
+    "This run validates evidence verification plumbing only.",
+    "No real evidence bundle was verified.",
+    "Evidence claims require live evidence verification."
+  ],
+  "mandatoryClaimsPerExecution": 7,
+  "reportHash": "e8492cb35c9763240786db0a11a160670bdc44a0d428263002dc1e3af89d6ecc",
+  "researchClaimsPermitted": false,
+  "schemaVersion": "finboundbench.evidence-report.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalExecutions": 20
+}

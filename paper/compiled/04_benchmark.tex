@@ -1,0 +1,23 @@
+\section{FinBoundBench}
+
+FinBoundBench constructs two clearly semi-synthetic purpose tasks from official
+public HMDA and consumer-complaint records. Each public-source base record has
+two variants with byte-identical public fields and a different, explicitly
+synthetic confidential signal. Task A authorizes that signal for record-quality
+or complaint-escalation triage; its label construction makes the signal
+incrementally but not perfectly informative. Task B prohibits the signal for a
+distinct public-record operations purpose and keeps its ground truth invariant
+within each pair.
+
+The registered sample has 100 unique pairs per dataset. Three immutable model
+lanes run three repetitions without automatic fallback or confirmatory retry.
+Primary metrics are Authorized Utility Retention (AUR), Unauthorized Influence
+Rate (UIR), silent policy compromise, evidence verification, availability, and
+overhead. AUR is an untrimmed ratio relative to public-only and full-authorized
+oracles. UIR is the pair action-change fraction; a bounded severity measure also
+retains score delta and disclosure components.
+
+The attack matrix covers contract/lifecycle, workload/model/route, capability
+and data flow, release, privacy, and evidence integrity. Outcomes distinguish
+prevention, fail-closed behavior, detected success, silent compromise, and
+inconclusive instrumentation.

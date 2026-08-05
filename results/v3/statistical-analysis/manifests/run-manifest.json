@@ -1,0 +1,8 @@
+{
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "manifestHash": "15ef3b6e7567e327b743cb714bf3c6fe428ed7dfcb5b634f24f7a1e880f5647d",
+  "metricsComputed": 6,
+  "reportHash": "4fb1effb745063dd1fa57160cb3b4af1e0c18fad8d23df7855a753017b090fc6",
+  "schemaVersion": "finboundbench.statistical-analysis-manifest.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY"
+}

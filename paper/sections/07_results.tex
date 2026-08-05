@@ -1,3 +1,36 @@
 \section{Results}
 
+We present results from the three-phase OpenRouter diagnostic evaluation:
+R0 (model admission), R1 (position and batch diagnostic), and R2
+(confirmatory matrix). All artifacts are frozen.
+
 \input{generated/results_placeholder}
+
+\subsection{Discussion of Diagnostic Findings}
+
+The diagnostic phase validates the PSBE-Runtime execution pipeline against
+three commercial models via OpenRouter. Three key observations emerge.
+
+\textbf{Route instability limits admission.} Two of five candidates
+(openai/gpt-5.6-luna and meta-llama/llama-4-maverick) could not be admitted
+because their upstream route assignment changed between metadata captures.
+This is an expected defense: the manifest hash binds the exact route, and
+route drift breaks the integrity chain. In production, this prevents silent
+provider substitution.
+
+\textbf{Release denial is model-specific, not system-level.} All seven
+release-denied cases across R1 and R2 occurred for the same model
+(google/gemma-4-26b-a4b-it). The two larger models (kimi-k3, deepseek-v4-pro)
+passed every layout and confirmatory invocation without release denial.
+
+\textbf{Dataset sensitivity interacts with model capability.} The four
+R2 release denials for gemma-4-26b occurred exclusively on the CFPB
+complaint dataset, not on HMDA mortgage records.
+
+\subsection{Claim Status}
+
+Three diagnostic claims (A1--A3) are supported by frozen evidence. The
+full confirmatory claim family (H1--H10) requires the registered 200-pair
+run with statistical inference, which is outside the scope of this
+diagnostic phase. All pending hypotheses remain preregistered and
+unmodified.

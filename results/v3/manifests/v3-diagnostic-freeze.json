@@ -1,0 +1,86 @@
+{
+  "freezeId": "finboundbench-v3-diagnostic-freeze-2026-08-05",
+  "frozenAt": "2026-08-05T00:00:00Z",
+  "scope": "V3_DIAGNOSTIC_RUNS_ONLY_NO_CONFIRMATORY_HYPOTHESES",
+  "status": "FROZEN_DIAGNOSTIC",
+  "schemaVersion": "finboundbench.v3-diagnostic-freeze.v1",
+  "confirmatoryClaimsPermitted": false,
+  "awsActionsPermitted": false,
+  "hardwareAttestation": false,
+  "providerSecretPermitted": true,
+  "remoteProviderCallsPermitted": 59,
+  "budget": {
+    "absoluteAuthorizedEur": 53.81,
+    "authorizationBasis": "USER_INSTRUCTION_2026_08_05_USE_OPENROUTER_MODELS",
+    "totalSettledEur": 53.47
+  },
+  "repositoryBindings": {
+    "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+    "researchCommit": "b4fac30cf1663be082b9e052496650be953cc91f"
+  },
+  "artifacts": [
+    {
+      "path": "results/v3/position-diagnostic/raw/events.jsonl",
+      "sha256": "0B452CB72F594A0FB7C81F1B340ED1C8BC8A52A420C5D9CD8E74C2E77F069A45",
+      "records": 18,
+      "status": "verified"
+    },
+    {
+      "path": "results/v3/confirmatory-matrix/raw/events.jsonl",
+      "sha256": "9A1C70E53844CEB8BA8D90FD771F8AAF81F54B522E552C98DE5FFABED05DB061",
+      "records": 36,
+      "status": "verified"
+    },
+    {
+      "path": "results/v3/raw/budget/openrouter-v3-ledger.jsonl",
+      "sha256": "58D2F79DD4E1C6F960F88D0646AC5A8A9F36379BDC6D38536B0A3389608528C1",
+      "records": 376,
+      "status": "verified"
+    },
+    {
+      "path": "results/v3/raw/budget/openrouter-v3-r2-ledger.jsonl",
+      "sha256": "639B88626EA21AB4B01B0CB63CFC9E323BA75578C1E7FBD158DF31010D5CECD8",
+      "records": 276,
+      "status": "verified"
+    }
+  ],
+  "diagnosticResults": {
+    "r0Admission": {
+      "status": "raw_events_missing",
+      "claim": "3/5 admitted (kimi-k3, gemma-4-26b, deepseek-v4-pro); 2 rejected (gpt-5.6-luna, llama-4-maverick) for route drift",
+      "verification": "budget_ledger_confirms_5_reservations",
+      "rawEvidenceAvailable": false
+    },
+    "r1PositionDiagnostic": {
+      "total": { "passed": 15, "denied": 3, "failed": 0, "total": 18 },
+      "byModel": {
+        "deepseek-v4-pro": { "passed": 6, "denied": 0, "failed": 0 },
+        "kimi-k3": { "passed": 6, "denied": 0, "failed": 0 },
+        "gemma-4-26b": { "passed": 3, "denied": 3, "failed": 0 }
+      },
+      "rawEvidenceAvailable": true
+    },
+    "r2ConfirmatoryMatrix": {
+      "total": { "passed": 32, "denied": 4, "failed": 0, "total": 36 },
+      "byModel": {
+        "deepseek-v4-pro": { "passed": 12, "denied": 0, "failed": 0 },
+        "kimi-k3": { "passed": 12, "denied": 0, "failed": 0 },
+        "gemma-4-26b": { "passed": 8, "denied": 4, "failed": 0 }
+      },
+      "byDataset": {
+        "hmda-2024-dc-v3": { "passed": 15, "denied": 3, "total": 18 },
+        "cfpb-complaints-2024-01-dc-v3": { "passed": 17, "denied": 1, "total": 18 }
+      },
+      "byCondition": {
+        "B0": { "passed": 16, "denied": 2, "total": 18 },
+        "P3": { "passed": 16, "denied": 2, "total": 18 }
+      },
+      "rawEvidenceAvailable": true
+    }
+  },
+  "knownIssues": [
+    "R0 admission raw events.jsonl missing — claims verified in-session only",
+    "R2 condition/dataset table in manuscript was incorrectly computed (10/12 figure was partial view)",
+    "No LaTeX compiler available — paper cannot be compiled to PDF in this environment"
+  ]
+}

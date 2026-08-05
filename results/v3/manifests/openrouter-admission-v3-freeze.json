@@ -1,0 +1,163 @@
+{
+  "admissionId": "finboundbench-v3-openrouter-r0-admission",
+  "artifacts": [
+    {
+      "bytes": 4480,
+      "path": "configs/v3/openrouter-model-admission-v3.yaml",
+      "repository": "research",
+      "sha256": "8d334897c0e5782889cdd13a5e9a0835901132e7f5488ca763982663dfeda3d9"
+    },
+    {
+      "bytes": 2443,
+      "path": "scripts/governed_openrouter_bridge_v3.cjs",
+      "repository": "research",
+      "sha256": "23ab11f0eda24df5d0e5ee08398901c26fa51f3674ee0660013ad19a475ca426"
+    },
+    {
+      "bytes": 13731,
+      "path": "scripts/governed_openrouter_bridge.cjs",
+      "repository": "research",
+      "sha256": "0f497d7ae6da3802c0a2ad97c2f6d0b448fc3ab9cd6ecb993589696c1668dc94"
+    },
+    {
+      "bytes": 6809,
+      "path": "scripts/capture_v3_openrouter_manifests.py",
+      "repository": "research",
+      "sha256": "41e91393f546c030871dbc29d1e67ab34c3dc5cccc48a4e2d1d643a7b2065416"
+    },
+    {
+      "bytes": 8100,
+      "path": "src/purposebench/v3/openrouter_metadata.py",
+      "repository": "research",
+      "sha256": "0c245bdbf241125ca17c404dc3d2011c466772c1095b1b54dfd5585fc160297c"
+    },
+    {
+      "bytes": 5393,
+      "path": "src/purposebench/v3/budget.py",
+      "repository": "research",
+      "sha256": "0ec39fb36a22df92610b207eccd8e88a88114df72e0133d0c6fbe5e4ccfe23fc"
+    },
+    {
+      "bytes": 28606,
+      "path": "src/purposebench/v3/remote_admission.py",
+      "repository": "research",
+      "sha256": "0b13b2aaccf0af0600580f12d4f606a8c7bf96573545fe93b5fa98ca508a8824"
+    },
+    {
+      "bytes": 1735,
+      "path": "scripts/build_v3_openrouter_admission_freeze.py",
+      "repository": "research",
+      "sha256": "90070f303c110f5193c6c3d5821567f137732c29dac6778045820c8c92bd10a5"
+    },
+    {
+      "bytes": 1043,
+      "path": "scripts/run_v3_openrouter_admission.py",
+      "repository": "research",
+      "sha256": "f6acb32f6cc2a30e7d29e89a4e10e58a6af9ea35b1da7dd3abffc9c3f4c087d5"
+    },
+    {
+      "bytes": 952,
+      "path": "scripts/verify_v3_openrouter_admission.py",
+      "repository": "research",
+      "sha256": "faa1dd98d1c86e264d365eca3b8f62c29dd0cbe91664fa46ae6037a10119c644"
+    },
+    {
+      "bytes": 1743,
+      "path": "docs/v3/model-manifests/openrouter-openai-gpt-5-6-luna.json",
+      "repository": "research",
+      "sha256": "2f8f329bd8793eaaaa6de06c8868beacfefa54767efa6016719a6ca0fc505e09"
+    },
+    {
+      "bytes": 1929,
+      "path": "docs/v3/model-manifests/openrouter-moonshotai-kimi-k3.json",
+      "repository": "research",
+      "sha256": "f6d28b4feca3b52433bd9a4afd4e7b50df760fdd82d28e08723efcb26a24fcdb"
+    },
+    {
+      "bytes": 1850,
+      "path": "docs/v3/model-manifests/openrouter-meta-llama-llama-4-maverick.json",
+      "repository": "research",
+      "sha256": "09c8b7c2863c02e00d5b854edf7b52913ee096ec72fea252f302b6b18dde8be9"
+    },
+    {
+      "bytes": 1765,
+      "path": "docs/v3/model-manifests/openrouter-google-gemma-4-26b-a4b-it.json",
+      "repository": "research",
+      "sha256": "389a80743e84da9916018e64e5fadbe41c9f78123dd2aa8d28cf4a0d1af5d0c5"
+    },
+    {
+      "bytes": 1972,
+      "path": "docs/v3/model-manifests/openrouter-deepseek-deepseek-v4-pro.json",
+      "repository": "research",
+      "sha256": "827779cd14146e058f6a45a0e3ee63f74c8c553564beb64b0de5029a0d53897d"
+    },
+    {
+      "bytes": 64581,
+      "path": "packages/types/src/confidential-execution.ts",
+      "repository": "platform",
+      "sha256": "80df3fcdb0cdad003790970b48e6cf92245be0aae58bc969b0b432b956435bd7"
+    },
+    {
+      "bytes": 7111,
+      "path": "services/runner/src/providers/openrouter.adapter.ts",
+      "repository": "platform",
+      "sha256": "0e451f29ab4786c83c6b31f4ba4cbce2e34139a7ccd8791589cc014e675fb08a"
+    },
+    {
+      "bytes": 24768,
+      "path": "services/runner/src/providers/commercial-model-adapter.ts",
+      "repository": "platform",
+      "sha256": "7dda09834dd1de14d309f1139cb2e7287b47f12254b56bebd92f1c66b8d7932e"
+    },
+    {
+      "bytes": 40535,
+      "path": "services/api/src/confidential-execution/release/native-output-release.ts",
+      "repository": "platform",
+      "sha256": "65cec20e767fc66772d38852b0be3bafa2965a002f8d832b5c81f26197e19a2d"
+    }
+  ],
+  "awsActionsPermitted": false,
+  "budget": {
+    "absoluteAuthorizedEur": 1.0,
+    "authorizationBasis": "USER_INSTRUCTION_2026_08_05_USE_OPENROUTER_MODELS",
+    "authorizationId": "finboundbench-v3-r0-openrouter-authorization",
+    "ledgerPath": "results/v3/raw/budget/openrouter-v3-ledger.jsonl",
+    "phaseAuthorizedEur": 1.0,
+    "reservationPerCallEur": 0.05
+  },
+  "confirmatoryClaimsPermitted": false,
+  "freezeManifestHash": "923d9c26eb20309ad05fc4cf9628ad6c6c0b1ab1fe19a2a5b997a9b75bca1afe",
+  "frozenAt": "2026-08-05T13:12:44.031Z",
+  "hardwareAttestation": false,
+  "modelManifestHashes": [
+    "273bdafc46d6a82daca8f641808a55635069a9e20520dbc33c880ca662fee9dd",
+    "a2103169bec8b484f9201e08fac4717b548be3e69d86ce8fd6791702bfd90623",
+    "0219dd129aa897b444ff8dbd84db212c37824d2d7cd4cf0c16f18211d57d19ef",
+    "f51178cd4787e933e02381306c24ba69005f3f942b201afa8cdb21d6e571fb24",
+    "8d19c57b4ab1dc9ecd96a4e70f2ec0fe743996d009d3f3bb0e630420866cd3c3"
+  ],
+  "providerSecretPermitted": true,
+  "remoteProviderCallsPermitted": 5,
+  "repositoryBindings": {
+    "platformCommit": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+    "researchCommit": "e18e7408e336f27e48bc61b4d6013894706a5041"
+  },
+  "repositoryStateAtFreeze": {
+    "platform": {
+      "commit": "f5494b2eb639e70d6d9673a9de42564c815d978c",
+      "tracked_diff_sha256": "f9204a60598bb9216fc58c9d4a2342c7742198eedcf9caf546fc80d80d6f0cbe",
+      "tracked_tree_dirty": true
+    },
+    "platformScopeBoundByArtifactHashes": true,
+    "research": {
+      "commit": "e18e7408e336f27e48bc61b4d6013894706a5041",
+      "tracked_diff_sha256": "dfda4f0fd28f95f609cb22508d02424163a8ccbfceb591cbed5cfc856bc2e6a1",
+      "tracked_tree_dirty": true
+    },
+    "unrelatedUserChangesIncluded": false
+  },
+  "schemaVersion": "finboundbench.openrouter-admission-freeze.v3",
+  "scope": "OPENROUTER_R0_SCHEMA_ROUTE_NO_FALLBACK_COST_GATE_NOT_CONFIRMATORY",
+  "secretSource": "ENVIRONMENT_REFERENCE_ONLY",
+  "status": "FROZEN_R0_ADMISSION_ONLY"
+}

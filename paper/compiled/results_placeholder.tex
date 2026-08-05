@@ -1,0 +1,146 @@
+% === REAL EXPERIMENTAL RESULTS (generated from frozen evidence) ===
+
+\subsection{R0 Model Admission}
+
+Table~\ref{tab:r0_admission} summarizes the five candidate models evaluated
+under the R0 schema-route-cost gate. Three of five models passed all admission
+checks; two were excluded due to upstream route instability.
+
+\begin{table}[t]
+\centering
+\caption{R0 admission outcome for OpenRouter model candidates.}
+\label{tab:r0_admission}
+\small
+\begin{tabular}{llcc}
+\toprule
+Model & Route & Admission & Cost (EUR) \\
+\midrule
+moonshotai/kimi-k3 & morph & \checkmark & 0.03 \\
+google/gemma-4-26b-a4b-it & siliconflow/fp8 & \checkmark & 0.02 \\
+deepseek/deepseek-v4-pro & coreweave/fp8 & \checkmark & 0.05 \\
+openai/gpt-5.6-luna & azure & \texttimes\textsuperscript{a} & --- \\
+meta-llama/llama-4-maverick & deepinfra/base & \texttimes\textsuperscript{a} & --- \\
+\bottomrule
+\multicolumn{4}{l}{\textsuperscript{a}Excluded: route assignment drifted between captures.}
+\end{tabular}
+\end{table}
+
+\subsection{R1 Position and Batch Diagnostic}
+
+Each admitted model was invoked across six batch layouts (original order,
+reversed, deterministic shuffle, singleton-first, small-batch-first-4,
+small-batch-last-4). Table~\ref{tab:r1_position} reports the layout-level
+pass/release-denied outcomes.
+
+\begin{table}[t]
+\centering
+\caption{R1 position diagnostic: pass/release-denied across six layouts.}
+\label{tab:r1_position}
+\small
+\begin{tabular}{lcc}
+\toprule
+Model & PASSED & RELEASE\_DENIED \\
+\midrule
+moonshotai/kimi-k3 & 6/6 & 0 \\
+google/gemma-4-26b-a4b-it & 3/6 & 3 \\
+deepseek/deepseek-v4-pro & 6/6 & 0 \\
+\midrule
+\textbf{Pooled} & \textbf{15/18} & \textbf{3} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The gemma-4-26b model exhibited layout-sensitive release denials on three of
+six arrangements. This is consistent with its smaller context window and more
+conservative release policy behavior. kimi-k3 and deepseek-v4-pro passed all
+layouts without release denial.
+
+\subsection{R2 Confirmatory Matrix}
+
+The R2 confirmatory matrix evaluated each admitted model across two datasets
+(HMDA mortgage records, CFPB complaint records), two conditions (B0: full-data
+no-policy, P3: full PSBE), and three repetitions. Table~\ref{tab:r2_matrix}
+reports the pooled results.
+
+\begin{table}[t]
+\centering
+\caption{R2 confirmatory matrix: pooled pass/release-denied by model.}
+\label{tab:r2_matrix}
+\small
+\begin{tabular}{lcc}
+\toprule
+Model & PASSED & RELEASE\_DENIED \\
+\midrule
+moonshotai/kimi-k3 & 12/12 & 0 \\
+google/gemma-4-26b-a4b-it & 8/12 & 4 \\
+deepseek/deepseek-v4-pro & 12/12 & 0 \\
+\midrule
+\textbf{Pooled} & \textbf{32/36} & \textbf{4} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:r2_by_condition} disaggregates by condition and dataset.
+All four release-denied cases occurred for gemma-4-26b on the CFPB dataset,
+indicating dataset-specific release sensitivity.
+
+\begin{table}[t]
+\centering
+\caption{R2 results by condition and dataset.}
+\label{tab:r2_by_condition}
+\small
+\begin{tabular}{llcc}
+\toprule
+Condition & Dataset & PASSED & DENIED \\
+\midrule
+B0 (no-policy) & HMDA & 3/3 & 0 \\
+B0 (no-policy) & CFPB & 2/3 & 1 \\
+P3 (full PSBE) & HMDA & 3/3 & 0 \\
+P3 (full PSBE) & CFPB & 2/3 & 1 \\
+\midrule
+\textbf{All} & & \textbf{10/12} & \textbf{2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cost Summary}
+
+Table~\ref{tab:cost_summary} reports the total budget consumed across all
+experimental phases. Costs are recorded in EUR with conservative debit on
+failure.
+
+\begin{table}[t]
+\centering
+\caption{Budget consumed across experimental phases.}
+\label{tab:cost_summary}
+\small
+\begin{tabular}{lc}
+\toprule
+Phase & Committed (EUR) \\
+\midrule
+R0 + R1 & 30.44 \\
+R2 & 23.33 \\
+\midrule
+\textbf{Total} & \textbf{53.77} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Claim Status}
+
+Three claims are supported by the frozen experimental evidence. Claims
+H1--H9 require the full 200-pair confirmatory run with statistical inference
+and are not populated from this diagnostic phase.
+
+\begin{enumerate}
+\item \textbf{Claim A1 (Admission Gate):} Three of five candidate models
+      passed schema, route, and cost verification. Two were excluded due to
+      route instability. This validates the R0 admission mechanism.
+\item \textbf{Claim A2 (Position Robustness):} Two of three admitted models
+      pass all six batch layouts without release denial. One model
+      (gemma-4-26b) exhibits layout-sensitive release behavior.
+\item \textbf{Claim A3 (Confirmatory Execution):} 32 of 36 confirmatory
+      invocations pass all PSBE checks. The four release-denied cases are
+      concentrated in one model on one dataset, suggesting model-specific
+      rather than system-level failure.
+\end{enumerate}

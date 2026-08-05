@@ -1,0 +1,76 @@
+{
+  "freezeId": "finboundbench-v3-experimental-freeze-2026-08-05",
+  "frozenAt": "2026-08-05T16:00:00Z",
+  "scope": "V3_EXPERIMENTAL_RUNS_TEST_DOUBLE_ONLY",
+  "status": "FROZEN_EXPERIMENTAL",
+  "schemaVersion": "finboundbench.v3-experimental-freeze.v1",
+  "confirmatoryClaimsPermitted": false,
+  "awsActionsPermitted": false,
+  "hardwareAttestation": false,
+  "providerSecretPermitted": true,
+  "repositoryBindings": {
+    "platformCommit": "29e4b2ea96f75263dc8fea82c41b4273be7ad7f3",
+    "researchCommit": "b4fac30cf1663be082b9e052496650be953cc91f"
+  },
+  "experimentalResults": {
+    "confirmatoryRun": {
+      "status": "COMPLETE",
+      "scope": "40_pairs_per_dataset_gemma4_only",
+      "totalEvents": 330,
+      "passed": 263,
+      "releaseDenied": 66,
+      "failed": 1,
+      "costEur": 0.38
+    },
+    "attackSuite": {
+      "status": "COMPLETE",
+      "scope": "57_attacks_test_double",
+      "totalAttacks": 235,
+      "prevented": 168,
+      "silentCompromise": 57,
+      "detectionRate": 0.757
+    },
+    "dpExperiments": {
+      "status": "COMPLETE",
+      "scope": "D0-D3_test_double",
+      "totalEvents": 40,
+      "conditions": 4
+    },
+    "evidenceVerification": {
+      "status": "COMPLETE",
+      "scope": "20_executions_test_double",
+      "totalExecutions": 20,
+      "fullCoverageRate": 1.0
+    },
+    "availabilityOverhead": {
+      "status": "COMPLETE",
+      "scope": "7_conditions_50_invocations_each",
+      "totalEvents": 350,
+      "availability": 0.986,
+      "overhead": 1.31
+    }
+  },
+  "metrics": {
+    "AUR": 0.9341,
+    "UIR": 0.2000,
+    "SPCR": 0.2426,
+    "EVC": 1.0000,
+    "availability": 0.9857,
+    "overhead": 1.3116
+  },
+  "knownLimitations": [
+    "All experimental results use deterministic test double oracle",
+    "No real provider calls were made for attack/DP/evidence experiments",
+    "Confirmatory run used gemma-4-26b only (kimi-k3 and deepseek-v4-pro rate-limited)",
+    "Statistical inference not yet performed (requires permutation tests)",
+    "Full 200-pair confirmatory run not yet executed"
+  ],
+  "artifacts": [
+    "results/v3/confirmatory-reduced/raw/events.jsonl",
+    "results/v3/attack-suite/raw/events.jsonl",
+    "results/v3/dp-experiments/raw/events.jsonl",
+    "results/v3/evidence-verification/raw/events.jsonl",
+    "results/v3/availability-overhead/raw/events.jsonl",
+    "results/v3/statistical-analysis/derived/statistical-report.json"
+  ]
+}

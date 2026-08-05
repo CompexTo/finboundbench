@@ -1,0 +1,62 @@
+{
+  "conditionsTested": 4,
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "limitations": [
+    "All DP outcomes use deterministic test double.",
+    "This run validates DP experiment plumbing only.",
+    "No real DP-SGD training was performed.",
+    "Privacy claims require live DP-SGD execution."
+  ],
+  "reportHash": "f21b9e17b50d659113613df66bde20ef77d201387c46f0f9845f357f863990ff",
+  "researchClaimsPermitted": false,
+  "schemaVersion": "finboundbench.dp-report.v3",
+  "seedsPerCondition": 10,
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "summary": {
+    "D0": {
+      "count": 10,
+      "delta": null,
+      "epsilon": null,
+      "privacy_risk_max": 0.802,
+      "privacy_risk_mean": 0.8002,
+      "privacy_risk_min": 0.798,
+      "utility_max": 0.752,
+      "utility_mean": 0.7497999999999999,
+      "utility_min": 0.748
+    },
+    "D1": {
+      "count": 10,
+      "delta": 1e-05,
+      "epsilon": 1.0,
+      "privacy_risk_max": 0.602,
+      "privacy_risk_mean": 0.5996999999999999,
+      "privacy_risk_min": 0.598,
+      "utility_max": 0.732,
+      "utility_mean": 0.7303000000000001,
+      "utility_min": 0.728
+    },
+    "D2": {
+      "count": 10,
+      "delta": 1e-05,
+      "epsilon": 0.5,
+      "privacy_risk_max": 0.402,
+      "privacy_risk_mean": 0.39980000000000004,
+      "privacy_risk_min": 0.398,
+      "utility_max": 0.702,
+      "utility_mean": 0.7001999999999999,
+      "utility_min": 0.698
+    },
+    "D3": {
+      "count": 10,
+      "delta": 1e-05,
+      "epsilon": 0.1,
+      "privacy_risk_max": 0.202,
+      "privacy_risk_mean": 0.20049999999999998,
+      "privacy_risk_min": 0.198,
+      "utility_max": 0.652,
+      "utility_mean": 0.6495,
+      "utility_min": 0.648
+    }
+  },
+  "totalEvents": 40
+}

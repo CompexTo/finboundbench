@@ -1,0 +1,11 @@
+{
+  "completedAt": "2026-08-05T19:04:21.969Z",
+  "finalEventHash": "6b29b9e3aec46dfe65ec2d3fa0b2ede8da54ba6f0c28423bff5ad576eb880cc6",
+  "fullCoverageRate": 1.0,
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "manifestHash": "ce1bcc7d8b23c5045df30ff93bbd4362123ee1d69e76d0b5102d91b0d6a72237",
+  "schemaVersion": "finboundbench.evidence-verification-manifest.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalEvents": 20,
+  "totalExecutions": 20
+}

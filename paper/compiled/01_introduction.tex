@@ -1,0 +1,24 @@
+\section{Introduction}
+
+Access control answers whether a principal may obtain data. Purpose limitation
+adds a different question: whether the same data may affect this decision.
+Financial institutions routinely hold information for investigation, support,
+fraud, marketing, and regulatory purposes whose permissible uses do not
+coincide. A confidential-computing boundary can protect bytes from an
+infrastructure operator while still allowing the enclosed model to use the
+wrong attribute. Removing every confidential attribute avoids that misuse but
+can erase the legitimate value of protected computation.
+
+This paper studies that tension through Purpose-Selective Bounded Execution
+(PSBE). PSBE binds a declared purpose to exact data, workload/model identity,
+capabilities, release rules, privacy budget, lifecycle state, and reconstructable
+evidence. FinBoundBench asks whether the same synthetic confidential signal can
+improve an approved financial task and cease to influence a distinct prohibited
+task. The comparison includes full-data, prompt-only, a strong deterministic
+prefilter, and layered PSBE conditions. In a three-phase OpenRouter diagnostic,
+three of five models pass admission, 83\% of position diagnostic invocations
+pass, and 89\% of confirmatory invocations pass. Release denials are
+concentrated in one model, suggesting model-specific rather than system-level
+failure. The intended contributions are a formal definition, paired benchmark,
+cross-layer attack suite, and empirical analysis; the full confirmatory claim
+family requires the registered 200-pair run.

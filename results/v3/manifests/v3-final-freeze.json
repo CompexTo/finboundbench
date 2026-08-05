@@ -1,0 +1,86 @@
+{
+  "freezeId": "v3-final-freeze-20260805",
+  "createdAt": "2026-08-05T17:30:00Z",
+  "status": "FROZEN",
+  "description": "Final experimental freeze with all artifacts",
+  "artifacts": {
+    "paper": {
+      "main": "paper/main.tex",
+      "abstract": "paper/main.tex (lines 11-25)",
+      "introduction": "paper/sections/01_introduction.tex",
+      "results": "paper/sections/07_results.tex",
+      "conclusion": "paper/sections/09_conclusion.tex",
+      "results_placeholder": "paper/generated/results_placeholder.tex",
+      "result_statements": "paper/generated/result_statements.md"
+    },
+    "experimental_data": {
+      "confirmatory_reduced": "results/v3/confirmatory-reduced/raw/events.jsonl",
+      "attack_suite": "results/v3/attack-suite/raw/events.jsonl",
+      "dp_experiments": "results/v3/dp-experiments/raw/events.jsonl",
+      "evidence_verification": "results/v3/evidence-verification/raw/events.jsonl",
+      "availability_overhead": "results/v3/availability-overhead/raw/events.jsonl"
+    },
+    "analysis": {
+      "statistical_report": "results/v3/statistical-analysis/derived/statistical-report.json",
+      "attack_report": "results/v3/attack-suite/derived/attack-report.json"
+    },
+    "protocols": {
+      "research_questions": "docs/v3/RESEARCH_QUESTIONS.md",
+      "hypotheses": "docs/v3/HYPOTHESES.md",
+      "estimands": "docs/v3/ESTIMANDS.md",
+      "power_analysis": "docs/v3/POWER_ANALYSIS.md",
+      "statistical_analysis_plan": "docs/v3/STATISTICAL_ANALYSIS_PLAN.md",
+      "exclusion_rules": "docs/v3/EXCLUSION_RULES.md",
+      "cost_plan": "docs/v3/COST_PLAN.md",
+      "human_review_plan": "docs/v3/HUMAN_REVIEW_PLAN.md",
+      "dataset_protocol": "docs/v3/DATASET_PROTOCOL.md",
+      "attack_protocol": "docs/v3/ATTACK_PROTOCOL.md",
+      "evidence_study": "docs/v3/EVIDENCE_STUDY.md",
+      "limitations": "docs/v3/LIMITATIONS.md"
+    },
+    "scripts": {
+      "paper_checks": [
+        "scripts/check_anonymity.py",
+        "scripts/check_claim_traceability.py",
+        "scripts/check_table_totals.py",
+        "scripts/check_hypothesis_consistency.py",
+        "scripts/check_page_count.py",
+        "scripts/check_unsupported_language.py"
+      ],
+      "experiment_runners": [
+        "scripts/run_v3_confirmatory_reduced.py",
+        "scripts/run_v3_p3_condition.py",
+        "scripts/run_v3_attack_suite.py",
+        "scripts/run_v3_dp_experiments.py",
+        "scripts/run_v3_evidence_verification.py",
+        "scripts/run_v3_availability_overhead.py",
+        "scripts/run_v3_statistical_analysis.py"
+      ]
+    },
+    "manifests": {
+      "v3_diagnostic_freeze": "results/v3/manifests/v3-diagnostic-freeze.json",
+      "v3_experimental_freeze": "results/v3/manifests/v3-experimental-freeze.json"
+    }
+  },
+  "metrics": {
+    "AUR": 0.9341,
+    "UIR": 0.2000,
+    "SPCR": 0.2426,
+    "EVC": 1.0000,
+    "availability": 0.9857,
+    "overhead": 1.3116
+  },
+  "limitations": [
+    "All security metrics from test-double oracles",
+    "Live execution required for definitive claims",
+    "kimi-k3 and deepseek-v4-pro rate-limited",
+    "R0 admission raw events missing",
+    "No LaTeX compiler for page count verification"
+  ],
+  "next_steps": [
+    "Co-author reviews and approves manuscript",
+    "Statistical freeze is locked",
+    "All changes committed",
+    "Paper submitted to venue"
+  ]
+}

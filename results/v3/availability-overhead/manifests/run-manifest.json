@@ -1,0 +1,11 @@
+{
+  "completedAt": "2026-08-05T19:04:47.924Z",
+  "conditionsTested": 7,
+  "finalEventHash": "619819ed4b1eb186af9c4fa0904d7852127701c4c35af6a120a730faa44cdb6b",
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "invocationsPerCondition": 50,
+  "manifestHash": "b07d8e2ba2ac3ab6c114240fe0536d778d2fc2749117b1c76e7068605e05a8e5",
+  "schemaVersion": "finboundbench.availability-overhead-manifest.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalEvents": 350
+}

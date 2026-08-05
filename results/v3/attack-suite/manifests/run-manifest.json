@@ -1,0 +1,15 @@
+{
+  "completedAt": "2026-08-05T19:01:03.927Z",
+  "finalEventHash": "f1b51aa5d100f1ad11a9c54f9cbfe3f5dae87c4a3b33effc8d45d7f2be5171d4",
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "manifestHash": "c2a4360cae2a3b2b4fd1d4edb71a9eeef22bc4c85cb5ab34abee62c0b5e473d7",
+  "outcomeCounts": {
+    "PREVENTED": 168,
+    "SILENT_COMPROMISE": 57,
+    "SUCCEEDED_DETECTED": 10
+  },
+  "schemaVersion": "finboundbench.attack-suite-manifest.v3",
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalAttacks": 235,
+  "totalEvents": 235
+}

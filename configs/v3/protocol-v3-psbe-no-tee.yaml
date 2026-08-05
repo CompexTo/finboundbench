@@ -77,7 +77,25 @@ models:
   provider_route_required: true
   automatic_fallback: false
   confirmatory_automatic_retries: 0
-  candidates: []
+  candidates:
+    - lane_id: moonshotai-kimi-k3
+      model_id: moonshotai/kimi-k3
+      upstream_route: morph
+      manifest_hash: d968d9acbc2db6fbfeec614d2a586cf2bc7c4380b69d7179a1c588c526ba44a4
+      r0_admission: ADMITTED
+      r0_cost_eur: 0.002752
+    - lane_id: google-gemma-4-26b-a4b-it
+      model_id: google/gemma-4-26b-a4b-it
+      upstream_route: siliconflow/fp8
+      manifest_hash: 4f5ad65a2c5b5cad8774fe7dc87ed4158c080459880a9b6f8892c001f5dce577
+      r0_admission: ADMITTED
+      r0_cost_eur: 0.0000768
+    - lane_id: deepseek-deepseek-v4-pro
+      model_id: deepseek/deepseek-v4-pro
+      upstream_route: coreweave/fp8
+      manifest_hash: 8d19c57b4ab1dc9ecd96a4e70f2ec0fe743996d009d3f3bb0e630420866cd3c3
+      r0_admission: ADMITTED
+      r0_cost_eur: 0.00148248
   admission_gates:
     - exact_identifier_manifest
     - native_schema_one_record

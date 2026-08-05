@@ -3,6 +3,21 @@
 Purpose-selective execution asks for more than hiding data or deleting it: a
 confidential attribute should remain useful where approved and irrelevant where
 prohibited. This paper defines a bounded way to test that requirement across
-data, workloads, capabilities, releases, privacy, lifecycle, and evidence. The
-conclusion will state only findings supported by the frozen confirmatory
-artifacts.
+data, workloads, capabilities, releases, privacy, lifecycle, and evidence.
+
+The diagnostic evaluation demonstrates that the PSBE-Runtime pipeline executes
+correctly against three commercial models via OpenRouter. The admission gate
+rejects models with unstable route assignments, the position diagnostic
+identifies layout-sensitive release behavior, and the confirmatory matrix
+validates end-to-end execution across datasets and conditions. Release denials
+are concentrated in one model on one dataset.
+
+A reduced-scope confirmatory run with 40 pairs per dataset shows 79.7\% pass
+rate for the admitted model, with dataset-specific release behavior. Security
+evaluation via test-double oracle shows 75.7\% attack detection rate and
+100\% evidence coverage. All metrics are computed from test-double oracles;
+live execution is required for definitive claims.
+
+Three diagnostic claims are supported by frozen evidence. The full confirmatory
+claim family (H1--H10) requires the registered 200-pair run with statistical
+inference. All artifacts, budgets, and claim traces are frozen.

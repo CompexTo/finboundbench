@@ -1,0 +1,23 @@
+{
+  "admissionId": "finboundbench-v3-openrouter-r2-confirmatory",
+  "attempts": 36,
+  "budget": {
+    "committedEur": 23.0796128,
+    "ledgerHash": "3a067d21d37303b82ff17af778380cdf869c3b4a158122439852d22d5cc01846",
+    "ledgerPath": "results/v3/raw/budget/openrouter-v3-r2-ledger.jsonl",
+    "ledgerRecordCount": 276
+  },
+  "completedAt": "2026-08-05T13:08:23.813Z",
+  "conditionsTested": 2,
+  "datasetsTested": 2,
+  "failedOrDenied": 4,
+  "finalEventHash": "8978012178fa7274488996ae6f798a48a97184f066fea3e796532518a271bcf2",
+  "manifestHash": "574f90f0a23e6ed5012b0ef79d107a4a76e4981240568d8c9fa2a94cdfd50a1c",
+  "matrixLabel": "V3_CONFIRMATORY_MATRIX",
+  "modelsTested": 3,
+  "pairsPerDataset": 1,
+  "passed": 32,
+  "repetitions": 3,
+  "schemaVersion": "finboundbench.confirmatory-matrix-run.v3",
+  "status": "COMPLETED_WITH_FAILURES"
+}

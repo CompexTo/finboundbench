@@ -1,0 +1,20 @@
+{
+  "admissionId": "finboundbench-v3-openrouter-r0-admission",
+  "attempts": 18,
+  "budget": {
+    "committedEur": 30.38987768,
+    "ledgerHash": "aa5c8a56b880ec6739cf89aa755c44f91b66dc1bf4c44811ff52af5689d87f13",
+    "ledgerPath": "results/v3/raw/budget/openrouter-v3-ledger.jsonl",
+    "ledgerRecordCount": 376
+  },
+  "completedAt": "2026-08-05T13:02:38.518Z",
+  "diagnosticLabel": "V3_POSITION_BATCH_DIAGNOSTIC",
+  "failedOrDenied": 3,
+  "finalEventHash": "e4794228c0e242c44ab0ca49c145479f7f21864ab6de32628727686782e4f026",
+  "layoutsTested": 6,
+  "manifestHash": "675daa6191f0fe42d77769865d07503d31a314ec3f4af7bc991eed90fb15d6a0",
+  "modelsTested": 5,
+  "passed": 15,
+  "schemaVersion": "finboundbench.position-diagnostic-run.v3",
+  "status": "COMPLETED_WITH_FAILURES"
+}

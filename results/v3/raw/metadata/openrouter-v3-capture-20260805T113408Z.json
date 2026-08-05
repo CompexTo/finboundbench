@@ -1,0 +1,103 @@
+{
+  "captureReportHash": "8d2087525cf5c33bb4ebcc5e9732979d213106edf7efc5dbf5e644cb4aca1c52",
+  "capturedAt": "2026-08-05T11:34:08.582867+00:00",
+  "captures": [
+    {
+      "eligibleRouteCount": 1,
+      "inputPriceCeiling": "0.000002",
+      "manifestHash": "375c4c65e4b9ed007b051cf72dbf334274af26d982e237a0b29eaa1503516e61",
+      "manifestPath": "docs/v3/model-manifests/openrouter-openai-gpt-5-6-luna.json",
+      "modelId": "openai/gpt-5.6-luna",
+      "outputPriceCeiling": "0.000012",
+      "preferredRouteHonored": true,
+      "route": "azure",
+      "status": "captured"
+    },
+    {
+      "eligibleRouteCount": 1,
+      "inputPriceCeiling": "0.0000058",
+      "manifestHash": "070851c608226c45beee4a79af9c3ad8a5929c4ffa790b3f86563e9d479c8151",
+      "manifestPath": "docs/v3/model-manifests/openrouter-moonshotai-kimi-k3.json",
+      "modelId": "moonshotai/kimi-k3",
+      "outputPriceCeiling": "0.000028",
+      "preferredRouteHonored": true,
+      "route": "morph",
+      "status": "captured"
+    },
+    {
+      "eligibleRouteCount": 4,
+      "inputPriceCeiling": "0.0000004",
+      "manifestHash": "e1b894e57209face91d6020f8f5ab9bc0cee660d7c0b8e8f375969372cf935cc",
+      "manifestPath": "docs/v3/model-manifests/openrouter-meta-llama-llama-4-maverick.json",
+      "modelId": "meta-llama/llama-4-maverick",
+      "outputPriceCeiling": "0.0000016",
+      "preferredRouteHonored": true,
+      "route": "deepinfra/base",
+      "status": "captured"
+    },
+    {
+      "eligibleRouteCount": 5,
+      "inputPriceCeiling": "0.00000024",
+      "manifestHash": "d483aeeb097e45f1324badfc1503370a5e2120077bc31fd69df9e8b7ffeeac98",
+      "manifestPath": "docs/v3/model-manifests/openrouter-google-gemma-4-26b-a4b-it.json",
+      "modelId": "google/gemma-4-26b-a4b-it",
+      "outputPriceCeiling": "0.0000008",
+      "preferredRouteHonored": false,
+      "route": "siliconflow/fp8",
+      "status": "captured"
+    },
+    {
+      "eligibleRouteCount": 1,
+      "inputPriceCeiling": "0.00000348",
+      "manifestHash": "8d19c57b4ab1dc9ecd96a4e70f2ec0fe743996d009d3f3bb0e630420866cd3c3",
+      "manifestPath": "docs/v3/model-manifests/openrouter-deepseek-deepseek-v4-pro.json",
+      "modelId": "deepseek/deepseek-v4-pro",
+      "outputPriceCeiling": "0.00000696",
+      "preferredRouteHonored": false,
+      "route": "coreweave/fp8",
+      "status": "captured"
+    }
+  ],
+  "catalogArtifact": "results/v3/raw/metadata/openrouter-models-20260805T113408Z.json",
+  "catalogResponseHash": "5188ed11f7ac9a2b7e777dffcb483c519cc82ef4ad7be84c8a42e458c516a93f",
+  "claudeReevaluation": {
+    "admissionDecision": "ELIGIBLE_FOR_SEPARATE_GATE_REEVALUATION",
+    "liveClaudeZdrModels": [
+      "anthropic/claude-3-haiku",
+      "anthropic/claude-haiku-4.5",
+      "anthropic/claude-opus-4",
+      "anthropic/claude-opus-4.1",
+      "anthropic/claude-opus-4.5",
+      "anthropic/claude-opus-4.6",
+      "anthropic/claude-opus-4.7",
+      "anthropic/claude-opus-4.8",
+      "anthropic/claude-opus-5",
+      "anthropic/claude-sonnet-4",
+      "anthropic/claude-sonnet-4.5",
+      "anthropic/claude-sonnet-4.6",
+      "anthropic/claude-sonnet-5"
+    ],
+    "materiallyDifferentCandidates": [
+      "anthropic/claude-3-haiku",
+      "anthropic/claude-haiku-4.5",
+      "anthropic/claude-opus-4",
+      "anthropic/claude-opus-4.1",
+      "anthropic/claude-opus-4.5",
+      "anthropic/claude-opus-4.6",
+      "anthropic/claude-opus-4.7",
+      "anthropic/claude-opus-5",
+      "anthropic/claude-sonnet-4",
+      "anthropic/claude-sonnet-4.5",
+      "anthropic/claude-sonnet-4.6",
+      "anthropic/claude-sonnet-5"
+    ],
+    "priorFailuresPreserved": true,
+    "v2FailedModel": "anthropic/claude-opus-4.8",
+    "v2FailedRoute": "amazon-bedrock"
+  },
+  "failures": [],
+  "paidInferenceCalls": 0,
+  "routeArtifact": "results/v3/raw/metadata/openrouter-zdr-endpoints-20260805T113408Z.json",
+  "routeResponseHash": "d66df2531bd4e386322a5cc5a5edcff8a833e73e358bb9911e3777a43804c324",
+  "schemaVersion": "finboundbench.openrouter-capture.v3"
+}

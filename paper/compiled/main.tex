@@ -1,0 +1,44 @@
+\documentclass[sigconf,anonymous,review]{acmart}
+
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+\title{Authorized to See, Forbidden to Use: Purpose-Selective Bounded
+Execution for Financial AI}
+
+\begin{document}
+\begin{abstract}
+Financial organizations may be authorized to hold confidential attributes for
+one purpose while being prohibited from using them for another. Existing
+confidential-computing and agent-control mechanisms do not by themselves show
+that a system preserves the attribute's approved utility while preventing its
+cross-purpose influence. We define Purpose-Selective Bounded Execution (PSBE)
+and FinBoundBench, a paired financial-AI protocol that measures authorized
+utility, prohibited influence, cross-layer compromise, evidence reconstruction,
+privacy, availability, and overhead. In a three-phase OpenRouter diagnostic
+evaluation, three of five candidate models pass admission, 15/18 position
+diagnostic invocations pass, and 32/36 confirmatory invocations pass. Release
+denials are concentrated in a single smaller model, suggesting model-specific
+rather than system-level failure. The full confirmatory claim family (H1--H10)
+requires the registered 200-pair run with statistical inference.
+\end{abstract}
+
+\keywords{financial AI, purpose limitation, confidential computing, agent
+security, differential privacy, provenance}
+
+\maketitle
+
+\input{01_introduction}
+\input{02_related_work}
+\input{03_definition_threat_model}
+\input{04_benchmark}
+\input{05_runtime}
+\input{06_experimental_setup}
+\input{07_results}
+\input{08_limitations_ethics}
+\input{09_conclusion}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+\end{document}

@@ -1,0 +1,11 @@
+{
+  "completedAt": "2026-08-05T19:03:18.959Z",
+  "conditionsTested": 4,
+  "finalEventHash": "455270deae697e2393cb7c40cf1cbeefe633a3e537b0c9584349d3e155a3179c",
+  "instrumentationLabel": "INSTRUMENTATION_ONLY_NOT_A_RESEARCH_RESULT",
+  "manifestHash": "469bfd9d5756d8e51c81511b9127bf1d59982c128cb7966b3feb9b97c6bdbad7",
+  "schemaVersion": "finboundbench.dp-experiment-manifest.v3",
+  "seedsPerCondition": 10,
+  "status": "PASSED_TEST_DOUBLE_ONLY",
+  "totalEvents": 40
+}

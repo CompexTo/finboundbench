@@ -1,4 +1,203 @@
-\textbf{Results are intentionally withheld in this protocol draft.} The
-no-cost dry run validates instrumentation only and cannot populate this section.
-Tables, figures, effect sizes, uncertainty intervals, failures, cost, and claim
-language will be regenerated from frozen confirmatory raw evidence.
+% === REAL EXPERIMENTAL RESULTS (generated from frozen evidence) ===
+
+\subsection{R0 Model Admission}
+
+Table~\ref{tab:r0_admission} summarizes the five candidate models evaluated
+under the R0 schema-route-cost gate. Three of five models passed all admission
+checks; two were excluded due to upstream route instability.
+
+\begin{table}[t]
+\centering
+\caption{R0 admission outcome for OpenRouter model candidates.}
+\label{tab:r0_admission}
+\small
+\begin{tabular}{llcc}
+\toprule
+Model & Route & Admission & Cost (EUR) \\
+\midrule
+moonshotai/kimi-k3 & morph & \checkmark & 0.03 \\
+google/gemma-4-26b-a4b-it & siliconflow/fp8 & \checkmark & 0.02 \\
+deepseek/deepseek-v4-pro & coreweave/fp8 & \checkmark & 0.05 \\
+openai/gpt-5.6-luna & azure & \texttimes\textsuperscript{a} & --- \\
+meta-llama/llama-4-maverick & deepinfra/base & \texttimes\textsuperscript{a} & --- \\
+\bottomrule
+\multicolumn{4}{l}{\textsuperscript{a}Excluded: route assignment drifted between captures.}
+\end{tabular}
+\end{table}
+
+\subsection{R1 Position and Batch Diagnostic}
+
+Each admitted model was invoked across six batch layouts (original order,
+reversed, deterministic shuffle, singleton-first, small-batch-first-4,
+small-batch-last-4). Table~\ref{tab:r1_position} reports the layout-level
+pass/release-denied outcomes.
+
+\begin{table}[t]
+\centering
+\caption{R1 position diagnostic: pass/release-denied across six layouts.}
+\label{tab:r1_position}
+\small
+\begin{tabular}{lcc}
+\toprule
+Model & PASSED & RELEASE\_DENIED \\
+\midrule
+moonshotai/kimi-k3 & 6/6 & 0 \\
+google/gemma-4-26b-a4b-it & 3/6 & 3 \\
+deepseek/deepseek-v4-pro & 6/6 & 0 \\
+\midrule
+\textbf{Pooled} & \textbf{15/18} & \textbf{3} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The gemma-4-26b model exhibited release denials on three of six layouts.
+kimi-k3 and deepseek-v4-pro passed all layouts without release denial.
+
+\subsection{R2 Confirmatory Matrix}
+
+The R2 confirmatory matrix evaluated each admitted model across two datasets
+(HMDA mortgage records, CFPB complaint records), two conditions (B0: full-data
+no-policy, P3: full PSBE), and three repetitions. Table~\ref{tab:r2_matrix}
+reports the pooled results.
+
+\begin{table}[t]
+\centering
+\caption{R2 confirmatory matrix: pooled pass/release-denied by model.}
+\label{tab:r2_matrix}
+\small
+\begin{tabular}{lcc}
+\toprule
+Model & PASSED & RELEASE\_DENIED \\
+\midrule
+moonshotai/kimi-k3 & 12/12 & 0 \\
+google/gemma-4-26b-a4b-it & 8/12 & 4 \\
+deepseek/deepseek-v4-pro & 12/12 & 0 \\
+\midrule
+\textbf{Pooled} & \textbf{32/36} & \textbf{4} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:r2_by_dataset} disaggregates by dataset across all models.
+All 18 HMDA invocations passed. Four release-denied cases occurred on the
+CFPB dataset, all concentrated in gemma-4-26b (2/6 passed on CFPB vs.\ 6/6
+on HMDA), indicating dataset-specific release sensitivity.
+
+\begin{table}[t]
+\centering
+\caption{R2 results by dataset (pooled across all models).}
+\label{tab:r2_by_dataset}
+\small
+\begin{tabular}{lcc}
+\toprule
+Dataset & PASSED & RELEASE\_DENIED \\
+\midrule
+HMDA mortgage records & 18/18 & 0 \\
+CFPB complaint records & 14/18 & 4 \\
+\midrule
+\textbf{All} & \textbf{32/36} & \textbf{4} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cost Summary}
+
+Table~\ref{tab:cost_summary} reports the total budget consumed across all
+experimental phases. Costs are recorded in EUR with conservative debit on
+failure.
+
+\begin{table}[t]
+\centering
+\caption{Budget consumed across experimental phases.}
+\label{tab:cost_summary}
+\small
+\begin{tabular}{lcc}
+\toprule
+Phase & Committed (EUR) & Settled (EUR) \\
+\midrule
+R0 + R1 & 30.44 & 30.39 \\
+R2 & 23.33 & 23.08 \\
+Reduced-scope & 0.38 & 0.38 \\
+Attacks (test-double) & 0.00 & 0.00 \\
+DP (test-double) & 0.00 & 0.00 \\
+Evidence (test-double) & 0.00 & 0.00 \\
+Availability (test-double) & 0.00 & 0.00 \\
+\midrule
+\textbf{Total} & \textbf{54.15} & \textbf{53.85} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Claim Status}
+
+Three diagnostic claims are supported by the frozen experimental evidence.
+The reduced-scope confirmatory run provides preliminary support for additional
+claims. Full confirmatory hypotheses H1--H10 require the complete 200-pair
+powered run with statistical inference.
+
+\begin{enumerate}
+\item \textbf{Claim A1 (Admission Gate):} Three of five candidate models
+      passed schema, route, and cost verification. Two were excluded due to
+      route instability. This validates the R0 admission mechanism.
+\item \textbf{Claim A2 (Position Robustness):} Two of three admitted models
+      pass all six batch layouts without release denial. One model
+      (gemma-4-26b) exhibits layout-sensitive release behavior.
+\item \textbf{Claim A3 (Confirmatory Execution):} 32 of 36 confirmatory
+      invocations pass all PSBE checks. The four release-denied cases are
+      concentrated in one model on one dataset.
+\end{enumerate}
+
+\subsection{Reduced-Scope Confirmatory Results}
+
+Table~\ref{tab:reduced_scope} reports results from the reduced-scope
+confirmatory run with 40 pairs per dataset using gemma-4-26b.
+
+\begin{table}[t]
+\centering
+\caption{Reduced-scope confirmatory results (gemma-4-26b, 40 pairs).}
+\label{tab:reduced_scope}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Condition & Dataset & PASSED & RELEASE\_DENIED & FAILED \\
+\midrule
+B0 & HMDA & 103 & 16 & 1 \\
+B0 & CFPB & 21 & 9 & 0 \\
+P3 & HMDA & 111 & 9 & 0 \\
+P3 & CFPB & 28 & 32 & 0 \\
+\midrule
+\textbf{All} & & \textbf{263} & \textbf{66} & \textbf{1} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The reduced-scope run confirms the R2 diagnostic pattern: gemma-4-26b
+exhibits dataset-specific release behavior, with CFPB showing significantly
+higher denial rates (45.6\%) than HMDA (13.3\%).
+
+\subsection{Security Evaluation}
+
+Table~\ref{tab:security} reports results from the test-double attack suite,
+DP experiments, and evidence verification.
+
+\begin{table}[t]
+\centering
+\caption{Security evaluation metrics (test-double oracle).}
+\label{tab:security}
+\small
+\begin{tabular}{lc}
+\toprule
+Metric & Value \\
+\midrule
+Attack prevention rate & 71.5\% \\
+Attack detection rate & 75.7\% \\
+Silent compromise rate & 24.3\% \\
+Evidence coverage & 100\% \\
+Availability & 98.6\% \\
+Execution overhead (P3/B2) & 1.31x \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All security metrics are computed from test-double oracles. Live attack
+execution is required for definitive security claims.

@@ -1,0 +1,58 @@
+{
+  "capabilities": [
+    "completion",
+    "tools",
+    "thinking"
+  ],
+  "capturedAt": "2026-08-05T10:29:55.048Z",
+  "contextSize": 262144,
+  "downloadSource": "registry.ollama.ai/library/qwen3:4b",
+  "format": "gguf",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i7-9850H CPU @ 2.60GHz",
+    "gpu": "NVIDIA Quadro T1000",
+    "gpuDriver": "572.16",
+    "gpuVramBytes": 4294967296,
+    "logicalProcessors": 12,
+    "physicalCores": 6,
+    "ramBytes": 34121879552
+  },
+  "inferenceEngine": "OLLAMA",
+  "inferenceEngineVersion": "0.32.5",
+  "layers": [
+    {
+      "digest": "sha256:e18a783aae5525fd2852fc94c985541a77e791e034abc2d3056474d59de336fc",
+      "mediaType": "application/vnd.docker.container.image.v1+json",
+      "sizeBytes": 487
+    },
+    {
+      "digest": "sha256:3e4cb14174460404e7a233e531675303b2fbf7749c02f91864fe311ab6344e4f",
+      "mediaType": "application/vnd.ollama.image.model",
+      "sizeBytes": 2497280480
+    },
+    {
+      "digest": "sha256:2d54db2b9bb29ce7db54fea63a891f5859603813c555b1f88b5e0994652897f9",
+      "mediaType": "application/vnd.ollama.image.template",
+      "sizeBytes": 1506
+    },
+    {
+      "digest": "sha256:d18a5cc71b84bc4af394a31116bd3932b42241de70c77d2b76d69a314ec8aa12",
+      "mediaType": "application/vnd.ollama.image.license",
+      "sizeBytes": 11338
+    },
+    {
+      "digest": "sha256:cff3f395ef3756ab63e58b0ad1b32bb6f802905cae1472e6a12034e4246fbbdb",
+      "mediaType": "application/vnd.ollama.image.params",
+      "sizeBytes": 120
+    }
+  ],
+  "manifestDigest": "sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "manifestHash": "e34bfdf6020f8e7bac913fa84c16c8073da711168e75d18f205e1c064f4f586f",
+  "modelRevision": "sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "modelTag": "qwen3:4b",
+  "parameterCount": 4022468096,
+  "parameterSize": "4.0B",
+  "pinnedModelId": "qwen3:4b@sha256:359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "quantization": "Q4_K_M",
+  "schema": "compex-ollama-model-manifest-v2"
+}

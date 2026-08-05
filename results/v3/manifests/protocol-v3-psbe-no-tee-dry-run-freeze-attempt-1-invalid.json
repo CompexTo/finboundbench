@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "finboundbench.invalid-freeze-attempt.v3",
+  "status": "INVALID_PRE_EXECUTION",
+  "attempt": 1,
+  "retainedInResearchCommit": "43455f7895e2156fda1bfd08c9d76cd788e5d703",
+  "originalFreezeManifestHash": "40144d2d0e0ca749c3ce26d80684de05aa50e3674f0c007898a2256d7242638a",
+  "failureStage": "PRE_EXECUTION_FREEZE_VERIFICATION",
+  "reason": "The verifier accepted only 64-character commit identifiers while both bound repositories use 40-character Git SHA-1 identifiers.",
+  "officialDryRunStarted": false,
+  "providerCalls": 0,
+  "paidCostEur": 0,
+  "awsActions": 0,
+  "disposition": "Retain this attempt and build a new freeze manifest over the corrected validator before execution."
+}

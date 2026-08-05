@@ -34,6 +34,7 @@ EXPECTED_CONDITIONS = (
 EXPECTED_INFERENCE_CONDITIONS = EXPECTED_CONDITIONS[:7]
 EXPECTED_PRIVACY_CONDITIONS = EXPECTED_CONDITIONS[7:]
 HASH_PATTERN = re.compile(r"^[a-f0-9]{64}$")
+GIT_COMMIT_PATTERN = re.compile(r"^(?:[a-f0-9]{40}|[a-f0-9]{64})$")
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -140,7 +141,7 @@ def verify_dry_run_freeze(root: Path, platform_root: Path) -> dict[str, Any]:
 
 
 def _is_ancestor(root: Path, commit: str) -> bool:
-    if not HASH_PATTERN.fullmatch(commit):
+    if not GIT_COMMIT_PATTERN.fullmatch(commit):
         return False
     return (
         subprocess.run(

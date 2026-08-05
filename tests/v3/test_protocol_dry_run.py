@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -17,6 +18,7 @@ from purposebench.v3.dry_run import (
 )
 from purposebench.v3.protocol import (
     EXPECTED_CONDITIONS,
+    GIT_COMMIT_PATTERN,
     validate_dry_run_config,
     validate_protocol_design,
 )
@@ -38,6 +40,15 @@ def test_protocol_and_dry_run_configs_are_complete_and_no_cost() -> None:
     assert config["hardware_attestation"] is False
     assert len(config["test_double_models"]) == 3
     assert config["repetitions"] == 3
+
+
+def test_git_commit_validator_accepts_the_repository_object_format() -> None:
+    commit = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+    ).strip()
+    assert len(commit) == 40
+    assert GIT_COMMIT_PATTERN.fullmatch(commit)
+    assert GIT_COMMIT_PATTERN.fullmatch("a" * 64)
 
 
 def test_development_pairs_pass_sensitivity_and_invariance_gates() -> None:

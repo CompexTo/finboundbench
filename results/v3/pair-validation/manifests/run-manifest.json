@@ -1,0 +1,37 @@
+{
+  "attempts": 4,
+  "awsActions": 0,
+  "budget": {
+    "absoluteAuthorizedEur": 1.0,
+    "committedEur": 0.0007072,
+    "ledgerHash": "afcb2d5c22293a1ece780e1b8eab0443c1983c5fd1d4c75e372e9cc78acf09fe",
+    "ledgerPath": "results/v3/pair-validation/raw/budget/ledger.jsonl",
+    "ledgerRecordCount": 8,
+    "phaseAuthorizedEur": 1.0
+  },
+  "completedAt": "2026-08-06T13:18:29.021Z",
+  "confirmatoryClaimsPermitted": false,
+  "failedOrDenied": 0,
+  "finalEventHash": "cab9eff0a270744b11d65b77e3f38d1aa2884854bbaf98ca95564052bbb386da",
+  "freezeManifestHash": "b085172e3d78d2b40e948f940828e9c0c878d0c38817149471f5544c5810e886",
+  "hardwareAttestation": false,
+  "hostTrustRequired": true,
+  "manifestHash": "f166530b02d2f7b3571853e10a6480dcc71cb52f487a708d729217801dfed443",
+  "paidSecretReads": true,
+  "rawArtifact": {
+    "bytes": 43824,
+    "events": 4,
+    "path": "results/v3/pair-validation/raw/events.jsonl",
+    "sha256": "832d76031d4e7046e376a3c21af095edee8b5414147daa9f8d03128eb198c0e2"
+  },
+  "released": 4,
+  "remoteProviderCalls": 4,
+  "repositoryBindings": {
+    "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
+    "researchCommit": "107b080bfe1c0e1122a94b65bd77f6d3e24f62d1"
+  },
+  "schemaVersion": "finboundbench.openrouter-pair-validation-run.v3",
+  "status": "PASSED_ONE_PAIR_VALIDATION",
+  "validationId": "finboundbench-v3-one-pair-validation",
+  "validationLabel": "OPENROUTER_ONE_PAIR_VALIDATION_GATE_NOT_CONFIRMATORY"
+}

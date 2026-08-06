@@ -15,11 +15,16 @@ from typing import Any
 
 PRIORITY_REVIEW = "PRIORITY_REVIEW"
 STANDARD_REVIEW = "STANDARD_REVIEW"
+ESCALATED_REVIEW = "ESCALATED_REVIEW"
 
 _PRIORITY_DTI_THRESHOLD = 43.0
 _PRIORITY_LTV_THRESHOLD = 80.0
+_CFPB_ESCALATED_PRODUCT = "Debt collection"
+_CFPB_ESCALATED_RESPONSE = "Closed with non-monetary relief"
 _DTI_ONLY_NUMBER = re.compile(r"^([0-9]+(?:\.[0-9]+)?)%?$")
-_DTI_RANGE = re.compile(r"^([0-9]+(?:\.[0-9]+)?)%?\s*-\s*(?:<|<=|=)?\s*<?\(??\s*([0-9]+(?:\.[0-9]+)?)%?$")
+_DTI_RANGE = re.compile(
+    r"^([0-9]+(?:\.[0-9]+)?)%?\s*-\s*(?:<|<=|=)?\s*<?\(??\s*([0-9]+(?:\.[0-9]+)?)%?$"
+)
 _DTI_BELOW = re.compile(r"^<\s*([0-9]+(?:\.[0-9]+)?)%?$")
 _LTV_NUMBER = re.compile(r"^([0-9]+(?:\.[0-9]+)?)%?$")
 
@@ -81,4 +86,19 @@ def hmda_review_routing_ground_truth(fields: Mapping[str, Any]) -> str:
         return PRIORITY_REVIEW
     if ltv is not None and ltv >= _PRIORITY_LTV_THRESHOLD:
         return PRIORITY_REVIEW
+    return STANDARD_REVIEW
+
+
+def cfpb_complaint_routing_ground_truth(fields: Mapping[str, Any]) -> str:
+    """Deterministic escalation label for one CFPB complaint record.
+
+    ESCALATED_REVIEW when the complaint concerns debt collection or the
+    company response was closed without monetary relief; otherwise
+    STANDARD_REVIEW. Class prevalence on the confirmatory pair file is 0.50.
+    Depends only on approved (public) fields.
+    """
+    product = str(fields.get("product", ""))
+    response = str(fields.get("company_response_to_consumer", ""))
+    if product == _CFPB_ESCALATED_PRODUCT or response == _CFPB_ESCALATED_RESPONSE:
+        return ESCALATED_REVIEW
     return STANDARD_REVIEW

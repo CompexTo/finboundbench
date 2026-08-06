@@ -2,6 +2,11 @@ claim_id,hypothesis_id,estimand,population,raw_manifest,analysis_artifact,paper_
 A1,R0_gate,admission_pass_rate,5_candidates,results/v3/openrouter-admission/raw/events.jsonl,docs/v3/OPENROUTER_ADMISSION.md,Table_1,DIAGNOSTIC_COMPLETE,L1_route_instability
 A2,R1_robustness,layout_pass_rate,18_invocations,results/v3/position-diagnostic/raw/events.jsonl,docs/v3/OPENROUTER_ADMISSION.md,Table_2,DIAGNOSTIC_COMPLETE,L2_model_specific_release
 A3,R2_confirmatory,confirmatory_pass_rate,36_invocations,results/v3/confirmatory-matrix/raw/events.jsonl,docs/v3/OPENROUTER_ADMISSION.md,Table_3_4,DIAGNOSTIC_COMPLETE,L3_needs_full_200_pair_run
+M1,live_matrix_release,release_rate,two_tasks_3360_cells,results/v3/matrix-rebuild/{,taskB}/raw/events.jsonl,analysis/matrix-analysis.json,Table_7,LIVE_ANALYSIS_NOT_CONFIRMATORY,L4_one_commercial_lane
+M2,live_task_utility,balanced_accuracy,released_cells_per_condition,results/v3/matrix-rebuild/raw/events.jsonl,analysis/matrix-analysis.json,Table_8,LIVE_ANALYSIS_NOT_CONFIRMATORY,L4_one_commercial_lane
+M3,live_aur,autorized_utility_retention,task_condition_cells,results/v3/matrix-rebuild/raw/events.jsonl,analysis/matrix-analysis.json,Table_9,LIVE_ANALYSIS_NOT_CONFIRMATORY,L5_gate_dependence
+M4,live_uir,uir_vs_floor,valid_counterfactual_pairs,results/v3/matrix-rebuild/raw/events.jsonl,analysis/matrix-analysis.json,Table_10,LIVE_ANALYSIS_NOT_CONFIRMATORY,L6_nondeterminism_floor
+M5,live_availability,released_over_attempted,240_cells_per_condition_per_task,results/v3/matrix-rebuild/raw/events.jsonl,analysis/matrix-analysis.json,Table_11,LIVE_ANALYSIS_NOT_CONFIRMATORY,L4_one_commercial_lane
 H1,approved_signal_sensitivity,aur_delta,confirmatory_pairs,PENDING,PENDING,Results,NOT_YET_TESTED,NONE
 H2,psbe_utility_retention,aur_point_and_lb,confirmatory_pairs,PENDING,PENDING,Results,NOT_YET_TESTED,NONE
 H3a,honest_noninferiority,accuracy_margin_005,confirmatory_pairs,PENDING,PENDING,Results,NOT_YET_TESTED,NONE

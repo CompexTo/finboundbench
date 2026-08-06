@@ -18,13 +18,16 @@ and FinBoundBench, a paired financial-AI protocol that measures authorized
 utility, prohibited influence, cross-layer compromise, evidence reconstruction,
 privacy, availability, and overhead. In a three-phase OpenRouter diagnostic
 evaluation, three of five candidate models pass admission, 15/18 position
-diagnostic invocations pass, and 32/36 R2 diagnostic invocations pass; one
-reduced live model lane (330 invocations) is reported as an execution and
-release-policy diagnostic over a single commercial model lane. Attack,
-differential-privacy, evidence-verification, availability, and overhead
-results are intentionally withheld pending live execution. The full
-confirmatory claim family (H1--H10) requires the live non-TEE benchmark with
-statistical inference.
+diagnostic invocations pass, and 32/36 R2 diagnostic invocations pass. A live
+purpose-selective matrix (two runs, 1680 cells each, one commercial lane)
+reports task utility, unauthorized-influence, availability, and latency under a
+non-confirmatory label: approved-only conditions reach 100\% release integrity,
+the authorized-oracle utility advantage is not robust (AUR defined only on one
+task and negative there), and measured per-pair influence sits at or below the
+model's nondeterminism floor. Attack, differential-privacy,
+evidence-verification, and overhead results remain intentionally withheld
+pending their live executions. The full confirmatory claim family (H1--H10)
+requires the completed statistical-analysis phase over these live events.
 \end{abstract}
 
 \keywords{financial AI, purpose limitation, confidential computing, agent

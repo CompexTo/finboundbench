@@ -164,6 +164,14 @@ def _validate_denied_fields(root: Path, config: dict[str, Any]) -> None:
     denied = config.get("denied_fields")
     if not isinstance(denied, list) or sorted(denied) != sorted(expected):
         raise ValueError("denied fields must equal the dataset's prohibited fields")
+    prohibited = config.get("prohibited_exact_values")
+    if (
+        not isinstance(prohibited, list)
+        or not prohibited
+        or any(not isinstance(value, str) or not value for value in prohibited)
+        or len(set(prohibited)) != len(prohibited)
+    ):
+        raise ValueError("prohibited exact values must be a non-empty unique list of strings")
 
 
 def _validate_conditions(config: dict[str, Any]) -> None:

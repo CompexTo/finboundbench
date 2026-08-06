@@ -57,6 +57,18 @@ def test_config_validation_fails_closed_on_budget_envelope() -> None:
         validate_pair_validation_config(ROOT, config)
 
 
+def test_config_validation_fails_closed_on_empty_prohibited_exact_values() -> None:
+    config = _read_config()
+    from purposebench.utils import sha256_file
+
+    config["workload_image_digest"] = (
+        f"sha256:{sha256_file(ROOT / 'scripts/governed_openrouter_pair_bridge_v3.cjs')}"
+    )
+    config["prohibited_exact_values"] = []
+    with pytest.raises(ValueError, match="prohibited exact values"):
+        validate_pair_validation_config(ROOT, config)
+
+
 def test_load_cells_returns_exactly_b0_a_b0_b_p3_a_p3_b() -> None:
     config = _read_config()
     cells = load_cells(ROOT, config)

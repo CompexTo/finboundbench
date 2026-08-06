@@ -1,0 +1,7 @@
+{
+  "analysisArtifact": "results/v3/matrix-rebuild/taskB/analysis/matrix-analysis.json",
+  "analysisHash": "f8af702138ffd21b20797a9f6af3639c7a45eb7ccb52c0bb4d7b12068fae99fd",
+  "manifestHash": "4aa1e69af66cb3ca3223789ba15a06ece920953cd4cdb00dc01ae16a9428d3fa",
+  "schemaVersion": "finboundbench.matrix-analysis.v3",
+  "task": "taskB"
+}

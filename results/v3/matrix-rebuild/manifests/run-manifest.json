@@ -1,0 +1,47 @@
+{
+  "attempts": 1680,
+  "awsActions": 0,
+  "budget": {
+    "absoluteAuthorizedEur": 40.0,
+    "committedEur": 0.06643264,
+    "interruptedLedger": {
+      "committedEur": 1.06268984,
+      "events": 1404,
+      "hash": "66bd22d44455c2992c732b261294ff214182a583675c7443bccdaeead69b0b4f",
+      "path": "results/v3/matrix-rebuild/budget/ledger.interrupted-2026-08-06.jsonl",
+      "recordCount": 2810
+    },
+    "ledgerHash": "e997785682a138e0591f81aaf910d31346fc8937262b85b732ca4f16658470a9",
+    "ledgerPath": "results/v3/matrix-rebuild/budget/ledger.jsonl",
+    "ledgerRecordCount": 552,
+    "phaseAuthorizedEur": 40.0
+  },
+  "completedAt": "2026-08-06T18:55:33.405Z",
+  "confirmatoryClaimsPermitted": false,
+  "failedOrDenied": 191,
+  "finalEventHash": "bb5532a0735d3de5278e7c66e4ca173c61eae50d248d993ba9344ff7bcc7b4a7",
+  "freezeManifestHash": "9bf0314fd9ea221c8a66c2b62310a58b4518cba0154f1089c1498a55749cd588",
+  "hardwareAttestation": false,
+  "hostTrustRequired": true,
+  "label": "OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD_NOT_CONFIRMATORY",
+  "manifestHash": "1127585c9fa45b6552ee1ca4dc055444c3a8285014f715297b1b41f03d611b8c",
+  "matrixId": "finboundbench-v3-purpose-selective-matrix",
+  "paidSecretReads": true,
+  "rawArtifact": {
+    "bytes": 17936605,
+    "events": 1680,
+    "path": "results/v3/matrix-rebuild/raw/events.jsonl",
+    "sha256": "d8e3bf89936dc47e69495e155310aa2ca63a2bb63e0d4872b833a89bf1f492c0"
+  },
+  "released": 1489,
+  "remoteProviderCalls": 1680,
+  "repositoryBindings": {
+    "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
+    "researchCommit": "b7e3f937fd009b4a95b58a969f1155776591308a"
+  },
+  "resumedFromEvents": 1404,
+  "scheduleHash": "24a244720cc209aa7f31e8293b0372a93775fd730b517dcb3f66a1c058d17bd2",
+  "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-run.v3",
+  "status": "MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES",
+  "task": "taskA"
+}

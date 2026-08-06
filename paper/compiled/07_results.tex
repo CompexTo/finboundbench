@@ -2,10 +2,11 @@
 
 We present results from the three-phase OpenRouter diagnostic evaluation:
 R0 (model admission), R1 (position and batch diagnostic), and R2
-(confirmatory matrix). All artifacts are frozen; claim traceability is
-maintained in the supplementary registry.
+(diagnostic matrix), followed by one reduced live model lane. These are
+execution and release-policy diagnostics; primary research metrics are
+intentionally withheld pending the live non-TEE study.
 
-\input{results_placeholder}
+\input{generated/results_placeholder}
 
 \subsection{Discussion of Diagnostic Findings}
 
@@ -22,21 +23,23 @@ provider substitution.
 \textbf{Release denial is model-specific, not system-level.} All seven
 release-denied cases across R1 and R2 occurred for the same model
 (google/gemma-4-26b-a4b-it). The two larger models (kimi-k3, deepseek-v4-pro)
-passed every layout and confirmatory invocation without release denial.
-This suggests that release policy sensitivity is a property of the model's
-output behavior, not a flaw in the PSBE release mechanism.
+passed every layout and diagnostic invocation without release denial.
 
 \textbf{Dataset sensitivity interacts with model capability.} The four
 R2 release denials for gemma-4-26b occurred exclusively on the CFPB
-complaint dataset, not on HMDA mortgage records. This interaction between
-model capability and dataset complexity is an important consideration for
-production deployment: smaller models may require dataset-specific tuning
-of release thresholds.
+complaint dataset, not on HMDA mortgage records.
+
+\textbf{The reduced live lane is a release-policy diagnostic only.} An audit
+of the transmitted-field evidence found that every invocation in the reduced
+stream transmitted only a pseudonymized record identifier, with
+byte-identical projections across conditions. The stream therefore carries
+no task-utility or purpose-selectivity contrast and is reported solely as a
+live execution and release-policy diagnostic over one commercial model lane.
 
 \subsection{Claim Status}
 
-Three diagnostic claims (A1--A3) are supported by frozen evidence. The
-full confirmatory claim family (H1--H10) requires the registered 200-pair
-run with statistical inference, which is outside the scope of this
-diagnostic phase. All pending hypotheses remain preregistered and
-unmodified.
+Three diagnostic claims (A1--A3) are supported by the live diagnostic
+evidence above. No primary research metric (AUR, UIR, SPCR, EVC,
+availability, overhead) is reported in this draft; every such metric
+requires the live non-TEE benchmark. The full confirmatory claim family
+(H1--H10) remains preregistered and untested.

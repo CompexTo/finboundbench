@@ -18,10 +18,13 @@ and FinBoundBench, a paired financial-AI protocol that measures authorized
 utility, prohibited influence, cross-layer compromise, evidence reconstruction,
 privacy, availability, and overhead. In a three-phase OpenRouter diagnostic
 evaluation, three of five candidate models pass admission, 15/18 position
-diagnostic invocations pass, and 32/36 confirmatory invocations pass. Release
-denials are concentrated in a single smaller model, suggesting model-specific
-rather than system-level failure. The full confirmatory claim family (H1--H10)
-requires the registered 200-pair run with statistical inference.
+diagnostic invocations pass, and 32/36 R2 diagnostic invocations pass; one
+reduced live model lane (330 invocations) is reported as an execution and
+release-policy diagnostic over a single commercial model lane. Attack,
+differential-privacy, evidence-verification, availability, and overhead
+results are intentionally withheld pending live execution. The full
+confirmatory claim family (H1--H10) requires the live non-TEE benchmark with
+statistical inference.
 \end{abstract}
 
 \keywords{financial AI, purpose limitation, confidential computing, agent
@@ -29,15 +32,15 @@ security, differential privacy, provenance}
 
 \maketitle
 
-\input{01_introduction}
-\input{02_related_work}
-\input{03_definition_threat_model}
-\input{04_benchmark}
-\input{05_runtime}
-\input{06_experimental_setup}
-\input{07_results}
-\input{08_limitations_ethics}
-\input{09_conclusion}
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_definition_threat_model}
+\input{sections/04_benchmark}
+\input{sections/05_runtime}
+\input{sections/06_experimental_setup}
+\input{sections/07_results}
+\input{sections/08_limitations_ethics}
+\input{sections/09_conclusion}
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{references}

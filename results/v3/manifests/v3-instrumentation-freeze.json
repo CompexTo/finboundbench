@@ -1,0 +1,96 @@
+{
+  "freezeId": "v3-instrumentation-freeze-20260806",
+  "createdAt": "2026-08-06T00:00:00Z",
+  "status": "FROZEN",
+  "scope": "INSTRUMENTATION_AND_REDUCED_LIVE_EXECUTION_ONLY",
+  "supersedesDescriptionOf": {
+    "manifest": "results/v3/manifests/v3-final-freeze.json",
+    "manifestSha256": "72d414c5c11f8376a2f8a80c6450451a7f1807e738fad3c20f1987dd9875c9c9",
+    "action": "RECLASSIFIED_NOT_MODIFIED",
+    "note": "v3-final-freeze.json is preserved unchanged for audit history. Its label 'Final experimental freeze with all artifacts' and its next-step 'Paper submitted to venue' are invalid and are overridden by this manifest."
+  },
+  "description": "Reclassification of the artifacts previously labelled v3-final-freeze. This package is an instrumentation validation and reduced live execution package, not a completed experiment and not a final experimental freeze.",
+  "whatIsLive": {
+    "reducedConfirmatoryStream": {
+      "path": "results/v3/confirmatory-reduced/raw/events.jsonl",
+      "sha256": "1a7b85c6d3b3b683376584b079be7830f0201b6bf6f474f63b87752faabdcd5d",
+      "events": 330,
+      "liveModelLanes": ["google/gemma-4-26b-a4b-it via OpenRouter route siliconflow/fp8"],
+      "characterization": "A live execution and release-policy diagnostic over one commercial model lane. Not a completed confirmatory study."
+    }
+  },
+  "whatIsTestDouble": {
+    "attackSuite": {
+      "path": "results/v3/attack-suite/raw/events.jsonl",
+      "sha256": "a63b496a479530d26a2244199817fdd68c5386dc7cf085716b792cd36a478c71",
+      "nature": "Deterministic test-double oracle outcomes; no live attacks were executed against real implementations."
+    },
+    "dpExperiments": {
+      "path": "results/v3/dp-experiments/raw/events.jsonl",
+      "sha256": "2f4d2c21aecdfd1ff7e239b3e37ec43e55ce87c9af041e3fba3e104fc7e6764e",
+      "nature": "Deterministic test-double outputs; no real DP-SGD training was performed."
+    },
+    "evidenceVerification": {
+      "path": "results/v3/evidence-verification/raw/events.jsonl",
+      "sha256": "a9c5295bfa2ed6c3ab7d33b42e3e03e1839ac5d7b2c63fcaad676f59449a3651",
+      "nature": "Deterministic test-double outputs; no real evidence bundles were produced or verified."
+    },
+    "availabilityOverhead": {
+      "path": "results/v3/availability-overhead/raw/events.jsonl",
+      "sha256": "eb33bd1c563459180bb25c075a434f226de6b46b0fc8d8e5e0d3467b84050149",
+      "nature": "Deterministic test-double outputs with generated timings; no measured wall-clock executions."
+    },
+    "statisticalReport": {
+      "path": "results/v3/statistical-analysis/derived/statistical-report.json",
+      "sha256": "7041098820b5d57753797c2fcc9af8b575456870874fb4dfa6da8645c07f47ce",
+      "nature": "Computed from the test-double streams above; additionally, its AUR and UIR formulas do not implement the preregistered metric definitions (see docs/v3/METRIC_CORRECTION.md)."
+    }
+  },
+  "limitations": [
+    "Attack results are deterministic test doubles",
+    "DP results are deterministic test doubles",
+    "Evidence-verification results are deterministic test doubles",
+    "Availability and overhead results are deterministic test doubles",
+    "Only the reduced Gemma OpenRouter lane used live provider execution",
+    "Primary research claims are not permitted",
+    "The paper is not submission-ready",
+    "Every live confirmatory event transmitted only source_record_id; no financial fields and no confidential fields reached the model, so the stream cannot support purpose-selectivity claims (see docs/v3/TRANSMITTED_FIELD_AUDIT.md)",
+    "B0 and P3 projections were identical in the live stream; the condition flag had no effect on transmitted data",
+    "Live stream has one model, unequal B0/P3 counts, unequal dataset coverage, 66 release denials from truncated non-JSON outputs, and 1 provider timeout"
+  ],
+  "invalidMetrics": {
+    "AUR": {
+      "reportedValue": 0.9341,
+      "reason": "Computed as P3 execution pass rate / B0 execution pass rate; not Authorized Utility Retention."
+    },
+    "UIR": {
+      "reportedValue": 0.2000,
+      "reason": "Computed as release denials / total executions; a release-denial rate, not Unauthorized Influence Rate."
+    },
+    "SPCR": {
+      "reportedValue": 0.2426,
+      "reason": "Derived from a test-double attack oracle; no live attacks executed."
+    },
+    "EVC": {
+      "reportedValue": 1.0000,
+      "reason": "Derived from test-double evidence verification; no real evidence bundles verified."
+    },
+    "availability": {
+      "reportedValue": 0.9857,
+      "reason": "Derived from test-double availability stream; no measured executions."
+    },
+    "overhead": {
+      "reportedValue": 1.3116,
+      "reason": "Derived from generated timings; no wall-clock measurement."
+    }
+  },
+  "next_steps": [
+    "Resolve the transmitted-field defect (docs/v3/TRANSMITTED_FIELD_AUDIT.md)",
+    "Rebuild the paired benchmark with real task utility and the full ten-condition matrix",
+    "Execute live attacks, real DP-SGD, real evidence verification, and measured overhead",
+    "Produce v3-live-non-tee-experimental-freeze only after those results and human review"
+  ],
+  "prohibitedNextSteps": [
+    "Paper submitted to venue"
+  ]
+}

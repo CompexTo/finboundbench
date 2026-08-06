@@ -8,13 +8,22 @@ data, workloads, capabilities, releases, privacy, lifecycle, and evidence.
 The diagnostic evaluation demonstrates that the PSBE-Runtime pipeline executes
 correctly against three commercial models via OpenRouter. The admission gate
 rejects models with unstable route assignments, the position diagnostic
-identifies layout-sensitive release behavior, and the confirmatory matrix
-validates end-to-end execution across datasets and conditions. Release denials
-are concentrated in a single smaller model, indicating that the PSBE release
-mechanism correctly differentiates model behavior rather than producing
-systemic false denials.
+identifies layout-sensitive release behavior, and the R2 diagnostic
+validates end-to-end execution across datasets and conditions. Release
+denials are concentrated in one model on one dataset.
 
-Three claims are supported by frozen diagnostic evidence. The full confirmatory
-claim family (H1--H10) requires the registered 200-pair run with statistical
-inference. All artifacts, budgets, and claim traces are frozen and publicly
-auditable.
+A reduced live lane (330 invocations of one admitted model) is reported
+strictly as a live execution and release-policy diagnostic over one
+commercial model lane. An audit of its transmitted-field evidence found that
+only a pseudonymized record identifier was transmitted, so the stream carries
+no purpose-selectivity contrast; the confirmatory experiment is suspended
+until that defect is corrected and re-validated.
+
+Attack, differential-privacy, evidence-verification, availability, and
+overhead results are intentionally withheld: prior test-double values have
+been withdrawn and will be reported only from live attacks, real DP-SGD
+training, real evidence verification, and measured wall-clock executions.
+
+Three diagnostic claims are supported by the live diagnostic evidence. The
+full confirmatory claim family (H1--H10) requires the live non-TEE
+purpose-selective benchmark with statistical inference.

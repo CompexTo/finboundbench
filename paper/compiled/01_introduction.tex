@@ -16,9 +16,11 @@ evidence. FinBoundBench asks whether the same synthetic confidential signal can
 improve an approved financial task and cease to influence a distinct prohibited
 task. The comparison includes full-data, prompt-only, a strong deterministic
 prefilter, and layered PSBE conditions. In a three-phase OpenRouter diagnostic,
-three of five models pass admission, 83\% of position diagnostic invocations
-pass, and 89\% of confirmatory invocations pass. Release denials are
-concentrated in one model, suggesting model-specific rather than system-level
-failure. The intended contributions are a formal definition, paired benchmark,
-cross-layer attack suite, and empirical analysis; the full confirmatory claim
-family requires the registered 200-pair run.
+three of five models pass admission, 15/18 position diagnostic invocations
+pass, and 32/36 R2 diagnostic invocations pass; one reduced live model lane
+(330 invocations) is reported as an execution and release-policy diagnostic
+only. Attack, differential-privacy, evidence-verification, availability, and
+overhead results are intentionally withheld pending live execution. The
+intended contributions are a formal definition, paired benchmark, cross-layer
+attack suite, and empirical analysis; the full confirmatory claim family
+requires the live non-TEE benchmark.

@@ -1,16 +1,10 @@
 {
   "artifacts": [
     {
-      "bytes": 5830,
+      "bytes": 5697,
       "path": "configs/v3/purpose-selective-matrix-v3.yaml",
       "repository": "research",
-      "sha256": "783d2c2be3e15fd5137bca38b1fdf55a9751967c4301afdc4bf89637463895a5"
-    },
-    {
-      "bytes": 5850,
-      "path": "configs/v3/purpose-selective-matrix-task-b-v3.yaml",
-      "repository": "research",
-      "sha256": "03034cce9b6b05bc08d8727d42fe67a3cede1f83d0497dc33a528866376ed1e6"
+      "sha256": "45ddc7f321edc35da67f7a0af2aa0f35d4604c4fd7d131f897d97924c60f6f48"
     },
     {
       "bytes": 15923,
@@ -19,16 +13,16 @@
       "sha256": "e0e8002f4b0261ecbedb462479ade954e847c3b832942973094b5cfa25f5f680"
     },
     {
-      "bytes": 62540,
+      "bytes": 37545,
       "path": "src/purposebench/v3/matrix.py",
       "repository": "research",
-      "sha256": "de80110dad81385ec359deb22d905ffe82e61dc78aa23b70006d8c4a27e19e19"
+      "sha256": "c340f382438453213620b96c4f746e89ae81b1f219f845f1ea78109632a0a472"
     },
     {
-      "bytes": 5943,
+      "bytes": 3885,
       "path": "src/purposebench/v3/tasks.py",
       "repository": "research",
-      "sha256": "f52104d6f33651f73ff9f3f8f81510de592d6e9cd434d3c18fc0362fb3560af0"
+      "sha256": "64f3bbd4614cacaf7f52e9f2cc5630cbdd00a93a3121273589052b8b30253867"
     },
     {
       "bytes": 37165,
@@ -61,40 +55,28 @@
       "sha256": "0c245bdbf241125ca17c404dc3d2011c466772c1095b1b54dfd5585fc160297c"
     },
     {
-      "bytes": 1204,
+      "bytes": 1054,
       "path": "scripts/build_v3_matrix_schedule.py",
       "repository": "research",
-      "sha256": "51791a138361646cbc042134fd7058ec45128f9560e5efbd2bdf658423b27d27"
+      "sha256": "dd89c5228c7835dac33acdaf8bf9056ed0ea8aaf361c1110623fc0b05ca9d657"
     },
     {
-      "bytes": 1348,
+      "bytes": 1094,
       "path": "scripts/verify_v3_matrix_schedule.py",
       "repository": "research",
-      "sha256": "3de9e6a00549defabf67904abfe0a4791caafe307c8906667d2becac187dd6d1"
+      "sha256": "7f852ae4b20cd467bc9b2f9f769642d925176576860e102eb808c467d0ae0a76"
     },
     {
-      "bytes": 1836,
+      "bytes": 1666,
       "path": "scripts/build_v3_protocol_freeze.py",
       "repository": "research",
-      "sha256": "761481de4d72097cb9e35b156711e23038b5a524ab2173dc4f331eb9f1f8f6f5"
+      "sha256": "852f80380a45fd2f7a87b47d099811464033f73b673d38f2fc7c4616ec5b60b2"
     },
     {
-      "bytes": 939,
+      "bytes": 906,
       "path": "scripts/verify_v3_protocol_freeze.py",
       "repository": "research",
-      "sha256": "dd856f43d2a63d9718dd6dc28f9dfbcfea0f4efc90097b61ad92f1a2d77b2f17"
-    },
-    {
-      "bytes": 1214,
-      "path": "scripts/run_v3_matrix.py",
-      "repository": "research",
-      "sha256": "0e8594858ec69df053d5ac9dc1479594735c3f11d3ee1da464cd88e6953b6c98"
-    },
-    {
-      "bytes": 1025,
-      "path": "scripts/verify_v3_matrix_run.py",
-      "repository": "research",
-      "sha256": "4b24bfacc2917254ff499cf93a206f2f822e93d69b0c7e2230b49c68d9188d2f"
+      "sha256": "52fe107fd9137fa871815c733fc208707386de6909fabbfe74a63ce373c520fd"
     },
     {
       "bytes": 1229,
@@ -151,7 +133,6 @@
       "sha256": "65cec20e767fc66772d38852b0be3bafa2965a002f8d832b5c81f26197e19a2d"
     }
   ],
-  "authorizationState": "LIVE_EXECUTION_AUTHORIZED",
   "awsActionsPermitted": false,
   "budget": {
     "absoluteAuthorizedEur": 40.0,
@@ -162,22 +143,19 @@
     "reservationPerCallEur": 0.02
   },
   "confirmatoryClaimsPermitted": false,
-  "freezeManifestHash": "e895d2a68446077fa929e250a77f63e68e679d5c108f0b964855eb4594652cb5",
-  "frozenAt": "2026-08-06T14:46:42.713Z",
+  "freezeManifestHash": "323de4b4087735729c24bd70d311b25e5033f9b2d2df5c0d64a9bdf3b6fae6b8",
+  "frozenAt": "2026-08-06T14:02:46.547Z",
   "hardwareAttestation": false,
-  "matrixIds": [
-    "finboundbench-v3-purpose-selective-matrix",
-    "finboundbench-v3-purpose-selective-matrix-taskb"
-  ],
+  "matrixId": "finboundbench-v3-purpose-selective-matrix",
   "modelManifestHashes": [
     "f51178cd4787e933e02381306c24ba69005f3f942b201afa8cdb21d6e571fb24"
   ],
   "protocolId": "protocol-v3-psbe-no-tee",
   "providerSecretPermitted": true,
-  "remoteProviderCallsPermitted": 3360,
+  "remoteProviderCallsPermitted": 1680,
   "repositoryBindings": {
     "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
-    "researchCommit": "07f462834e90cb456924d2ddbcc4e8f685d95625"
+    "researchCommit": "d7b021bd5c44bdb9fac29e678f00014dff95b913"
   },
   "repositoryStateAtFreeze": {
     "platform": {
@@ -187,25 +165,16 @@
     },
     "platformScopeBoundByArtifactHashes": true,
     "research": {
-      "commit": "07f462834e90cb456924d2ddbcc4e8f685d95625",
-      "tracked_diff_sha256": "90be8b7d6c7b20a6c7275d562d3d5e6c7b45fee23e04032efea1e0013bec639c",
+      "commit": "d7b021bd5c44bdb9fac29e678f00014dff95b913",
+      "tracked_diff_sha256": "2b36c902583cd3daff84ef918d6731ec9626e2e7bfb64a8ca292007333315ce9",
       "tracked_tree_dirty": true
     },
     "unrelatedUserChangesIncluded": false
   },
   "schedule": {
-    "taskA": {
-      "cells": 1680,
-      "path": "results/v3/matrix-rebuild/manifests/schedule.json",
-      "scheduleHash": "24a244720cc209aa7f31e8293b0372a93775fd730b517dcb3f66a1c058d17bd2",
-      "scheduleSha256": "82962b3943e2d147fa5129e92257b24ba03f4346aa7b5a1046a58b83cfe7f6a9"
-    },
-    "taskB": {
-      "cells": 1680,
-      "path": "results/v3/matrix-rebuild/taskB/manifests/schedule.json",
-      "scheduleHash": "3eda22adbce86c38be20edcf437c22a6dfd8dab7ef659b06ea0767bbd3f8ac6e",
-      "scheduleSha256": "8fba108e96d7b521a38b2cebd31e92192e5219d382c27c77371daeee5817bf0d"
-    }
+    "cells": 1680,
+    "path": "results/v3/matrix-rebuild/manifests/schedule.json",
+    "scheduleHash": "24a244720cc209aa7f31e8293b0372a93775fd730b517dcb3f66a1c058d17bd2"
   },
   "schemaVersion": "finboundbench.protocol-v3-live-freeze",
   "secretSource": "ENVIRONMENT_REFERENCE_ONLY",

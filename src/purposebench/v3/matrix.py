@@ -955,6 +955,25 @@ def build_protocol_freeze(
     return {**core, "freezeManifestHash": sha256_json(core)}
 
 
+def _recorded_freeze_with_hash(research_root: Path, freeze_hash: str) -> dict[str, Any] | None:
+    """Return the intact recorded protocol freeze (live or superseded) with the given hash."""
+    manifests_dir = research_root / "results/v3/manifests"
+    candidates: list[Path] = [manifests_dir / PROTOCOL_FREEZE_PATH.name]
+    superseded = manifests_dir / "superseded"
+    if superseded.is_dir():
+        candidates.extend(sorted(superseded.glob("protocol-v3-live-freeze-*.json")))
+    for path in candidates:
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        claimed = value.get("freezeManifestHash")
+        without = {key: val for key, val in value.items() if key != "freezeManifestHash"}
+        if claimed == freeze_hash and sha256_json(without) == claimed:
+            return value
+    return None
+
+
 def verify_protocol_freeze(research_root: Path, platform_root: Path) -> dict[str, Any]:
     for task in (TASK_A, TASK_B):
         config = _read_config(research_root, task)
@@ -1347,7 +1366,16 @@ def verify_matrix_run(
         raise ValueError("matrix run manifest self-hash mismatch")
     manifest["manifestHash"] = claimed
     if manifest["freezeManifestHash"] != freeze["freezeManifestHash"]:
-        raise ValueError("matrix run is not bound to the active freeze")
+        recorded = _recorded_freeze_with_hash(research_root, manifest["freezeManifestHash"])
+        if recorded is None:
+            raise ValueError("matrix run is not bound to an intact recorded freeze")
+        for bound_task in (TASK_A, TASK_B):
+            if recorded.get("schedule", {}).get(bound_task, {}).get(
+                "scheduleHash"
+            ) != _schedule_hash_of(research_root, bound_task):
+                raise ValueError("matrix run bound freeze schedules drift")
+        if recorded.get("validationAnchor") != _one_pair_anchor(research_root):
+            raise ValueError("matrix run bound freeze anchor drift")
     raw_path = research_root / manifest["rawArtifact"]["path"]
     if sha256_file(raw_path) != manifest["rawArtifact"]["sha256"]:
         raise ValueError("matrix raw artifact hash mismatch")

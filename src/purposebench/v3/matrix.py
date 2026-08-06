@@ -1038,8 +1038,22 @@ def _node_major() -> int:
     return int(match.group(1))
 
 
-def run_matrix(research_root: Path, platform_root: Path, task: str = TASK_A) -> dict[str, Any]:
-    """Execute the task matrix live (paid, 1680 OpenRouter calls per task)."""
+def run_matrix(
+    research_root: Path,
+    platform_root: Path,
+    task: str = TASK_A,
+    *,
+    resume: bool = False,
+) -> dict[str, Any]:
+    """Execute the task matrix live (paid, 1680 OpenRouter calls per task).
+
+    With ``resume=True`` the driver continues an interrupted partial run:
+    the existing hash-chained events are validated in full (chain linkage,
+    ordering, contract hashes), then execution continues from the next
+    sequence. The interrupted attempt's budget ledger is archived untouched
+    and a fresh ledger is opened for the resumed portion, so every ledger
+    record in the run manifest corresponds one-to-one with a released event.
+    """
     import os
     import subprocess
 
@@ -1051,25 +1065,93 @@ def run_matrix(research_root: Path, platform_root: Path, task: str = TASK_A) -> 
     validate_matrix_config(research_root, config, task, require_live_authorization=True)
     raw_path = research_root / config["raw_events_path"]
     manifest_path = research_root / config["run_manifest_path"]
-    if raw_path.exists() or manifest_path.exists():
-        raise FileExistsError("matrix run results already exist; append-only")
-    raw_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     ledger_path = research_root / config["budget"]["ledger_path"]
-    if ledger_path.exists() and read_jsonl(ledger_path):
-        raise FileExistsError("matrix ledger already has records; refusing to mix phases")
     budget = config["budget"]
-    cells = load_matrix_cells(research_root, config, task)
-    schedule = _compute_schedule_rows(research_root, config, task)
     model = config["models"][0]
-    previous = "0" * 64
     attempts = 0
     admitted = 0
     failed = 0
+    previous = "0" * 64
+    resumed_from = 0
+    interrupted_ledger_archived: Path | None = None
+    if resume:
+        if not raw_path.is_file():
+            raise FileExistsError("matrix run has no partial raw events to resume")
+        if manifest_path.exists():
+            raise FileExistsError("matrix run is already complete; append-only")
+        existing = read_jsonl(raw_path)
+        if not existing or len(existing) >= TOTAL_CELLS:
+            raise ValueError("matrix partial run is empty or already complete")
+        cells_all = load_matrix_cells(research_root, config, task)
+        schedule_all = _compute_schedule_rows(research_root, config, task)
+        for sequence, (event, cell, row) in enumerate(
+            zip(existing, cells_all, schedule_all, strict=True), start=1
+        ):
+            event_hash = event.pop("eventHash", None)
+            if event.get("previousEventHash") != previous or sha256_json(event) != event_hash:
+                raise ValueError("matrix event chain mismatch in partial run")
+            event["eventHash"] = event_hash
+            previous = event_hash
+            if (
+                event["sequence"] != sequence
+                or event["task"] != task
+                or event["condition"] != cell.condition
+                or event["variant"] != cell.variant
+                or event["pairId"] != cell.pair_id
+                or event["rep"] != cell.rep
+                or event["contractHash"] != row["contractHash"]
+            ):
+                raise ValueError("matrix partial run ordering or contract mismatch")
+            if event["status"] == "RELEASED":
+                admitted += 1
+            elif event["status"] == "FAILED":
+                failed += 1
+        attempts = len(existing)
+        resumed_from = attempts
+        if ledger_path.is_file():
+            ledger_rows = read_jsonl(ledger_path)
+            unsettled = {
+                row["reservationId"]
+                for row in ledger_rows
+                if row.get("recordType") == "budget_reservation"
+            } - {
+                row["reservationId"]
+                for row in ledger_rows
+                if row.get("recordType") == "budget_settlement"
+            }
+            for reservation_id in sorted(unsettled):
+                settle_budget(
+                    ledger_path,
+                    reservation_id=reservation_id,
+                    model_id=model["expected_model_id"],
+                    phase=f"MATRIX_REBUILD_{task.upper()}",
+                    authorization_id=budget["authorization_id"],
+                    budget_debit_eur=float(budget["reservation_per_call_eur"]),
+                    outcome="interrupted_run",
+                    provider_reported_cost=None,
+                )
+            archive = ledger_path.with_name(
+                f"{ledger_path.stem}.interrupted-2026-08-06{ledger_path.suffix}"
+            )
+            ledger_path.replace(archive)
+            interrupted_ledger_archived = archive
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    else:
+        if raw_path.exists() or manifest_path.exists():
+            raise FileExistsError("matrix run results already exist; append-only")
+        if ledger_path.exists() and read_jsonl(ledger_path):
+            raise FileExistsError("matrix ledger already has records; refusing to mix phases")
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    cells = load_matrix_cells(research_root, config, task)
+    schedule = _compute_schedule_rows(research_root, config, task)
     environment = os.environ.copy()
     environment["COMPEX_PLATFORM_ROOT"] = str(platform_root)
     environment["FINBOUNDBENCH_ROOT"] = str(research_root)
-    for sequence, (cell, row) in enumerate(zip(cells, schedule, strict=True), start=1):
+    for sequence, (cell, row) in enumerate(
+        zip(cells[attempts:], schedule[attempts:], strict=True), start=attempts + 1
+    ):
         attempts += 1
         payload = build_matrix_bridge_payload(research_root, config, model, cell)
         if payload["contractHash"] != row["contractHash"]:
@@ -1198,6 +1280,18 @@ def run_matrix(research_root: Path, platform_root: Path, task: str = TASK_A) -> 
         "events": attempts,
     }
     ledger_rows = read_jsonl(ledger_path)
+    interrupted_ledger = None
+    if resume:
+        if interrupted_ledger_archived is None:
+            raise RuntimeError("resumed run lost its interrupted ledger archive")
+        interrupted_rows = read_jsonl(interrupted_ledger_archived)
+        interrupted_ledger = {
+            "path": interrupted_ledger_archived.relative_to(research_root).as_posix(),
+            "recordCount": len(interrupted_rows),
+            "hash": sha256_json(interrupted_rows),
+            "committedEur": committed_budget_eur(interrupted_rows),
+            "events": resumed_from,
+        }
     core = {
         "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-run.v3",
         "label": MATRIX_LABEL,
@@ -1214,11 +1308,13 @@ def run_matrix(research_root: Path, platform_root: Path, task: str = TASK_A) -> 
         "failedOrDenied": attempts - admitted,
         "finalEventHash": previous,
         "rawArtifact": raw_artifact,
+        "resumedFromEvents": resumed_from if resume else None,
         "budget": {
             "ledgerPath": config["budget"]["ledger_path"],
             "ledgerRecordCount": len(ledger_rows),
             "ledgerHash": sha256_json(ledger_rows),
             "committedEur": committed_budget_eur(ledger_rows),
+            "interruptedLedger": interrupted_ledger,
             "phaseAuthorizedEur": float(budget["phase_authorized_eur"]),
             "absoluteAuthorizedEur": float(budget["absolute_authorized_eur"]),
         },
@@ -1275,7 +1371,51 @@ def verify_matrix_run(
     settlements = {
         row["reservationId"] for row in ledger_rows if row.get("recordType") == "budget_settlement"
     }
-    if reservations != settlements or len(reservations) != len(events):
+    if reservations != settlements:
+        raise ValueError("matrix reservations are not completely settled")
+    resumed_from = manifest.get("resumedFromEvents")
+    if resumed_from:
+        interrupted = manifest["budget"].get("interruptedLedger")
+        if not isinstance(interrupted, dict):
+            raise ValueError("matrix resumed run lost its interrupted ledger record")
+        interrupted_path = research_root / interrupted["path"]
+        if not interrupted_path.is_file():
+            raise ValueError("matrix interrupted ledger archive is missing")
+        interrupted_rows = read_jsonl(interrupted_path)
+        if (
+            len(interrupted_rows) != interrupted["recordCount"]
+            or sha256_json(interrupted_rows) != interrupted["hash"]
+        ):
+            raise ValueError("matrix interrupted ledger changed after the run")
+        interrupted_r = {
+            row["reservationId"]
+            for row in interrupted_rows
+            if row.get("recordType") == "budget_reservation"
+        }
+        interrupted_s = {
+            row["reservationId"]
+            for row in interrupted_rows
+            if row.get("recordType") == "budget_settlement"
+        }
+        if interrupted_r != interrupted_s:
+            raise ValueError("matrix interrupted ledger is not completely settled")
+        orphan_settlements = [
+            row
+            for row in interrupted_rows
+            if row.get("recordType") == "budget_settlement"
+            and row.get("outcome") == "interrupted_run"
+        ]
+        if len(interrupted_r) != interrupted["events"] + len(orphan_settlements):
+            raise ValueError("matrix interrupted ledger reservation count mismatch")
+        if committed_budget_eur(interrupted_rows) != interrupted["committedEur"]:
+            raise ValueError("matrix interrupted ledger committed mismatch")
+        if committed_budget_eur(interrupted_rows) + committed_budget_eur(ledger_rows) > float(
+            config["budget"]["absolute_authorized_eur"]
+        ):
+            raise ValueError("matrix combined committed budget exceeded the authorization")
+        if len(reservations) != TOTAL_CELLS - resumed_from:
+            raise ValueError("matrix resumed ledger reservation count mismatch")
+    elif len(reservations) != len(events):
         raise ValueError("matrix reservations are not completely settled")
     cells = load_matrix_cells(research_root, config, task)
     schedule = _compute_schedule_rows(research_root, config, task)
@@ -1371,6 +1511,26 @@ def verify_matrix_run(
                 )
     if len(released_events) != TOTAL_CELLS:
         raise ValueError(f"matrix did not release all cells: {len(released_events)}")
+    if resumed_from:
+        interrupted_r = {
+            row["reservationId"]
+            for row in interrupted_rows
+            if row.get("recordType") == "budget_reservation"
+        }
+        interrupted_s = {
+            row["reservationId"]
+            for row in interrupted_rows
+            if row.get("recordType") == "budget_settlement"
+        }
+        interrupted_event_ids = {event["reservationId"] for event in events[:resumed_from]}
+        if not interrupted_event_ids <= interrupted_s or len(interrupted_event_ids) != resumed_from:
+            raise ValueError("matrix interrupted events are not fully settled in their ledger")
+        resumed_event_ids = {event["reservationId"] for event in events[resumed_from:]}
+        if (
+            not resumed_event_ids <= settlements
+            or len(resumed_event_ids) != TOTAL_CELLS - resumed_from
+        ):
+            raise ValueError("matrix resumed events are not fully settled in their ledger")
     for key, hashes in by_approved_payload.items():
         if len(hashes) != 1:
             raise ValueError(f"approved projection drifted across conditions: {key}")

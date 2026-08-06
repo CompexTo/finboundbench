@@ -17,6 +17,7 @@ from purposebench.v3.matrix import (
     TASK_A,
     TASK_B,
     TOTAL_CELLS,
+    _append_chained,
     _one_pair_anchor,
     _schedule_row,
     build_matrix_bridge_payload,
@@ -25,6 +26,7 @@ from purposebench.v3.matrix import (
     composed_system_prompt,
     load_matrix_cells,
     matrix_release_policy,
+    run_matrix,
     validate_matrix_config,
     verify_matrix_dry_run,
 )
@@ -79,20 +81,19 @@ def test_config_passes_validation_against_the_current_repository() -> None:
     validate_matrix_config(ROOT, _config(TASK_B), TASK_B)
 
 
-def test_config_validation_fails_closed_when_live_execution_is_permitted() -> None:
-    config = _config(TASK_A)
-    with pytest.raises(ValueError, match="MATRIX_LIVE_EXECUTION_NOT_AUTHORIZED"):
-        validate_matrix_config(ROOT, config, TASK_A, require_live_authorization=True)
+def test_config_passes_validation_with_live_authorization() -> None:
+    validate_matrix_config(ROOT, _config(TASK_A), TASK_A, require_live_authorization=True)
+    validate_matrix_config(ROOT, _config(TASK_B), TASK_B, require_live_authorization=True)
 
 
 def test_config_validation_fails_closed_on_partial_authorization() -> None:
     config = _config(TASK_A)
-    config["live_execution_permitted"] = True
-    with pytest.raises(ValueError, match="LIVE_EXECUTION_AUTHORIZED"):
+    config["live_execution_permitted"] = False
+    with pytest.raises(ValueError, match="SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED"):
         validate_matrix_config(ROOT, config, TASK_A)
     config = _config(TASK_A)
-    config["status"] = "LIVE_EXECUTION_AUTHORIZED"
-    with pytest.raises(ValueError, match="SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED"):
+    config["status"] = "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED"
+    with pytest.raises(ValueError, match="LIVE_EXECUTION_AUTHORIZED"):
         validate_matrix_config(ROOT, config, TASK_A)
 
 
@@ -463,7 +464,7 @@ def test_dry_run_builds_and_verifies_hermetically_for_both_tasks(tmp_root: Path)
         assert manifest["cells"] == TOTAL_CELLS
         assert manifest["label"] == MATRIX_LABEL
         assert manifest["task"] == task
-        assert manifest["status"] == "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED"
+        assert manifest["status"] == "LIVE_EXECUTION_AUTHORIZED"
         assert manifest["reservationTotalEur"] == round(TOTAL_CELLS * 0.02, 6)
         assert manifest["reservationTotalEur"] <= manifest["phaseAuthorizedEur"]
         verified = verify_matrix_dry_run(tmp_root, task=task)
@@ -532,6 +533,12 @@ def test_protocol_freeze_rejects_a_missing_validation_anchor(tmp_root: Path) -> 
 def test_protocol_freeze_refuses_without_live_authorization(tmp_root: Path) -> None:
     build_matrix_dry_run(tmp_root, task=TASK_A)
     build_matrix_dry_run(tmp_root, task=TASK_B)
+    for task in (TASK_A, TASK_B):
+        config_path = tmp_root / CONFIG_PATHS[task]
+        config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+        config["live_execution_permitted"] = False
+        config["status"] = "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED"
+        config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
     with pytest.raises(ValueError, match="MATRIX_LIVE_EXECUTION_NOT_AUTHORIZED"):
         build_protocol_freeze(
             tmp_root,
@@ -539,3 +546,80 @@ def test_protocol_freeze_refuses_without_live_authorization(tmp_root: Path) -> N
             research_commit="a" * 40,
             platform_commit="b" * 40,
         )
+
+
+def test_resume_refuses_when_no_partial_raw_events_exist(
+    tmp_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("purposebench.v3.matrix._node_major", lambda: 22)
+    monkeypatch.setattr(
+        "purposebench.v3.matrix.verify_protocol_freeze",
+        lambda _root, _platform: {
+            "freezeManifestHash": "f" * 64,
+            "repositoryBindings": {},
+        },
+    )
+    build_matrix_dry_run(tmp_root, task=TASK_A)
+    build_matrix_dry_run(tmp_root, task=TASK_B)
+    _authorize_tmp_configs(tmp_root)
+    with pytest.raises(FileExistsError, match="no partial raw events"):
+        run_matrix(tmp_root, PLATFORM_ROOT, task=TASK_A, resume=True)
+
+
+def test_resume_refuses_when_partial_run_is_empty(
+    tmp_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("purposebench.v3.matrix._node_major", lambda: 22)
+    monkeypatch.setattr(
+        "purposebench.v3.matrix.verify_protocol_freeze",
+        lambda _root, _platform: {
+            "freezeManifestHash": "f" * 64,
+            "repositoryBindings": {},
+        },
+    )
+    build_matrix_dry_run(tmp_root, task=TASK_A)
+    build_matrix_dry_run(tmp_root, task=TASK_B)
+    _authorize_tmp_configs(tmp_root)
+    raw_path = tmp_root / "results/v3/matrix-rebuild/raw/events.jsonl"
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    raw_path.write_text("\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="empty or already complete"):
+        run_matrix(tmp_root, PLATFORM_ROOT, task=TASK_A, resume=True)
+
+
+def test_resume_rejects_a_broken_event_chain(
+    tmp_root: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("purposebench.v3.matrix._node_major", lambda: 22)
+    monkeypatch.setattr(
+        "purposebench.v3.matrix.verify_protocol_freeze",
+        lambda _root, _platform: {
+            "freezeManifestHash": "f" * 64,
+            "repositoryBindings": {},
+        },
+    )
+    build_matrix_dry_run(tmp_root, task=TASK_A)
+    build_matrix_dry_run(tmp_root, task=TASK_B)
+    _authorize_tmp_configs(tmp_root)
+    rows = json.loads(
+        (tmp_root / "results/v3/matrix-rebuild/manifests/schedule.json").read_text(encoding="utf-8")
+    )
+
+    def partial_event(row: dict) -> dict:
+        return {
+            "task": TASK_A,
+            "sequence": row["sequence"],
+            "condition": row["condition"],
+            "variant": row["variant"],
+            "pairId": row["pairId"],
+            "rep": row["rep"],
+            "contractHash": row["contractHash"],
+            "status": "RELEASED",
+        }
+
+    raw_path = tmp_root / "results/v3/matrix-rebuild/raw/events.jsonl"
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    _append_chained(raw_path, partial_event(rows[0]), "0" * 64)
+    _append_chained(raw_path, partial_event(rows[1]), "0" * 64)
+    with pytest.raises(ValueError, match="partial run"):
+        run_matrix(tmp_root, PLATFORM_ROOT, task=TASK_A, resume=True)

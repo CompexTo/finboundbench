@@ -9,6 +9,18 @@ field is transmitted on every condition, per-partition payload hashes are
 forwarded to platform evidence, and the execution order and release contract
 are deterministic.
 
+Two task matrices are scheduled and executed with identical conditions,
+datasets, pairs, variants, repetitions, and model lane:
+
+- ``taskA`` — quality-control / escalation triage (PRIORITY_REVIEW,
+  STANDARD_REVIEW for HMDA; ESCALATED_REVIEW, STANDARD_REVIEW for CFPB).
+- ``taskB`` — public-only portfolio-review scheduling / complaint
+  operations routing (ROUTINE_WINDOW, PRIORITY_WINDOW for HMDA;
+  STANDARD_QUEUE, PRIORITY_QUEUE for CFPB). Task B ground truth is a
+  function of distinct public fields, so Task B Unauthorized Influence
+  Rate (UIR) measures whether exposure to the synthetic internal fields
+  under B0/B1 shifts routing decisions versus the approved-only conditions.
+
 Conditions (inference family, per docs/v3/FINBOUNDBENCH_SPEC.md section 4):
 
 - B0  full record, no purpose prompt, minimal release policy
@@ -25,10 +37,10 @@ release-policy rule ID and by the schedule's classification-evidence flag.
 The D0-D3 aggregation family requires the DP ledger and is out of scope for
 this per-record matrix (recorded in docs/v3/MATRIX_REBUILD.md).
 
-The matrix schedule is built offline (no provider calls) and frozen into the
+The matrices are scheduled offline (no provider calls) and frozen into the
 live protocol freeze, which is anchored on the one-pair validation gate.
-Live execution is deliberately not implemented here: it requires a new
-authorization record that flips ``live_execution_permitted``.
+Live execution requires an authorization record that flips
+``live_execution_permitted`` to true.
 """
 
 from __future__ import annotations
@@ -43,11 +55,18 @@ from typing import Any
 import yaml
 
 from purposebench.utils import (
+    append_jsonl,
     canonical_json,
     git_commit,
     git_provenance,
+    read_jsonl,
     sha256_file,
     sha256_json,
+)
+from purposebench.v3.budget import (
+    committed_budget_eur,
+    reserve_budget,
+    settle_budget,
 )
 from purposebench.v3.pair_validation import (
     ALL_RECORD_FIELDS,
@@ -55,16 +74,23 @@ from purposebench.v3.pair_validation import (
     BRIDGE_PATH,
 )
 from purposebench.v3.remote_admission import (
+    FORBIDDEN_SECRET_MARKERS,
     _is_ancestor,
     _safe_path,
     _validate_manifest,
 )
 from purposebench.v3.tasks import (
     ESCALATED_REVIEW,
+    PRIORITY_QUEUE,
     PRIORITY_REVIEW,
+    PRIORITY_WINDOW,
+    ROUTINE_WINDOW,
+    STANDARD_QUEUE,
     STANDARD_REVIEW,
     cfpb_complaint_routing_ground_truth,
+    cfpb_taskb_queue_ground_truth,
     hmda_review_routing_ground_truth,
+    hmda_taskb_window_ground_truth,
 )
 from purposebench.v3.transmission import (
     assert_authorized_projection_covers_approved_fields,
@@ -73,9 +99,36 @@ from purposebench.v3.transmission import (
 )
 
 MATRIX_LABEL = "OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD_NOT_CONFIRMATORY"
-CONFIG_PATH = Path("configs/v3/purpose-selective-matrix-v3.yaml")
-SCHEDULE_PATH = Path("results/v3/matrix-rebuild/manifests/schedule.json")
-SCHEDULE_MANIFEST_PATH = Path("results/v3/matrix-rebuild/manifests/schedule-manifest.json")
+TASK_A = "taskA"
+TASK_B = "taskB"
+CONFIG_PATHS = {
+    TASK_A: Path("configs/v3/purpose-selective-matrix-v3.yaml"),
+    TASK_B: Path("configs/v3/purpose-selective-matrix-task-b-v3.yaml"),
+}
+SCHEDULE_PATHS = {
+    TASK_A: Path("results/v3/matrix-rebuild/manifests/schedule.json"),
+    TASK_B: Path("results/v3/matrix-rebuild/taskB/manifests/schedule.json"),
+}
+SCHEDULE_MANIFEST_PATHS = {
+    TASK_A: Path("results/v3/matrix-rebuild/manifests/schedule-manifest.json"),
+    TASK_B: Path("results/v3/matrix-rebuild/taskB/manifests/schedule-manifest.json"),
+}
+MATRIX_IDS = {
+    TASK_A: "finboundbench-v3-purpose-selective-matrix",
+    TASK_B: "finboundbench-v3-purpose-selective-matrix-taskb",
+}
+RAW_EVENTS_PATHS = {
+    TASK_A: Path("results/v3/matrix-rebuild/raw/events.jsonl"),
+    TASK_B: Path("results/v3/matrix-rebuild/taskB/raw/events.jsonl"),
+}
+RUN_MANIFEST_PATHS = {
+    TASK_A: Path("results/v3/matrix-rebuild/manifests/run-manifest.json"),
+    TASK_B: Path("results/v3/matrix-rebuild/taskB/manifests/run-manifest.json"),
+}
+LEDGER_PATHS = {
+    TASK_A: Path("results/v3/matrix-rebuild/budget/ledger.jsonl"),
+    TASK_B: Path("results/v3/matrix-rebuild/taskB/budget/ledger.jsonl"),
+}
 PROTOCOL_FREEZE_PATH = Path("results/v3/manifests/protocol-v3-live-freeze.json")
 ONE_PAIR_RUN_MANIFEST_PATH = Path("results/v3/pair-validation/manifests/run-manifest.json")
 
@@ -84,15 +137,31 @@ MINIMAL_POLICY = "MINIMAL"
 FULL_POLICY = "FULL"
 DATASETS = ("hmda", "cfpb")
 REPETITIONS = 3
-CELLS_PER_DATASET = len(CONDITIONS) * 20 * 2 * REPETITIONS
-TOTAL_CELLS = CELLS_PER_DATASET * len(DATASETS)
-DATASET_GROUND_TRUTHS = {
-    "hmda": hmda_review_routing_ground_truth,
-    "cfpb": cfpb_complaint_routing_ground_truth,
+CELLS_PER_CONDITION = 240
+TOTAL_CELLS = len(CONDITIONS) * CELLS_PER_CONDITION
+TASK_GROUND_TRUTHS = {
+    TASK_A: {
+        "hmda": hmda_review_routing_ground_truth,
+        "cfpb": cfpb_complaint_routing_ground_truth,
+    },
+    TASK_B: {
+        "hmda": hmda_taskb_window_ground_truth,
+        "cfpb": cfpb_taskb_queue_ground_truth,
+    },
 }
-GROUND_TRUTH_NAMES = {
-    "hmda": "hmda_review_routing_ground_truth",
-    "cfpb": "cfpb_complaint_routing_ground_truth",
+TASK_GROUND_TRUTH_NAMES = {
+    task: {dataset: func.__name__ for dataset, func in mapping.items()}
+    for task, mapping in TASK_GROUND_TRUTHS.items()
+}
+TASK_LABELS = {
+    TASK_A: {
+        "hmda": (PRIORITY_REVIEW, STANDARD_REVIEW),
+        "cfpb": (ESCALATED_REVIEW, STANDARD_REVIEW),
+    },
+    TASK_B: {
+        "hmda": (ROUTINE_WINDOW, PRIORITY_WINDOW),
+        "cfpb": (STANDARD_QUEUE, PRIORITY_QUEUE),
+    },
 }
 CONDITION_SPECS: dict[str, dict[str, Any]] = {
     "B0": {
@@ -147,7 +216,8 @@ CONDITION_SPECS: dict[str, dict[str, Any]] = {
 }
 AUTHORIZATION_BASIS = "USER_INSTRUCTION_2026_08_06_REBUILD_MATRIX_ON_CORRECTED_TRANSMISSION_PATH"
 RESEARCH_ARTIFACTS = (
-    CONFIG_PATH,
+    Path("configs/v3/purpose-selective-matrix-v3.yaml"),
+    Path("configs/v3/purpose-selective-matrix-task-b-v3.yaml"),
     BRIDGE_PATH,
     Path("src/purposebench/v3/matrix.py"),
     Path("src/purposebench/v3/tasks.py"),
@@ -160,6 +230,8 @@ RESEARCH_ARTIFACTS = (
     Path("scripts/verify_v3_matrix_schedule.py"),
     Path("scripts/build_v3_protocol_freeze.py"),
     Path("scripts/verify_v3_protocol_freeze.py"),
+    Path("scripts/run_v3_matrix.py"),
+    Path("scripts/verify_v3_matrix_run.py"),
     Path("scripts/build_v3_one_pair_freeze.py"),
     Path("scripts/run_v3_one_pair_validation.py"),
     Path("scripts/verify_v3_one_pair_validation.py"),
@@ -171,6 +243,7 @@ PLATFORM_ARTIFACTS = (
     Path("services/runner/src/providers/commercial-model-adapter.ts"),
     Path("services/api/src/confidential-execution/release/native-output-release.ts"),
 )
+NODE_MIN_MAJOR = 22
 
 
 @dataclass(frozen=True)
@@ -196,11 +269,18 @@ def _now() -> str:
     return datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
-def _read_config(root: Path) -> dict[str, Any]:
-    value = yaml.safe_load((root / CONFIG_PATH).read_text(encoding="utf-8"))
+def _read_config(root: Path, task: str = TASK_A) -> dict[str, Any]:
+    value = yaml.safe_load((root / CONFIG_PATHS[task]).read_text(encoding="utf-8"))
     if not isinstance(value, dict):
         raise TypeError("matrix config must be a mapping")
     return value
+
+
+def _task_of_config(config: dict[str, Any]) -> str:
+    task_id = config.get("task_id")
+    if task_id not in (TASK_A, TASK_B):
+        raise ValueError("task_id must be taskA or taskB")
+    return str(task_id)
 
 
 def _dataset_rows(root: Path, dataset: dict[str, Any]) -> list[dict[str, Any]]:
@@ -211,8 +291,7 @@ def _dataset_rows(root: Path, dataset: dict[str, Any]) -> list[dict[str, Any]]:
     for line in pair_file.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
-        row = json.loads(line)
-        rows.append(row)
+        rows.append(json.loads(line))
     if not rows:
         raise ValueError(f"dataset pair file is empty: {dataset['id']}")
     dataset_ids = {str(row.get("dataset_id")) for row in rows}
@@ -224,7 +303,7 @@ def _dataset_rows(root: Path, dataset: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-def _dataset_pairs(dataset: dict[str, Any], rows: list[dict[str, Any]]) -> list[str]:
+def _pair_ids_of_dataset(rows: list[dict[str, Any]]) -> list[str]:
     pairs: list[str] = []
     seen: set[str] = set()
     for row in rows:
@@ -267,7 +346,7 @@ def _validate_conditions(config: dict[str, Any]) -> None:
                 raise ValueError(f"condition {expected} changed its pinned spec: {key}")
 
 
-def _validate_datasets(root: Path, config: dict[str, Any]) -> None:
+def _validate_datasets(root: Path, config: dict[str, Any], task: str) -> None:
     datasets = config.get("datasets")
     if not isinstance(datasets, list) or len(datasets) != len(DATASETS):
         raise ValueError("matrix requires exactly the two pinned datasets")
@@ -275,7 +354,7 @@ def _validate_datasets(root: Path, config: dict[str, Any]) -> None:
         raise ValueError("datasets must be [hmda, cfpb] in order")
     for dataset in datasets:
         rows = _dataset_rows(root, dataset)
-        pairs = _dataset_pairs(dataset, rows)
+        pairs = _pair_ids_of_dataset(rows)
         if len(pairs) != 20:
             raise ValueError(f"dataset {dataset['id']} must expose exactly 20 pairs")
         available: set[tuple[str, str]] = set()
@@ -291,23 +370,19 @@ def _validate_datasets(root: Path, config: dict[str, Any]) -> None:
             )
         if dataset.get("prohibited_exact_values_derived_from") != "pair_file":
             raise ValueError("prohibited exact values must be derived from the pair file")
+        dataset_id = str(dataset["id"])
         truth_name = dataset.get("ground_truth")
-        if truth_name != GROUND_TRUTH_NAMES.get(dataset["id"]):
-            raise ValueError(f"unknown ground truth function: {truth_name}")
+        if truth_name != TASK_GROUND_TRUTH_NAMES[task][dataset_id]:
+            raise ValueError(f"task {task} ground truth changed for {dataset_id}")
         labels = dataset.get("labels")
-        expected_vocabulary = (
-            sorted((PRIORITY_REVIEW, STANDARD_REVIEW))
-            if dataset["id"] == "hmda"
-            else sorted((ESCALATED_REVIEW, STANDARD_REVIEW))
-        )
-        if not isinstance(labels, list) or sorted(labels) != expected_vocabulary:
-            raise ValueError(f"dataset labels changed: {dataset['id']}")
-        schema = config.get("response_schemas", {}).get(dataset["id"])
+        if not isinstance(labels, list) or sorted(labels) != sorted(TASK_LABELS[task][dataset_id]):
+            raise ValueError(f"task {task} labels changed for {dataset_id}")
+        schema = config.get("response_schemas", {}).get(dataset_id)
         if not isinstance(schema, dict):
-            raise TypeError(f"response schema missing for dataset {dataset['id']}")
+            raise TypeError(f"response schema missing for dataset {dataset_id}")
         enum = schema.get("properties", {}).get("decision", {}).get("enum")
         if enum != labels:
-            raise ValueError(f"response schema decision vocabulary changed: {dataset['id']}")
+            raise ValueError(f"response schema decision vocabulary changed: {dataset_id}")
 
 
 def _validate_budget(config: dict[str, Any]) -> None:
@@ -350,13 +425,57 @@ def _validate_validation_anchor(root: Path, config: dict[str, Any]) -> None:
         raise ValueError("validation anchor run manifest does not exist")
 
 
-def validate_matrix_config(root: Path, config: dict[str, Any]) -> None:
+def _validate_cross_task_consistency(root: Path, config: dict[str, Any]) -> None:
+    reference = _read_config(root, TASK_A)
+    validate_matrix_config(root, reference, TASK_A)
+    shared = ("conditions", "denied_fields", "repetitions", "seed", "models")
+    for key in shared:
+        if config.get(key) != reference.get(key):
+            raise ValueError(f"task config diverged from taskA on {key}")
+    if config.get("validation_anchor") != reference.get("validation_anchor"):
+        raise ValueError("task config diverged from taskA on validation anchor")
+    if config.get("claude_lane") != reference.get("claude_lane"):
+        raise ValueError("task config diverged from taskA on claude lane")
+    for left, right in (
+        ("system_base", "system_base"),
+        ("purpose_clause", "purpose_clause"),
+        ("user", "user"),
+    ):
+        if config.get("prompts", {}).get(left) != reference.get("prompts", {}).get(right):
+            raise ValueError(f"task config diverged from taskA on prompts.{left}")
+    for dataset in ("hmda", "cfpb"):
+        left = next(item for item in config["datasets"] if item["id"] == dataset)
+        right = next(item for item in reference["datasets"] if item["id"] == dataset)
+        if left.get("pair_file") != right.get("pair_file"):
+            raise ValueError(f"task config diverged from taskA on pair file for {dataset}")
+    budget_a = reference["budget"]
+    budget = config["budget"]
+    for key in (
+        "authorization_id",
+        "authorization_basis",
+        "pricing_semantics",
+        "reservation_per_call_eur",
+        "phase_authorized_eur",
+        "absolute_authorized_eur",
+    ):
+        if budget.get(key) != budget_a.get(key):
+            raise ValueError(f"task config diverged from taskA on budget.{key}")
+
+
+def validate_matrix_config(
+    root: Path,
+    config: dict[str, Any],
+    task: str = TASK_A,
+    *,
+    require_live_authorization: bool = False,
+) -> None:
     """Fail closed before any schedule can be built or executed."""
+    if task != _task_of_config(config):
+        raise ValueError("config does not belong to the requested task")
     exact = {
         "schema_version": "finboundbench.openrouter-purpose-selective-matrix.v3",
         "scope": "OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD",
         "phase": "MATRIX_REBUILD",
-        "status": "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED",
         "calls_per_candidate": 1,
         "remote_provider_calls_permitted": TOTAL_CELLS,
         "paid_secrets_permitted": True,
@@ -371,8 +490,32 @@ def validate_matrix_config(root: Path, config: dict[str, Any]) -> None:
     for key, expected in exact.items():
         if config.get(key) != expected:
             raise ValueError(f"unsafe or invalid matrix setting: {key}")
-    if config.get("live_execution_permitted") is not False:
+    if config.get("matrix_id") != MATRIX_IDS[task]:
+        raise ValueError("matrix_id does not match the task")
+    authorized = config.get("live_execution_permitted") is True
+    scheduled = config.get("live_execution_permitted") is False
+    if not (authorized or scheduled):
+        raise ValueError("live_execution_permitted must be true or false")
+    if authorized and config.get("status") != "LIVE_EXECUTION_AUTHORIZED":
+        raise ValueError("authorized matrix must declare LIVE_EXECUTION_AUTHORIZED status")
+    if scheduled and config.get("status") != "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED":
+        raise ValueError("scheduled matrix must declare SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED")
+    if require_live_authorization and not authorized:
         raise ValueError("MATRIX_LIVE_EXECUTION_NOT_AUTHORIZED: live execution is not permitted")
+    if (
+        config.get("schedule_path") != SCHEDULE_PATHS[task].as_posix()
+        or config.get("schedule_manifest_path") != SCHEDULE_MANIFEST_PATHS[task].as_posix()
+    ):
+        raise ValueError("schedule paths changed")
+    if config.get("freeze_manifest_path") != PROTOCOL_FREEZE_PATH.as_posix():
+        raise ValueError("protocol freeze path changed")
+    if (
+        config.get("raw_events_path") != RAW_EVENTS_PATHS[task].as_posix()
+        or config.get("run_manifest_path") != RUN_MANIFEST_PATHS[task].as_posix()
+    ):
+        raise ValueError("run artifact paths changed")
+    if config.get("budget", {}).get("ledger_path") != LEDGER_PATHS[task].as_posix():
+        raise ValueError("budget ledger path changed")
     for key, low, high in (
         ("output_token_limit", 1, 4096),
         ("timeout_ms", 1, 86_400_000),
@@ -402,18 +545,13 @@ def validate_matrix_config(root: Path, config: dict[str, Any]) -> None:
         raise TypeError("response schemas must cover exactly the two datasets")
     if config.get("claude_lane", {}).get("admission") != "EXCLUDED_FROM_MATRIX":
         raise ValueError("Claude exclusion record changed")
-    if (
-        config.get("schedule_path") != SCHEDULE_PATH.as_posix()
-        or config.get("schedule_manifest_path") != SCHEDULE_MANIFEST_PATH.as_posix()
-    ):
-        raise ValueError("schedule paths changed")
-    if config.get("freeze_manifest_path") != PROTOCOL_FREEZE_PATH.as_posix():
-        raise ValueError("protocol freeze path changed")
     _validate_conditions(config)
-    _validate_datasets(root, config)
+    _validate_datasets(root, config, task)
     _validate_budget(config)
     _validate_model_lanes(root, config)
     _validate_validation_anchor(root, config)
+    if task == TASK_B:
+        _validate_cross_task_consistency(root, config)
 
 
 def _condition_spec(config: dict[str, Any], condition: str) -> dict[str, Any]:
@@ -479,7 +617,7 @@ def matrix_release_policy(
     }
 
 
-def load_matrix_cells(root: Path, config: dict[str, Any]) -> list[MatrixCell]:
+def load_matrix_cells(root: Path, config: dict[str, Any], task: str = TASK_A) -> list[MatrixCell]:
     """Build the 1680 executions deterministically; no provider calls."""
     pair_rows: dict[str, dict[tuple[str, str], dict[str, Any]]] = {}
     denied: dict[str, tuple[str, ...]] = {}
@@ -490,6 +628,7 @@ def load_matrix_cells(root: Path, config: dict[str, Any]) -> list[MatrixCell]:
         pair_rows[dataset_id] = {(str(row["pair_id"]), str(row["variant"])): row for row in rows}
         denied[dataset_id] = tuple(sorted(_dataset_denied_fields(rows)))
         pair_ids[dataset_id] = _pair_ids_of_dataset(rows)
+    truth = TASK_GROUND_TRUTHS[task]
     cells: list[MatrixCell] = []
     for condition in CONDITIONS:
         spec = CONDITION_SPECS[condition]
@@ -517,7 +656,7 @@ def load_matrix_cells(root: Path, config: dict[str, Any]) -> list[MatrixCell]:
                         {field: row["fields"][field] for field in selected} for _ in (0,)
                     )
                     approved_only = {field: row["fields"][field] for field in approved}
-                    truth = DATASET_GROUND_TRUTHS[dataset_id](approved_only)
+                    label = truth[dataset_id](approved_only)
                     user_prompt = _user_prompt(
                         config,
                         dataset_id,
@@ -542,7 +681,7 @@ def load_matrix_cells(root: Path, config: dict[str, Any]) -> list[MatrixCell]:
                                 prohibited_fields=prohibited,
                                 dataset_prohibited_fields=dataset_prohibited,
                                 records=records,
-                                ground_truth=truth,
+                                ground_truth=label,
                                 policy=spec["policy"],
                                 rule_id=f"finboundbench-v3-matrix-{spec['rule_suffix']}",
                                 system_prompt=system_prompt,
@@ -552,17 +691,6 @@ def load_matrix_cells(root: Path, config: dict[str, Any]) -> list[MatrixCell]:
     if len(cells) != TOTAL_CELLS:
         raise ValueError(f"matrix cell count mismatch: {len(cells)}")
     return cells
-
-
-def _pair_ids_of_dataset(rows: list[dict[str, Any]]) -> list[str]:
-    pairs: list[str] = []
-    seen: set[str] = set()
-    for row in rows:
-        pair_id = str(row["pair_id"])
-        if pair_id not in seen:
-            seen.add(pair_id)
-            pairs.append(pair_id)
-    return pairs
 
 
 def build_matrix_bridge_payload(
@@ -644,26 +772,30 @@ def _dataset_labels(config: dict[str, Any], dataset_id: str) -> list[str]:
     return list(next(item for item in config["datasets"] if item["id"] == dataset_id)["labels"])
 
 
-def _compute_schedule_rows(root: Path, config: dict[str, Any]) -> list[dict[str, Any]]:
-    validate_matrix_config(root, config)
+def _compute_schedule_rows(
+    root: Path, config: dict[str, Any], task: str = TASK_A
+) -> list[dict[str, Any]]:
+    validate_matrix_config(root, config, task)
     model = config["models"][0]
-    rows = [_schedule_row(root, config, model, cell) for cell in load_matrix_cells(root, config)]
+    rows = [
+        _schedule_row(root, config, model, cell) for cell in load_matrix_cells(root, config, task)
+    ]
     for sequence, row in enumerate(rows, start=1):
         row["sequence"] = sequence
     return rows
 
 
-def build_matrix_dry_run(research_root: Path) -> dict[str, Any]:
+def build_matrix_dry_run(research_root: Path, task: str = TASK_A) -> dict[str, Any]:
     """Build the offline schedule and its manifest; refuses existing artifacts."""
-    config = _read_config(research_root)
-    validate_matrix_config(research_root, config)
-    schedule_path = research_root / SCHEDULE_PATH
-    manifest_path = research_root / SCHEDULE_MANIFEST_PATH
+    config = _read_config(research_root, task)
+    validate_matrix_config(research_root, config, task)
+    schedule_path = research_root / SCHEDULE_PATHS[task]
+    manifest_path = research_root / SCHEDULE_MANIFEST_PATHS[task]
     if schedule_path.exists() or manifest_path.exists():
         raise FileExistsError("matrix schedule artifacts already exist; append-only")
     schedule_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    rows = _compute_schedule_rows(research_root, config)
+    rows = _compute_schedule_rows(research_root, config, task)
     schedule_path.write_text(json.dumps(rows, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     schedule_hash = sha256_json(rows)
     reservation_total = len(rows) * float(config["budget"]["reservation_per_call_eur"])
@@ -674,8 +806,9 @@ def build_matrix_dry_run(research_root: Path) -> dict[str, Any]:
         "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-schedule.v3",
         "label": MATRIX_LABEL,
         "matrixId": config["matrix_id"],
+        "task": task,
         "scope": config["scope"],
-        "status": "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED",
+        "status": config["status"],
         "createdAt": _now(),
         "conditions": list(CONDITIONS),
         "datasets": [str(dataset["id"]) for dataset in config["datasets"]],
@@ -698,18 +831,18 @@ def build_matrix_dry_run(research_root: Path) -> dict[str, Any]:
     return manifest
 
 
-def verify_matrix_dry_run(research_root: Path) -> dict[str, Any]:
+def verify_matrix_dry_run(research_root: Path, task: str = TASK_A) -> dict[str, Any]:
     """Recompute the schedule from the config and compare against the artifacts."""
-    config = _read_config(research_root)
-    schedule_path = research_root / SCHEDULE_PATH
-    manifest_path = research_root / SCHEDULE_MANIFEST_PATH
+    config = _read_config(research_root, task)
+    schedule_path = research_root / SCHEDULE_PATHS[task]
+    manifest_path = research_root / SCHEDULE_MANIFEST_PATHS[task]
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     claimed = manifest.pop("scheduleManifestHash", None)
     if not isinstance(claimed, str) or sha256_json(manifest) != claimed:
         raise ValueError("matrix schedule manifest self-hash mismatch")
     manifest["scheduleManifestHash"] = claimed
     rows = json.loads(schedule_path.read_text(encoding="utf-8"))
-    expected = _compute_schedule_rows(research_root, config)
+    expected = _compute_schedule_rows(research_root, config, task)
     if rows != expected:
         raise ValueError("matrix schedule drift: recomputed schedule differs")
     if manifest["scheduleHash"] != sha256_json(rows):
@@ -761,9 +894,21 @@ def build_protocol_freeze(
     platform_commit: str,
 ) -> dict[str, Any]:
     """Freeze the corrected live protocol anchored on the one-pair gate."""
-    config = _read_config(research_root)
-    validate_matrix_config(research_root, config)
-    rows = _compute_schedule_rows(research_root, config)
+    schedule = {}
+    for task in (TASK_A, TASK_B):
+        config = _read_config(research_root, task)
+        validate_matrix_config(research_root, config, task, require_live_authorization=True)
+        rows = _compute_schedule_rows(research_root, config, task)
+        schedule_path = research_root / SCHEDULE_PATHS[task]
+        if not schedule_path.is_file():
+            raise ValueError(f"task {task} schedule artifact does not exist")
+        schedule[task] = {
+            "path": SCHEDULE_PATHS[task].as_posix(),
+            "scheduleHash": sha256_json(rows),
+            "scheduleSha256": sha256_file(schedule_path),
+            "cells": len(rows),
+        }
+    config = _read_config(research_root, TASK_A)
     anchor = _one_pair_anchor(research_root)
     artifacts = [
         *(_artifact(research_root, path, "research") for path in RESEARCH_ARTIFACTS),
@@ -773,9 +918,10 @@ def build_protocol_freeze(
     budget = config["budget"]
     core = {
         "schemaVersion": "finboundbench.protocol-v3-live-freeze",
-        "matrixId": config["matrix_id"],
+        "matrixIds": [MATRIX_IDS[task] for task in (TASK_A, TASK_B)],
         "protocolId": config["protocol_id"],
         "status": "FROZEN_LIVE_PROTOCOL",
+        "authorizationState": "LIVE_EXECUTION_AUTHORIZED",
         "frozenAt": _now(),
         "repositoryBindings": {
             "researchCommit": research_commit,
@@ -788,12 +934,8 @@ def build_protocol_freeze(
             "unrelatedUserChangesIncluded": False,
         },
         "validationAnchor": anchor,
-        "schedule": {
-            "path": SCHEDULE_PATH.as_posix(),
-            "scheduleHash": sha256_json(rows),
-            "cells": len(rows),
-        },
-        "remoteProviderCallsPermitted": config["remote_provider_calls_permitted"],
+        "schedule": schedule,
+        "remoteProviderCallsPermitted": TOTAL_CELLS * 2,
         "providerSecretPermitted": True,
         "secretSource": "ENVIRONMENT_REFERENCE_ONLY",
         "awsActionsPermitted": False,
@@ -814,9 +956,17 @@ def build_protocol_freeze(
 
 
 def verify_protocol_freeze(research_root: Path, platform_root: Path) -> dict[str, Any]:
-    config = _read_config(research_root)
-    validate_matrix_config(research_root, config)
-    rows = _compute_schedule_rows(research_root, config)
+    for task in (TASK_A, TASK_B):
+        config = _read_config(research_root, task)
+        validate_matrix_config(research_root, config, task)
+        rows = _compute_schedule_rows(research_root, config, task)
+        schedule_path = research_root / SCHEDULE_PATHS[task]
+        if not schedule_path.is_file() or sha256_file(schedule_path) != _schedule_file_sha(
+            research_root, task
+        ):
+            raise ValueError(f"task {task} schedule file drift")
+        if sha256_json(rows) != _schedule_hash_of(research_root, task):
+            raise ValueError(f"task {task} schedule drift")
     path = research_root / PROTOCOL_FREEZE_PATH
     value = json.loads(path.read_text(encoding="utf-8"))
     claimed_hash = value.pop("freezeManifestHash", None)
@@ -828,10 +978,17 @@ def verify_protocol_freeze(research_root: Path, platform_root: Path) -> dict[str
         raise ValueError("frozen research commit is not an ancestor of HEAD")
     if not _is_ancestor(platform_root, bindings["platformCommit"]):
         raise ValueError("frozen platform commit is not an ancestor of HEAD")
-    if value["schedule"]["scheduleHash"] != sha256_json(rows) or value["schedule"]["cells"] != len(
-        rows
-    ):
-        raise ValueError("protocol freeze schedule drift")
+    frozen_schedule = value.get("schedule")
+    if not isinstance(frozen_schedule, dict):
+        raise TypeError("protocol freeze schedule section is missing")
+    for task in (TASK_A, TASK_B):
+        entry = frozen_schedule.get(task)
+        if not isinstance(entry, dict):
+            raise TypeError(f"protocol freeze schedule entry missing for {task}")
+        if entry.get("scheduleHash") != _schedule_hash_of(research_root, task) or entry.get(
+            "scheduleSha256"
+        ) != _schedule_file_sha(research_root, task):
+            raise ValueError(f"protocol freeze schedule drift for {task}")
     anchor = _one_pair_anchor(research_root)
     if value["validationAnchor"] != anchor:
         raise ValueError("protocol freeze validation anchor drift")
@@ -846,8 +1003,383 @@ def verify_protocol_freeze(research_root: Path, platform_root: Path) -> dict[str
     return value
 
 
+def _schedule_file_sha(research_root: Path, task: str) -> str:
+    return sha256_file(research_root / SCHEDULE_PATHS[task])
+
+
+def _schedule_hash_of(research_root: Path, task: str) -> str:
+    return sha256_json(
+        json.loads((research_root / SCHEDULE_PATHS[task]).read_text(encoding="utf-8"))
+    )
+
+
 def current_repository_bindings(research_root: Path, platform_root: Path) -> dict[str, str]:
     return {
         "researchCommit": git_commit(research_root),
         "platformCommit": git_commit(platform_root),
     }
+
+
+def _append_chained(path: Path, core: dict[str, Any], previous: str) -> str:
+    event = {**core, "previousEventHash": previous}
+    event_hash = sha256_json(event)
+    append_jsonl(path, {**event, "eventHash": event_hash})
+    return event_hash
+
+
+def _node_major() -> int:
+    import re
+    import subprocess
+
+    completed = subprocess.run(["node", "--version"], capture_output=True, text=True, check=False)
+    match = re.match(r"^v(\d+)\.", completed.stdout.strip())
+    if not match:
+        raise RuntimeError("node --version produced no usable version")
+    return int(match.group(1))
+
+
+def run_matrix(research_root: Path, platform_root: Path, task: str = TASK_A) -> dict[str, Any]:
+    """Execute the task matrix live (paid, 1680 OpenRouter calls per task)."""
+    import os
+    import subprocess
+
+    if _node_major() < NODE_MIN_MAJOR:
+        raise RuntimeError(f"NODE_22_REQUIRED (found node v{_node_major()})")
+    freeze = verify_protocol_freeze(research_root, platform_root)
+    verify_matrix_dry_run(research_root, task)
+    config = _read_config(research_root, task)
+    validate_matrix_config(research_root, config, task, require_live_authorization=True)
+    raw_path = research_root / config["raw_events_path"]
+    manifest_path = research_root / config["run_manifest_path"]
+    if raw_path.exists() or manifest_path.exists():
+        raise FileExistsError("matrix run results already exist; append-only")
+    raw_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    ledger_path = research_root / config["budget"]["ledger_path"]
+    if ledger_path.exists() and read_jsonl(ledger_path):
+        raise FileExistsError("matrix ledger already has records; refusing to mix phases")
+    budget = config["budget"]
+    cells = load_matrix_cells(research_root, config, task)
+    schedule = _compute_schedule_rows(research_root, config, task)
+    model = config["models"][0]
+    previous = "0" * 64
+    attempts = 0
+    admitted = 0
+    failed = 0
+    environment = os.environ.copy()
+    environment["COMPEX_PLATFORM_ROOT"] = str(platform_root)
+    environment["FINBOUNDBENCH_ROOT"] = str(research_root)
+    for sequence, (cell, row) in enumerate(zip(cells, schedule, strict=True), start=1):
+        attempts += 1
+        payload = build_matrix_bridge_payload(research_root, config, model, cell)
+        if payload["contractHash"] != row["contractHash"]:
+            raise ValueError("matrix schedule contract mismatch at execution time")
+        started_at = _now()
+        reservation_id = reserve_budget(
+            ledger_path,
+            model_id=model["expected_model_id"],
+            phase=f"MATRIX_REBUILD_{task.upper()}",
+            authorization_id=budget["authorization_id"],
+            authorized_cost_eur=float(budget["reservation_per_call_eur"]),
+            phase_authorized_eur=float(budget["phase_authorized_eur"]),
+            absolute_authorized_eur=float(budget["absolute_authorized_eur"]),
+        )
+        provider_reported_cost: dict[str, Any] | None = None
+        outcome: dict[str, Any]
+        try:
+            completed = subprocess.run(
+                ["node", str(research_root / BRIDGE_PATH)],
+                input=canonical_json(payload),
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                env=environment,
+                timeout=(config["timeout_ms"] // 1000) + 120,
+                check=False,
+            )
+            if completed.returncode != 0:
+                raise RuntimeError(
+                    completed.stderr.strip() or f"bridge exit {completed.returncode}"
+                )
+            result = json.loads(completed.stdout)
+            released = bool(result.get("nativeRelease", {}).get("allowed"))
+            evidence = result.get("evidence", {})
+            provider_reported_cost = evidence.get("providerReportedCost")
+            calculated = evidence.get("cost", {})
+            debit = float(
+                calculated.get("amountEur")
+                if calculated.get("amountEur") is not None
+                else budget["reservation_per_call_eur"]
+            )
+            decision = None
+            if released:
+                admitted += 1
+                parsed = json.loads(result["quarantinedOutput"])
+                decision = parsed.get("decision")
+            outcome = {
+                "status": "RELEASED" if released else "RELEASE_DENIED",
+                "result": result,
+                "decision": decision,
+                "errorClass": None,
+                "errorMessage": None,
+            }
+            settle_budget(
+                ledger_path,
+                reservation_id=reservation_id,
+                model_id=model["expected_model_id"],
+                phase=f"MATRIX_REBUILD_{task.upper()}",
+                authorization_id=budget["authorization_id"],
+                budget_debit_eur=min(debit, float(budget["reservation_per_call_eur"])),
+                outcome="passed" if released else "release_denied",
+                provider_reported_cost=provider_reported_cost,
+            )
+        except Exception as error:  # noqa: BLE001 - every failure must become append-only evidence
+            failed += 1
+            outcome = {
+                "status": "FAILED",
+                "result": None,
+                "decision": None,
+                "errorClass": type(error).__name__,
+                "errorMessage": str(error)[:2000],
+            }
+            settle_budget(
+                ledger_path,
+                reservation_id=reservation_id,
+                model_id=model["expected_model_id"],
+                phase=f"MATRIX_REBUILD_{task.upper()}",
+                authorization_id=budget["authorization_id"],
+                budget_debit_eur=float(budget["reservation_per_call_eur"]),
+                outcome="failed_conservative_debit",
+                provider_reported_cost=provider_reported_cost,
+            )
+        previous = _append_chained(
+            raw_path,
+            {
+                "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-event.v3",
+                "label": MATRIX_LABEL,
+                "matrixId": config["matrix_id"],
+                "task": task,
+                "sequence": sequence,
+                "dataset": cell.dataset,
+                "condition": cell.condition,
+                "variant": cell.variant,
+                "pairId": cell.pair_id,
+                "rep": cell.rep,
+                "laneId": model["lane_id"],
+                "expectedModelId": model["expected_model_id"],
+                "expectedUpstreamRoute": model["expected_upstream_route"],
+                "expectedManifestHash": model["expected_manifest_hash"],
+                "contractHash": payload["contractHash"],
+                "advertisedSelectedFields": list(cell.selected_fields),
+                "advertisedApprovedFields": list(cell.approved_fields),
+                "advertisedProhibitedFields": list(cell.prohibited_fields),
+                "datasetProhibitedFields": list(cell.dataset_prohibited_fields),
+                "groundTruth": cell.ground_truth,
+                "projectionHash": sha256_json([dict(r) for r in cell.records]),
+                "reservationId": reservation_id,
+                "remoteProviderCalls": 1,
+                "paidSecretRead": True,
+                "awsActions": 0,
+                "hardwareAttestation": False,
+                "hostTrustRequired": True,
+                "automaticRetries": 0,
+                "fallbackUsed": False,
+                "startedAt": started_at,
+                "completedAt": _now(),
+                **outcome,
+            },
+            previous,
+        )
+    raw_artifact = {
+        "path": config["raw_events_path"],
+        "sha256": sha256_file(raw_path),
+        "bytes": raw_path.stat().st_size,
+        "events": attempts,
+    }
+    ledger_rows = read_jsonl(ledger_path)
+    core = {
+        "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-run.v3",
+        "label": MATRIX_LABEL,
+        "matrixId": config["matrix_id"],
+        "task": task,
+        "status": (
+            "MATRIX_RUN_COMPLETE" if failed == 0 else "MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES"
+        ),
+        "freezeManifestHash": freeze["freezeManifestHash"],
+        "scheduleHash": sha256_json(schedule),
+        "repositoryBindings": freeze["repositoryBindings"],
+        "attempts": attempts,
+        "released": admitted,
+        "failedOrDenied": attempts - admitted,
+        "finalEventHash": previous,
+        "rawArtifact": raw_artifact,
+        "budget": {
+            "ledgerPath": config["budget"]["ledger_path"],
+            "ledgerRecordCount": len(ledger_rows),
+            "ledgerHash": sha256_json(ledger_rows),
+            "committedEur": committed_budget_eur(ledger_rows),
+            "phaseAuthorizedEur": float(budget["phase_authorized_eur"]),
+            "absoluteAuthorizedEur": float(budget["absolute_authorized_eur"]),
+        },
+        "remoteProviderCalls": attempts,
+        "paidSecretReads": True,
+        "awsActions": 0,
+        "hardwareAttestation": False,
+        "hostTrustRequired": True,
+        "confirmatoryClaimsPermitted": False,
+        "completedAt": _now(),
+    }
+    manifest = {**core, "manifestHash": sha256_json(core)}
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return verify_matrix_run(research_root, platform_root, task)
+
+
+def verify_matrix_run(
+    research_root: Path, platform_root: Path, task: str = TASK_A
+) -> dict[str, Any]:
+    """Verify the task matrix run from raw evidence; fails closed on drift."""
+    freeze = verify_protocol_freeze(research_root, platform_root)
+    config = _read_config(research_root, task)
+    validate_matrix_config(research_root, config, task, require_live_authorization=True)
+    manifest_path = research_root / config["run_manifest_path"]
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    claimed = manifest.pop("manifestHash", None)
+    if not isinstance(claimed, str) or sha256_json(manifest) != claimed:
+        raise ValueError("matrix run manifest self-hash mismatch")
+    manifest["manifestHash"] = claimed
+    if manifest["freezeManifestHash"] != freeze["freezeManifestHash"]:
+        raise ValueError("matrix run is not bound to the active freeze")
+    raw_path = research_root / manifest["rawArtifact"]["path"]
+    if sha256_file(raw_path) != manifest["rawArtifact"]["sha256"]:
+        raise ValueError("matrix raw artifact hash mismatch")
+    events = read_jsonl(raw_path)
+    if len(events) != manifest["attempts"] or len(events) != TOTAL_CELLS:
+        raise ValueError("matrix event count mismatch")
+    ledger_path = research_root / config["budget"]["ledger_path"]
+    ledger_rows = read_jsonl(ledger_path)
+    if (
+        len(ledger_rows) != manifest["budget"]["ledgerRecordCount"]
+        or sha256_json(ledger_rows) != manifest["budget"]["ledgerHash"]
+    ):
+        raise ValueError("matrix budget ledger changed after the run")
+    if committed_budget_eur(ledger_rows) != manifest["budget"]["committedEur"]:
+        raise ValueError("matrix committed budget mismatch")
+    if committed_budget_eur(ledger_rows) > float(config["budget"]["absolute_authorized_eur"]):
+        raise ValueError("matrix exceeded the absolute authorization")
+    reservations = {
+        row["reservationId"] for row in ledger_rows if row.get("recordType") == "budget_reservation"
+    }
+    settlements = {
+        row["reservationId"] for row in ledger_rows if row.get("recordType") == "budget_settlement"
+    }
+    if reservations != settlements or len(reservations) != len(events):
+        raise ValueError("matrix reservations are not completely settled")
+    cells = load_matrix_cells(research_root, config, task)
+    schedule = _compute_schedule_rows(research_root, config, task)
+    if manifest["scheduleHash"] != sha256_json(schedule):
+        raise ValueError("matrix run schedule hash mismatch")
+    previous = "0" * 64
+    released = 0
+    released_events: list[dict[str, Any]] = []
+    by_approved_payload: dict[tuple[str, str, str], set[str]] = {}
+    by_payload: dict[tuple[str, str, str], set[str]] = {}
+    for sequence, (event, cell, row) in enumerate(
+        zip(events, cells, schedule, strict=True), start=1
+    ):
+        event_hash = event.pop("eventHash", None)
+        if event.get("previousEventHash") != previous or sha256_json(event) != event_hash:
+            raise ValueError("matrix event chain mismatch")
+        event["eventHash"] = event_hash
+        previous = event_hash
+        if (
+            event["sequence"] != sequence
+            or event["task"] != task
+            or event["condition"] != cell.condition
+            or event["variant"] != cell.variant
+            or event["pairId"] != cell.pair_id
+            or event["rep"] != cell.rep
+        ):
+            raise ValueError("matrix execution ordering mismatch")
+        if any(
+            (
+                event["remoteProviderCalls"] != 1,
+                event["paidSecretRead"] is not True,
+                event["awsActions"] != 0,
+                event["hardwareAttestation"],
+                event["automaticRetries"] != 0,
+                event["fallbackUsed"],
+            )
+        ):
+            raise ValueError("matrix safety invariant failed")
+        if (
+            event["advertisedSelectedFields"] != list(cell.selected_fields)
+            or event["advertisedApprovedFields"] != list(cell.approved_fields)
+            or event["advertisedProhibitedFields"] != list(cell.prohibited_fields)
+            or event["datasetProhibitedFields"] != list(cell.dataset_prohibited_fields)
+            or event["groundTruth"] != cell.ground_truth
+            or event["contractHash"] != row["contractHash"]
+        ):
+            raise ValueError("matrix advertised partition, truth, or contract mismatch")
+        if (
+            event["condition"] in ("B0", "B1")
+            and event["advertisedProhibitedFields"] != event["datasetProhibitedFields"]
+        ):
+            raise ValueError("B0/B1 must transmit every dataset-prohibited field")
+        if event["condition"] not in ("B0", "B1") and event["advertisedProhibitedFields"]:
+            raise ValueError("approved-only conditions must transmit no prohibited field")
+        if event["status"] == "RELEASED":
+            result = event["result"]
+            evidence = result["evidence"]
+            release = result["nativeRelease"]
+            if evidence["destinationHost"] != "openrouter.ai":
+                raise ValueError("observed OpenRouter destination mismatch")
+            if evidence["processingClassification"] != "REMOTE_PROVIDER_PROCESSING":
+                raise ValueError("processing classification is not remote")
+            if evidence["contractHash"] != event["contractHash"]:
+                raise ValueError("matrix evidence contract mismatch")
+            if evidence["transmittedFields"] != list(cell.selected_fields):
+                raise ValueError("matrix evidence projection mismatch")
+            for field in ("transmittedApprovedFields", "transmittedProhibitedFields"):
+                if field not in evidence:
+                    raise ValueError("projection classification was not forwarded to evidence")
+            if evidence["transmittedApprovedFields"] != list(cell.approved_fields):
+                raise ValueError("evidence approved partition mismatch")
+            if evidence["transmittedProhibitedFields"] != list(cell.prohibited_fields):
+                raise ValueError("evidence prohibited partition mismatch")
+            expected_approved_hash = projection_payload_hash(
+                [dict(r) for r in cell.records], list(cell.approved_fields)
+            )
+            if evidence["approvedPayloadHash"] != expected_approved_hash:
+                raise ValueError("platform approved hash disagrees with research hash")
+            if not release["allowed"] or any(
+                item["decision"] == "DENY" for item in release["events"]
+            ):
+                raise ValueError("released execution did not pass native release")
+            if event["decision"] not in list(_dataset_labels(config, cell.dataset)):
+                raise ValueError("released execution returned an invalid decision")
+            released += 1
+            released_events.append(event)
+            by_approved_payload.setdefault((cell.dataset, cell.pair_id, cell.variant), set()).add(
+                evidence["approvedPayloadHash"]
+            )
+            if cell.condition not in ("B0", "B1"):
+                by_payload.setdefault((cell.dataset, cell.pair_id, cell.variant), set()).add(
+                    evidence["payloadHash"]
+                )
+    if len(released_events) != TOTAL_CELLS:
+        raise ValueError(f"matrix did not release all cells: {len(released_events)}")
+    for key, hashes in by_approved_payload.items():
+        if len(hashes) != 1:
+            raise ValueError(f"approved projection drifted across conditions: {key}")
+    for key, hashes in by_payload.items():
+        if len(hashes) != 1:
+            raise ValueError(f"payload drifted across approved-only conditions: {key}")
+    if previous != manifest["finalEventHash"] or released != manifest["released"]:
+        raise ValueError("matrix summary mismatch")
+    text = raw_path.read_text(encoding="utf-8").lower()
+    if any(marker.lower() in text for marker in FORBIDDEN_SECRET_MARKERS):
+        raise ValueError("provider secret marker found in matrix evidence")
+    return manifest

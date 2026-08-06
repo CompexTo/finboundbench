@@ -21,7 +21,7 @@ def main() -> None:
                 "status": freeze["status"],
                 "freezeManifestHash": freeze["freezeManifestHash"],
                 "validationAnchor": freeze["validationAnchor"]["status"],
-                "cells": freeze["schedule"]["cells"],
+                "cells": sum(entry["cells"] for entry in freeze["schedule"].values()),
             },
             sort_keys=True,
         )

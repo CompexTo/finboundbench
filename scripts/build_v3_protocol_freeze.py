@@ -6,11 +6,11 @@ import argparse
 import json
 from pathlib import Path
 
+from purposebench.utils import git_commit
 from purposebench.v3.matrix import (
     build_protocol_freeze,
     current_repository_bindings,
 )
-from purposebench.utils import git_commit
 
 
 def main() -> None:
@@ -29,17 +29,18 @@ def main() -> None:
         research_commit=bindings["researchCommit"],
         platform_commit=bindings["platformCommit"],
     )
-    freeze_path.write_text(
-        json.dumps(freeze, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    freeze_path.write_text(json.dumps(freeze, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(
         json.dumps(
             {
                 "status": freeze["status"],
                 "researchCommit": git_commit(research_root),
                 "platformCommit": git_commit(platform_root),
-                "scheduleHash": freeze["schedule"]["scheduleHash"],
-                "cells": freeze["schedule"]["cells"],
+                "scheduleHashTaskA": freeze["schedule"]["taskA"]["scheduleHash"],
+                "scheduleHashTaskB": freeze["schedule"]["taskB"]["scheduleHash"],
+                "cells": (
+                    freeze["schedule"]["taskA"]["cells"] + freeze["schedule"]["taskB"]["cells"]
+                ),
                 "freezeManifestHash": freeze["freezeManifestHash"],
             },
             sort_keys=True,

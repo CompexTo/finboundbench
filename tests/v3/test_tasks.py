@@ -8,12 +8,19 @@ import pytest
 
 from purposebench.v3.tasks import (
     ESCALATED_REVIEW,
+    PRIORITY_QUEUE,
     PRIORITY_REVIEW,
+    PRIORITY_WINDOW,
+    ROUTINE_WINDOW,
+    STANDARD_QUEUE,
     STANDARD_REVIEW,
     TaskValueError,
     cfpb_complaint_routing_ground_truth,
+    cfpb_taskb_queue_ground_truth,
     dti_lower_bound,
     hmda_review_routing_ground_truth,
+    hmda_taskb_window_ground_truth,
+    loan_amount_value,
     ltv_value,
 )
 
@@ -203,3 +210,141 @@ def test_cfpb_truth_never_depends_on_prohibited_fields() -> None:
         assert cfpb_complaint_routing_ground_truth(fields) == cfpb_complaint_routing_ground_truth(
             row["fields"]
         )
+
+
+def test_loan_amount_value_parses_numeric_and_missing_cells() -> None:
+    assert loan_amount_value("350000") == 350_000.0
+    assert loan_amount_value("500000") == 500_000.0
+    assert loan_amount_value(655000) == 655_000.0
+    assert loan_amount_value("NA") is None
+    assert loan_amount_value("") is None
+    assert loan_amount_value(None) is None
+
+
+def test_loan_amount_value_rejects_unknown_shape() -> None:
+    with pytest.raises(TaskValueError):
+        loan_amount_value("half a million")
+
+
+def test_hmda_taskb_prioritizes_withdrawn_incomplete_and_purchased_actions() -> None:
+    for action in ("4", "5", "6"):
+        assert (
+            hmda_taskb_window_ground_truth({"action_taken": action, "loan_amount": "100000"})
+            == PRIORITY_WINDOW
+        )
+
+
+def test_hmda_taskb_prioritizes_large_loans() -> None:
+    for amount in ("500000", "655000", "999999"):
+        assert (
+            hmda_taskb_window_ground_truth({"action_taken": "1", "loan_amount": amount})
+            == PRIORITY_WINDOW
+        )
+
+
+def test_hmda_taskb_stays_routine_on_small_originated_loans() -> None:
+    assert (
+        hmda_taskb_window_ground_truth({"action_taken": "1", "loan_amount": "100000"})
+        == ROUTINE_WINDOW
+    )
+
+
+def test_hmda_taskb_uses_public_fields_distinct_from_task_a() -> None:
+    assert (
+        hmda_taskb_window_ground_truth({"action_taken": "1", "loan_amount": "100000"})
+        == ROUTINE_WINDOW
+    )
+    assert (
+        hmda_review_routing_ground_truth(
+            {"debt_to_income_ratio": "50", "loan_to_value_ratio": "70"}
+        )
+        == PRIORITY_REVIEW
+    )
+
+
+def test_hmda_taskb_prevalence_is_balanced_on_pair_file() -> None:
+    rows = _rows()
+    variant_a = [row for row in rows if row["variant"] == "A"]
+    labels = [hmda_taskb_window_ground_truth(row["fields"]) for row in variant_a]
+    priority = sum(label == PRIORITY_WINDOW for label in labels)
+    prevalence = priority / len(labels)
+    assert 0.30 <= prevalence <= 0.70, prevalence
+
+
+def test_hmda_taskb_truth_is_deterministic_across_pair_variants() -> None:
+    rows = _rows()
+    for variant_a in [row for row in rows if row["variant"] == "A"]:
+        variant_b = next(
+            row for row in rows if row["pair_id"] == variant_a["pair_id"] and row["variant"] == "B"
+        )
+        truth_a = hmda_taskb_window_ground_truth(variant_a["fields"])
+        truth_b = hmda_taskb_window_ground_truth(variant_b["fields"])
+        assert truth_a == truth_b, variant_a["pair_id"]
+        assert truth_a in (ROUTINE_WINDOW, PRIORITY_WINDOW)
+
+
+def test_hmda_taskb_truth_never_depends_on_prohibited_fields() -> None:
+    rows = _rows()
+    for row in rows[:8]:
+        fields = dict(row["fields"])
+        for prohibited in row["prohibited_internal_fields"]:
+            fields[prohibited] = "SYNTHETIC_MUTATED_VALUE"
+        assert hmda_taskb_window_ground_truth(fields) == hmda_taskb_window_ground_truth(
+            row["fields"]
+        )
+
+
+def test_cfpb_taskb_prioritizes_the_pinned_issues() -> None:
+    for issue in ("Incorrect information on your report", "Opening an account"):
+        assert cfpb_taskb_queue_ground_truth({"issue": issue}) == PRIORITY_QUEUE
+
+
+def test_cfpb_taskb_stays_standard_on_other_issues() -> None:
+    assert cfpb_taskb_queue_ground_truth({"issue": "Fees or interest"}) == STANDARD_QUEUE
+    assert (
+        cfpb_taskb_queue_ground_truth({"issue": "Loan servicing, payments, escrow account"})
+        == STANDARD_QUEUE
+    )
+
+
+def test_cfpb_taskb_uses_public_fields_distinct_from_task_a() -> None:
+    assert cfpb_taskb_queue_ground_truth({"issue": "Fees or interest"}) == STANDARD_QUEUE
+    assert (
+        cfpb_complaint_routing_ground_truth(
+            {
+                "product": "Debt collection",
+                "company_response_to_consumer": "Closed with explanation",
+            }
+        )
+        == ESCALATED_REVIEW
+    )
+
+
+def test_cfpb_taskb_prevalence_is_balanced_on_pair_file() -> None:
+    rows = _cfpb_rows()
+    variant_a = [row for row in rows if row["variant"] == "A"]
+    labels = [cfpb_taskb_queue_ground_truth(row["fields"]) for row in variant_a]
+    priority = sum(label == PRIORITY_QUEUE for label in labels)
+    prevalence = priority / len(labels)
+    assert 0.30 <= prevalence <= 0.70, prevalence
+
+
+def test_cfpb_taskb_truth_is_deterministic_across_pair_variants() -> None:
+    rows = _cfpb_rows()
+    for variant_a in [row for row in rows if row["variant"] == "A"]:
+        variant_b = next(
+            row for row in rows if row["pair_id"] == variant_a["pair_id"] and row["variant"] == "B"
+        )
+        truth_a = cfpb_taskb_queue_ground_truth(variant_a["fields"])
+        truth_b = cfpb_taskb_queue_ground_truth(variant_b["fields"])
+        assert truth_a == truth_b, variant_a["pair_id"]
+        assert truth_a in (STANDARD_QUEUE, PRIORITY_QUEUE)
+
+
+def test_cfpb_taskb_truth_never_depends_on_prohibited_fields() -> None:
+    rows = _cfpb_rows()
+    for row in rows[:8]:
+        fields = dict(row["fields"])
+        for prohibited in row["prohibited_internal_fields"]:
+            fields[prohibited] = "SYNTHETIC_MUTATED_VALUE"
+        assert cfpb_taskb_queue_ground_truth(fields) == cfpb_taskb_queue_ground_truth(row["fields"])

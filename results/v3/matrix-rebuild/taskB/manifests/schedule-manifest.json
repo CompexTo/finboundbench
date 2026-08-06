@@ -1,0 +1,36 @@
+{
+  "absoluteAuthorizedEur": 40.0,
+  "cells": 1680,
+  "conditions": [
+    "B0",
+    "B1",
+    "B2",
+    "P0",
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "createdAt": "2026-08-06T14:41:56.603Z",
+  "datasets": [
+    "hmda",
+    "cfpb"
+  ],
+  "label": "OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD_NOT_CONFIRMATORY",
+  "matrixId": "finboundbench-v3-purpose-selective-matrix-taskb",
+  "modelLanes": [
+    "google-gemma-4-26b-a4b-it"
+  ],
+  "pairsPerDataset": 20,
+  "phaseAuthorizedEur": 40.0,
+  "repetitions": 3,
+  "reservationTotalEur": 33.6,
+  "scheduleBytes": 1955354,
+  "scheduleHash": "3eda22adbce86c38be20edcf437c22a6dfd8dab7ef659b06ea0767bbd3f8ac6e",
+  "scheduleManifestHash": "81af770821263f48604bc10ab71f599446a6092407b66cf9f768b9a89f491447",
+  "scheduleSha256": "8fba108e96d7b521a38b2cebd31e92192e5219d382c27c77371daeee5817bf0d",
+  "schemaVersion": "finboundbench.openrouter-purpose-selective-matrix-schedule.v3",
+  "scope": "OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD",
+  "status": "SCHEDULED_LIVE_EXECUTION_NOT_AUTHORIZED",
+  "task": "taskB",
+  "workloadImageDigest": "sha256:e0e8002f4b0261ecbedb462479ade954e847c3b832942973094b5cfa25f5f680"
+}

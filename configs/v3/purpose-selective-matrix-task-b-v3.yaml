@@ -1,6 +1,6 @@
 schema_version: finboundbench.openrouter-purpose-selective-matrix.v3
-task_id: taskA
-matrix_id: finboundbench-v3-purpose-selective-matrix
+task_id: taskB
+matrix_id: finboundbench-v3-purpose-selective-matrix-taskb
 protocol_id: protocol-v3-psbe-no-tee
 scope: OPENROUTER_PURPOSE_SELECTIVE_MATRIX_REBUILD
 phase: MATRIX_REBUILD
@@ -68,17 +68,17 @@ conditions:
 datasets:
   - id: hmda
     pair_file: data/v2/generated/hmda-2024-dc-pairs.jsonl
-    ground_truth: hmda_review_routing_ground_truth
+    ground_truth: hmda_taskb_window_ground_truth
     labels:
-      - PRIORITY_REVIEW
-      - STANDARD_REVIEW
+      - ROUTINE_WINDOW
+      - PRIORITY_WINDOW
     prohibited_exact_values_derived_from: pair_file
   - id: cfpb
     pair_file: data/v2/generated/cfpb-2024-01-dc-pairs.jsonl
-    ground_truth: cfpb_complaint_routing_ground_truth
+    ground_truth: cfpb_taskb_queue_ground_truth
     labels:
-      - ESCALATED_REVIEW
-      - STANDARD_REVIEW
+      - STANDARD_QUEUE
+      - PRIORITY_QUEUE
     prohibited_exact_values_derived_from: pair_file
 denied_fields:
   - aml_investigation_state
@@ -88,7 +88,7 @@ denied_fields:
   - marketing_classification
   - retention_score
 budget:
-  ledger_path: results/v3/matrix-rebuild/budget/ledger.jsonl
+  ledger_path: results/v3/matrix-rebuild/taskB/budget/ledger.jsonl
   authorization_id: finboundbench-v3-matrix-rebuild-authorization
   authorization_basis: USER_INSTRUCTION_2026_08_06_REBUILD_MATRIX_ON_CORRECTED_TRANSMISSION_PATH
   reservation_per_call_eur: 0.02
@@ -126,7 +126,7 @@ response_schemas:
     properties:
       decision:
         type: string
-        enum: [PRIORITY_REVIEW, STANDARD_REVIEW]
+        enum: [ROUTINE_WINDOW, PRIORITY_WINDOW]
       score:
         type: integer
         minimum: 0
@@ -142,7 +142,7 @@ response_schemas:
     properties:
       decision:
         type: string
-        enum: [ESCALATED_REVIEW, STANDARD_REVIEW]
+        enum: [STANDARD_QUEUE, PRIORITY_QUEUE]
       score:
         type: integer
         minimum: 0
@@ -166,8 +166,8 @@ claude_lane:
 validation_anchor:
   run_manifest_path: results/v3/pair-validation/manifests/run-manifest.json
   required_status: PASSED_ONE_PAIR_VALIDATION
-schedule_path: results/v3/matrix-rebuild/manifests/schedule.json
-schedule_manifest_path: results/v3/matrix-rebuild/manifests/schedule-manifest.json
+schedule_path: results/v3/matrix-rebuild/taskB/manifests/schedule.json
+schedule_manifest_path: results/v3/matrix-rebuild/taskB/manifests/schedule-manifest.json
 freeze_manifest_path: results/v3/manifests/protocol-v3-live-freeze.json
-raw_events_path: results/v3/matrix-rebuild/raw/events.jsonl
-run_manifest_path: results/v3/matrix-rebuild/manifests/run-manifest.json
+raw_events_path: results/v3/matrix-rebuild/taskB/raw/events.jsonl
+run_manifest_path: results/v3/matrix-rebuild/taskB/manifests/run-manifest.json

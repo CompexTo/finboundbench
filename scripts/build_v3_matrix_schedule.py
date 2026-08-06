@@ -11,17 +11,19 @@ import argparse
 import json
 from pathlib import Path
 
-from purposebench.v3.matrix import build_matrix_dry_run
+from purposebench.v3.matrix import TASK_A, TASK_B, build_matrix_dry_run
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--task", choices=(TASK_A, TASK_B), default=TASK_A)
     args = parser.parse_args()
     research_root = Path(__file__).resolve().parents[1]
-    manifest = build_matrix_dry_run(research_root)
+    manifest = build_matrix_dry_run(research_root, task=args.task)
     print(
         json.dumps(
             {
+                "task": manifest["task"],
                 "status": manifest["status"],
                 "cells": manifest["cells"],
                 "reservationTotalEur": manifest["reservationTotalEur"],

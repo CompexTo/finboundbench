@@ -16,11 +16,20 @@ from typing import Any
 PRIORITY_REVIEW = "PRIORITY_REVIEW"
 STANDARD_REVIEW = "STANDARD_REVIEW"
 ESCALATED_REVIEW = "ESCALATED_REVIEW"
+ROUTINE_WINDOW = "ROUTINE_WINDOW"
+PRIORITY_WINDOW = "PRIORITY_WINDOW"
+STANDARD_QUEUE = "STANDARD_QUEUE"
+PRIORITY_QUEUE = "PRIORITY_QUEUE"
 
 _PRIORITY_DTI_THRESHOLD = 43.0
 _PRIORITY_LTV_THRESHOLD = 80.0
+_PRIORITY_LOAN_AMOUNT = 500_000.0
 _CFPB_ESCALATED_PRODUCT = "Debt collection"
 _CFPB_ESCALATED_RESPONSE = "Closed with non-monetary relief"
+_CFPB_PRIORITY_QUEUE_ISSUES = (
+    "Incorrect information on your report",
+    "Opening an account",
+)
 _DTI_ONLY_NUMBER = re.compile(r"^([0-9]+(?:\.[0-9]+)?)%?$")
 _DTI_RANGE = re.compile(
     r"^([0-9]+(?:\.[0-9]+)?)%?\s*-\s*(?:<|<=|=)?\s*<?\(??\s*([0-9]+(?:\.[0-9]+)?)%?$"
@@ -73,6 +82,21 @@ def ltv_value(value: Any) -> float | None:
     raise TaskValueError(f"unparseable loan_to_value_ratio: {value!r}")
 
 
+def loan_amount_value(value: Any) -> float | None:
+    """Return the numeric loan amount, or ``None`` when unavailable."""
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = str(value).strip()
+    if not text or text.upper() in ("NA", "N/A", "NULL"):
+        return None
+    number = _LTV_NUMBER.match(text)
+    if number:
+        return float(number.group(1))
+    raise TaskValueError(f"unparseable loan_amount: {value!r}")
+
+
 def hmda_review_routing_ground_truth(fields: Mapping[str, Any]) -> str:
     """Deterministic routing label for one published HMDA loan record.
 
@@ -102,3 +126,34 @@ def cfpb_complaint_routing_ground_truth(fields: Mapping[str, Any]) -> str:
     if product == _CFPB_ESCALATED_PRODUCT or response == _CFPB_ESCALATED_RESPONSE:
         return ESCALATED_REVIEW
     return STANDARD_REVIEW
+
+
+def hmda_taskb_window_ground_truth(fields: Mapping[str, Any]) -> str:
+    """Deterministic Task B portfolio-review scheduling label (public-only).
+
+    PRIORITY_WINDOW when the action taken is withdrawn, incomplete, or
+    purchased (codes 4/5/6) or the loan amount is at least 500000; otherwise
+    ROUTINE_WINDOW. Class prevalence on the confirmatory pair file is 0.40.
+    The rule uses distinct public fields from Task A.
+    """
+    action = str(fields.get("action_taken", ""))
+    amount = loan_amount_value(fields.get("loan_amount"))
+    if action in ("4", "5", "6"):
+        return PRIORITY_WINDOW
+    if amount is not None and amount >= _PRIORITY_LOAN_AMOUNT:
+        return PRIORITY_WINDOW
+    return ROUTINE_WINDOW
+
+
+def cfpb_taskb_queue_ground_truth(fields: Mapping[str, Any]) -> str:
+    """Deterministic Task B complaint-operations routing label (public-only).
+
+    PRIORITY_QUEUE when the declared issue is incorrect report information or
+    an account opened without consent; otherwise STANDARD_QUEUE. Class
+    prevalence on the confirmatory pair file is 0.55. The rule uses distinct
+    public fields from Task A.
+    """
+    issue = str(fields.get("issue", ""))
+    if issue in _CFPB_PRIORITY_QUEUE_ISSUES:
+        return PRIORITY_QUEUE
+    return STANDARD_QUEUE

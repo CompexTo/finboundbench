@@ -19,10 +19,10 @@
       "sha256": "e0e8002f4b0261ecbedb462479ade954e847c3b832942973094b5cfa25f5f680"
     },
     {
-      "bytes": 73813,
+      "bytes": 72336,
       "path": "src/purposebench/v3/matrix.py",
       "repository": "research",
-      "sha256": "99396090606d6bfe7a49813c432b80744b3280e7d083c5b5aa1962e2db13bf40"
+      "sha256": "0a50f105e218e9c3e2188a3fc1214abb87e4da9e77e6446061098bf8b4c87c78"
     },
     {
       "bytes": 5943,
@@ -162,8 +162,8 @@
     "reservationPerCallEur": 0.02
   },
   "confirmatoryClaimsPermitted": false,
-  "freezeManifestHash": "09db7e0c68fa193a850b34e4986c7d9948fac953a9a2f8ca5d26e88814edc6be",
-  "frozenAt": "2026-08-06T19:29:50.741Z",
+  "freezeManifestHash": "00230b9e37fbc8dc405b120fcdcddaed7f627f0bccd0e8d17d0506c5904f1d43",
+  "frozenAt": "2026-08-06T19:23:46.035Z",
   "hardwareAttestation": false,
   "matrixIds": [
     "finboundbench-v3-purpose-selective-matrix",
@@ -177,7 +177,7 @@
   "remoteProviderCallsPermitted": 3360,
   "repositoryBindings": {
     "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
-    "researchCommit": "8b58e498c9eb6174a76f1dd8bef47045ef11ef71"
+    "researchCommit": "6990047780d918f5d72d93eabf497b2f82f16198"
   },
   "repositoryStateAtFreeze": {
     "platform": {
@@ -187,7 +187,7 @@
     },
     "platformScopeBoundByArtifactHashes": true,
     "research": {
-      "commit": "8b58e498c9eb6174a76f1dd8bef47045ef11ef71",
+      "commit": "6990047780d918f5d72d93eabf497b2f82f16198",
       "tracked_diff_sha256": "6e2ea6606bd8f8278f207f2766871ab70b02361a35734732514ddcc3138cd2cb",
       "tracked_tree_dirty": true
     },

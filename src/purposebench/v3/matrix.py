@@ -1423,7 +1423,8 @@ def verify_matrix_run(
         raise ValueError("matrix run schedule hash mismatch")
     previous = "0" * 64
     released = 0
-    released_events: list[dict[str, Any]] = []
+    rejected = 0
+    failed_events = 0
     by_approved_payload: dict[tuple[str, str, str], set[str]] = {}
     by_payload: dict[tuple[str, str, str], set[str]] = {}
     for sequence, (event, cell, row) in enumerate(
@@ -1501,7 +1502,6 @@ def verify_matrix_run(
             if event["decision"] not in list(_dataset_labels(config, cell.dataset)):
                 raise ValueError("released execution returned an invalid decision")
             released += 1
-            released_events.append(event)
             by_approved_payload.setdefault((cell.dataset, cell.pair_id, cell.variant), set()).add(
                 evidence["approvedPayloadHash"]
             )
@@ -1509,8 +1509,44 @@ def verify_matrix_run(
                 by_payload.setdefault((cell.dataset, cell.pair_id, cell.variant), set()).add(
                     evidence["payloadHash"]
                 )
-    if len(released_events) != TOTAL_CELLS:
-        raise ValueError(f"matrix did not release all cells: {len(released_events)}")
+        elif event["status"] == "RELEASE_DENIED":
+            result = event["result"]
+            evidence = result["evidence"]
+            release = result["nativeRelease"]
+            if evidence["destinationHost"] != "openrouter.ai":
+                raise ValueError("denied execution observed a non-OpenRouter destination")
+            if evidence["processingClassification"] != "REMOTE_PROVIDER_PROCESSING":
+                raise ValueError("denied execution processing classification is not remote")
+            if evidence["contractHash"] != event["contractHash"]:
+                raise ValueError("denied execution evidence contract mismatch")
+            if evidence["transmittedFields"] != list(cell.selected_fields):
+                raise ValueError("denied execution projection mismatch")
+            for field in ("transmittedApprovedFields", "transmittedProhibitedFields"):
+                if field not in evidence:
+                    raise ValueError(
+                        "projection classification was not forwarded to denied evidence"
+                    )
+            if evidence["transmittedApprovedFields"] != list(cell.approved_fields):
+                raise ValueError("denied execution approved partition mismatch")
+            if evidence["transmittedProhibitedFields"] != list(cell.prohibited_fields):
+                raise ValueError("denied execution prohibited partition mismatch")
+            if release.get("allowed") is not False or not any(
+                item["decision"] == "DENY" for item in release["events"]
+            ):
+                raise ValueError("RELEASE_DENIED execution did not record a native DENY")
+            if event.get("decision") is not None:
+                raise ValueError("RELEASE_DENIED execution must not expose a decision")
+            rejected += 1
+        elif event["status"] == "FAILED":
+            if not event.get("errorClass") or event.get("result") is not None:
+                raise ValueError("FAILED execution must record an error and no result")
+            failed_events += 1
+        else:
+            raise ValueError(f"unknown matrix event status: {event['status']}")
+    if released + rejected + failed_events != len(events):
+        raise ValueError("matrix did not classify every event")
+    if len(events) != TOTAL_CELLS or released != manifest["released"]:
+        raise ValueError(f"matrix summary mismatch: {released} released")
     if resumed_from:
         interrupted_r = {
             row["reservationId"]

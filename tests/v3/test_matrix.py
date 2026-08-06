@@ -29,6 +29,7 @@ from purposebench.v3.matrix import (
     run_matrix,
     validate_matrix_config,
     verify_matrix_dry_run,
+    verify_matrix_run,
 )
 from purposebench.v3.tasks import (
     ESCALATED_REVIEW,
@@ -623,3 +624,12 @@ def test_resume_rejects_a_broken_event_chain(
     _append_chained(raw_path, partial_event(rows[1]), "0" * 64)
     with pytest.raises(ValueError, match="partial run"):
         run_matrix(tmp_root, PLATFORM_ROOT, task=TASK_A, resume=True)
+
+
+def test_verify_accepts_the_completed_matrix_run_with_retained_outcomes() -> None:
+    if not (ROOT / "results/v3/matrix-rebuild/manifests/run-manifest.json").is_file():
+        pytest.skip("no completed matrix run artifacts on this checkout")
+    manifest = verify_matrix_run(ROOT, PLATFORM_ROOT, task=TASK_A)
+    assert manifest["status"] == "MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES"
+    assert manifest["released"] > 0
+    assert manifest["resumedFromEvents"] == 1404

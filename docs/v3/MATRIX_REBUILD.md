@@ -142,13 +142,23 @@ TaskB schedule manifest:
 schedule rows hash: `3eda22adbce86c38be20edcf437c22a6dfd8dab7ef659b06ea0767bbd3f8ac6e`.
 
 Protocol freeze: `results/v3/manifests/protocol-v3-live-freeze.json` (hash
-recorded at build time; rebuilt after the live-authorization flip), status
-`FROZEN_LIVE_PROTOCOL`, repository bindings research `c7e226d` / platform
+`52ef80024c9fff60279efcdf408dc0b9f1e432f27001c92c57f2226b04a83009`), status
+`FROZEN_LIVE_PROTOCOL`, repository bindings research `2d78ef2` / platform
 `a84c24a`, anchored on the one-pair run manifest, pinning the corrected
 transmission artifacts (matrix, tasks, pair gate, transmission, budget,
 admission, both bridges, all build/verify scripts, both configs) and the
 platform adapter sources. `verify_v3_protocol_freeze.py` recomputes both
 schedules and the anchor from the current repositories and fails on any drift.
+
+The freeze was rebuilt on the append-only resume path: commit `7a8ddc1` added
+the `resume=True` continuation (validates the partial hash chain and interrupted
+ledger, archives the ledger as `<stem>.interrupted-<date>.jsonl`, settles the
+orphan reservation with `outcome="interrupted_run"`), and `2d78ef2` pinned the
+new artifact hashes. The prior freeze (`e895d2a`, commits `07f4628`/`80e9007`)
+is preserved unmodified at
+`results/v3/manifests/superseded/protocol-v3-live-freeze-stale-2026-08-06-resume.json`.
+Schedule hashes are unchanged across the rebuild
+(TaskA `24a24472…`, TaskB `3eda22ad…`).
 
 ## 6. Condition-count note
 
@@ -167,10 +177,13 @@ adjacent so order effects are visible as rep drift in the analysis.
 
 ## 7. Not in scope of this phase
 
-- Live execution of the schedules: requires flipping `live_execution_permitted`
-  with a new authorization record; `run_matrix` then executes per-task (1680
-  calls each) with hash-chained events, per-cell budget reservation/settlement,
-  and `verify_matrix_run` failing closed on any drift.
+- Live execution of the schedules is append-only and per-task (1680 calls
+  each) with hash-chained events, per-cell budget reservation/settlement, and
+  `verify_matrix_run` failing closed on any drift. `run_matrix` uses the
+  current freeze as its live gate; its `resume=True` continuation path may only
+  continue a frozen schedule after validating the partial chain and interrupted
+  ledger (documented above in §5) and settles the interrupted orphan with
+  `outcome="interrupted_run"`.
 - D0-D3 differential-privacy aggregation conditions (require a DP ledger).
 - Attack suite families (separate phase, per REDUCED_SCOPE_SUMMARY.md next steps).
 - No AWS Nitro, no confirmatory claims, no paper submission.

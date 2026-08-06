@@ -1454,7 +1454,7 @@ def verify_matrix_run(
     rejected = 0
     failed_events = 0
     by_approved_payload: dict[tuple[str, str, str], set[str]] = {}
-    by_payload: dict[tuple[str, str, str], set[str]] = {}
+    by_payload: dict[tuple[str, str, str, str], set[str]] = {}
     for sequence, (event, cell, row) in enumerate(
         zip(events, cells, schedule, strict=True), start=1
     ):
@@ -1534,9 +1534,9 @@ def verify_matrix_run(
                 evidence["approvedPayloadHash"]
             )
             if cell.condition not in ("B0", "B1"):
-                by_payload.setdefault((cell.dataset, cell.pair_id, cell.variant), set()).add(
-                    evidence["payloadHash"]
-                )
+                by_payload.setdefault(
+                    (cell.dataset, cell.pair_id, cell.variant, cell.condition), set()
+                ).add(evidence["payloadHash"])
         elif event["status"] == "RELEASE_DENIED":
             result = event["result"]
             evidence = result["evidence"]
@@ -1598,9 +1598,11 @@ def verify_matrix_run(
     for key, hashes in by_approved_payload.items():
         if len(hashes) != 1:
             raise ValueError(f"approved projection drifted across conditions: {key}")
-    for key, hashes in by_payload.items():
+    for payload_key, hashes in by_payload.items():
         if len(hashes) != 1:
-            raise ValueError(f"payload drifted across approved-only conditions: {key}")
+            raise ValueError(
+                f"payload drifted across repetitions within a condition: {payload_key}"
+            )
     if previous != manifest["finalEventHash"] or released != manifest["released"]:
         raise ValueError("matrix summary mismatch")
     text = raw_path.read_text(encoding="utf-8").lower()

@@ -142,23 +142,42 @@ TaskB schedule manifest:
 schedule rows hash: `3eda22adbce86c38be20edcf437c22a6dfd8dab7ef659b06ea0767bbd3f8ac6e`.
 
 Protocol freeze: `results/v3/manifests/protocol-v3-live-freeze.json` (hash
-`52ef80024c9fff60279efcdf408dc0b9f1e432f27001c92c57f2226b04a83009`), status
-`FROZEN_LIVE_PROTOCOL`, repository bindings research `2d78ef2` / platform
+`65d84b6620ee4c55001bb35282233b2927a37f2570140e9225de498030e7cd1b`), status
+`FROZEN_LIVE_PROTOCOL`, repository bindings research `3746cc5` / platform
 `a84c24a`, anchored on the one-pair run manifest, pinning the corrected
 transmission artifacts (matrix, tasks, pair gate, transmission, budget,
 admission, both bridges, all build/verify scripts, both configs) and the
 platform adapter sources. `verify_v3_protocol_freeze.py` recomputes both
 schedules and the anchor from the current repositories and fails on any drift.
 
-The freeze was rebuilt on the append-only resume path: commit `7a8ddc1` added
-the `resume=True` continuation (validates the partial hash chain and interrupted
-ledger, archives the ledger as `<stem>.interrupted-<date>.jsonl`, settles the
-orphan reservation with `outcome="interrupted_run"`), and `2d78ef2` pinned the
-new artifact hashes. The prior freeze (`e895d2a`, commits `07f4628`/`80e9007`)
-is preserved unmodified at
-`results/v3/manifests/superseded/protocol-v3-live-freeze-stale-2026-08-06-resume.json`.
-Schedule hashes are unchanged across the rebuild
-(TaskA `24a24472…`, TaskB `3eda22ad…`).
+Freeze lineage (append-only, schedule hashes unchanged across all rebuilds,
+TaskA `24a24472…`, TaskB `3eda22ad…`):
+
+- `e895d2a` (commits `07f4628`/`80e9007`) — original corrected-path freeze,
+  preserved at `superseded/protocol-v3-live-freeze-stale-2026-08-06-resume.json`.
+- `52ef8002` (commit `7a8ddc1` added the `resume=True` continuation; `2d78ef2`
+  pinned it) — resume path: validates the partial hash chain and interrupted
+  ledger, archives the ledger as `<stem>.interrupted-<date>.jsonl`, settles the
+  orphan reservation with `outcome="interrupted_run"`.
+- `9bf0314f` (commit `b7e3f93`) — fixed the resume partial-chain validation
+  (`zip(existing, cells_all, schedule_all)` no longer strict over a partial
+  suffix).
+- `00230b9e` (after commit `6990047`) and `09db7e0c` (commit `8b58e49`) —
+  `verify_matrix_run` now accepts `RELEASE_DENIED`/`FAILED` as recorded
+  outcomes (retained-failure gate: a `MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES`
+  run verifies when `released + rejected + failed_events == TOTAL_CELLS`), and
+  binds the run to the **intact recorded freeze lineage** (`_recorded_freeze_with_hash`
+  walks live + superseded manifests) so an append-only run manifest is never
+  rewritten when the active freeze is rebuilt.
+- `65d84b66` (commit `30ff338`/`3746cc5`) — `by_payload` homogeneity is now
+  enforced **within a condition** (rep-to-rep) rather than across conditions:
+  `payloadHash` is the hash of the full request body, and the design varies the
+  body per condition (purpose clause, policy, instruction wording), so only the
+  `approvedPayloadHash` cross-condition identity (verified separately) is
+  invariant.
+
+A live run manifest records the freeze hash active at run time and is bound to
+it through the lineage, so verification never requires rewriting it.
 
 ## 6. Condition-count note
 
@@ -175,7 +194,7 @@ full 200-pair protocol; this reduced-scope matrix keeps the frozen
 deterministic order so the schedule is byte-reproducible, and reps are
 adjacent so order effects are visible as rep drift in the analysis.
 
-## 7. Not in scope of this phase
+## 7. Live execution
 
 - Live execution of the schedules is append-only and per-task (1680 calls
   each) with hash-chained events, per-cell budget reservation/settlement, and
@@ -184,6 +203,20 @@ adjacent so order effects are visible as rep drift in the analysis.
   continue a frozen schedule after validating the partial chain and interrupted
   ledger (documented above in §5) and settles the interrupted orphan with
   `outcome="interrupted_run"`.
-- D0-D3 differential-privacy aggregation conditions (require a DP ledger).
+- Both tasks have been run and verified live against the frozen schedules:
+
+  | Task | Run manifest | Status | Attempts | Released | Retained (denied+failed) | Committed EUR |
+  |---|---|---|---|---|---|---|
+  | A | `results/v3/matrix-rebuild/manifests/run-manifest.json` | `MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES` | 1680 | 1489 | 191 | 0.066 |
+  | B | `results/v3/matrix-rebuild/taskB/manifests/run-manifest.json` | `MATRIX_RUN_COMPLETE_WITH_RETAINED_FAILURES` | 1680 | 1396 | 284 | 2.061 |
+
+  `verify_v3_matrix_run.py` fails closed on event-chain, ledger, freeze
+  binding, and projection checks; the table is presented here for record, and
+  the analysis artifacts (per-condition outcomes, UIR / IRQ metrics, D0-D3,
+  attack suite) are downstream phases.
+
+## 8. Not in scope of this phase
+
 - Attack suite families (separate phase, per REDUCED_SCOPE_SUMMARY.md next steps).
+- D0-D3 differential-privacy aggregation conditions (require a DP ledger).
 - No AWS Nitro, no confirmatory claims, no paper submission.

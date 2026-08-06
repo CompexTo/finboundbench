@@ -1,0 +1,218 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5830,
+      "path": "configs/v3/purpose-selective-matrix-v3.yaml",
+      "repository": "research",
+      "sha256": "783d2c2be3e15fd5137bca38b1fdf55a9751967c4301afdc4bf89637463895a5"
+    },
+    {
+      "bytes": 5850,
+      "path": "configs/v3/purpose-selective-matrix-task-b-v3.yaml",
+      "repository": "research",
+      "sha256": "03034cce9b6b05bc08d8727d42fe67a3cede1f83d0497dc33a528866376ed1e6"
+    },
+    {
+      "bytes": 15923,
+      "path": "scripts/governed_openrouter_pair_bridge_v3.cjs",
+      "repository": "research",
+      "sha256": "e0e8002f4b0261ecbedb462479ade954e847c3b832942973094b5cfa25f5f680"
+    },
+    {
+      "bytes": 70093,
+      "path": "src/purposebench/v3/matrix.py",
+      "repository": "research",
+      "sha256": "bc8037af28364c733a760655f5f9c16d583f8386ce54836050bfba09689a0d43"
+    },
+    {
+      "bytes": 5943,
+      "path": "src/purposebench/v3/tasks.py",
+      "repository": "research",
+      "sha256": "f52104d6f33651f73ff9f3f8f81510de592d6e9cd434d3c18fc0362fb3560af0"
+    },
+    {
+      "bytes": 37165,
+      "path": "src/purposebench/v3/pair_validation.py",
+      "repository": "research",
+      "sha256": "b6cd02079b6400f9d31d1073b11d06b5a76c2ef11245520da91fe443b1cd4ec0"
+    },
+    {
+      "bytes": 4127,
+      "path": "src/purposebench/v3/transmission.py",
+      "repository": "research",
+      "sha256": "dd34065dfbd3f86b9c3a468a2f461d6abd4641b193c296c616a7ced1b8793604"
+    },
+    {
+      "bytes": 5393,
+      "path": "src/purposebench/v3/budget.py",
+      "repository": "research",
+      "sha256": "0ec39fb36a22df92610b207eccd8e88a88114df72e0133d0c6fbe5e4ccfe23fc"
+    },
+    {
+      "bytes": 28606,
+      "path": "src/purposebench/v3/remote_admission.py",
+      "repository": "research",
+      "sha256": "0b13b2aaccf0af0600580f12d4f606a8c7bf96573545fe93b5fa98ca508a8824"
+    },
+    {
+      "bytes": 8100,
+      "path": "src/purposebench/v3/openrouter_metadata.py",
+      "repository": "research",
+      "sha256": "0c245bdbf241125ca17c404dc3d2011c466772c1095b1b54dfd5585fc160297c"
+    },
+    {
+      "bytes": 1204,
+      "path": "scripts/build_v3_matrix_schedule.py",
+      "repository": "research",
+      "sha256": "51791a138361646cbc042134fd7058ec45128f9560e5efbd2bdf658423b27d27"
+    },
+    {
+      "bytes": 1348,
+      "path": "scripts/verify_v3_matrix_schedule.py",
+      "repository": "research",
+      "sha256": "3de9e6a00549defabf67904abfe0a4791caafe307c8906667d2becac187dd6d1"
+    },
+    {
+      "bytes": 1836,
+      "path": "scripts/build_v3_protocol_freeze.py",
+      "repository": "research",
+      "sha256": "761481de4d72097cb9e35b156711e23038b5a524ab2173dc4f331eb9f1f8f6f5"
+    },
+    {
+      "bytes": 939,
+      "path": "scripts/verify_v3_protocol_freeze.py",
+      "repository": "research",
+      "sha256": "dd856f43d2a63d9718dd6dc28f9dfbcfea0f4efc90097b61ad92f1a2d77b2f17"
+    },
+    {
+      "bytes": 1499,
+      "path": "scripts/run_v3_matrix.py",
+      "repository": "research",
+      "sha256": "3dd303422ca26813d6eb0bdd4e6a8a69bdd18fe1f15601c829491b43df374ab2"
+    },
+    {
+      "bytes": 1025,
+      "path": "scripts/verify_v3_matrix_run.py",
+      "repository": "research",
+      "sha256": "4b24bfacc2917254ff499cf93a206f2f822e93d69b0c7e2230b49c68d9188d2f"
+    },
+    {
+      "bytes": 1229,
+      "path": "scripts/build_v3_one_pair_freeze.py",
+      "repository": "research",
+      "sha256": "405466aad1c0e574dc2e71483bd157e9fcb0c553c15bbcdf3c4ac8dde3488d45"
+    },
+    {
+      "bytes": 1030,
+      "path": "scripts/run_v3_one_pair_validation.py",
+      "repository": "research",
+      "sha256": "d65ccab7804b89f1f62ea213f2993e2f2483babfab85e4430c7272461ec01928"
+    },
+    {
+      "bytes": 953,
+      "path": "scripts/verify_v3_one_pair_validation.py",
+      "repository": "research",
+      "sha256": "18daee818ca9ad310b169adef91fe4728a2a641f7dcd56eb3bfb7302a6b169cd"
+    },
+    {
+      "bytes": 3682,
+      "path": "configs/v3/openrouter-one-pair-validation.yaml",
+      "repository": "research",
+      "sha256": "2cad7c107db07353e602655a9c3be98ce476c0d0cc8edc51b881a4a9e4bc1ac6"
+    },
+    {
+      "bytes": 1765,
+      "path": "docs/v3/model-manifests/openrouter-google-gemma-4-26b-a4b-it.json",
+      "repository": "research",
+      "sha256": "389a80743e84da9916018e64e5fadbe41c9f78123dd2aa8d28cf4a0d1af5d0c5"
+    },
+    {
+      "bytes": 64581,
+      "path": "packages/types/src/confidential-execution.ts",
+      "repository": "platform",
+      "sha256": "80df3fcdb0cdad003790970b48e6cf92245be0aae58bc969b0b432b956435bd7"
+    },
+    {
+      "bytes": 7111,
+      "path": "services/runner/src/providers/openrouter.adapter.ts",
+      "repository": "platform",
+      "sha256": "0e451f29ab4786c83c6b31f4ba4cbce2e34139a7ccd8791589cc014e675fb08a"
+    },
+    {
+      "bytes": 27278,
+      "path": "services/runner/src/providers/commercial-model-adapter.ts",
+      "repository": "platform",
+      "sha256": "39dff21902f2e72def1f7a2bd16a3acbe7b6d69d9ee475b9dbc51c56adf12d2a"
+    },
+    {
+      "bytes": 40535,
+      "path": "services/api/src/confidential-execution/release/native-output-release.ts",
+      "repository": "platform",
+      "sha256": "65cec20e767fc66772d38852b0be3bafa2965a002f8d832b5c81f26197e19a2d"
+    }
+  ],
+  "authorizationState": "LIVE_EXECUTION_AUTHORIZED",
+  "awsActionsPermitted": false,
+  "budget": {
+    "absoluteAuthorizedEur": 40.0,
+    "authorizationBasis": "USER_INSTRUCTION_2026_08_06_REBUILD_MATRIX_ON_CORRECTED_TRANSMISSION_PATH",
+    "authorizationId": "finboundbench-v3-matrix-rebuild-authorization",
+    "ledgerPath": "results/v3/matrix-rebuild/budget/ledger.jsonl",
+    "phaseAuthorizedEur": 40.0,
+    "reservationPerCallEur": 0.02
+  },
+  "confirmatoryClaimsPermitted": false,
+  "freezeManifestHash": "9bf0314fd9ea221c8a66c2b62310a58b4518cba0154f1089c1498a55749cd588",
+  "frozenAt": "2026-08-06T18:42:57.392Z",
+  "hardwareAttestation": false,
+  "matrixIds": [
+    "finboundbench-v3-purpose-selective-matrix",
+    "finboundbench-v3-purpose-selective-matrix-taskb"
+  ],
+  "modelManifestHashes": [
+    "f51178cd4787e933e02381306c24ba69005f3f942b201afa8cdb21d6e571fb24"
+  ],
+  "protocolId": "protocol-v3-psbe-no-tee",
+  "providerSecretPermitted": true,
+  "remoteProviderCallsPermitted": 3360,
+  "repositoryBindings": {
+    "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
+    "researchCommit": "b7e3f937fd009b4a95b58a969f1155776591308a"
+  },
+  "repositoryStateAtFreeze": {
+    "platform": {
+      "commit": "a84c24a84a350110161fa5fb9c62413b646d427d",
+      "tracked_diff_sha256": "f9204a60598bb9216fc58c9d4a2342c7742198eedcf9caf546fc80d80d6f0cbe",
+      "tracked_tree_dirty": true
+    },
+    "platformScopeBoundByArtifactHashes": true,
+    "research": {
+      "commit": "b7e3f937fd009b4a95b58a969f1155776591308a",
+      "tracked_diff_sha256": "dbdd7e857fb18a58da9b0891a65bcda360569a5042419b14bffda36ff92b1e33",
+      "tracked_tree_dirty": true
+    },
+    "unrelatedUserChangesIncluded": false
+  },
+  "schedule": {
+    "taskA": {
+      "cells": 1680,
+      "path": "results/v3/matrix-rebuild/manifests/schedule.json",
+      "scheduleHash": "24a244720cc209aa7f31e8293b0372a93775fd730b517dcb3f66a1c058d17bd2",
+      "scheduleSha256": "82962b3943e2d147fa5129e92257b24ba03f4346aa7b5a1046a58b83cfe7f6a9"
+    },
+    "taskB": {
+      "cells": 1680,
+      "path": "results/v3/matrix-rebuild/taskB/manifests/schedule.json",
+      "scheduleHash": "3eda22adbce86c38be20edcf437c22a6dfd8dab7ef659b06ea0767bbd3f8ac6e",
+      "scheduleSha256": "8fba108e96d7b521a38b2cebd31e92192e5219d382c27c77371daeee5817bf0d"
+    }
+  },
+  "schemaVersion": "finboundbench.protocol-v3-live-freeze",
+  "secretSource": "ENVIRONMENT_REFERENCE_ONLY",
+  "status": "FROZEN_LIVE_PROTOCOL",
+  "validationAnchor": {
+    "freezeManifestHash": "b085172e3d78d2b40e948f940828e9c0c878d0c38817149471f5544c5810e886",
+    "runManifestHash": "f166530b02d2f7b3571853e10a6480dcc71cb52f487a708d729217801dfed443",
+    "status": "PASSED_ONE_PAIR_VALIDATION"
+  }
+}

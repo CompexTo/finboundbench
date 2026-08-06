@@ -100,9 +100,11 @@ enumeration is complete with respect to what was validated.
    and the difference must be recorded in evidence.
 3. Require the evidence schema to distinguish approved vs prohibited
    transmitted fields (platform change, see section 6).
-4. Fix the release-policy fail-closed behavior: 263 executions were released
-   despite a DENY from `compex.output.json-schema`, which the run config
-   listed in `requiredValidators` (see `CONFIRMATORY_RAW_AUDIT.md` §8).
+4. Confirm the release-policy fail-closed behavior before the next run.
+   Re-audit of this stream found zero releases allowed while any validator
+   verdict was DENY, so the native release evaluator is not defective here;
+   the 66 denials were truncated non-JSON outputs. Keep the automated
+   re-verification of this property as a gate for the next live run.
 5. Re-validate with a live one-pair B0/P3 gate before any matrix run:
    verify exact payload and field differences between pair members and
    between conditions from evidence, not from config intent.

@@ -90,19 +90,14 @@ confirmation exists.**
 | Reason | Count | Classification |
 |---|---|---|
 | `PROVIDER_TIMEOUT` (seq 48) | 1 | provider failure — failure record, not an experimental result |
-| Release denial `Artifact is not valid JSON` | 330 denial events (one per completed execution's json-schema validator) | see note |
-| Release denial `Artifact size N exceeds the 8192-byte release limit` | 66 | the 66 finally-denied releases |
-| Release denial reason codes on finally-denied artifacts | json-schema DENY + required-fields DENY + decision-vocabulary DENY + numeric-bounds DENY + max-bytes DENY + prohibited-field-names DENY | all driven by truncated outputs |
+| Release-denied executions | 66 | finally denied (`nativeRelease.allowed = false`) |
+| `Artifact is not valid JSON` DENY verdicts | 330 | 66 denied artifacts × 5 validators (json-schema, required-fields, decision-vocabulary, numeric-bounds, prohibited-field-names) each re-emitting the parse failure |
+| Release denial `Artifact size N exceeds the 8192-byte release limit` | 66 | one per denied execution |
 
-Note on the 330 "not valid JSON" denial events: every completed execution's
-validator chain recorded a `compex.output.json-schema DENY` event, yet 263
-executions ended with `nativeRelease.allowed = true` because later validators
-emitted ALLOW verdicts (e.g. "No prohibited exact value was found in the
-non-JSON artifact") and the chain's final decision allowed release. This
-means the release policy as configured does not fail closed on a DENY from a
-validator listed in `requiredValidators`. This behavior is itself a release
-boundary defect to investigate before any further live run (tracked in the
-transmitted-field audit's blocking findings).
+Release fail-closed behavior verified: across all 329 completed executions,
+zero releases were allowed while any validator verdict was DENY; every
+released artifact had an ALLOW from `compex.output.json-schema`. The release
+policy is not defective in this stream.
 
 The 66 denied artifacts all had `outputTokens = 2048` (the configured cap):
 the model emitted repetitive ~62 KB non-JSON continuations. The model was

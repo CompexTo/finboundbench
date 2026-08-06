@@ -1085,7 +1085,7 @@ def run_matrix(
         cells_all = load_matrix_cells(research_root, config, task)
         schedule_all = _compute_schedule_rows(research_root, config, task)
         for sequence, (event, cell, row) in enumerate(
-            zip(existing, cells_all, schedule_all, strict=True), start=1
+            zip(existing, cells_all, schedule_all), start=1
         ):
             event_hash = event.pop("eventHash", None)
             if event.get("previousEventHash") != previous or sha256_json(event) != event_hash:

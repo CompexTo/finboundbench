@@ -19,10 +19,10 @@
       "sha256": "e0e8002f4b0261ecbedb462479ade954e847c3b832942973094b5cfa25f5f680"
     },
     {
-      "bytes": 70106,
+      "bytes": 62540,
       "path": "src/purposebench/v3/matrix.py",
       "repository": "research",
-      "sha256": "4c93ab680a1f6609e62523561f00c9f0a74388a1596972a29ffe83a4f317dfda"
+      "sha256": "de80110dad81385ec359deb22d905ffe82e61dc78aa23b70006d8c4a27e19e19"
     },
     {
       "bytes": 5943,
@@ -85,10 +85,10 @@
       "sha256": "dd856f43d2a63d9718dd6dc28f9dfbcfea0f4efc90097b61ad92f1a2d77b2f17"
     },
     {
-      "bytes": 1499,
+      "bytes": 1214,
       "path": "scripts/run_v3_matrix.py",
       "repository": "research",
-      "sha256": "3dd303422ca26813d6eb0bdd4e6a8a69bdd18fe1f15601c829491b43df374ab2"
+      "sha256": "0e8594858ec69df053d5ac9dc1479594735c3f11d3ee1da464cd88e6953b6c98"
     },
     {
       "bytes": 1025,
@@ -162,8 +162,8 @@
     "reservationPerCallEur": 0.02
   },
   "confirmatoryClaimsPermitted": false,
-  "freezeManifestHash": "52ef80024c9fff60279efcdf408dc0b9f1e432f27001c92c57f2226b04a83009",
-  "frozenAt": "2026-08-06T18:36:07.326Z",
+  "freezeManifestHash": "e895d2a68446077fa929e250a77f63e68e679d5c108f0b964855eb4594652cb5",
+  "frozenAt": "2026-08-06T14:46:42.713Z",
   "hardwareAttestation": false,
   "matrixIds": [
     "finboundbench-v3-purpose-selective-matrix",
@@ -177,7 +177,7 @@
   "remoteProviderCallsPermitted": 3360,
   "repositoryBindings": {
     "platformCommit": "a84c24a84a350110161fa5fb9c62413b646d427d",
-    "researchCommit": "7a8ddc18ed6a012eb21b691572013a1954a42af1"
+    "researchCommit": "07f462834e90cb456924d2ddbcc4e8f685d95625"
   },
   "repositoryStateAtFreeze": {
     "platform": {
@@ -187,8 +187,8 @@
     },
     "platformScopeBoundByArtifactHashes": true,
     "research": {
-      "commit": "7a8ddc18ed6a012eb21b691572013a1954a42af1",
-      "tracked_diff_sha256": "8a8c1239379936a700e01c3f6e6a08f2711a51b00bb85724a3749f43f44872fb",
+      "commit": "07f462834e90cb456924d2ddbcc4e8f685d95625",
+      "tracked_diff_sha256": "90be8b7d6c7b20a6c7275d562d3d5e6c7b45fee23e04032efea1e0013bec639c",
       "tracked_tree_dirty": true
     },
     "unrelatedUserChangesIncluded": false

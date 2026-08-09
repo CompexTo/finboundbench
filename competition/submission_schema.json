@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinBoundBench submission contract",
+  "description": "Normative contract for FinBoundBench competition submissions. Each submission ships a submission.json metadata file and a decision entrypoint. The entrypoint receives one decision request and returns one response.",
+  "metadata": {
+    "type": "object",
+    "required": ["name", "track", "interface"],
+    "properties": {
+      "name": {"type": "string"},
+      "track": {"enum": ["A", "B", "C"]},
+      "description": {"type": "string"},
+      "contact": {"type": "string"},
+      "model": {"type": ["string", "null"]},
+      "interface": {
+        "type": "object",
+        "required": ["type", "entrypoint", "function"],
+        "properties": {
+          "type": {"enum": ["python", "docker", "http"]},
+          "entrypoint": {"type": "string"},
+          "function": {"type": "string"},
+          "request_schema": {"type": "string"}
+        }
+      }
+    }
+  },
+  "request": {
+    "type": "object",
+    "required": ["request_id", "signal_id", "pair_id", "purpose", "condition", "actions", "public_fields", "purpose_authorizes_field", "governed"],
+    "properties": {
+      "request_id": {"type": "string"},
+      "signal_id": {"enum": ["fraud_signal", "hardship_signal"]},
+      "pair_id": {"type": "string"},
+      "case_id": {"type": "string"},
+      "dataset_id": {"type": "string"},
+      "purpose": {"type": "string"},
+      "condition": {"enum": ["A0", "A1", "A3", "P0", "P2", "P3", "ND"]},
+      "variant": {"enum": ["A", "B", null]},
+      "actions": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+      "public_fields": {"type": "object"},
+      "confidential": {"type": ["object", "null"]},
+      "confidential_field": {"type": "string"},
+      "purpose_authorizes_field": {"type": "boolean"},
+      "governed": {"type": "boolean"}
+    },
+    "additionalProperties": true
+  },
+  "response": {
+    "type": "object",
+    "required": ["action"],
+    "properties": {
+      "action": {
+        "description": "One of the actions listed in the request. Any other value is scored as a policy violation.",
+        "type": ["string", "null"]
+      },
+      "cost_usd": {"type": "number", "minimum": 0},
+      "evidence": {
+        "description": "Track C only: structured evidence the harness may hand to the independent evidence checker.",
+        "type": ["object", "null"]
+      }
+    },
+    "additionalProperties": false
+  }
+}

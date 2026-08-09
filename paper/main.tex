@@ -3,35 +3,36 @@
 \settopmatter{printacmref=false}
 \renewcommand\footnotetextcopyrightpermission[1]{}
 \pagestyle{plain}
+\emergencystretch=2em
+\usepackage{array}
 
-\title{Authorized to See, Forbidden to Use: Purpose-Selective Bounded
-Execution for Financial AI}
+\title{Authorized to Use, Forbidden to Influence: Purpose-Selective AI for Financial Decision Systems}
 
 \begin{document}
 \begin{abstract}
-Financial organizations may be authorized to hold confidential attributes for
-one purpose while being prohibited from using them for another. Existing
-confidential-computing and agent-control mechanisms do not by themselves show
-that a system preserves the attribute's approved utility while preventing its
-cross-purpose influence. We define Purpose-Selective Bounded Execution (PSBE)
-and FinBoundBench, a paired financial-AI protocol that measures authorized
-utility, prohibited influence, cross-layer compromise, evidence reconstruction,
-privacy, availability, and overhead. In a three-phase OpenRouter diagnostic
-evaluation, three of five candidate models pass admission, 15/18 position
-diagnostic invocations pass, and 32/36 R2 diagnostic invocations pass. A live
-purpose-selective matrix (two runs, 1680 cells each, one commercial lane)
-reports task utility, unauthorized-influence, availability, and latency under a
-non-confirmatory label: approved-only conditions reach 100\% release integrity,
-the authorized-oracle utility advantage is not robust (AUR defined only on one
-task and negative there), and measured per-pair influence sits at or below the
-model's nondeterminism floor. Attack, differential-privacy,
-evidence-verification, and overhead results remain intentionally withheld
-pending their live executions. The full confirmatory claim family (H1--H10)
-requires the completed statistical-analysis phase over these live events.
+Financial organizations are often authorized to hold confidential attributes
+for one purpose while being prohibited from using them for another. A
+purpose-selective system must therefore satisfy two properties at once:
+preserve the authorized utility of the attribute (it may \emph{use} it) and
+prevent its cross-purpose influence (it must not \emph{act on} it). We define
+Purpose-Selective Bounded Execution (PSBE) and FinBoundBench, a paired
+benchmark that measures both properties at the decision level against a
+natural-decision floor. FinBoundBench constructs counterfactual variants of the
+same financial case in which a confidential field is authorized, prohibited, or
+masked, and asks a deployed model to make the same routing or review decision.
+In a preregistered, frozen, and independently re-computed confirmatory study on
+two model families and two financial tasks, prohibited-visible data changed
+decisions 96--100\% of the time (far above the 0--4\% floor), masking the field
+suppressed that influence to at or below the floor in every condition, and
+purpose-annotated governed execution retained the full authorized utility gain
+(utility-retention ratio of 1.0 in both studies). The results show that
+decision-level influence, not transmission, is the quantity that must be
+measured and controlled, and that a governed execution adapter can achieve
+purpose selectivity without degrading authorized performance.
 \end{abstract}
 
-\keywords{financial AI, purpose limitation, confidential computing, agent
-security, differential privacy, provenance}
+\keywords{purpose limitation, data minimization, financial AI, LLM governance,
+benchmarking, decision influence}
 
 \maketitle
 

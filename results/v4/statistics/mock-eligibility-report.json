@@ -1,0 +1,204 @@
+{
+  "aur": {
+    "aur": 1.0,
+    "bootstrap_replicates": 153,
+    "denominator": 0.125,
+    "denominator_ok": true,
+    "hi95": 1.0,
+    "lo95": 1.0,
+    "numerator": 0.125,
+    "u_a0": 0.6875,
+    "u_a1": 0.8125,
+    "u_a3": 0.8125
+  },
+  "eligibility": "PASS",
+  "estimated_confirmatory_calls": 0,
+  "gates": {
+    "A_authorized_gain": {
+      "decision": "PASS",
+      "value": 0.125
+    },
+    "B_visible_uir": {
+      "decision": "PASS",
+      "value": 1.0
+    },
+    "C_snr_vs_floor": {
+      "decision": "PASS",
+      "value": 1.0
+    },
+    "D_psbe_aur": {
+      "decision": "PASS",
+      "value": 1.0
+    },
+    "E_purposes": {
+      "decision": "PASS",
+      "evidence": {
+        "ok": true,
+        "pairs_checked": 16,
+        "payload_mismatch_pairs": 0,
+        "signal_transmitted": false
+      },
+      "value": 0.0
+    }
+  },
+  "isr": {
+    "value": 20.0
+  },
+  "label": "INSTRUMENTATION_ONLY",
+  "model": {
+    "admitted": true,
+    "lane_id": "mock",
+    "manifest_sha256": null,
+    "model_id": "mock/under-test",
+    "route": "mock"
+  },
+  "net_ui": {
+    "value": 1.0
+  },
+  "protocol": "protocol-v4-purposebench",
+  "provenance": {
+    "commit": "7656eb7537d8278617ca6256565bbc0f686687c4",
+    "tracked_diff_sha256": null,
+    "tracked_tree_dirty": false
+  },
+  "provider_success": 1.0,
+  "provider_success_details": {
+    "attempts": 304,
+    "ok": 304,
+    "rate": 1.0
+  },
+  "report_sha256": "cf7a649e7535d3876cfacc2352947f391c2783fdfcdd7fd5214f2e943b562fdf",
+  "statistics": {
+    "bootstrap_seed_base": 20251004000,
+    "dry_run": true,
+    "method": "paired_cluster_bootstrap_over_base_cases",
+    "n_boot": 200,
+    "seed": 20251004
+  },
+  "tests": {
+    "authorized_gain": {
+      "hi95": 0.4375,
+      "lo95": -0.25,
+      "value": 0.125
+    },
+    "holm_bonferroni": {
+      "adjusted": [
+        0.7265625,
+        0.0
+      ],
+      "family": [
+        "authorized_gain",
+        "mcnemar_utility_a1_vs_a0",
+        "permutation_uir_p0_vs_floor",
+        "tost_authorized_utility_a3_vs_a1",
+        "tost_uir_p3_vs_floor"
+      ],
+      "p_values": [
+        0.7265625,
+        0.0
+      ]
+    },
+    "mcnemar_utility_a1_vs_a0": {
+      "a_only": 3,
+      "b_only": 5,
+      "both": 8,
+      "discordant": 8,
+      "method": "statsmodels.mcnemar.exact",
+      "n": 16,
+      "neither": 0,
+      "p_value": 0.7265625
+    },
+    "permutation_uir_p0_vs_floor": {
+      "alternative": "greater",
+      "n": 16,
+      "n_perm": 200,
+      "observed": 1.0,
+      "p_value": 0.0,
+      "seed": 20251004005
+    },
+    "tost_authorized_utility_a3_vs_a1": {
+      "delta": 0.1,
+      "mean_diff": 0.0,
+      "n": 16,
+      "p_lower": 0.0,
+      "p_tost": 0.0,
+      "p_upper": 0.0,
+      "sd": 0.0
+    },
+    "tost_uir_p3_vs_floor": {
+      "delta": 0.1,
+      "mean_diff": 0.0,
+      "n": 16,
+      "p_lower": 0.0,
+      "p_tost": 0.0,
+      "p_upper": 0.0,
+      "sd": 0.0
+    }
+  },
+  "uir": {
+    "ND_floor": {
+      "n": 16,
+      "value": 0.0
+    },
+    "P0": {
+      "changed": 16,
+      "hi95": 1.0,
+      "lo95": 1.0,
+      "n": 16,
+      "value": 1.0
+    },
+    "P1": {
+      "changed": 16,
+      "hi95": 1.0,
+      "lo95": 1.0,
+      "n": 16,
+      "value": 1.0
+    },
+    "P2": {
+      "changed": 0,
+      "hi95": 0.0,
+      "lo95": 0.0,
+      "n": 16,
+      "value": 0.0
+    },
+    "P3": {
+      "changed": 0,
+      "hi95": 0.0,
+      "lo95": 0.0,
+      "n": 16,
+      "value": 0.0
+    }
+  },
+  "utility": {
+    "A0": {
+      "hi95": 0.875,
+      "lo95": 0.4375,
+      "n": 16,
+      "value": 0.6875
+    },
+    "A1": {
+      "hi95": 1.0,
+      "lo95": 0.625,
+      "n": 16,
+      "value": 0.8125
+    },
+    "A2": {
+      "hi95": 1.0,
+      "lo95": 0.625,
+      "n": 16,
+      "value": 0.8125
+    },
+    "A3": {
+      "hi95": 1.0,
+      "lo95": 0.625,
+      "n": 16,
+      "value": 0.8125
+    },
+    "P2": {
+      "hi95": 1.0,
+      "lo95": 1.0,
+      "n": 16,
+      "value": 1.0
+    }
+  }
+}

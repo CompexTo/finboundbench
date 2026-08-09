@@ -1,0 +1,96 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+The style file: ACM-Reference-Format.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: references.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty publisher in barth2006
+Warning--empty address in barth2006
+Warning--page numbers missing in both pages and numpages fields in barth2006
+Warning--no number and no volume in purposeminimization2021
+Warning--page numbers missing in both pages and numpages fields in purposeminimization2021
+Warning--empty publisher in byun2008
+Warning--empty address in byun2008
+Warning--page numbers missing in both pages and numpages fields in byun2008
+Warning--no number and no volume in camel2025
+Warning--page numbers missing in both pages and numpages fields in camel2025
+Warning--empty publisher in agentdojo2024
+Warning--empty address in agentdojo2024
+Warning--page numbers missing in both pages and numpages fields in agentdojo2024
+Warning--no number and no volume in chiron2018
+Warning--page numbers missing in both pages and numpages fields in chiron2018
+Warning--empty publisher in kusner2017
+Warning--empty address in kusner2017
+Warning--page numbers missing in both pages and numpages fields in kusner2017
+Warning--empty address in nissenbaum2010
+Warning--no number and no volume in privacibench2025
+Warning--page numbers missing in both pages and numpages fields in privacibench2025
+Warning--empty publisher in intoto2019
+Warning--empty address in intoto2019
+Warning--page numbers missing in both pages and numpages fields in intoto2019
+Warning--empty publisher in slalom2019
+Warning--empty address in slalom2019
+Warning--page numbers missing in both pages and numpages fields in slalom2019
+Warning--empty publisher in finbias2026
+Warning--empty address in finbias2026
+Warning--page numbers missing in both pages and numpages fields in finbias2026
+Warning--empty publisher in ifcml2024
+Warning--empty address in ifcml2024
+Warning--page numbers missing in both pages and numpages fields in ifcml2024
+Warning--no number and no volume in confaide2024
+Warning--page numbers missing in both pages and numpages fields in confaide2024
+Warning--empty publisher in opaque2017
+Warning--empty address in opaque2017
+Warning--page numbers missing in both pages and numpages fields in opaque2017
+You've used 23 entries,
+            6273 wiz_defined-function locations,
+            1637 strings with 22952 characters,
+and the built_in function-call counts, 22613 in all, are:
+= -- 2613
+> -- 831
+< -- 1
++ -- 275
+- -- 304
+* -- 1605
+:= -- 2292
+add.period$ -- 110
+call.type$ -- 23
+change.case$ -- 165
+chr.to.int$ -- 23
+cite$ -- 61
+duplicate$ -- 2025
+empty$ -- 1447
+format.name$ -- 356
+if$ -- 5336
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 71
+newline$ -- 265
+num.names$ -- 161
+pop$ -- 931
+preamble$ -- 1
+purify$ -- 349
+quote$ -- 0
+skip$ -- 724
+stack$ -- 0
+substring$ -- 1282
+swap$ -- 110
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 591
+warning$ -- 38
+while$ -- 124
+width$ -- 0
+write$ -- 495
+(There were 38 warnings)

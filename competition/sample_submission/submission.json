@@ -1,0 +1,18 @@
+{
+  "name": "purpose-aware-public-heuristic",
+  "track": "A",
+  "version": "0.1.0",
+  "description": "Track A sample: deterministic purpose-aware policy. Uses the confidential value only when the purpose authorizes it; falls back to a public-field hash rule on the prohibited purpose.",
+  "contact": "",
+  "model": null,
+  "interface": {
+    "type": "python",
+    "entrypoint": "decide.py",
+    "function": "decide",
+    "request_schema": "submission_schema.json"
+  },
+  "notes": [
+    "No API key required; deterministic; cost 0.",
+    "The public hash rule is a placeholder heuristic, not a competitive policy."
+  ]
+}

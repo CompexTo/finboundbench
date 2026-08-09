@@ -1,0 +1,16 @@
+{
+  "data_only_frozen": true,
+  "files": [
+    "headline-figure.png",
+    "headline-figure.pdf"
+  ],
+  "phase": "5-headline-figure",
+  "report_shas": {
+    "primary-statistical-report.json": "18641f508a0ac89236c8163300fa7a07a33b06e948e242330a88b8aa9cfebf5c",
+    "replication-statistical-report.json": "c85517f926d04ca13d863dd9fd11d6b6ef1e3764cdd55a2e6478dc7c5e6ff34b"
+  },
+  "sources": [
+    "results\\v4\\statistics\\primary-statistical-report.json",
+    "results\\v4\\statistics\\replication-statistical-report.json"
+  ]
+}

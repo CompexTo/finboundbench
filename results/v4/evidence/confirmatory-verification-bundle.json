@@ -1,0 +1,96 @@
+{
+  "checks": [
+    {
+      "check": "VER-1",
+      "detail": "protocol_freeze: claimed b1dceeeca7a20c66... recomputed b1dceeeca7a20c66...",
+      "pass": true
+    },
+    {
+      "check": "VER-1",
+      "detail": "dataset_freeze: claimed e7f443ef36700d5f... recomputed e7f443ef36700d5f...",
+      "pass": true
+    },
+    {
+      "check": "VER-1",
+      "detail": "primary_results_freeze: claimed bab5f0e2e485b3c7... recomputed bab5f0e2e485b3c7...",
+      "pass": true
+    },
+    {
+      "check": "VER-1",
+      "detail": "replication_results_freeze: claimed c56f4dcfa449a157... recomputed c56f4dcfa449a157...",
+      "pass": true
+    },
+    {
+      "check": "VER-1",
+      "detail": "eligibility_results_freeze: claimed bd6d2fb53cbc7362... recomputed bd6d2fb53cbc7362...",
+      "pass": true
+    },
+    {
+      "check": "VER-1",
+      "detail": "signal_freeze: claimed f90b545e9ac64899... recomputed f90b545e9ac64899...",
+      "pass": true
+    },
+    {
+      "check": "VER-2",
+      "detail": "protocol_freeze: 12 bound files, all match",
+      "pass": true
+    },
+    {
+      "check": "VER-2",
+      "detail": "primary_results_freeze: 5 bound files, all match",
+      "pass": true
+    },
+    {
+      "check": "VER-2",
+      "detail": "replication_results_freeze: 9 bound files, all match (generated artifacts, fingerprint canonical in manifest, value-verified via VER-4: results/v4/statistics/replication-statistical-report.json)",
+      "pass": true
+    },
+    {
+      "check": "VER-3",
+      "detail": "primary: events 1300/1300, pairs 100/100, ok 1300/1300",
+      "pass": true
+    },
+    {
+      "check": "VER-3",
+      "detail": "replication: events 1560/1560, pairs 120/120, ok 1544/1544",
+      "pass": true
+    },
+    {
+      "check": "VER-4",
+      "detail": "primary: independent recomputation matches report",
+      "pass": true
+    },
+    {
+      "check": "VER-4",
+      "detail": "replication: independent recomputation matches report",
+      "pass": true
+    },
+    {
+      "check": "VER-5",
+      "detail": "primary: report self-hash ok",
+      "pass": true
+    },
+    {
+      "check": "VER-5",
+      "detail": "replication: report self-hash ok",
+      "pass": true
+    },
+    {
+      "check": "VER-5",
+      "detail": "combined: report self-hash ok",
+      "pass": true
+    },
+    {
+      "check": "VER-6",
+      "detail": "combined vs per-study consistent",
+      "pass": true
+    }
+  ],
+  "document_kind": "CONFIRMATORY_VERIFICATION_BUNDLE",
+  "frozen_at": "2026-08-07T07:40:00Z",
+  "note": "internal automated verification; external independent verification per CONTRACT_V4.md remains recommended",
+  "phase": "12-evidence",
+  "protocol": "protocol-v4-purposebench",
+  "verdict": "PASS",
+  "verifier": "run_v4_verification_bundle.py (independent recomputation; no import of the statistics script)"
+}

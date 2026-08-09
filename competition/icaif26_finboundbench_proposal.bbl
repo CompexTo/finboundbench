@@ -1,0 +1,87 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{4}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Byun et~al\mbox{.}(2008)]%
+        {byun2008}
+\bibfield{author}{\bibinfo{person}{Ji-Won Byun}, \bibinfo{person}{Elisa
+  Bertino}, {and} \bibinfo{person}{Ninghui Li}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Purpose Based Access Control of Complex Data for
+  Privacy Protection}.
+\newblock \bibinfo{journal}{\emph{The VLDB Journal}} \bibinfo{volume}{17},
+  \bibinfo{number}{3} (\bibinfo{year}{2008}), \bibinfo{pages}{571--591}.
+\newblock
+\href{https://doi.org/10.1007/s00778-006-0023-0}{doi:\nolinkurl{10.1007/s00778-006-0023-0}}
+
+
+\bibitem[Fu et~al\mbox{.}(2026)]%
+        {ciwork2026}
+\bibfield{author}{\bibinfo{person}{Zhiling Fu}, \bibinfo{person}{Rishab
+  Nithyanand}, \bibinfo{person}{Weiyan Shi}, \bibinfo{person}{Diyi Yang}, {and}
+  \bibinfo{person}{Zhou Yu}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{{CI-Work}: Benchmarking Contextual Integrity in
+  Enterprise {LLM} Agents}. In \bibinfo{booktitle}{\emph{Proceedings of the
+  61st Annual Meeting of the Association for Computational Linguistics (ACL),
+  Industry Track}}.
+\newblock
+
+
+\bibitem[Hu and Zhao(2026)]%
+        {finbias2026}
+\bibfield{author}{\bibinfo{person}{Changshuo Hu} {and} \bibinfo{person}{Siyu
+  Zhao}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{{Fin-Bias}: Evaluating {LLM} Decision-Making under
+  Human Bias in Finance}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2605.09106}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\bibitem[Hu et~al\mbox{.}(2026)]%
+        {toolprivacybench2026}
+\bibfield{author}{\bibinfo{person}{Qiyu Hu}, \bibinfo{person}{Yiliu Wang},
+  \bibinfo{person}{Lan Zhang}, {and} \bibinfo{person}{Yanjiao Chen}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{ToolPrivacyBench: Benchmarking Purpose-Bound
+  Privacy in Tool-Using {LLM} Agents}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2606.28061}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\end{thebibliography}

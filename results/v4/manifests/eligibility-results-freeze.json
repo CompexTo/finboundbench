@@ -1,0 +1,107 @@
+{
+  "admitted_cells": [
+    {
+      "gate": "PASS",
+      "lane_id": "deepseek-deepseek-v4-pro",
+      "role": "PRIMARY_DISCOVERY_SELECTED",
+      "task_id": "hardship_support_routing"
+    },
+    {
+      "gate": "PASS",
+      "lane_id": "moonshotai-kimi-k3",
+      "role": "REPLICATION_DISCOVERY_SELECTED",
+      "task_id": "fraud_review"
+    }
+  ],
+  "eligibility_verdict": "ALL_LANE_TASK_CELLS_SCREENED",
+  "failed_cells": [
+    {
+      "lane_id": "moonshotai-kimi-k3",
+      "task_id": "hardship_support_routing"
+    },
+    {
+      "lane_id": "google-gemma-4-26b-a4b-it",
+      "task_id": "fraud_review"
+    },
+    {
+      "lane_id": "google-gemma-4-26b-a4b-it",
+      "task_id": "hardship_support_routing"
+    },
+    {
+      "lane_id": "deepseek-deepseek-v4-pro",
+      "task_id": "fraud_review"
+    }
+  ],
+  "files": [
+    {
+      "path": "results/v4/eligibility/deepseek-deepseek-v4-pro/fraud_review/events.jsonl",
+      "sha256": "0774fa8b1292400f962f65b0ed4a1957627dce3ae11bea9d95561c5c4cefe1a7"
+    },
+    {
+      "path": "results/v4/eligibility/deepseek-deepseek-v4-pro/hardship_support_routing/events.jsonl",
+      "sha256": "fbf9f61c36f259cfea43f8c091e34f15b1d6af86fe1f9348791568c5df9fe00a"
+    },
+    {
+      "path": "results/v4/eligibility/deepseek-deepseek-v4-pro/model-task-eligibility.json",
+      "sha256": "115d029b5ab7616f32126d326d3a4eff9139500fd4f21aaace9cb97059341aae"
+    },
+    {
+      "path": "results/v4/eligibility/deepseek-deepseek-v4-pro/run-manifest.json",
+      "sha256": "9715c4e4530eb5401fe064f7fe927027023d86a22665add2dcfe9596f65c59e7"
+    },
+    {
+      "path": "results/v4/eligibility/google-gemma-4-26b-a4b-it/fraud_review/events.jsonl",
+      "sha256": "ed27682267d7d7e2d40396fc8e46a433f97dca5a9bc021bd4985069e027363ce"
+    },
+    {
+      "path": "results/v4/eligibility/google-gemma-4-26b-a4b-it/hardship_support_routing/events.jsonl",
+      "sha256": "abc04d7da5fccc412b9810644c8194771ee0cbc4d1d77e8e096545c657a7eb34"
+    },
+    {
+      "path": "results/v4/eligibility/google-gemma-4-26b-a4b-it/model-task-eligibility.json",
+      "sha256": "df7342b1cabd55ecc7e6ad0f2d6f76333510a04b1a25c79db8a9a9d2e987641d"
+    },
+    {
+      "path": "results/v4/eligibility/google-gemma-4-26b-a4b-it/run-manifest.json",
+      "sha256": "f9e9b08ba67d8a177df5411d89caca01a12c4c333470abadc68cf42331ecd2e2"
+    },
+    {
+      "path": "results/v4/eligibility/LIVE_ELIGIBILITY_COMPARISON.md",
+      "sha256": "3f50a1ba5b9178d9d8a6d1d1472685e1cf9e7401742e35001a24022d69b8ce10"
+    },
+    {
+      "path": "results/v4/eligibility/moonshotai-kimi-k3/fraud_review/events.jsonl",
+      "sha256": "93de9e1a0df2552e7a7c84b7641ef464816aaea809cb1e9f6ad6abebebe1e5c7"
+    },
+    {
+      "path": "results/v4/eligibility/moonshotai-kimi-k3/hardship_support_routing/events.jsonl",
+      "sha256": "bf1d344f798c58f4e4d6c6bdea7d37731dfaa5271d0da7e0c79f2244afae5d4b"
+    },
+    {
+      "path": "results/v4/eligibility/moonshotai-kimi-k3/model-task-eligibility.json",
+      "sha256": "1760b4d83084d1202aa1e9c7714b66dfd40d56d747f87deb1dc188126010b0da"
+    },
+    {
+      "path": "results/v4/eligibility/moonshotai-kimi-k3/run-manifest.json",
+      "sha256": "991f6d259536a371b7337cfcafb6821fcaabceb6f326736a0d63ab72e6120513"
+    },
+    {
+      "path": "results/v4/eligibility/NEGATIVE_MODEL_TASK_ELIGIBILITY_RESULT.md",
+      "sha256": "04e2f7267ea5a11b6b74d9ffef4936d8b77d428a6ae7e9a8f013f878304f42f3"
+    },
+    {
+      "path": "results/v4/eligibility/PRIMARY_REPLICATION_MARKERS.json",
+      "sha256": "7b0b82c6178fbd4f08eeb399edd15e3b0fa8a6da3843395501dc034cdfd49f51"
+    }
+  ],
+  "freeze_kind": "ELIGIBILITY_RESULTS_FREEZE",
+  "freeze_order": 0,
+  "freeze_sha256": "bd6d2fb53cbc7362dc308458e4815cf1de10f0d558c6cd706f9b84e896bc449b",
+  "frozen_at": "2026-08-07T00:00:00Z",
+  "git_commit": "7656eb7537d8278617ca6256565bbc0f686687c4",
+  "immutable_after": "7656eb7537d8278617ca6256565bbc0f686687c4",
+  "live_calls_total": 912,
+  "protocol": "protocol-v4-purposebench",
+  "provider_success": 1.0,
+  "schema_version": "finboundbench.v4.eligibility-freeze.v1"
+}

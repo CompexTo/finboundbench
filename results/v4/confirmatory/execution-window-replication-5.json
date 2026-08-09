@@ -1,0 +1,13 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "window_id": "replication-window-5",
+  "registered_at": "2026-08-07T03:42:00Z",
+  "reason": "Window 4 aborted by uncaught bridge subprocess timeout (BRIDGE_HANG). Route morph re-verified by live probe before window registration. Registered remedy: one new execution window per retry (protocol §4.5 + route policy §4).",
+  "policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §4 + docs/v4/PROTOCOL-v4-purpose-selectivity.md §4.5",
+  "results_root": "results/v4/confirmatory/replication-window-5/",
+  "note": "Windows 1-4 carry no inferential weight. Window-5 events.jsonl starts empty; no mixing."
+}

@@ -1,0 +1,44 @@
+{
+  "consecutive_stop_events": 7,
+  "cost_eur": {
+    "persisted_ok_estimates": 0.614868,
+    "probe_eur": 0.0103
+  },
+  "freeze_kind": "EXECUTION_WINDOW_6_OUTCOME",
+  "invalidity": {
+    "error": "condition argument was passed as a single comma-joined string 'A0,A1,A3,P0,P3,ND' instead of space-separated values; the CLI parses --conditions as space-separated tokens ONLY",
+    "events_failed": 7,
+    "events_ok": 113,
+    "events_persisted": 120,
+    "evidence": "every persisted event has condition_id == 'A0,A1,A3,P0,P3,ND' (one bogus condition), 1 event per pair, not the registered 6-condition/13-event design",
+    "precedent": "all prior windows passed conditions space-separated; this window deviated by delivering a comma-joined token",
+    "study_weight": "NONE \u2014 window-6 ran no registered condition; no inferential weight; events retained only as diagnostic route evidence"
+  },
+  "recorded_at": "2026-08-07T05:30:00Z",
+  "result": {
+    "admitted": false,
+    "eligibility": "FAIL",
+    "live_calls": 7,
+    "provider_success": 0.9416666666666667
+  },
+  "route_evidence_still_valid": {
+    "conclusion": "route 'morph' is NOT stable under window-sized load (rate-limited), so the resumption criterion of execution-window-replication-6.json is NOT met",
+    "provider": "OPENROUTER route 'morph' returned 7 x HTTP 429 RATE_LIMIT (category RATE_LIMIT, responseBodySha256 9562601ea01f8809d1d3e48482d117b20867ad4ddd532ac32804985a4128dfdb) under the sustained 120-call load"
+  },
+  "stop_history": [
+    "w1 PROVIDER_TRANSPORT_ERROR",
+    "w2 PROVIDER_TRANSPORT_ERROR+RATE_LIMIT",
+    "w3 killed 90min no persist",
+    "w4 BRIDGE_HANG",
+    "w5 BRIDGE_HANG",
+    "w6 INVALID_RUN+RATE_LIMIT_EVIDENCE",
+    "w6 terminal"
+  ],
+  "terminal_per_policy": {
+    "rule": "provider_success < 1.0 at window end -> window FAIL, lane stays STOPPED permanently, no further registered windows",
+    "source": "execution-window-replication-6.json stop_policies",
+    "state": "replication lane remains STOPPED; final reporting proceeds PRIMARY-ONLY with the registered missing-replication limitation"
+  },
+  "verdict": "WINDOW_INVALID_RUN",
+  "window_id": "replication-window-6"
+}

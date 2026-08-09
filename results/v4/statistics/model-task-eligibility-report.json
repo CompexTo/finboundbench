@@ -1,0 +1,19 @@
+{
+  "eligibility": "PASS",
+  "estimated_confirmatory_calls": 0,
+  "gates": {},
+  "label": "ELIGIBILITY_ANALYSIS",
+  "model": {
+    "admitted": true,
+    "lane_id": "mock",
+    "manifest_sha256": null,
+    "model_id": "mock/under-test",
+    "route": "mock"
+  },
+  "note": "no run-level data in input; point estimates passed through only",
+  "protocol": "protocol-v4-purposebench",
+  "provider_success": 1.0,
+  "report_sha256": "38fe1e5e616451b0223c8628907b982da250af85f2cb97de1eb906a0abcdb310",
+  "uir": {},
+  "utility": {}
+}

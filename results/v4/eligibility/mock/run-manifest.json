@@ -1,0 +1,12 @@
+{
+  "dry_run": true,
+  "lane_id": "mock",
+  "model_id": "mock/under-test",
+  "protocol": "protocol-v4-purposebench",
+  "provenance": {
+    "commit": "7656eb7537d8278617ca6256565bbc0f686687c4",
+    "tracked_diff_sha256": null,
+    "tracked_tree_dirty": false
+  },
+  "seed": 20251004
+}

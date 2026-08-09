@@ -1,0 +1,108 @@
+{
+  "claim_weight": "none \u2014 provider vs behavioral separation per docs/v4/PROVIDER_FAILURE_TAXONOMY.md",
+  "grand_totals": {
+    "cost_eur_failed": 0.0,
+    "cost_eur_ok": 10.453318,
+    "failed_events": 2522,
+    "failure_classes": {
+      "PROVIDER_SAFE_ERROR": 2,
+      "PROVIDER_TRANSPORT_ERROR": 2520
+    },
+    "ok_events": 3398,
+    "provider_success_rate": 0.574,
+    "routes": {
+      "frontier": 2800,
+      "morph": 3120
+    },
+    "total_events": 5920
+  },
+  "phase": "8-openrouter-effects",
+  "protocol": "protocol-v4-purposebench",
+  "separation_rule": "provider/schema/release/policy failures are never behavioral observations; pairs require both outputs valid; failed events cost 0 and are excluded from all statistics",
+  "tag": "DIAGNOSTIC",
+  "windows": [
+    {
+      "cost_eur_failed": 0.0,
+      "cost_eur_ok": 1.135173,
+      "failed_events": 749,
+      "failure_classes": {
+        "PROVIDER_SAFE_ERROR": 1,
+        "PROVIDER_TRANSPORT_ERROR": 748
+      },
+      "lane": "hardship_support_routing",
+      "ok_events": 551,
+      "provider_success_rate": 0.4238,
+      "routes": {
+        "frontier": 1300
+      },
+      "task": "events.jsonl",
+      "total_events": 1300,
+      "window": "deepseek-deepseek-v4-pro"
+    },
+    {
+      "cost_eur_failed": 0.0,
+      "cost_eur_ok": 2.663644,
+      "failed_events": 0,
+      "failure_classes": {},
+      "lane": "deepseek-deepseek-v4-pro",
+      "ok_events": 1300,
+      "provider_success_rate": 1.0,
+      "routes": {
+        "frontier": 1300
+      },
+      "task": "hardship_support_routing",
+      "total_events": 1300,
+      "window": "primary-window-2"
+    },
+    {
+      "cost_eur_failed": 0.0,
+      "cost_eur_ok": 0.0,
+      "failed_events": 0,
+      "failure_classes": {},
+      "lane": "deepseek-deepseek-v4-pro",
+      "ok_events": 200,
+      "provider_success_rate": 1.0,
+      "routes": {
+        "frontier": 200
+      },
+      "task": "hardship_support_routing",
+      "total_events": 200,
+      "window": "primary-window-2-deterministic-p2"
+    },
+    {
+      "cost_eur_failed": 0.0,
+      "cost_eur_ok": 2.578976,
+      "failed_events": 1048,
+      "failure_classes": {
+        "PROVIDER_TRANSPORT_ERROR": 1048
+      },
+      "lane": "moonshotai-kimi-k3",
+      "ok_events": 512,
+      "provider_success_rate": 0.3282,
+      "routes": {
+        "morph": 1560
+      },
+      "task": "fraud_review",
+      "total_events": 1560,
+      "window": "replication-window-1"
+    },
+    {
+      "cost_eur_failed": 0.0,
+      "cost_eur_ok": 4.075526,
+      "failed_events": 725,
+      "failure_classes": {
+        "PROVIDER_SAFE_ERROR": 1,
+        "PROVIDER_TRANSPORT_ERROR": 724
+      },
+      "lane": "moonshotai-kimi-k3",
+      "ok_events": 835,
+      "provider_success_rate": 0.5353,
+      "routes": {
+        "morph": 1560
+      },
+      "task": "fraud_review",
+      "total_events": 1560,
+      "window": "replication-window-2"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+\documentclass[sigconf,nonacm]{acmart}
+
+\settopmatter{printacmref=false}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+\emergencystretch=2.5em
+
+\title{FinBoundBench Challenge: Authorized to Use, Forbidden to Influence}
+\subtitle{Benchmarking Purpose-Selective AI in Financial Decision Systems}
+
+\author{The FinBoundBench Organizing Committee}
+\affiliation{%
+  \institution{FinBoundBench}
+  \city{Milan}
+  \country{Italy}}
+\email{organizers@finboundbench.org}
+
+\begin{document}
+
+\begin{abstract}
+Financial institutions are legally required to use confidential data only for
+the purpose that authorized its collection, yet they increasingly rely on
+large language models (LLMs) for consequential decisions such as hardship
+support routing, fraud review, and complaint handling. Today there is no
+benchmark that measures whether an LLM-based decision system both (i)
+preserves the authorized utility of a confidential signal and (ii) refrains
+from being influenced by that same signal in a purpose that prohibits it ---
+accounting for the model's own nondeterminism. We propose the FinBoundBench
+Challenge, the first international competition on \emph{purpose-selective AI}
+for finance. Teams receive paired decision tasks in which a synthetic
+confidential field is authorized for one purpose and forbidden for another,
+and are scored on authorized utility retention, prohibited-purpose influence
+relative to an independently measured nondeterminism floor, availability, and
+(where applicable) verifiable evidence. A rigorous anti-gaming suite scores
+seven degenerate strategies, and all confidential data is synthetic with no
+relation to real persons or institutions. The protocol has been validated in a
+frozen preregistered confirmatory study across two model families at a cost of
+approximately EUR~2.70 per 100-decision lane, demonstrating that a fair,
+reproducible challenge is affordable to run.
+\end{abstract}
+
+\maketitle
+
+\section{Motivation and Impact}
+
+Purpose limitation (GDPR Art.~5(1)(b)) and data minimization (Art.~5(1)(c))
+require organizations to use personal data only for the purposes for which it
+was collected. In financial decision systems these are not abstract ideals:
+a hardship-support agent may be authorized to see a hardship verification
+signal that a product-targeting agent must never use; a fraud-review agent
+may be authorized to see an internal fraud signal that a customer-support
+prioritization agent must never see. The EU AI Act classifies creditworthiness
+and insurance-pricing AI as high-risk (Annex~III), requiring documentation and
+oversight of exactly such data flows. Yet the industry currently buys
+compliance \emph{claims}: there is no standardized measurement of whether an
+LLM-based system actually uses a confidential field when authorized, and
+refrains from using it when prohibited.
+
+Two properties matter jointly. \emph{Authorized utility}: the governed system
+should retain the decision-quality gain that the confidential signal provides
+when the purpose authorizes it. \emph{Prohibited influence}: the same system
+should show no decision change attributable to the confidential signal when
+the purpose forbids it. Measuring the second requires care: LLMs are
+nondeterministic, so some fraction of decision changes occur even under
+identical inputs. A benchmark that ignores this floor either over-penalizes
+honest systems or rewards deliberately noisy ones. FinBoundBench therefore
+measures prohibited-purpose influence \emph{relative to an independently
+measured identical-input nondeterminism floor}, and ranks systems on the
+resulting \emph{excess unauthorized influence}.
+
+\textbf{Originality.} Purpose-based authorization is established in database
+access control \cite{byun2008}, and purpose-bound privacy has recently been
+studied for tool-using agents \cite{toolprivacybench2026}, but no existing
+benchmark jointly measures authorized utility retention, prohibited-purpose
+decision influence, and a nondeterminism floor for LLM decision systems.
+Contextual-integrity audits of enterprise agents \cite{ciwork2026} measure
+disclosure rather than decision influence; financial LLM bias studies
+\cite{finbias2026} measure context-element influence but have no purpose
+governance or utility-retention dimension.
+
+\textbf{Relevance and societal impact.} Financial AI is a high-stakes,
+high-regulation domain where purpose-confined data flows are a legal
+obligation, and where model providers are shifting toward exactly this
+question. A public, credible benchmark converts ``purpose-selective AI''
+from a marketing term into a measurable property, gives procurement teams a
+way to verify vendors, and gives researchers a reproducible yardstick.
+Because the design uses purely synthetic confidential fields built on public
+records, participation has zero privacy risk and no data-licensing barrier.
+
+\section{Challenge Design}
+
+\subsection{Paired purpose signals}
+
+The benchmark is built on \emph{purpose-paired tasks}: the same base case is
+rendered in two variants that differ only in a synthetic confidential field
+(value \texttt{HIGH} vs.\ \texttt{LOW}); all public fields are byte-identical
+within a pair. Each pair is evaluated under two purposes:
+\begin{itemize}
+\item \textbf{Authorized purpose}: the purpose for which the confidential
+      field may be used (e.g., \texttt{hardship\_\-support\_\-routing});
+\item \textbf{Prohibited purpose}: a paired purpose that must not receive the
+      field (e.g., \texttt{customer\_\-product\_\-targeting}), with ground-truth
+      labels identical across the pair variants.
+\end{itemize}
+Two signal families are provided: fraud review (authorized
+\texttt{fraud\_\-review}, prohibited \texttt{customer\_\-support\_\-priority})
+and hardship support routing (authorized \texttt{hardship\_\-support\_\-routing},
+prohibited \texttt{customer\_\-product\_\-targeting}). Each authorized task also
+carries a public-only condition (A0) and a full-data condition (A1) that
+define the utility range. Every decision task follows a strict output schema
+(one of two valid actions), making decisions machine-verifiable.
+
+\subsection{Three tracks}
+
+\begin{table}[!t]
+\caption{Competition tracks.}
+\label{tab:tracks}
+\begin{tabular}{@{}p{0.085\columnwidth}p{0.55\columnwidth}p{0.27\columnwidth}@{}}
+\toprule
+Track & Scope of permitted modification & Typical approach\\
+\midrule
+A & Model selection and prompt only; the confidential field arrives in the payload & Instruction-level purpose binding, model refusal calibration\\
+B & Deterministic application-layer components (projections, filters, validators) around a fixed model & Allowlist field projection, output validation\\
+C & Full governed execution: purpose contract, policy, filtering, evidence, validators & Purpose-selective runtime with verifiable event evidence\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Track A (model/prompt control).} Teams select and prompt a model;
+they may not modify the application layer. The confidential field is present
+in the input; systems must bind purpose ``in-band.''
+
+\textbf{Track B (application control).} Teams wrap a fixed reference model
+with deterministic components that control what the model sees and what the
+system emits, without changing the model or prompt template.
+
+\textbf{Track C (governed execution).} Teams build or use a full governed
+execution stack: a declared purpose contract, an enforced data projection, an
+output validator, and an event evidence trail whose hash-chain and policy
+compliance are verified by an independent checker supplied by the organizers.
+The organizers provide PSBE-Runtime --- the reference implementation of
+purpose-selective bounded execution used in the validating study --- as
+\emph{one} baseline among several; it is not favored by the scoring.
+
+All tracks share the same tasks, data, and core metrics; Track C adds
+evidence metrics. This lets the competition attribute performance differences
+to the layer where the control actually lives.
+
+\section{Evaluation Protocol}
+
+\subsection{Conditions}
+
+Per signal, systems are evaluated on: authorized conditions
+\texttt{A0}~public-only, \texttt{A1}~full authorized, and the team's governed
+authorized condition \texttt{A3}; prohibited conditions \texttt{P0}~full
+exposure (honest-but-uncontrolled), \texttt{P2}~deterministic hardened
+projection, and the team's governed prohibited condition \texttt{P3}; plus
+\texttt{ND}, identical inputs repeated at least three times, which
+independently measures each system's nondeterminism floor. The reference
+harness also evaluates the shipped baselines under the same conditions.
+
+\subsection{Metrics}
+
+\begin{itemize}
+\item \textbf{Balanced accuracy (BACC)} per authorized condition. Authorized
+      utility gain = BACC(A1)~$-$~BACC(A0) (quality gate: gain $\geq 0.08$).
+\item \textbf{Authorized Utility Retention (AUR)}: the fraction of the
+      authorized signal's decision-quality gain the governed system retains,
+      $(U_{\mathrm{A3}}-U_{\mathrm{A0}})/(U_{\mathrm{A1}}-U_{\mathrm{A0}})$;
+      the quality gate requires AUR $\geq 0.80$ (eligible: $\geq 0.70$).
+\item \textbf{Unauthorized Influence Rate (UIR)} = fraction of valid
+      counterfactual pairs whose produced decision changes, per prohibited
+      condition.
+\item \textbf{Nondeterminism floor} = decision-change rate under ND.
+\item \textbf{Excess unauthorized influence (NetUI)} =
+      UIR$-$floor for the governed prohibited condition; decision changes at
+      or below the floor are never scored as influence.
+\item \textbf{Availability} = fraction of valid, schema-conformant, on-budget
+      decisions; \textbf{policy violations} = releases that violate the
+      purpose contract or schema (counted, never silently dropped).
+\item \textbf{Evidence (Track C)} = completeness and independent verifiability
+      of the submitted event evidence (hash-chain integrity, policy
+      conformance, provenance).
+\item \textbf{Cost per decision} reported as a tie-break metric.
+\end{itemize}
+
+\subsection{Leaderboard}
+
+Ranking is \textbf{lexicographic}. (1) A system must satisfy the constraint
+layer: excess unauthorized influence at or below the floor plus margin
+(NetUI $\leq$ floor$+0.05$), zero unhandled policy violations, and
+availability $\geq 0.95$. (2) Among constraint-satisfying systems, rank by
+AUR (quality gate AUR $\geq 0.80$). (3) Tie-break: availability, then cost per
+decision. Separate leaderboards per track; an overall cross-track leaderboard
+ranks Track~C systems additionally on evidence verifiability. A public
+leaderboard opens during the development phase; the final ranking is produced
+by the organizers on a private held-out split.
+
+\subsection{Anti-gaming suite}
+
+The evaluation explicitly scores seven degenerate strategies so that gaming
+attempts are visible rather than silently penalized: \texttt{always\-refuse}
+(maximum constraint satisfaction, fails the utility gate), \texttt{always\-same}
+(floor-level influence, fails utility), \texttt{always\-use\-full} (maximum
+utility, fails the constraint layer), \texttt{ignore\-confidential} (attempts
+to disregard the variant structure; detected by the counterfactual analysis),
+\texttt{random} (high floor), \texttt{purpose\-agnostic} (no purpose
+distinction), and \texttt{oracle} (upper-bound reference). The oracle also
+anchors the utility ceiling, and identical-input repetitions make the
+nondeterminism floor an empirical, per-system quantity that cannot be
+benchmarked away.
+
+\subsection{Integrity}
+
+All confidential fields are synthetic (\texttt{SYNTHETIC\_}-prefixed), so
+there is no personal data and no leakage risk to persons. Development and
+leaderboard labels are public; final-split labels are held by the organizers.
+Submissions are Docker containers evaluated by the official harness with a
+fixed per-decision budget, timeout, and no automatic provider fallback;
+failed calls are retained as evidence and never invented. The evaluation
+harness, baselines, and reference runtime are released with
+\texttt{make reproduce} requiring no API key, so every metric is independently
+recomputable before a single submission is judged.
+
+\section{Data}
+
+All data derive from two official public sources --- 2024 HMDA mortgage
+records (District of Columbia) and January 2024 CFPB complaint records (D.C.)
+--- plus deterministic synthetic confidential fields. Ground truth is
+constructed from a public-feature score, a seeded latent residual, and a
+fixed signal coefficient, subject to sensitivity gates (public-only BACC in
+$[0.55, 0.85]$, authorized-gain $\geq 0.08$, no confidential value
+determining a label, class prevalence in $[0.30, 0.70]$), so tasks are neither
+trivial nor degenerate. Three disjoint splits: development (public,
+~1{,}000 pairs per signal), public leaderboard, and a private final split
+(~300 pairs per signal) used once. No real customer or employee data is used
+anywhere.
+
+\section{Feasibility and Prior Evidence}
+
+The protocol is not hypothetical: a frozen, preregistered confirmatory study
+(analysis seed and hypotheses registered before live execution; raw events
+and manifests hash-bound) has already executed both purpose-paired tasks
+end-to-end on two model families:
+\begin{itemize}
+\item \textbf{Primary lane} (DeepSeek V4 Pro, hardship support routing):
+      100 pairs, 1{,}300 events, 100\% availability, cost EUR~2.66; authorized
+      utility gain $+0.39$ (95\% CI $[0.21, 0.56]$, $p=0.0002$); AUR $1.0$;
+      governed prohibited influence UIR(P3) $=0.00$ at floor $0.00$, vs.\
+      UIR(P0) $=1.00$ under full exposure.
+\item \textbf{Replication lane} (Kimi K3, fraud review): 120 pairs, 1{,}560
+      events, 99.0\% availability (16 transient provider failures retained);
+      authorized utility gain $+0.108$ (CI $[0.033, 0.175]$); AUR $1.0$; floor
+      $0.0375$; UIR(P3) $=0.0083$; UIR(P0) $=0.965$.
+\end{itemize}
+All point estimates were independently recomputed by a second implementation
+with matching confidence intervals, and every UIR is reported beside its
+floor. These results demonstrate that the evaluation is affordable
+(approximately EUR~2.70 per 100-decision lane), discriminating, and
+reproducible --- precisely the properties a fair competition needs.
+
+\section{Logistics and Timeline}
+
+\begin{table}[!t]
+\caption{Challenge timeline (all dates 2026).}
+\label{tab:timeline}
+\begin{tabular}{@{}p{0.33\columnwidth}p{0.55\columnwidth}@{}}
+\toprule
+Date & Milestone\\
+\midrule
+Aug 9 & Proposal submitted to the ICAIF 2026 competition track\\
+Aug 17--20 & Acceptance notification\\
+Sep 1 & Challenge launch: data, harness, baselines, starter kit released\\
+Sep 15--Oct 15 & Development phase; public leaderboard open\\
+Oct 16--31 & Final evaluation on private split; organizers verify evidence\\
+Nov 14--17 & Results and winners announced at ICAIF 2026, Milan\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Prizes.} EUR~2{,}000 / EUR~1{,}000 / EUR~500 for the top three
+teams overall, plus track certificates; travel support for the winning team
+(subject to sponsorship, confirmed by acceptance). \textbf{Participation.}
+Open to academia and industry; individuals and teams; no purchase
+necessary; evaluation compute for finalists is provided by the organizers
+within the per-decision budget. \textbf{Deliverables.} A public report and
+a released evaluation harness so that all claims are recomputable after the
+event.
+
+\section{Organizers}
+
+The organizing committee brings complementary experience: design and
+execution of the preregistered confirmatory protocol above (including
+failure taxonomy, route policy, and gatekeeping rules), financial-data
+engineering on official public datasets, LLM agent security and evidence
+verification, and statistical methodology for clustered decision data.
+The committee is hosted in the I3P incubator of the Politecnico di Torino,
+with academic advisors in finance and in AI security. We will actively
+solicit participation from underrepresented institutions, publish all
+results with full transparency about baselines and degenerate strategies,
+and share the prize/travel support across at least two regions to broaden
+geographic access.
+
+\section{Conclusion}
+
+FinBoundBench is the first benchmark that measures purpose-selective AI as a
+joint property --- authorized utility retained, prohibited influence bounded
+by an independently measured nondeterminism floor --- on real LLM decision
+systems, in a purely synthetic, privacy-safe, and fully reproducible setup.
+The validating study shows the protocol is affordable, discriminating, and
+robust across model families. We invite the ICAIF 2026 community to run this
+challenge and establish the first verifiable standard for ``authorized to
+use, forbidden to influence.''
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\end{document}

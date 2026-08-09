@@ -1,0 +1,170 @@
+{
+  "checks": [
+    {
+      "frozen_ci": {
+        "H1": {
+          "hi": 0.56,
+          "lo": 0.21
+        },
+        "H3": [
+          1.0,
+          1.0
+        ],
+        "H3_mcnemar_p": 1.5777218104420236e-30
+      },
+      "independent_ci": {
+        "H1": [
+          0.21,
+          0.56,
+          1.0
+        ],
+        "H3": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "H3_mcnemar_p": 1.5777218104420236e-30
+      },
+      "mismatches": [],
+      "pass": true,
+      "study": "primary"
+    },
+    {
+      "frozen_ci": {
+        "H1": {
+          "hi": 0.175,
+          "lo": 0.03333333333333333
+        },
+        "H3": [
+          0.8805309734513275,
+          0.9646017699115044
+        ],
+        "H3_mcnemar_p": 3.944304526105059e-31
+      },
+      "independent_ci": {
+        "H1": [
+          0.03333333333333333,
+          0.175,
+          0.9982
+        ],
+        "H3": [
+          0.8805309734513275,
+          0.9646017699115044,
+          1.0
+        ],
+        "H3_mcnemar_p": 3.944304526105059e-31
+      },
+      "mismatches": [],
+      "pass": true,
+      "study": "replication"
+    }
+  ],
+  "document_kind": "INDEPENDENT_STATS_CROSSCHECK",
+  "note": "Second implementation; independent RNG stream; CI endpoints compared with tolerance 1e-4 semantics (percentile bootstrap, independent draws)",
+  "protocol": "protocol-v4-purposebench",
+  "results": {
+    "primary": {
+      "H1": {
+        "ci95_hi": 0.56,
+        "ci95_lo": 0.21,
+        "gain_point": 0.39,
+        "n_pairs": 100,
+        "p_gt0": 1.0
+      },
+      "H2": {
+        "aur_point": 1.0,
+        "ci95_hi": 1.0,
+        "ci95_lo": 1.0,
+        "denominator": 0.38999999999999996
+      },
+      "H3": {
+        "ci95_hi": 1.0,
+        "ci95_lo": 1.0,
+        "mcnemar_p": 1.5777218104420236e-30,
+        "n_pairs": 100,
+        "netui_point": 1.0,
+        "p_gt0": 1.0
+      },
+      "H5": {
+        "p2_minus_p0_point": -1.0,
+        "p3_minus_p0_point": -1.0
+      },
+      "H6": {
+        "ci95_hi": 0.0,
+        "ci95_lo": 0.0,
+        "p3_minus_floor_point": 0.0,
+        "p_within": 0.0
+      },
+      "H7": {
+        "diff_point": 0.0,
+        "tost_p_hi": 1.0,
+        "tost_p_lo": 0.0059205292203339975
+      },
+      "metrics": {
+        "nd_floor": 0.0,
+        "uir_rates": {
+          "P0": 1.0,
+          "P2": 0.0,
+          "P3": 0.0
+        },
+        "utility_bacc": {
+          "A0": 0.32,
+          "A1": 0.71,
+          "A3": 0.71
+        }
+      }
+    },
+    "replication": {
+      "H1": {
+        "ci95_hi": 0.175,
+        "ci95_lo": 0.03333333333333333,
+        "gain_point": 0.10833333333333334,
+        "n_pairs": 120,
+        "p_gt0": 0.9982
+      },
+      "H2": {
+        "aur_point": 1.0,
+        "ci95_hi": 1.0,
+        "ci95_lo": 1.0,
+        "denominator": 0.10833333333333328
+      },
+      "H3": {
+        "ci95_hi": 0.9646017699115044,
+        "ci95_lo": 0.8805309734513275,
+        "mcnemar_p": 3.944304526105059e-31,
+        "n_pairs": 113,
+        "netui_point": 0.9292035398230089,
+        "p_gt0": 1.0
+      },
+      "H5": {
+        "p2_minus_p0_point": -0.9646017699115044,
+        "p3_minus_p0_point": -0.9557522123893806
+      },
+      "H6": {
+        "ci95_hi": 0.0,
+        "ci95_lo": -0.0625,
+        "p3_minus_floor_point": -0.029166666666666667,
+        "p_within": 0.0218
+      },
+      "H7": {
+        "diff_point": -0.008333333333333333,
+        "tost_p_hi": 1.0,
+        "tost_p_lo": 0.0007373330351745996
+      },
+      "metrics": {
+        "nd_floor": 0.0375,
+        "uir_rates": {
+          "P0": 0.9646017699115044,
+          "P2": 0.0,
+          "P3": 0.008333333333333333
+        },
+        "utility_bacc": {
+          "A0": 0.625,
+          "A1": 0.7333333333333333,
+          "A3": 0.7333333333333333
+        }
+      }
+    }
+  },
+  "verdict": "PASS"
+}

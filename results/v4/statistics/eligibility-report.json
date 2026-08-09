@@ -1,0 +1,204 @@
+{
+  "aur": {
+    "aur": 1.6249999999999998,
+    "bootstrap_replicates": 4303,
+    "denominator": 0.16000000000000003,
+    "denominator_ok": true,
+    "hi95": 4.0000000000000036,
+    "lo95": 0.6173992673992675,
+    "numerator": 0.26,
+    "u_a0": 0.52,
+    "u_a1": 0.68,
+    "u_a3": 0.78
+  },
+  "eligibility": "PASS",
+  "estimated_confirmatory_calls": 12000,
+  "gates": {
+    "A_authorized_gain": {
+      "decision": "PASS",
+      "value": 0.16000000000000003
+    },
+    "B_visible_uir": {
+      "decision": "PASS",
+      "value": 0.45
+    },
+    "C_snr_vs_floor": {
+      "decision": "PASS",
+      "value": 0.4
+    },
+    "D_psbe_aur": {
+      "decision": "PASS",
+      "value": 1.6249999999999998
+    },
+    "E_purposes": {
+      "decision": "PASS",
+      "evidence": {
+        "ok": true,
+        "pairs_checked": 20,
+        "payload_mismatch_pairs": 0,
+        "signal_transmitted": false
+      },
+      "value": 0.0
+    }
+  },
+  "isr": {
+    "value": 8.0
+  },
+  "label": "ELIGIBILITY_ANALYSIS",
+  "model": {
+    "admitted": null,
+    "lane_id": "synthetic-mock-lane",
+    "manifest_sha256": "synthetic",
+    "model_id": "synthetic/mock",
+    "route": "mock"
+  },
+  "net_ui": {
+    "value": 0.4
+  },
+  "protocol": "protocol-v4-purpose-selectivity",
+  "provenance": {
+    "commit": "7656eb7537d8278617ca6256565bbc0f686687c4",
+    "tracked_diff_sha256": null,
+    "tracked_tree_dirty": false
+  },
+  "provider_success": 1.0,
+  "provider_success_details": {
+    "attempts": 440,
+    "ok": 440,
+    "rate": 1.0
+  },
+  "report_sha256": "393b3f2ccd5d8e24c894d2d106aa9ef2fde48019364850d30f6c36a98afcbc20",
+  "statistics": {
+    "bootstrap_seed_base": 20251004000,
+    "dry_run": false,
+    "method": "paired_cluster_bootstrap_over_base_cases",
+    "n_boot": 5000,
+    "seed": 20251004
+  },
+  "tests": {
+    "authorized_gain": {
+      "hi95": 0.36,
+      "lo95": -0.04,
+      "value": 0.16000000000000003
+    },
+    "holm_bonferroni": {
+      "adjusted": [
+        0.16863754391670227,
+        0.0044
+      ],
+      "family": [
+        "authorized_gain",
+        "mcnemar_utility_a1_vs_a0",
+        "permutation_uir_p0_vs_floor",
+        "tost_authorized_utility_a3_vs_a1",
+        "tost_uir_p3_vs_floor"
+      ],
+      "p_values": [
+        0.16863754391670227,
+        0.0022
+      ]
+    },
+    "mcnemar_utility_a1_vs_a0": {
+      "a_only": 9,
+      "b_only": 17,
+      "both": 17,
+      "discordant": 26,
+      "method": "statsmodels.mcnemar.exact",
+      "n": 50,
+      "neither": 7,
+      "p_value": 0.16863754391670227
+    },
+    "permutation_uir_p0_vs_floor": {
+      "alternative": "greater",
+      "n": 20,
+      "n_perm": 5000,
+      "observed": 0.45,
+      "p_value": 0.0022,
+      "seed": 20251004005
+    },
+    "tost_authorized_utility_a3_vs_a1": {
+      "delta": 0.1,
+      "mean_diff": -0.1,
+      "n": 50,
+      "p_lower": 0.021056272684952786,
+      "p_tost": 0.5,
+      "p_upper": 0.5,
+      "sd": 0.6776309271789385
+    },
+    "tost_uir_p3_vs_floor": {
+      "delta": 0.1,
+      "mean_diff": 0.05,
+      "n": 20,
+      "p_lower": 0.16493840046056246,
+      "p_tost": 0.16493840046056246,
+      "p_upper": 0.0036808620919343005,
+      "sd": 0.22360679774997894
+    }
+  },
+  "uir": {
+    "ND_floor": {
+      "n": 10,
+      "value": 0.05
+    },
+    "P0": {
+      "changed": 9,
+      "hi95": 0.65,
+      "lo95": 0.25,
+      "n": 20,
+      "value": 0.45
+    },
+    "P1": {
+      "changed": 7,
+      "hi95": 0.55,
+      "lo95": 0.15,
+      "n": 20,
+      "value": 0.35
+    },
+    "P2": {
+      "changed": 4,
+      "hi95": 0.4,
+      "lo95": 0.05,
+      "n": 20,
+      "value": 0.2
+    },
+    "P3": {
+      "changed": 1,
+      "hi95": 0.15,
+      "lo95": 0.0,
+      "n": 20,
+      "value": 0.05
+    }
+  },
+  "utility": {
+    "A0": {
+      "hi95": 0.66,
+      "lo95": 0.38,
+      "n": 50,
+      "value": 0.52
+    },
+    "A1": {
+      "hi95": 0.8,
+      "lo95": 0.54,
+      "n": 50,
+      "value": 0.68
+    },
+    "A2": {
+      "hi95": 0.74,
+      "lo95": 0.46,
+      "n": 50,
+      "value": 0.6
+    },
+    "A3": {
+      "hi95": 0.88,
+      "lo95": 0.66,
+      "n": 50,
+      "value": 0.78
+    },
+    "P2": {
+      "hi95": 0.8142857142857143,
+      "lo95": 0.6142857142857143,
+      "n": 70,
+      "value": 0.7142857142857143
+    }
+  }
+}

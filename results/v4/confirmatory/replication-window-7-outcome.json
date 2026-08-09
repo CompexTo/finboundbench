@@ -1,0 +1,34 @@
+{
+  "freeze_kind": "EXECUTION_WINDOW_7_OUTCOME",
+  "window_id": "replication-window-7",
+  "recorded_at": "2026-08-07T06:10:00Z",
+  "verdict": "WINDOW_FAIL_PROVIDER",
+  "result": {
+    "admitted": false,
+    "eligibility": "FAIL",
+    "live_calls": 1390,
+    "provider_success": 0.10897435897435898
+  },
+  "design_executed_correctly": true,
+  "events": {
+    "total": 1560,
+    "ok": 170,
+    "failed": 1390,
+    "condition_counts": {"A0": 240, "A1": 240, "A3": 240, "P0": 240, "P3": 240, "ND": 360},
+    "pairs": 120
+  },
+  "failure_analysis": {
+    "classes": {
+      "PROVIDER_SAFE_ERROR_HTTP_403": 1023,
+      "PROVIDER_TRANSPORT_ERROR": 351,
+      "PROVIDER_SAFE_ERROR_HTTP_429_RATE_LIMIT": 16
+    },
+    "all_failures_route": "morph",
+    "contiguous_fail_run": {"start_index": 186, "length": 1374},
+    "early_sporadic_runs": [[8, 2], [11, 1], [19, 1], [33, 2], [37, 2], [47, 3], [52, 3], [58, 2]],
+    "read": "HTTP 403 is a hard denial (authorization/quota-level), not transient load; the route is unavailable in a harder way than windows 1-2 (transport errors) - provider NOT recovered"
+  },
+  "cost_eur": {"ok_events": 0.890969, "failed_events": 0.0, "probe_eur": 0.0103},
+  "policy_applied": "execution-window-replication-7.json stop_policies: provider_success < 1.0 at window end -> window FAIL; further retries require a fresh explicit user decision",
+  "recommendation": "do NOT retry the same pinned route again immediately; two consecutive classes of hard failure (403 quota denial + rate limit + transport) under window-sized load. Next steps require a user decision: (b) register a fresh route/mirror as a NEW study, or (c) accept primary-only."
+}

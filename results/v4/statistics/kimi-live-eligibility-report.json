@@ -1,0 +1,19 @@
+{
+  "eligibility": "FAIL",
+  "estimated_confirmatory_calls": 992,
+  "gates": {},
+  "label": "ELIGIBILITY_ANALYSIS",
+  "model": {
+    "admitted": false,
+    "lane_id": "moonshotai-kimi-k3",
+    "manifest_sha256": null,
+    "model_id": "moonshotai/kimi-k3",
+    "route": "morph"
+  },
+  "note": "no run-level data in input; point estimates passed through only",
+  "protocol": "protocol-v4-purposebench",
+  "provider_success": 1.0,
+  "report_sha256": "95acc3f711b747c8059257c0100adc036d18c8dbb1451d697f8a8e984bcd10ba",
+  "uir": {},
+  "utility": {}
+}

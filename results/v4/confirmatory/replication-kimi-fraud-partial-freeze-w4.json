@@ -1,0 +1,26 @@
+{
+  "freeze_kind": "CONFIRMATORY_REPLICATION_PARTIAL_FREEZE",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "window_id": "replication-window-4",
+  "frozen_at": "2026-08-07T03:40:00Z",
+  "stop_event": {
+    "class": "BRIDGE_HANG",
+    "detail": "governed_openrouter_bridge_v4.cjs subprocess (node) exceeded the 180s adapter timeout and subprocess.TimeoutExpired propagated uncaught, terminating the run before any events were persisted. Harness gap recorded: adapter invoke() at eligibility_runner.py:403 does not catch subprocess.TimeoutExpired (only non-zero returncode is classified at :414-416). No events persisted in this window.",
+    "provider_route": "morph",
+    "events_persisted": 0
+  },
+  "execution_window": "replication-window-4 (terminated by bridge hang)",
+  "provider_success_rate": null,
+  "events_total": 0,
+  "events_successful": 0,
+  "events_failed": 0,
+  "cost_eur_successful_events": 0.0,
+  "cumulative_replication_cost_eur": 6.6545,
+  "verdict": "STOPPED_PARTIAL — no events persisted; carry no inferential weight.",
+  "route_policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §2",
+  "guardrail_reference": "docs/v4/PROTOCOL-v4-purpose-selectivity.md §4.3 (stop a lane after provider/schema systematic failure), §4.5",
+  "lanes": "deepseek primary completed in window-2 (PASS, frozen). kimi replication has 4 consecutive stop events (w1-w4)."
+}

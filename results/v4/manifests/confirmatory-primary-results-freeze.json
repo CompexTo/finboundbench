@@ -1,0 +1,38 @@
+{
+  "freeze_kind": "CONFIRMATORY_PRIMARY_RESULTS_FREEZE",
+  "freeze_order": 2,
+  "protocol": "protocol-v4-purposebench",
+  "study": "primary_deepseek_hardship",
+  "lane_id": "deepseek-deepseek-v4-pro",
+  "task_id": "hardship_support_routing",
+  "execution_window": "primary-window-2",
+  "frozen_at": "2026-08-07T03:05:00Z",
+  "files": [
+    {
+      "path": "results/v4/confirmatory/execution-window-primary-2.json",
+      "sha256": "acf118f7eb5f5ca116ed686f6a402ca7a3d8e56072eae5c239f8597690213b92"
+    },
+    {
+      "path": "results/v4/confirmatory/primary-deepseek-hardship-partial-freeze.json",
+      "sha256": "6aac6be7cb11fcad2c941e97f46b31c3ef5d32b591be0e8889bd40fdfdc7a5aa"
+    },
+    {
+      "path": "results\\v4\\confirmatory\\primary-window-2\\deepseek-deepseek-v4-pro\\hardship_support_routing\\events.jsonl",
+      "sha256": "a96eda8dee3b83daad3f2afc0e7d9ab4675ba7c645eca0fa60006e285765a679"
+    },
+    {
+      "path": "results\\v4\\confirmatory\\primary-window-2\\deepseek-deepseek-v4-pro\\model-task-eligibility.json",
+      "sha256": "a3c63fdfbaae1e48c9ffa83ef49b80dd2854a8a8550c7af6c0b7f88a7fb231b7"
+    },
+    {
+      "path": "results\\v4\\confirmatory\\primary-window-2\\deepseek-deepseek-v4-pro\\run-manifest.json",
+      "sha256": "9715c4e4530eb5401fe064f7fe927027023d86a22665add2dcfe9596f65c59e7"
+    }
+  ],
+  "events_total": 1300,
+  "pairs_complete": 100,
+  "provider_success": 1.0,
+  "cost_eur": 2.6636,
+  "window_1_partial": "results/v4/confirmatory/primary-deepseek-hardship-partial-freeze.json (excluded from all inference)",
+  "freeze_sha256": "bab5f0e2e485b3c7eb639cbfd497492856fb4d5fdcac9c1dfe7f781aaa6c4e3f"
+}

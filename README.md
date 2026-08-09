@@ -1,83 +1,69 @@
-# PurposeBound-Finance
+# FinBoundBench
 
-Reproducible experiment scaffold for:
+Benchmarking **purpose-selective AI** in financial decision systems.
 
-> **Authorized to See, Forbidden to Use: Measuring Silent Cross-Purpose Influence in Financial AI Agents**
+Financial organizations may be authorized to hold a confidential attribute for
+one purpose while being prohibited from using it for another. A
+purpose-selective system must do both: preserve the attribute's authorized
+utility (it may *use* it) and prevent its cross-purpose influence (it must not
+*act on* it). FinBoundBench measures both properties at the decision level,
+against a model's own natural-decision floor.
 
-The benchmark tests whether a financial AI system uses data for a purpose that is not permitted, even when the same operator or organization is technically authorized to access that data.
+## Highlights
 
-## Core hypothesis
-
-Traditional role-based access and prompt instructions do not reliably prevent cross-purpose use. A purpose-bound execution runtime that projects only permitted fields and emits auditable evidence should reduce purpose violations while retaining task utility.
-
-## Conditions
-
-1. `all_data_no_policy` — all fields are visible, no purpose rule.
-2. `all_data_prompt_policy` — all fields are visible, with a prompt prohibition.
-3. `output_guard_only` — all fields are visible, with post-output filtering.
-4. `metadata_prefilter` — prohibited fields are removed before model access.
-5. `compex_purpose_bound` — Compex enforces a machine-readable purpose contract and returns evidence.
-
-## Primary novelty
-
-Each benchmark item has a paired counterfactual. Authorized fields stay identical while one prohibited field changes. If the agent's structured financial decision changes, the benchmark records **silent cross-purpose influence**, even if no sensitive field is disclosed in the output.
+- **Confirmatory evidence (frozen, independently re-verified).** In a
+  preregistered study across two model families (DeepSeek V4 Pro; Kimi K3) and
+  two financial tasks (hardship-support routing; fraud review):
+  - Prohibited-visible data changed decisions on **96–100%** of cases
+    (natural-decision floor: 0–4%).
+  - Masking the field suppressed influence to **at or below the floor** in
+    every condition.
+  - Purpose-annotated governed execution retained the **full authorized
+    utility gain** (utility-retention ratio 1.0 in both studies).
+- **Paper.** "Authorized to Use, Forbidden to Influence: Purpose-Selective AI
+  for Financial Decision Systems" — `paper/main.pdf` (anonymous, 6 pp).
+- **Competition.** ICAIF 2026 challenge-track proposal + complete starter kit
+  (harness, degenerate baselines, sample submission, schema, rules) —
+  `competition/`.
+- **Reproducible.** `make reproduce` regenerates every statistic, check,
+  figure, and PDF from frozen raw events — no API key.
 
 ## Quick start
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-pip install -e .[dev]
-cp .env.example .env
-python -m purposebench.cli generate --cases-per-workflow 30 --seed 20260802
-python -m purposebench.cli run --config configs/experiment.yaml --adapter mock --limit 4
-python -m purposebench.cli evaluate
+make reproduce      # full verification + build (no API key)
+make test           # unit tests, incl. 9/9 anti-gaming checks
+make starter-kit    # regenerate the dev leaderboard
 ```
 
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` and copy the
-environment file with `Copy-Item .env.example .env`.
+See `REPRODUCIBILITY.md` for the exact pipeline, determinism guarantees, and
+toolchain requirements.
 
-## Connect Compex
+## Repository layout
 
-The mapped adapter targets the local Compex REST API on port 4000. It uploads
-one complete synthetic case, creates a field-access policy, obtains a
-policy-checked Analyze projection, and runs the model agent inside a second
-Compex execution. It fails closed if any required evidence is absent.
+| Path | Contents |
+| --- | --- |
+| `paper/` | Anonymous archival paper (source, compiled PDF, claim registries) |
+| `competition/` | ICAIF 2026 proposal + competition starter kit + dev leaderboard |
+| `benchmark/` | Frozen protocol, power analysis, gatekeeping, data access |
+| `data/` | v4 splits + script to fetch the public source datasets |
+| `results/v4/` | Frozen manifests, statistics, findings, evidence, figures |
+| `docs/research/` | Research history, audits, secret-scan reports, release plan |
+| `scripts/` | Reproduce + verification tooling |
+| `src/purposebench/v4/` | Benchmark implementation (v4) |
 
-Build the research-owned agent image, then configure the uncommitted `.env`:
+## Limitations (summary)
 
-```bash
-make build-agent
-```
+Two (model, task) pairs; semi-synthetic signals; no formal guarantees; no
+trusted-hardware claims; governed masking is equivalent to deterministic
+masking on the tested narrow field (no superiority claim). See the paper's
+Limitations section and `docs/research/EXECUTIVE_SUMMARY.md`.
 
-Required Compex variables are `COMPEX_BASE_URL`, `COMPEX_API_KEY`,
-`COMPEX_ORG_ID`, and `COMPEX_WORKSPACE_ID`. The original v1 container adapter
-persists container environment metadata, so it continues to reject commercial
-model API keys. Protocol v2 uses the separately reviewed platform secret-reference
-path for its governed remote condition; it accepts only a reference to
-`OPENROUTER_API_KEY`, never a key in an execution DTO or recorded artifact.
+## License
 
-Run:
+Pending the organizers' choice (see `LICENSE`). Contact the organizers via the
+competition proposal contact address.
 
-```bash
-python scripts/doctor.py
-python -m purposebench.cli run --config configs/smoke_v4.yaml --limit 4
-```
+## Citation
 
-See `docs/COMPEX_LOCAL_MAPPING.md` for the exact interface, limitations, and
-evidence semantics. The successful pre-freeze gate and the earlier preserved
-failed attempts are documented in `docs/PILOT_VALIDATION.md` and
-`docs/PROTOCOL_DEVIATIONS.md`.
-
-## Reproducibility rules
-
-- Never edit raw JSONL result files.
-- Every run appends one immutable event record.
-- Derived tables are regenerated from raw results.
-- Store policy, prompt, dataset and Git hashes with every run.
-- Use deterministic synthetic-data seeds.
-- Record exact model identifiers and API versions.
-- Treat LLM judges as secondary; primary outcomes are deterministic access, evidence, sentinel disclosure and paired decision changes.
-- Regenerate paper assets from raw events with `python scripts/build_paper_assets.py`.
-
-See `CODEX_MASTER_PROMPT.md` for the full implementation and execution brief.
+See `CITATION.cff`.

@@ -1,0 +1,38 @@
+{
+  "decision_point": "data is analyzable with standard failure handling; runner-level eligibility FAIL is due to provider_success < 1.0 gate",
+  "events": {
+    "cost_eur_ok": 7.514156,
+    "failed": 16,
+    "ok": 1544,
+    "pairs": 120,
+    "total": 1560
+  },
+  "failure_analysis": {
+    "auth_refusal_absent": true,
+    "classes": {
+      "PROVIDER_TIMEOUT": 2,
+      "PROVIDER_TRANSPORT_ERROR": 14
+    },
+    "transient": true
+  },
+  "freeze_kind": "EXECUTION_WINDOW_8_OUTCOME",
+  "pair_validity_per_condition": {
+    "A0": 119,
+    "A1": 120,
+    "A3": 118,
+    "ND": 120,
+    "P0": 113,
+    "P3": 120
+  },
+  "pairs_complete_on_all_six_conditions": 114,
+  "recorded_at": "2026-08-07T07:00:00Z",
+  "registered_failure_handling": "PROVIDER_FAILURE_TAXONOMY: failures are never behavioral observations; paired analyses use pairs with both outputs valid (per-condition n reported); no failure deleted",
+  "result": {
+    "admitted": false,
+    "eligibility": "FAIL",
+    "live_calls": 16,
+    "provider_success": 0.9897435897435898
+  },
+  "verdict": "RUN_COMPLETE_99PCT_SUCCESS",
+  "window_id": "replication-window-8"
+}

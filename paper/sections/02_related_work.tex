@@ -1,22 +1,53 @@
 \section{Related Work}
 
-Purpose-based access and distributed usage control long predate this work, and
-recent systems accounts show that translating purpose limitation into data
-flows and executable checks remains difficult~\cite{purposeminimization2021,usagecontrol2018}.
-PSBE does not claim purpose policy as a new primitive; it operationalizes a
-specific cross-layer contract and evaluates its selective-use behavior.
+\textbf{Purpose-based access control.} PBAC binds access permissions to the
+purpose of a data request~\cite{byun2008}; variants attach privacy-aware
+purpose constraints at storage and query time. Usage control extends this with
+obligations and conditions at data-consumption time~\cite{usagecontrol2018}.
+These systems govern \emph{release}: they decide who may read what, for which
+declared reason. They do not observe the downstream decision, and they cannot
+detect a model weighting a field it was permitted to read for one purpose while
+acting under another.
 
-Confidential ML systems protect training, inference, and distributed analytics
-with trusted hardware or partitioned computation~\cite{opaque2017,chiron2018,slalom2019}.
-Attestation architectures and software-supply-chain systems also define mature
-evidence and provenance mechanisms~\cite{rats2023,intoto2019}. Our non-TEE
-study keeps the host trusted and does not treat evidence generation as novel.
+\textbf{Contextual integrity.} Nissenbaum's contextual integrity treats
+appropriateness of data flow as the central privacy criterion~\cite{nissenbaum2010},
+and Barth et al.\ derive a formal language for context-relative norms~\cite{barth2006}.
+CI-Work operationalizes flow norms as runtime checks for
+applications~\cite{ciwork2026}. These lines treat \emph{flow} as the regulated
+object. Our benchmark treats \emph{influence} as the regulated object: a flow
+can be perfectly legal and still causally tilt a prohibited decision.
 
-AgentDojo and related agent-security benchmarks already measure utility and
-security, while CaMeL moves capability/data-flow control outside model
-reasoning~\cite{agentdojo2024,camel2025}. Thus the gap is narrower: paired
-measurement of approved confidential utility and prohibited cross-purpose
-influence, plus cross-layer compromise and evidence reconstruction, in a
-financial-AI protocol with a fair hardened-filter baseline. DP-SGD and privacy
-attacks are established techniques used as evaluation components rather than
-claimed contributions~\cite{dp_sgd2016,membership2017}.
+\textbf{LLM privacy benchmarks.} ToolPrivacyBench audits whether agent tools
+leak or mishandle private data in tool calls~\cite{toolprivacybench2026};
+CONFAIDE generates contextualized private-data scenarios~\cite{confaide2024};
+PrivaCI-Bench builds role-negotiation tasks for privacy context
+inference~\cite{privacibench2025}. These benchmarks ask whether private data
+is \emph{exposed} to a downstream consumer or tool. FinBoundBench instead asks
+whether a decision \emph{changes} when the data's purpose flips---the
+transmission may be identical.
+
+\textbf{Fairness and bias influence.} Counterfactual fairness asks whether
+predictions are invariant under counterfactual changes of protected
+attributes~\cite{kusner2017}. Fin-Bias measures which prompt features drive
+financial-advice behavior under instruction changes~\cite{finbias2026}.
+Both are methodologically close to us: they vary an input while holding the
+case fixed. But they target \emph{bias} (protected groups, advice consistency),
+not \emph{purpose authorization}; neither reports against a decision
+floor, and neither is preregistered with frozen artifacts. IFC-ML analyzes
+information-flow control for ML pipelines~\cite{ifcml2024} at the system level
+rather than the decision level.
+
+\textbf{Regulatory framing.} GDPR Articles 5(1)(b) and 5(1)(c) ground purpose
+limitation and minimization~\cite{gdpr2016}; the EU AI Act Article 6 Annex III
+classifies creditworthiness and insurance-risk systems as high-risk, tying
+purpose discipline to deployment obligations~\cite{euaiact2024}. Work on
+reviving purpose limitation in data-driven systems~\cite{purposeminimization2021}
+argues that technical enforcement lags legal obligation---the gap this paper
+addresses with a measurable property.
+
+\textbf{Position.} The closest conceptual relative is ToolPrivacyBench
+(transmission of private data) and the closest methodological relative is
+Fin-Bias (input perturbation). To our knowledge no existing benchmark measures,
+on the same confidential signal, the \emph{joint} requirement of authorized
+utility retention and floor-relative prohibited influence, under a
+preregistered protocol with frozen, independently re-computed evidence.

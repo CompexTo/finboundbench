@@ -1,0 +1,101 @@
+{
+  "budget_status": "FOUNDER_CONFIRMED_2026-08-07",
+  "files": [
+    {
+      "path": "docs/v4/PROTOCOL_DEVIATION_TASK_SPECIFIC_ELIGIBILITY.md",
+      "sha256": "4088023dfd6480322ae5cbe9a0a4a35cb9e27fc9322be35717ea6aaf42cc7e9b"
+    },
+    {
+      "path": "docs/v4/CONDITION_IMPLEMENTATIONS.md",
+      "sha256": "04fc104438a8667386d761976a21e47cd1e2cb74c108c9314fc92a00d09601df"
+    },
+    {
+      "path": "docs/v4/CONFIRMATORY_DATA_SEPARATION.md",
+      "sha256": "c0348a0fe0d9473b3b561b0cf054d62aab91ba56feaf638af341440dab90c4b6"
+    },
+    {
+      "path": "docs/v4/CONFIRMATORY_GATEKEEPING.md",
+      "sha256": "bdd1afd6fd4513b8dd3a8719f5b9318187b85b2e33cdc4bb9c7d4a236a640330"
+    },
+    {
+      "path": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md",
+      "sha256": "0efcab4f7355f593ccfd598084afe3a29a6d517287eb3542a44cb5b955f36bfa"
+    },
+    {
+      "path": "docs/v4/CONFIRMATORY_POWER_ANALYSIS.md",
+      "sha256": "d1d171d20fa03916aebe1ef39d95082799e2f4d75a2c0beb1dc4b56817da48af"
+    },
+    {
+      "path": "results/v4/manifests/confirmatory-dataset-freeze.json",
+      "sha256": "9a31d51fa0a83357195441ff0b3c830baed8e305522f361a2893528e424aeea0"
+    },
+    {
+      "path": "results/v4/manifests/eligibility-results-freeze.json",
+      "sha256": "9a7ac0485683dacc408f2d63777ca77d45ab516471243f946daa264c51d0d8cc"
+    },
+    {
+      "path": "results/v4/manifests/v4-signal-freeze.json",
+      "sha256": "3175dc2f322bb8c6d20ecdd1f6fac2b673da3bfd307874210517ac9749dbd82b"
+    },
+    {
+      "path": "results/v4/eligibility/PRIMARY_REPLICATION_MARKERS.json",
+      "sha256": "7b0b82c6178fbd4f08eeb399edd15e3b0fa8a6da3843395501dc034cdfd49f51"
+    },
+    {
+      "path": "scripts/run_v4_power_analysis.py",
+      "sha256": "453fc8f3a809b98c231959c9641dec7e892b972bccce302141170b4c64ed3eef"
+    },
+    {
+      "path": "scripts/run_v4_confirmatory_integrity.py",
+      "sha256": "300cee227f46502ba9aa0f818a86dd1a0fff3b73d48049c7f56e8c76f380d33c"
+    }
+  ],
+  "freeze_kind": "CONFIRMATORY_PROTOCOL_FREEZE",
+  "freeze_order": 1,
+  "freeze_sha256": "b1dceeeca7a20c66465089f31eadf87b2c154d45623d41d53125f5b6e09f7c85",
+  "frozen_at": "2026-08-07T00:00:00Z",
+  "gatekeeping": [
+    {
+      "chain": 1,
+      "sequence": [
+        "H1",
+        "H2"
+      ]
+    },
+    {
+      "chain": 2,
+      "sequence": [
+        "H3",
+        "H5",
+        "H6"
+      ]
+    }
+  ],
+  "git_commit": "7656eb7537d8278617ca6256565bbc0f686687c4",
+  "h1_h7_correction": "v4 docs use H1-H7; v3 frozen artifacts retain their own numerals and are immutable",
+  "h6_margin": 0.05,
+  "hard_budget_eur": 40.0,
+  "hypothesis_family": "H1-H7",
+  "immutable_after": "7656eb7537d8278617ca6256565bbc0f686687c4",
+  "n_nd": 120,
+  "nd_ucb_rule": "3/n_ND <= margin/2",
+  "primary": {
+    "lane_id": "deepseek-deepseek-v4-pro",
+    "n_pairs": 100,
+    "role": "PRIMARY_DISCOVERY_SELECTED",
+    "task_id": "hardship_support_routing"
+  },
+  "protocol": "protocol-v4-purposebench",
+  "replication": {
+    "lane_id": "moonshotai-kimi-k3",
+    "n_pairs": 120,
+    "role": "REPLICATION_DISCOVERY_SELECTED",
+    "task_id": "fraud_review"
+  },
+  "schema_version": "finboundbench.v4.confirmatory-protocol-freeze.v1",
+  "amendment": {
+    "recorded_at": "2026-08-07T00:00:00Z",
+    "recorded_before_any_live_confirmatory_call": true,
+    "summary": "Replication n capped at complete frozen pool (120 fraud pairs); registered wider planning margin 0.15 (power 0.925 at n=120); power at original shrunk effect 0.063 is 0.175 (registered resolution limitation). Justification in CONFIRMATORY_POWER_ANALYSIS.md section 8 and run_v4_power_analysis.py. n=500 infeasible: frozen CONFIRMATORY dataset holds exactly 120 fraud pairs; generating more would violate the frozen dataset manifest."
+  }
+}

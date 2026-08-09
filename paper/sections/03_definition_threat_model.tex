@@ -1,21 +1,64 @@
-\section{Definition and Threat Model}
+\section{Definitions and Threat Model}
+\label{sec:definitions}
 
-A purpose contract is the immutable tuple
-$C=(i,p,D,\Pi,W,M,K,R,B,L,E)$: identity/version, purpose, dataset binding,
-projection, workload, model, capabilities, release predicate, privacy budget,
-lifecycle, and evidence contract. Execution starts only if the current approved
-contract and every supplied binding verify. Every external effect is mediated
-by $K$, and output remains quarantined until release, privacy settlement, and
-evidence completion succeed.
+\subsection{Purpose and authorization}
 
-For approved Task A, confidential $Z$ should add utility beyond public $X$. For
-prohibited Task B, paired worlds keep $X$ and ground truth fixed while changing
-$Z$; influence appears when released actions or scores differ. We estimate this
-property over registered samples rather than claiming universal noninterference.
+Let a \emph{case} be a tuple of observable attributes $x$ (public features) and
+confidential attributes $z$. A \emph{purpose} $p$ is a task label under which a
+system may act on a case (e.g., \textsc{hardship-support-routing},
+\textsc{fraud-review}). For a confidential attribute $z_i$, an authorization
+mapping $\mathrm{perm}(z_i, p) \in \{\textsc{auth},\textsc{proh}\}$ states
+whether the organization may use $z_i$ when acting under purpose $p$. A
+\emph{decision function} $d(\tilde x, p) \to \mathcal{A}$ maps the rendered
+input $\tilde x$ (a prompt over visible attributes) and the purpose to an
+action in $\mathcal{A}$.
 
-The non-TEE protocol includes malicious callers, adversarial model/workload
-behavior, substitutions, route fallback, unauthorized capabilities, release
-violations, privacy-budget attacks, and evidence tampering. It trusts the host
-kernel, administrator, container runtime, and cryptographic/verifier
-implementations. Host compromise, physical and hardware side channels, covert
-channels outside mediated I/O, and legal compliance are out of scope.
+\subsection{The PSBE property}
+
+For a fixed case and fixed public features, consider three renderings of the
+same confidential attribute $z_i$: visible ($\tilde x^{+}$), masked
+($\tilde x^{-}$), and the identity of the model's own nondeterminism (two
+identical renderings). We define
+
+\begin{itemize}
+  \item \textbf{Authorized utility} $U(p)$: decision quality on the authorized
+  task, e.g., balanced accuracy (BACC) against a ground-truth label.
+  \item \textbf{Influence} $I(p)$: the rate at which a decision \emph{changes}
+  when a masked attribute becomes visible, under purpose $p$:
+  $I(p) = \Pr\bigl[d(\tilde x^{+}, p) \ne d(\tilde x^{-}, p)\bigr]$.
+  \item \textbf{Natural-decision floor} $F$: the rate at which the decision
+  changes when the \emph{identical} input is rendered twice,
+  $F = \Pr\bigl[d(\tilde x, p) \ne d'(\tilde x, p)\bigr]$ over repeated calls.
+  Nondeterministic LLM sampling makes $F>0$.
+\end{itemize}
+
+\textbf{Definition (PSBE).} A system is \emph{purpose-selective} on attribute
+$z_i$ with margin $\delta$ and retention gate $\rho$ if, for every authorized
+purpose $p^{+}$ and prohibited purpose $p^{-}$:
+\begin{equation}
+\begin{aligned}
+I_{\mathrm{governed}}(p^{-}) &\le F + \delta &&\text{forbidden to influence}\\
+U_{\mathrm{governed}}(p^{+}) &\ge \rho \cdot U_{\mathrm{ungoverned}}(p^{+}) &&\text{authorized to use}.
+\end{aligned}
+\label{eq:psbe}
+\end{equation}
+The first conjunct bounds prohibited influence at the floor (the system is
+\emph{forbidden to influence}); the second requires the authorized utility to
+survive governance (the system remains \emph{authorized to use}). Both are
+behavioral, decision-level properties: they hold or fail at the model output,
+regardless of where data was stored or transmitted.
+
+\subsection{Threat model}
+
+We target \emph{operational purpose confusion}---an organization that holds a
+field for a lawful purpose and feeds it to a model that acts under another
+purpose---not adversarial leakage or prompt injection. Concretely: the threat
+model includes negligent or erroneous deployment (field included when it should
+not be; no runtime guard), and honest-but-curious model providers (the operator
+controls the model call through its own governed adapter). It explicitly
+excludes: (i) prompt-injection attacks that attempt to exfiltrate the field;
+(ii) a hostile provider that colludes to train on the field (no training-data
+protection is claimed); (iii) formal non-interference guarantees (we measure,
+we do not prove). We additionally require that the deployed system never
+automatically falls back to an ungoverned path when the governed path fails,
+because a fallback would silently bypass the property in Equation~\eqref{eq:psbe}.

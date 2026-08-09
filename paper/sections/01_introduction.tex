@@ -1,26 +1,54 @@
 \section{Introduction}
 
-Access control answers whether a principal may obtain data. Purpose limitation
-adds a different question: whether the same data may affect this decision.
-Financial institutions routinely hold information for investigation, support,
-fraud, marketing, and regulatory purposes whose permissible uses do not
-coincide. A confidential-computing boundary can protect bytes from an
-infrastructure operator while still allowing the enclosed model to use the
-wrong attribute. Removing every confidential attribute avoids that misuse but
-can erase the legitimate value of protected computation.
+Consumer-finance workflows increasingly route individual decisions through
+large language models (LLMs): a support message is routed to hardship review,
+a flagged transaction is cleared or escalated. The attributes consulted in
+these decisions are purpose-bound by law and by contract. Under the principle
+of purpose limitation and data minimization~\cite{gdpr2016,
+purposeminimization2021}, a lender may hold a hardship flag to evaluate
+repayment-assistance eligibility (authorized purpose) while being prohibited
+from using the same flag to decide service priority (prohibited purpose). The
+European AI Act similarly treats credit and insurance scoring as high-risk
+applications with strict purpose boundaries~\cite{euaiact2024}.
 
-This paper studies that tension through Purpose-Selective Bounded Execution
-(PSBE). PSBE binds a declared purpose to exact data, workload/model identity,
-capabilities, release rules, privacy budget, lifecycle state, and reconstructable
-evidence. FinBoundBench asks whether the same synthetic confidential signal can
-improve an approved financial task and cease to influence a distinct prohibited
-task. The comparison includes full-data, prompt-only, a strong deterministic
-prefilter, and layered PSBE conditions. In a three-phase OpenRouter diagnostic,
-three of five models pass admission, 15/18 position diagnostic invocations
-pass, and 32/36 R2 diagnostic invocations pass; one reduced live model lane
-(330 invocations) is reported as an execution and release-policy diagnostic
-only. Attack, differential-privacy, evidence-verification, availability, and
-overhead results are intentionally withheld pending live execution. The
-intended contributions are a formal definition, paired benchmark, cross-layer
-attack suite, and empirical analysis; the full confirmatory claim family
-requires the live non-TEE benchmark.
+Modern access-control and privacy machinery addresses where data may \emph{go}
+(transmission), not what it may \emph{do} at the decision. Confidential
+computing~\cite{opaque2017,chiron2018,slalom2019}, usage
+control~\cite{usagecontrol2018}, and purpose-based access control
+(PBAC)~\cite{byun2008} govern release. Prompt-injection defenses~\cite{agentdojo2024,camel2025}
+protect the prompt. But a model that is allowed to \emph{receive} a field for an
+authorized purpose can still \emph{act on} it under a prohibited purpose: the
+field is visible in the prompt, the model weighs it, and the decision drifts.
+Transmission-level controls neither measure nor prevent this drift.
+
+We make three contributions.
+
+\begin{enumerate}
+  \item \textbf{Definition.} We formalize \emph{Purpose-Selective Bounded
+  Execution (PSBE)} as two measurable decision-level properties over a
+  confidential attribute: the \emph{authorized utility} it preserves for the
+  permitted purpose, and the \emph{prohibited influence} it exerts under other
+  purposes, measured relative to the system's own natural-decision floor.
+  \item \textbf{Benchmark.} We introduce \emph{FinBoundBench}, a paired
+  benchmark of synthetic-but-realistic consumer-finance cases in which the same
+  confidential field (e.g., a hardship flag, a fraud flag) is embedded in
+  purpose-labeled decision tasks. Each case is rendered into counterfactual
+  variants (authorized, prohibited, masked), so a single model serves as its
+  own control.
+  \item \textbf{Evidence.} We report a preregistered, frozen, and independently
+  re-computed confirmatory study across two model families (DeepSeek V4 Pro;
+  Kimi K3) and two financial tasks (hardship-support routing; fraud review).
+  Prohibited-visible data changed decisions on 96--100\% of cases (floor:
+  0--4\%); masking the field suppressed influence to at or below the floor in
+  every condition; and governed execution with a declared purpose retained the
+  full authorized utility gain (utility-retention ratio of exactly 1.0 in both
+  studies).
+\end{enumerate}
+
+Our framing is deliberately modest. The study covers two model-task pairs over
+semi-synthetic signals; it does not claim formal guarantees, trusted-hardware
+isolation, or adversarial robustness (Section~\ref{sec:limitations}). Its
+contribution is a measurement methodology that isolates the quantity that
+matters---\emph{decision influence relative to a floor}---together with
+confirmatory evidence that a governed execution adapter can be purpose-selective
+without an authorized-utility penalty.

@@ -14,3 +14,18 @@ data/generated/*
 !results/manifests/.gitkeep
 data/v2/raw/*
 !data/v2/raw/.gitkeep
+data/v4/sources/
+
+# Release-excluded working material (internal iteration, raw runs, scratch)
+configs/v4/
+deliverable-v3/
+deliverable-v4-eligibility/
+docs/v4/
+tmp/
+CONFIRMATORY_READY.md
+CONTRACT_V4.md
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out

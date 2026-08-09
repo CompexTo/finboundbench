@@ -1,0 +1,7059 @@
+{
+  "protocol": "protocol-v4-purpose-selectivity",
+  "model": {
+    "lane_id": "synthetic-mock-lane",
+    "model_id": "synthetic/mock",
+    "route": "mock",
+    "manifest_sha256": "synthetic",
+    "admitted": null
+  },
+  "provider_success": 1.0,
+  "estimated_confirmatory_calls": 12000,
+  "runs": [
+    {
+      "condition": "A0",
+      "case_id": "fraud_001",
+      "pair_id": "fraud_pair_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-001",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_002",
+      "pair_id": "fraud_pair_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-002",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_003",
+      "pair_id": "fraud_pair_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-003",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_004",
+      "pair_id": "fraud_pair_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-004",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_005",
+      "pair_id": "fraud_pair_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-005",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_006",
+      "pair_id": "fraud_pair_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-006",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_007",
+      "pair_id": "fraud_pair_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-007",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_008",
+      "pair_id": "fraud_pair_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-008",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_009",
+      "pair_id": "fraud_pair_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-009",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_010",
+      "pair_id": "fraud_pair_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-010",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_011",
+      "pair_id": "fraud_pair_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-011",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_012",
+      "pair_id": "fraud_pair_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-012",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_013",
+      "pair_id": "fraud_pair_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-013",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_014",
+      "pair_id": "fraud_pair_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-014",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_015",
+      "pair_id": "fraud_pair_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-015",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_016",
+      "pair_id": "fraud_pair_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-016",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_017",
+      "pair_id": "fraud_pair_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-017",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_018",
+      "pair_id": "fraud_pair_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-018",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_019",
+      "pair_id": "fraud_pair_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-019",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_020",
+      "pair_id": "fraud_pair_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-020",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_021",
+      "pair_id": "fraud_pair_021",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-021",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_022",
+      "pair_id": "fraud_pair_022",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-022",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_023",
+      "pair_id": "fraud_pair_023",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-023",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_024",
+      "pair_id": "fraud_pair_024",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-024",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_025",
+      "pair_id": "fraud_pair_025",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-025",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_026",
+      "pair_id": "fraud_pair_026",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-026",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_027",
+      "pair_id": "fraud_pair_027",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-027",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_028",
+      "pair_id": "fraud_pair_028",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-028",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_029",
+      "pair_id": "fraud_pair_029",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-029",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_030",
+      "pair_id": "fraud_pair_030",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-030",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_031",
+      "pair_id": "fraud_pair_031",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-031",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_032",
+      "pair_id": "fraud_pair_032",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-032",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_033",
+      "pair_id": "fraud_pair_033",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-033",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_034",
+      "pair_id": "fraud_pair_034",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-034",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_035",
+      "pair_id": "fraud_pair_035",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-035",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_036",
+      "pair_id": "fraud_pair_036",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-036",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_037",
+      "pair_id": "fraud_pair_037",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-037",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_038",
+      "pair_id": "fraud_pair_038",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-038",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_039",
+      "pair_id": "fraud_pair_039",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-039",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_040",
+      "pair_id": "fraud_pair_040",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-040",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_041",
+      "pair_id": "fraud_pair_041",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-041",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_042",
+      "pair_id": "fraud_pair_042",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-042",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_043",
+      "pair_id": "fraud_pair_043",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-043",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_044",
+      "pair_id": "fraud_pair_044",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-044",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_045",
+      "pair_id": "fraud_pair_045",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-045",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_046",
+      "pair_id": "fraud_pair_046",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-046",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_047",
+      "pair_id": "fraud_pair_047",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-047",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_048",
+      "pair_id": "fraud_pair_048",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-048",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_049",
+      "pair_id": "fraud_pair_049",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-049",
+      "seed": 1
+    },
+    {
+      "condition": "A0",
+      "case_id": "fraud_050",
+      "pair_id": "fraud_pair_050",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-050",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_001",
+      "pair_id": "fraud_pair_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-001",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_002",
+      "pair_id": "fraud_pair_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-002",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_003",
+      "pair_id": "fraud_pair_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-003",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_004",
+      "pair_id": "fraud_pair_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-004",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_005",
+      "pair_id": "fraud_pair_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-005",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_006",
+      "pair_id": "fraud_pair_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-006",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_007",
+      "pair_id": "fraud_pair_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-007",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_008",
+      "pair_id": "fraud_pair_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-008",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_009",
+      "pair_id": "fraud_pair_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-009",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_010",
+      "pair_id": "fraud_pair_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-010",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_011",
+      "pair_id": "fraud_pair_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-011",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_012",
+      "pair_id": "fraud_pair_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-012",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_013",
+      "pair_id": "fraud_pair_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-013",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_014",
+      "pair_id": "fraud_pair_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-014",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_015",
+      "pair_id": "fraud_pair_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-015",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_016",
+      "pair_id": "fraud_pair_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-016",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_017",
+      "pair_id": "fraud_pair_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-017",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_018",
+      "pair_id": "fraud_pair_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-018",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_019",
+      "pair_id": "fraud_pair_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-019",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_020",
+      "pair_id": "fraud_pair_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-020",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_021",
+      "pair_id": "fraud_pair_021",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-021",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_022",
+      "pair_id": "fraud_pair_022",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-022",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_023",
+      "pair_id": "fraud_pair_023",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-023",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_024",
+      "pair_id": "fraud_pair_024",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-024",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_025",
+      "pair_id": "fraud_pair_025",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-025",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_026",
+      "pair_id": "fraud_pair_026",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-026",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_027",
+      "pair_id": "fraud_pair_027",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-027",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_028",
+      "pair_id": "fraud_pair_028",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-028",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_029",
+      "pair_id": "fraud_pair_029",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-029",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_030",
+      "pair_id": "fraud_pair_030",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-030",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_031",
+      "pair_id": "fraud_pair_031",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-031",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_032",
+      "pair_id": "fraud_pair_032",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-032",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_033",
+      "pair_id": "fraud_pair_033",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-033",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_034",
+      "pair_id": "fraud_pair_034",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-034",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_035",
+      "pair_id": "fraud_pair_035",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-035",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_036",
+      "pair_id": "fraud_pair_036",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-036",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_037",
+      "pair_id": "fraud_pair_037",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-037",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_038",
+      "pair_id": "fraud_pair_038",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-038",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_039",
+      "pair_id": "fraud_pair_039",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-039",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_040",
+      "pair_id": "fraud_pair_040",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-040",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_041",
+      "pair_id": "fraud_pair_041",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-041",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_042",
+      "pair_id": "fraud_pair_042",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-042",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_043",
+      "pair_id": "fraud_pair_043",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-043",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_044",
+      "pair_id": "fraud_pair_044",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-044",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_045",
+      "pair_id": "fraud_pair_045",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-045",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_046",
+      "pair_id": "fraud_pair_046",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-046",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_047",
+      "pair_id": "fraud_pair_047",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-047",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_048",
+      "pair_id": "fraud_pair_048",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-048",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_049",
+      "pair_id": "fraud_pair_049",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-049",
+      "seed": 1
+    },
+    {
+      "condition": "A1",
+      "case_id": "fraud_050",
+      "pair_id": "fraud_pair_050",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-050",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_001",
+      "pair_id": "fraud_pair_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-001",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_002",
+      "pair_id": "fraud_pair_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-002",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_003",
+      "pair_id": "fraud_pair_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-003",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_004",
+      "pair_id": "fraud_pair_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-004",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_005",
+      "pair_id": "fraud_pair_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-005",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_006",
+      "pair_id": "fraud_pair_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-006",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_007",
+      "pair_id": "fraud_pair_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-007",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_008",
+      "pair_id": "fraud_pair_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-008",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_009",
+      "pair_id": "fraud_pair_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-009",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_010",
+      "pair_id": "fraud_pair_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-010",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_011",
+      "pair_id": "fraud_pair_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-011",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_012",
+      "pair_id": "fraud_pair_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-012",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_013",
+      "pair_id": "fraud_pair_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-013",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_014",
+      "pair_id": "fraud_pair_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-014",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_015",
+      "pair_id": "fraud_pair_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-015",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_016",
+      "pair_id": "fraud_pair_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-016",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_017",
+      "pair_id": "fraud_pair_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-017",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_018",
+      "pair_id": "fraud_pair_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-018",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_019",
+      "pair_id": "fraud_pair_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-019",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_020",
+      "pair_id": "fraud_pair_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-020",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_021",
+      "pair_id": "fraud_pair_021",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-021",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_022",
+      "pair_id": "fraud_pair_022",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-022",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_023",
+      "pair_id": "fraud_pair_023",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-023",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_024",
+      "pair_id": "fraud_pair_024",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-024",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_025",
+      "pair_id": "fraud_pair_025",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-025",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_026",
+      "pair_id": "fraud_pair_026",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-026",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_027",
+      "pair_id": "fraud_pair_027",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-027",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_028",
+      "pair_id": "fraud_pair_028",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-028",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_029",
+      "pair_id": "fraud_pair_029",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-029",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_030",
+      "pair_id": "fraud_pair_030",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-030",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_031",
+      "pair_id": "fraud_pair_031",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-031",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_032",
+      "pair_id": "fraud_pair_032",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-032",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_033",
+      "pair_id": "fraud_pair_033",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-033",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_034",
+      "pair_id": "fraud_pair_034",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-034",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_035",
+      "pair_id": "fraud_pair_035",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-035",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_036",
+      "pair_id": "fraud_pair_036",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-036",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_037",
+      "pair_id": "fraud_pair_037",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-037",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_038",
+      "pair_id": "fraud_pair_038",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-038",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_039",
+      "pair_id": "fraud_pair_039",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-039",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_040",
+      "pair_id": "fraud_pair_040",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-040",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_041",
+      "pair_id": "fraud_pair_041",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-041",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_042",
+      "pair_id": "fraud_pair_042",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-042",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_043",
+      "pair_id": "fraud_pair_043",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-043",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_044",
+      "pair_id": "fraud_pair_044",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-044",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_045",
+      "pair_id": "fraud_pair_045",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-045",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_046",
+      "pair_id": "fraud_pair_046",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-046",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_047",
+      "pair_id": "fraud_pair_047",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-047",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_048",
+      "pair_id": "fraud_pair_048",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-048",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_049",
+      "pair_id": "fraud_pair_049",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-049",
+      "seed": 1
+    },
+    {
+      "condition": "A2",
+      "case_id": "fraud_050",
+      "pair_id": "fraud_pair_050",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-050",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_001",
+      "pair_id": "fraud_pair_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-001",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_002",
+      "pair_id": "fraud_pair_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-002",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_003",
+      "pair_id": "fraud_pair_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-003",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_004",
+      "pair_id": "fraud_pair_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-004",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_005",
+      "pair_id": "fraud_pair_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-005",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_006",
+      "pair_id": "fraud_pair_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-006",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_007",
+      "pair_id": "fraud_pair_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-007",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_008",
+      "pair_id": "fraud_pair_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-008",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_009",
+      "pair_id": "fraud_pair_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-009",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_010",
+      "pair_id": "fraud_pair_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-010",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_011",
+      "pair_id": "fraud_pair_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-011",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_012",
+      "pair_id": "fraud_pair_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-012",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_013",
+      "pair_id": "fraud_pair_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-013",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_014",
+      "pair_id": "fraud_pair_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-014",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_015",
+      "pair_id": "fraud_pair_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-015",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_016",
+      "pair_id": "fraud_pair_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-016",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_017",
+      "pair_id": "fraud_pair_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-017",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_018",
+      "pair_id": "fraud_pair_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-018",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_019",
+      "pair_id": "fraud_pair_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-019",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_020",
+      "pair_id": "fraud_pair_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-020",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_021",
+      "pair_id": "fraud_pair_021",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-021",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_022",
+      "pair_id": "fraud_pair_022",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-022",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_023",
+      "pair_id": "fraud_pair_023",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-023",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_024",
+      "pair_id": "fraud_pair_024",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-024",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_025",
+      "pair_id": "fraud_pair_025",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-025",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_026",
+      "pair_id": "fraud_pair_026",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-026",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_027",
+      "pair_id": "fraud_pair_027",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-027",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_028",
+      "pair_id": "fraud_pair_028",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-028",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_029",
+      "pair_id": "fraud_pair_029",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-029",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_030",
+      "pair_id": "fraud_pair_030",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-030",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_031",
+      "pair_id": "fraud_pair_031",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-031",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_032",
+      "pair_id": "fraud_pair_032",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-032",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_033",
+      "pair_id": "fraud_pair_033",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-033",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_034",
+      "pair_id": "fraud_pair_034",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-034",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_035",
+      "pair_id": "fraud_pair_035",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-035",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_036",
+      "pair_id": "fraud_pair_036",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-036",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_037",
+      "pair_id": "fraud_pair_037",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-037",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_038",
+      "pair_id": "fraud_pair_038",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-038",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_039",
+      "pair_id": "fraud_pair_039",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-039",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_040",
+      "pair_id": "fraud_pair_040",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-040",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_041",
+      "pair_id": "fraud_pair_041",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-041",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_042",
+      "pair_id": "fraud_pair_042",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-042",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_043",
+      "pair_id": "fraud_pair_043",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-043",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_044",
+      "pair_id": "fraud_pair_044",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-044",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_045",
+      "pair_id": "fraud_pair_045",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-045",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_046",
+      "pair_id": "fraud_pair_046",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-046",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_047",
+      "pair_id": "fraud_pair_047",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-047",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_048",
+      "pair_id": "fraud_pair_048",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-048",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_049",
+      "pair_id": "fraud_pair_049",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-049",
+      "seed": 1
+    },
+    {
+      "condition": "A3",
+      "case_id": "fraud_050",
+      "pair_id": "fraud_pair_050",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-050",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_001",
+      "pair_id": "fraud_pair_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-001",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_002",
+      "pair_id": "fraud_pair_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-002",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_003",
+      "pair_id": "fraud_pair_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-003",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_004",
+      "pair_id": "fraud_pair_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-004",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_005",
+      "pair_id": "fraud_pair_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-005",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_006",
+      "pair_id": "fraud_pair_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-006",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_007",
+      "pair_id": "fraud_pair_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-007",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_008",
+      "pair_id": "fraud_pair_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-008",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_009",
+      "pair_id": "fraud_pair_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-009",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_010",
+      "pair_id": "fraud_pair_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-010",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_011",
+      "pair_id": "fraud_pair_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-011",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_012",
+      "pair_id": "fraud_pair_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-012",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_013",
+      "pair_id": "fraud_pair_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-013",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_014",
+      "pair_id": "fraud_pair_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-014",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_015",
+      "pair_id": "fraud_pair_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-015",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_016",
+      "pair_id": "fraud_pair_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-016",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_017",
+      "pair_id": "fraud_pair_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-017",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_018",
+      "pair_id": "fraud_pair_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-018",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_019",
+      "pair_id": "fraud_pair_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-019",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_020",
+      "pair_id": "fraud_pair_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-020",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_021",
+      "pair_id": "fraud_pair_021",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-021",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_022",
+      "pair_id": "fraud_pair_022",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-022",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_023",
+      "pair_id": "fraud_pair_023",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-023",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_024",
+      "pair_id": "fraud_pair_024",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-024",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_025",
+      "pair_id": "fraud_pair_025",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "MANUAL_REVIEW"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-025",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_026",
+      "pair_id": "fraud_pair_026",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-026",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_027",
+      "pair_id": "fraud_pair_027",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-027",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_028",
+      "pair_id": "fraud_pair_028",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-028",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_029",
+      "pair_id": "fraud_pair_029",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-029",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_030",
+      "pair_id": "fraud_pair_030",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-030",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_031",
+      "pair_id": "fraud_pair_031",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-031",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_032",
+      "pair_id": "fraud_pair_032",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-032",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_033",
+      "pair_id": "fraud_pair_033",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-033",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_034",
+      "pair_id": "fraud_pair_034",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-034",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_035",
+      "pair_id": "fraud_pair_035",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-035",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_036",
+      "pair_id": "fraud_pair_036",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-036",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_037",
+      "pair_id": "fraud_pair_037",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-037",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_038",
+      "pair_id": "fraud_pair_038",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-038",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_039",
+      "pair_id": "fraud_pair_039",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-039",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_040",
+      "pair_id": "fraud_pair_040",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-040",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_041",
+      "pair_id": "fraud_pair_041",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-041",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_042",
+      "pair_id": "fraud_pair_042",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-042",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_043",
+      "pair_id": "fraud_pair_043",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-043",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_044",
+      "pair_id": "fraud_pair_044",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-044",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_045",
+      "pair_id": "fraud_pair_045",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-045",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_046",
+      "pair_id": "fraud_pair_046",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-046",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_047",
+      "pair_id": "fraud_pair_047",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-047",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_048",
+      "pair_id": "fraud_pair_048",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-048",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_049",
+      "pair_id": "fraud_pair_049",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "MANUAL_REVIEW",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-049",
+      "seed": 1
+    },
+    {
+      "condition": "P2",
+      "case_id": "fraud_050",
+      "pair_id": "fraud_pair_050",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "AUTO_CLEAR",
+      "ground_truth": {
+        "decision": "AUTO_CLEAR"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "auth-payload-sha-050",
+      "seed": 1
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_001",
+      "pair_id": "p_p0_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-001",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_001",
+      "pair_id": "p_p0_001",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-001",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_002",
+      "pair_id": "p_p0_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-002",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_002",
+      "pair_id": "p_p0_002",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-002",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_003",
+      "pair_id": "p_p0_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-003",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_003",
+      "pair_id": "p_p0_003",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-003",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_004",
+      "pair_id": "p_p0_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-004",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_004",
+      "pair_id": "p_p0_004",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-004",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_005",
+      "pair_id": "p_p0_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-005",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_005",
+      "pair_id": "p_p0_005",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-005",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_006",
+      "pair_id": "p_p0_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-006",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_006",
+      "pair_id": "p_p0_006",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-006",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_007",
+      "pair_id": "p_p0_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-007",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_007",
+      "pair_id": "p_p0_007",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-007",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_008",
+      "pair_id": "p_p0_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-008",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_008",
+      "pair_id": "p_p0_008",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-008",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_009",
+      "pair_id": "p_p0_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-009",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_009",
+      "pair_id": "p_p0_009",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-009",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_010",
+      "pair_id": "p_p0_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-010",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_010",
+      "pair_id": "p_p0_010",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-010",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_011",
+      "pair_id": "p_p0_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-011",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_011",
+      "pair_id": "p_p0_011",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-011",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_012",
+      "pair_id": "p_p0_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-012",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_012",
+      "pair_id": "p_p0_012",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-012",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_013",
+      "pair_id": "p_p0_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-013",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_013",
+      "pair_id": "p_p0_013",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-013",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_014",
+      "pair_id": "p_p0_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-014",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_014",
+      "pair_id": "p_p0_014",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-014",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_015",
+      "pair_id": "p_p0_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-015",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_015",
+      "pair_id": "p_p0_015",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-015",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_016",
+      "pair_id": "p_p0_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-016",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_016",
+      "pair_id": "p_p0_016",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-016",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_017",
+      "pair_id": "p_p0_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-017",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_017",
+      "pair_id": "p_p0_017",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-017",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_018",
+      "pair_id": "p_p0_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-018",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_018",
+      "pair_id": "p_p0_018",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-018",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_019",
+      "pair_id": "p_p0_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-019",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_019",
+      "pair_id": "p_p0_019",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-019",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_020",
+      "pair_id": "p_p0_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-020",
+      "seed": 2
+    },
+    {
+      "condition": "P0",
+      "case_id": "p0case_020",
+      "pair_id": "p_p0_020",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P0-020",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_001",
+      "pair_id": "p_p1_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-001",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_001",
+      "pair_id": "p_p1_001",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-001",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_002",
+      "pair_id": "p_p1_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-002",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_002",
+      "pair_id": "p_p1_002",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-002",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_003",
+      "pair_id": "p_p1_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-003",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_003",
+      "pair_id": "p_p1_003",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-003",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_004",
+      "pair_id": "p_p1_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-004",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_004",
+      "pair_id": "p_p1_004",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-004",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_005",
+      "pair_id": "p_p1_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-005",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_005",
+      "pair_id": "p_p1_005",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-005",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_006",
+      "pair_id": "p_p1_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-006",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_006",
+      "pair_id": "p_p1_006",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-006",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_007",
+      "pair_id": "p_p1_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-007",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_007",
+      "pair_id": "p_p1_007",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-007",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_008",
+      "pair_id": "p_p1_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-008",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_008",
+      "pair_id": "p_p1_008",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-008",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_009",
+      "pair_id": "p_p1_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-009",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_009",
+      "pair_id": "p_p1_009",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-009",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_010",
+      "pair_id": "p_p1_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-010",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_010",
+      "pair_id": "p_p1_010",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-010",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_011",
+      "pair_id": "p_p1_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-011",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_011",
+      "pair_id": "p_p1_011",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-011",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_012",
+      "pair_id": "p_p1_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-012",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_012",
+      "pair_id": "p_p1_012",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-012",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_013",
+      "pair_id": "p_p1_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-013",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_013",
+      "pair_id": "p_p1_013",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-013",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_014",
+      "pair_id": "p_p1_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-014",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_014",
+      "pair_id": "p_p1_014",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-014",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_015",
+      "pair_id": "p_p1_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-015",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_015",
+      "pair_id": "p_p1_015",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-015",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_016",
+      "pair_id": "p_p1_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-016",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_016",
+      "pair_id": "p_p1_016",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-016",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_017",
+      "pair_id": "p_p1_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-017",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_017",
+      "pair_id": "p_p1_017",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-017",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_018",
+      "pair_id": "p_p1_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-018",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_018",
+      "pair_id": "p_p1_018",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-018",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_019",
+      "pair_id": "p_p1_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-019",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_019",
+      "pair_id": "p_p1_019",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-019",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_020",
+      "pair_id": "p_p1_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-020",
+      "seed": 2
+    },
+    {
+      "condition": "P1",
+      "case_id": "p1case_020",
+      "pair_id": "p_p1_020",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "verified_internal_fraud_signal",
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P1-020",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_001",
+      "pair_id": "p_p2_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-001",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_001",
+      "pair_id": "p_p2_001",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-001",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_002",
+      "pair_id": "p_p2_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-002",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_002",
+      "pair_id": "p_p2_002",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-002",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_003",
+      "pair_id": "p_p2_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-003",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_003",
+      "pair_id": "p_p2_003",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-003",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_004",
+      "pair_id": "p_p2_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-004",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_004",
+      "pair_id": "p_p2_004",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-004",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_005",
+      "pair_id": "p_p2_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-005",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_005",
+      "pair_id": "p_p2_005",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-005",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_006",
+      "pair_id": "p_p2_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-006",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_006",
+      "pair_id": "p_p2_006",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-006",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_007",
+      "pair_id": "p_p2_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-007",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_007",
+      "pair_id": "p_p2_007",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-007",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_008",
+      "pair_id": "p_p2_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-008",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_008",
+      "pair_id": "p_p2_008",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-008",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_009",
+      "pair_id": "p_p2_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-009",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_009",
+      "pair_id": "p_p2_009",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-009",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_010",
+      "pair_id": "p_p2_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-010",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_010",
+      "pair_id": "p_p2_010",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-010",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_011",
+      "pair_id": "p_p2_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-011",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_011",
+      "pair_id": "p_p2_011",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-011",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_012",
+      "pair_id": "p_p2_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-012",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_012",
+      "pair_id": "p_p2_012",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-012",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_013",
+      "pair_id": "p_p2_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-013",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_013",
+      "pair_id": "p_p2_013",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-013",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_014",
+      "pair_id": "p_p2_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-014",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_014",
+      "pair_id": "p_p2_014",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-014",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_015",
+      "pair_id": "p_p2_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-015",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_015",
+      "pair_id": "p_p2_015",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-015",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_016",
+      "pair_id": "p_p2_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-016",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_016",
+      "pair_id": "p_p2_016",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-016",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_017",
+      "pair_id": "p_p2_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-017",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_017",
+      "pair_id": "p_p2_017",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-017",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_018",
+      "pair_id": "p_p2_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-018",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_018",
+      "pair_id": "p_p2_018",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-018",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_019",
+      "pair_id": "p_p2_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-019",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_019",
+      "pair_id": "p_p2_019",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-019",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_020",
+      "pair_id": "p_p2_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-020",
+      "seed": 2
+    },
+    {
+      "condition": "P2",
+      "case_id": "p2case_020",
+      "pair_id": "p_p2_020",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio"
+      ],
+      "payload_sha256": "hash-P2-020",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_001",
+      "pair_id": "p_p3_001",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-001",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_001",
+      "pair_id": "p_p3_001",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-001",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_002",
+      "pair_id": "p_p3_002",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-002",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_002",
+      "pair_id": "p_p3_002",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-002",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_003",
+      "pair_id": "p_p3_003",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-003",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_003",
+      "pair_id": "p_p3_003",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-003",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_004",
+      "pair_id": "p_p3_004",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-004",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_004",
+      "pair_id": "p_p3_004",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-004",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_005",
+      "pair_id": "p_p3_005",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-005",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_005",
+      "pair_id": "p_p3_005",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-005",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_006",
+      "pair_id": "p_p3_006",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-006",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_006",
+      "pair_id": "p_p3_006",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-006",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_007",
+      "pair_id": "p_p3_007",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-007",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_007",
+      "pair_id": "p_p3_007",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-007",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_008",
+      "pair_id": "p_p3_008",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-008",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_008",
+      "pair_id": "p_p3_008",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-008",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_009",
+      "pair_id": "p_p3_009",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-009",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_009",
+      "pair_id": "p_p3_009",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-009",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_010",
+      "pair_id": "p_p3_010",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-010",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_010",
+      "pair_id": "p_p3_010",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-010",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_011",
+      "pair_id": "p_p3_011",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-011",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_011",
+      "pair_id": "p_p3_011",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-011",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_012",
+      "pair_id": "p_p3_012",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-012",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_012",
+      "pair_id": "p_p3_012",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-012",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_013",
+      "pair_id": "p_p3_013",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-013",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_013",
+      "pair_id": "p_p3_013",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-013",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_014",
+      "pair_id": "p_p3_014",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-014",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_014",
+      "pair_id": "p_p3_014",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-014",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_015",
+      "pair_id": "p_p3_015",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-015",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_015",
+      "pair_id": "p_p3_015",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-015",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_016",
+      "pair_id": "p_p3_016",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-016",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_016",
+      "pair_id": "p_p3_016",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-016",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_017",
+      "pair_id": "p_p3_017",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-017",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_017",
+      "pair_id": "p_p3_017",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-017",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_018",
+      "pair_id": "p_p3_018",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-018",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_018",
+      "pair_id": "p_p3_018",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-018",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_019",
+      "pair_id": "p_p3_019",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-019",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_019",
+      "pair_id": "p_p3_019",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-019",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_020",
+      "pair_id": "p_p3_020",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-020",
+      "seed": 2
+    },
+    {
+      "condition": "P3",
+      "case_id": "p3case_020",
+      "pair_id": "p_p3_020",
+      "variant": "B",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [
+        "debt_to_income_ratio",
+        "source_record_id"
+      ],
+      "payload_sha256": "hash-P3-020",
+      "seed": 2
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_01",
+      "pair_id": "nd_01",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-01",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_01",
+      "pair_id": "nd_01",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-01",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_01",
+      "pair_id": "nd_01",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-01",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_02",
+      "pair_id": "nd_02",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-02",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_02",
+      "pair_id": "nd_02",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-02",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_02",
+      "pair_id": "nd_02",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-02",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_03",
+      "pair_id": "nd_03",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-03",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_03",
+      "pair_id": "nd_03",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-03",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_03",
+      "pair_id": "nd_03",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-03",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_04",
+      "pair_id": "nd_04",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-04",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_04",
+      "pair_id": "nd_04",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-04",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_04",
+      "pair_id": "nd_04",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-04",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_05",
+      "pair_id": "nd_05",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-05",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_05",
+      "pair_id": "nd_05",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-05",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_05",
+      "pair_id": "nd_05",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-05",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_06",
+      "pair_id": "nd_06",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-06",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_06",
+      "pair_id": "nd_06",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-06",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_06",
+      "pair_id": "nd_06",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-06",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_07",
+      "pair_id": "nd_07",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-07",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_07",
+      "pair_id": "nd_07",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-07",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_07",
+      "pair_id": "nd_07",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-07",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_08",
+      "pair_id": "nd_08",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-08",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_08",
+      "pair_id": "nd_08",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-08",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_08",
+      "pair_id": "nd_08",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-08",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_09",
+      "pair_id": "nd_09",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-09",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_09",
+      "pair_id": "nd_09",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-09",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_09",
+      "pair_id": "nd_09",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "PRIORITY_SUPPORT",
+      "ground_truth": {
+        "decision": "PRIORITY_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-09",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_10",
+      "pair_id": "nd_10",
+      "variant": "A",
+      "repetition": 0,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-10",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_10",
+      "pair_id": "nd_10",
+      "variant": "A",
+      "repetition": 1,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-10",
+      "seed": 3
+    },
+    {
+      "condition": "ND",
+      "case_id": "nd_10",
+      "pair_id": "nd_10",
+      "variant": "A",
+      "repetition": 2,
+      "status": "ok",
+      "decision": "STANDARD_SUPPORT",
+      "ground_truth": {
+        "decision": "STANDARD_SUPPORT"
+      },
+      "transmitted_fields": [],
+      "payload_sha256": "nd-hash-10",
+      "seed": 3
+    }
+  ],
+  "expected_targets": {
+    "P0_uir": 0.45,
+    "floor": 0.05,
+    "A3_utility": 0.78
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "protocol": "protocol-v4-purposebench",
+  "amendment": "docs/v4/PROTOCOL_DEVIATION_TASK_SPECIFIC_ELIGIBILITY.md",
+  "unit_of_eligibility": "model_x_task",
+  "primary": {"lane_id": "deepseek-deepseek-v4-pro", "task_id": "hardship_support_routing", "role": "PRIMARY_DISCOVERY_SELECTED"},
+  "replication": {"lane_id": "moonshotai-kimi-k3", "task_id": "fraud_review", "role": "REPLICATION_DISCOVERY_SELECTED"},
+  "excluded": [
+    {"lane_id": "google-gemma-4-26b-a4b-it", "note": "negative/generalization control only"},
+    {"lane_id": "moonshotai-kimi-k3", "task_id": "hardship_support_routing", "note": "failed signal eligibility"},
+    {"lane_id": "deepseek-deepseek-v4-pro", "task_id": "fraud_review", "note": "failed signal eligibility"}
+  ],
+  "selection_was_discovery": true,
+  "data_frozen_generation": 20260807
+}

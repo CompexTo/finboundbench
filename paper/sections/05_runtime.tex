@@ -1,15 +1,40 @@
 \section{PSBE-Runtime}
+\label{sec:runtime}
 
-PSBE-Runtime is an anonymous reference implementation, not the definition of
-PSBE. It constructs a deterministic approved projection, binds exact workload
-and model artifacts, executes within a hardened non-TEE sandbox, mediates tools,
-network routes, secrets, calls, and bytes, and holds outputs in quarantine for
-native validation. Contract revision, approval, expiry, supersession, and
-revocation are evidence-bearing state transitions.
+PSBE-Runtime is a governed execution adapter that sits between an application
+and a model API, implementing the \textsc{governed} conditions (A3, P3) of
+Equation~\eqref{eq:psbe}. It is deliberately thin: it does not fine-tune,
+post-process, or re-rank model output, and it never rewrites decisions. It
+enforces \emph{purpose} at the boundary.
 
-The evidence bundle binds canonical contract, dataset/projection, workload,
-model/route, capability decisions, privacy ledger, release decision, and event
-chain. A separate verifier rebuilds hashes and mandatory-claim coverage without
-trusting the runtime's summary. Missing or ambiguous evidence fails closed. The
-strong B2 comparator receives an equivalent honest projection and hardened
-sandbox but lacks the full purpose lifecycle and evidence contract.
+\begin{enumerate}
+  \item \textbf{Purpose contract.} Each call declares a purpose $p$ from a
+  fixed registry. A machine-readable contract maps $p$ to the set of fields it
+  may see (\textsc{authorized}) and the set it may not (\textsc{prohibited}).
+  \item \textbf{Projection.} The runtime renders the prompt from a
+  projection of the case: prohibited fields are excluded before any token
+  reaches the model. For the authorized rendering (A3) the confidential field
+  is transmitted and annotated with its declared purpose; for the prohibited
+  rendering (P3) the field is excluded by the same contract.
+  \item \textbf{Purpose-annotated context.} The authorized rendering attaches
+  the declared purpose and the decision constraints (which actions are
+  permitted), so the model conditions on the purpose that authorizes the
+  field---the mechanism by which the benchmark's A1 condition turns into
+  governed behavior.
+  \item \textbf{Output validation.} Actions are validated against the
+  permitted action set for $p$; disallowed actions are rejected and recorded,
+  never silently remapped.
+  \item \textbf{Evidence chain.} Every call appends an event (purpose, contract
+  version, input hash, output hash, timestamp) to an append-only, hash-linked
+  log, enabling tamper-evident reconstruction of what any decision saw.
+  \item \textbf{No fallback.} If the governed path fails (transport, timeout),
+  the call is recorded as a failure and excluded under a pre-registered failure
+  taxonomy; the runtime never falls back to an ungoverned path, because
+  fallback would reintroduce the influence the contract exists to prevent.
+\end{enumerate}
+
+The runtime is deployed as a library adapter around the model API; the same
+adapter serves both the confirmatory study and the benchmark's \textsc{governed}
+conditions, so the measured property is exactly the production property. Its
+cost is a single projection and a log append per call; measured overhead is
+negligible relative to model latency and is not a factor in the results below.

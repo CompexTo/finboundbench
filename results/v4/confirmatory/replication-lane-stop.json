@@ -1,0 +1,24 @@
+{
+  "freeze_kind": "CONFIRMATORY_REPLICATION_LANE_STOP",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "frozen_at": "2026-08-07T03:50:00Z",
+  "lane_status": "STOPPED — systematic provider failure (docs/v4/PROTOCOL-v4-purpose-selectivity.md §4.4 stop a lane after provider/schema systematic failure)",
+  "stop_evidence": [
+    {"window": "replication-window-1", "class": "PROVIDER_TRANSPORT_ERROR", "contiguous_run": 463, "success_rate": 0.3282, "events_persisted": 1560},
+    {"window": "replication-window-2", "class": "PROVIDER_TRANSPORT_ERROR", "contiguous_run": 723, "success_rate": 0.5353, "events_persisted": 1560},
+    {"window": "replication-window-3", "class": "KILLED_AT_90MIN_NO_PERSIST", "events_persisted": 0},
+    {"window": "replication-window-4", "class": "BRIDGE_HANG", "detail": "uncaught subprocess.TimeoutExpired (eligibility_runner.py:403), no events persisted"},
+    {"window": "replication-window-5", "class": "BRIDGE_HANG", "detail": "uncaught subprocess.TimeoutExpired (eligibility_runner.py:403), no events persisted"}
+  ],
+  "consecutive_stop_events": 5,
+  "harness_gap": "OpenRouterBridgeAdapter.invoke subprocess.run(timeout=180) does not catch subprocess.TimeoutExpired; a hanging bridge terminates the whole run instead of emitting a classified failure event. Recorded as a harness gap, not a benchmark/protocol change (no freeze bindings altered).",
+  "cost_eur_persisted_successful": 6.6545,
+  "cost_eur_probes": 0.0213,
+  "cost_eur_primary": 2.6636,
+  "primary_study": "COMPLETE and FROZEN (results/v4/manifests/confirmatory-primary-results-freeze.json)",
+  "verdict": "Replication lane STOPPED per registered protocol. No inferential weight from windows 1-5. Replication may only be resumed via a new registered execution window after route stability is demonstrated; never swap routes within the study. A single successful probe before w3-w5 did NOT prevent bridge hangs under load — route stability must be shown under window-sized load before any further execution.",
+  "decision_point": "Founder decision required: (a) temporarily suspend kimi replication and resume when morph route is stable; (b) register a fresh route/mirror attempt as a new study (requires rewriting the frozen manifest amendment); (c) accept replication as un-runnable and report primary-only with a registered missing-replication note."
+}

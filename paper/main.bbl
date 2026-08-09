@@ -1,0 +1,350 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{23}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Barth et~al\mbox{.}(2006)]%
+        {barth2006}
+\bibfield{author}{\bibinfo{person}{Adam Barth}, \bibinfo{person}{Anupam Datta},
+  \bibinfo{person}{John~C. Mitchell}, {and} \bibinfo{person}{Helen
+  Nissenbaum}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Privacy and Contextual Integrity: Framework and
+  Applications}. In \bibinfo{booktitle}{\emph{2006 IEEE Symposium on Security
+  and Privacy}}.
+\newblock
+\href{https://doi.org/10.1109/SP.2006.32}{doi:\nolinkurl{10.1109/SP.2006.32}}
+
+
+\bibitem[Biega and Finck(2022)]%
+        {purposeminimization2021}
+\bibfield{author}{\bibinfo{person}{Asia~J. Biega} {and}
+  \bibinfo{person}{Mich{\`e}le Finck}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Reviving Purpose Limitation and Data Minimisation
+  in Data-Driven Systems}.
+\newblock \bibinfo{journal}{\emph{Technology and Regulation}}
+  (\bibinfo{year}{2022}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2101.06203}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Birkholz et~al\mbox{.}(2023)]%
+        {rats2023}
+\bibfield{author}{\bibinfo{person}{Henk Birkholz}, \bibinfo{person}{Dave
+  Thaler}, \bibinfo{person}{Michael Richardson}, \bibinfo{person}{Ned Smith},
+  {and} \bibinfo{person}{Wei Pan}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Remote {ATtestation} procedureS ({RATS})
+  Architecture}}.
+\newblock \bibinfo{type}{{T}echnical {R}eport} RFC 9334.
+  \bibinfo{institution}{Internet Engineering Task Force}.
+\newblock
+\href{https://doi.org/10.17487/RFC9334}{doi:\nolinkurl{10.17487/RFC9334}}
+
+
+\bibitem[Byun et~al\mbox{.}(2005)]%
+        {byun2008}
+\bibfield{author}{\bibinfo{person}{Ji-Won Byun}, \bibinfo{person}{Elisa
+  Bertino}, {and} \bibinfo{person}{Ninghui Li}.}
+  \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Purpose Based Access Control of Complex Data for
+  Privacy Protection}. In \bibinfo{booktitle}{\emph{Proceedings of the 10th ACM
+  Symposium on Access Control Models and Technologies (SACMAT 2005)}}.
+\newblock
+\href{https://doi.org/10.1145/1063979.1063998}{doi:\nolinkurl{10.1145/1063979.1063998}}
+
+
+\bibitem[{CI-Work Project}(2026)]%
+        {ciwork2026}
+\bibfield{author}{\bibinfo{person}{{CI-Work Project}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{CI-Work}: Contextual Integrity in Automated
+  Workflows}.
+\newblock \bibinfo{howpublished}{\url{https://ciwork.org/}}.
+\newblock
+
+
+\bibitem[{Consumer Financial Protection Bureau}(2024)]%
+        {cfpb2024}
+\bibfield{author}{\bibinfo{person}{{Consumer Financial Protection Bureau}}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{Consumer Complaint Database, January 2024, District
+  of Columbia}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.consumerfinance.gov/data-research/consumer-complaints/}}.
+\newblock
+
+
+\bibitem[{Consumer Financial Protection Bureau}(2025)]%
+        {hmda2024}
+\bibfield{author}{\bibinfo{person}{{Consumer Financial Protection Bureau}}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Home Mortgage Disclosure Act (HMDA) Data, 2024,
+  District of Columbia}.
+\newblock
+  \bibinfo{howpublished}{\url{https://ffiec.cfpb.gov/data-publication/}}.
+\newblock
+
+
+\bibitem[Debenedetti et~al\mbox{.}(2025)]%
+        {camel2025}
+\bibfield{author}{\bibinfo{person}{Edoardo Debenedetti}, \bibinfo{person}{Ilia
+  Shumailov}, \bibinfo{person}{Tianqi Fan}, \bibinfo{person}{Jamie Hayes},
+  \bibinfo{person}{Nicholas Carlini}, \bibinfo{person}{Daniel Fabian},
+  \bibinfo{person}{Christoph Kern}, \bibinfo{person}{Chongyang Shi},
+  \bibinfo{person}{Andreas Terzis}, {and} \bibinfo{person}{Florian
+  Tram{\`e}r}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Defeating Prompt Injections by Design}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2503.18813}}
+  (\bibinfo{year}{2025}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2503.18813}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Debenedetti et~al\mbox{.}(2024)]%
+        {agentdojo2024}
+\bibfield{author}{\bibinfo{person}{Edoardo Debenedetti}, \bibinfo{person}{Jie
+  Zhang}, \bibinfo{person}{Mislav Balunovi{\'c}}, \bibinfo{person}{Luca
+  Beurer-Kellner}, \bibinfo{person}{Marc Fischer}, {and}
+  \bibinfo{person}{Florian Tram{\`e}r}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{AgentDojo: A Dynamic Environment to Evaluate Prompt
+  Injection Attacks and Defenses for {LLM} Agents}. In
+  \bibinfo{booktitle}{\emph{Advances in Neural Information Processing
+  Systems}}.
+\newblock
+\urldef\tempurl%
+\url{https://proceedings.nips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[{European Parliament and Council}(2016)]%
+        {gdpr2016}
+\bibfield{author}{\bibinfo{person}{{European Parliament and Council}}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \bibinfo{title}{Regulation (EU) 2016/679 (General Data Protection
+  Regulation)}.
+\newblock
+\shownote{Articles 5(1)(b), 5(1)(c)}.
+\newblock
+
+
+\bibitem[{European Parliament and Council}(2024)]%
+        {euaiact2024}
+\bibfield{author}{\bibinfo{person}{{European Parliament and Council}}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{Regulation (EU) 2024/1689 (Artificial Intelligence
+  Act)}.
+\newblock
+\shownote{Article 6, Annex III}.
+\newblock
+
+
+\bibitem[Hunt et~al\mbox{.}(2018)]%
+        {chiron2018}
+\bibfield{author}{\bibinfo{person}{Tyler Hunt}, \bibinfo{person}{Congzheng
+  Song}, \bibinfo{person}{Reza Shokri}, \bibinfo{person}{Vitaly Shmatikov},
+  {and} \bibinfo{person}{Emmett Witchel}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Chiron: Privacy-preserving Machine Learning as a
+  Service}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1803.05961}}
+  (\bibinfo{year}{2018}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/1803.05961}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Kelbert and Pretschner(2018)]%
+        {usagecontrol2018}
+\bibfield{author}{\bibinfo{person}{Florian Kelbert} {and}
+  \bibinfo{person}{Alexander Pretschner}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Data Usage Control for Distributed Systems}.
+\newblock \bibinfo{journal}{\emph{ACM Transactions on Privacy and Security}}
+  \bibinfo{volume}{21}, \bibinfo{number}{3} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{1--32}.
+\newblock
+\href{https://doi.org/10.1145/3183342}{doi:\nolinkurl{10.1145/3183342}}
+
+
+\bibitem[Kusner et~al\mbox{.}(2017)]%
+        {kusner2017}
+\bibfield{author}{\bibinfo{person}{Matt~J. Kusner}, \bibinfo{person}{Joshua
+  Loftus}, \bibinfo{person}{Chris Russell}, {and} \bibinfo{person}{Ricardo
+  Silva}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Counterfactual Fairness}. In
+  \bibinfo{booktitle}{\emph{Advances in Neural Information Processing Systems
+  30}}.
+\newblock
+\urldef\tempurl%
+\url{https://papers.nips.cc/paper/6995-counterfactual-fairness}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Nissenbaum(2010)]%
+        {nissenbaum2010}
+\bibfield{author}{\bibinfo{person}{Helen Nissenbaum}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Privacy in Context: Technology, Policy, and
+  the Integrity of Social Life}}.
+\newblock \bibinfo{publisher}{Stanford University Press}.
+\newblock
+
+
+\bibitem[Sun et~al\mbox{.}(2025)]%
+        {privacibench2025}
+\bibfield{author}{\bibinfo{person}{Haiyang Sun} {et~al\mbox{.}}}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{{PrivaCI}-Bench: Evaluating Privacy with Contextual
+  Integrity and Context-Grounded Role-Playing}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2503.13920}}
+  (\bibinfo{year}{2025}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2503.13920}
+\showURL{%
+\tempurl}
+
+
+\bibitem[{ToolPrivacyBench}(2026)]%
+        {toolprivacybench2026}
+\bibfield{author}{\bibinfo{person}{{ToolPrivacyBench}}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{title}{{ToolPrivacyBench}: Benchmarking Privacy Practices of
+  {LLM} Agents}.
+\newblock \bibinfo{howpublished}{\url{https://toolprivacybench.ai/}}.
+\newblock
+\shownote{Preprint; retrieved 2026}.
+\newblock
+
+
+\bibitem[Torres-Arias et~al\mbox{.}(2019)]%
+        {intoto2019}
+\bibfield{author}{\bibinfo{person}{Santiago Torres-Arias},
+  \bibinfo{person}{Hammad Afzali}, \bibinfo{person}{Trishank~Karthik
+  Kuppusamy}, \bibinfo{person}{Reza Curtmola}, {and} \bibinfo{person}{Justin
+  Cappos}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{in-toto: Providing Farm-to-Table Guarantees for
+  Bits and Bytes}. In \bibinfo{booktitle}{\emph{28th USENIX Security
+  Symposium}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Tram{\`e}r and Boneh(2019)]%
+        {slalom2019}
+\bibfield{author}{\bibinfo{person}{Florian Tram{\`e}r} {and}
+  \bibinfo{person}{Dan Boneh}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Slalom: Fast, Verifiable and Private Execution of
+  Neural Networks in Trusted Hardware}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations}}.
+\newblock
+\urldef\tempurl%
+\url{https://openreview.net/forum?id=rJVorjCcKQ}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Tu et~al\mbox{.}(2026)]%
+        {finbias2026}
+\bibfield{author}{\bibinfo{person}{Sijing Tu} {et~al\mbox{.}}}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{Fin-Bias: The Impact of Instruction Types on Large
+  Language Models for Financial Decision Making}. In
+  \bibinfo{booktitle}{\emph{International Conference on AI in Finance (ICAIF)
+  2026}}.
+\newblock
+\shownote{Conditionally accepted}.
+\newblock
+
+
+\bibitem[Vasiloglou et~al\mbox{.}(2024)]%
+        {ifcml2024}
+\bibfield{author}{\bibinfo{person}{Nikola Vasiloglou}, \bibinfo{person}{Brian
+  Zylich}, \bibinfo{person}{Emre Sefer}, \bibinfo{person}{Ranjan Sarpangala},
+  \bibinfo{person}{Kwang-Sung Jun}, \bibinfo{person}{Reut Levi},
+  \bibinfo{person}{Yan Xie}, \bibinfo{person}{Ted Suzman}, {and}
+  \bibinfo{person}{Ian Horrocks}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{IFC-ML: An Information Flow Control System for {ML}
+  Pipelines}. In \bibinfo{booktitle}{\emph{3rd IEEE International Conference on
+  Trust, Privacy and Security in Intelligent Systems and Applications
+  (TPS-ISA)}}.
+\newblock
+\href{https://doi.org/10.1109/TPS-ISA62245.2024.00010}{doi:\nolinkurl{10.1109/TPS-ISA62245.2024.00010}}
+
+
+\bibitem[Yao et~al\mbox{.}(2024)]%
+        {confaide2024}
+\bibfield{author}{\bibinfo{person}{Shunyu Yao} {et~al\mbox{.}}}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{CONFAIDE: Analyzing the Effectiveness of
+  Self-Reflection on {LLM} Agents in Privacy-Sensitive Scenarios}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2406.16969}}
+  (\bibinfo{year}{2024}).
+\newblock
+\urldef\tempurl%
+\url{https://arxiv.org/abs/2406.16969}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Zheng et~al\mbox{.}(2017)]%
+        {opaque2017}
+\bibfield{author}{\bibinfo{person}{Wenting Zheng}, \bibinfo{person}{Ankur
+  Dave}, \bibinfo{person}{Jethro~G. Beekman}, \bibinfo{person}{Raluca~Ada
+  Popa}, \bibinfo{person}{Joseph~E. Gonzalez}, {and} \bibinfo{person}{Ion
+  Stoica}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Opaque: An Oblivious and Encrypted Distributed
+  Analytics Platform}. In \bibinfo{booktitle}{\emph{14th USENIX Symposium on
+  Networked Systems Design and Implementation}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.usenix.org/conference/nsdi17/technical-sessions/presentation/zheng}
+\showURL{%
+\tempurl}
+
+
+\end{thebibliography}

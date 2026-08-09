@@ -1,0 +1,24 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "window_id": "replication-window-7",
+  "registered_at": "2026-08-07T05:55:00Z",
+  "study": "replication",
+  "lane": "moonshotai-kimi-k3",
+  "task": "fraud_review",
+  "dataset": "data/v4/v4_confirm/pairs.jsonl",
+  "n_pairs": 120,
+  "conditions": ["A0", "A1", "A3", "P0", "P3", "ND"],
+  "conditions_cli_notes": "MUST be passed space-separated (--conditions A0 A1 A3 P0 P3 ND); comma-joined strings were the cause of window-6 invalidity",
+  "results_root": "results/v4/confirmatory/replication-window-7/",
+  "authorization": "explicit user instruction 2026-08-07 (retry: provider may have recovered), overriding the self-imposed terminal clause of execution-window-replication-6.json",
+  "predecessor_stop": {
+    "file": "results/v4/confirmatory/replication-window-6-outcome.json",
+    "classes": ["PROVIDER_TRANSPORT_ERROR", "RATE_LIMIT", "KILLED_AT_90MIN_NO_PERSIST", "BRIDGE_HANG", "INVALID_RUN"]
+  },
+  "stop_policies": {
+    "route_failure": "provider_success < 1.0 at window end or any contiguous provider-failure run -> window FAIL; further retries require a fresh explicit user decision",
+    "bridge_hang": "uncaught subprocess.TimeoutExpired (eligibility_runner.py:403) -> window FAIL (BRIDGE_HANG class)",
+    "timeout": "run killed at tool envelope -> window FAIL"
+  },
+  "budget_check": "registered hard budget 40.00 EUR; prior spend ~11.11 EUR; window-7 expected ~3-5 EUR even at 50% success"
+}

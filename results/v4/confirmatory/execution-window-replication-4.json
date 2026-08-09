@@ -1,0 +1,13 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "window_id": "replication-window-4",
+  "registered_at": "2026-08-07T03:30:00Z",
+  "reason": "Window 3 was terminated at 90 minutes without a persisted events file (runner persists the signal events file only when the signal loop completes; calls in-flight at kill time were not persisted — documented bookkeeping loss, counted in cumulative cost if billed). Route morph verified responsive by live probe before re-registration.",
+  "policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §4 (execution-window rule) + §4.5 protocol guardrail",
+  "results_root": "results/v4/confirmatory/replication-window-4/",
+  "note": "Windows 1-3 carry no inferential weight. Window-4 events.jsonl starts empty; no mixing."
+}

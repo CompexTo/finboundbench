@@ -1,0 +1,50 @@
+{
+  "protocol": "protocol-v4-purposebench",
+  "document_kind": "EXECUTION_FINAL_STATUS",
+  "recorded_at": "2026-08-07T07:25:00Z",
+  "tag": "DIAGNOSTIC",
+  "primary_study": {
+    "status": "COMPLETE_AND_FROZEN",
+    "lane": "deepseek-deepseek-v4-pro",
+    "task": "hardship_support_routing",
+    "execution_window": "primary-window-2",
+    "n_pairs": 100,
+    "events": 1300,
+    "provider_success": 1.0,
+    "cost_eur": 2.663644,
+    "freeze": "results/v4/manifests/confirmatory-primary-results-freeze.json (freeze_order 2)",
+    "statistics": "results/v4/statistics/primary-statistical-report.json",
+    "confirmatory_claims": ["H1 PASS", "H2 PASS", "H3 PASS", "H5 PASS", "H6 PASS", "H4 NOT_TESTABLE (P1 outside registered minimal set)", "H7 EQUIVALENT (exploratory)"]
+  },
+  "replication_study": {
+    "status": "COMPLETE_AND_FROZEN",
+    "lane": "moonshotai-kimi-k3",
+    "task": "fraud_review",
+    "execution_window": "replication-window-8",
+    "n_pairs": "113-120 per condition (114 complete on all six)",
+    "events": 1560,
+    "provider_success": 0.9897,
+    "failed_transient": 16,
+    "cost_eur": 7.514156,
+    "window_acceptance": "ACCEPTED_WITH_REGISTERED_FAILURE_HANDLING (results/v4/confirmatory/replication-window-8-outcome.json)",
+    "freeze": "results/v4/manifests/confirmatory-replication-results-freeze.json (freeze_order 3, sha 49120e93...)",
+    "statistics": "results/v4/statistics/replication-statistical-report.json",
+    "confirmatory_claims": ["H1 PASS (gain 0.108 [0.033, 0.175])", "H2 PASS", "H3 PASS (net UI 0.929)", "H5 PASS", "H6 PASS (P3-floor -0.029)", "H4 NOT_TESTABLE", "H7 EQUIVALENT (exploratory)"],
+    "failed_predecessor_windows": ["w1..w6", "w7"] 
+  },
+  "interpretation": {
+    "registered": "CONFIRMATORY_GATEKEEPING.md section 5",
+    "rule": 1,
+    "text": "Both studies pass -> reproduced across two model families and two financial tasks."
+  },
+  "combined_report": "results/v4/statistics/confirmatory-statistical-report.json",
+  "headline_figure": "results/v4/figures/headline-figure.png/.pdf (provenance: headline-figure-provenance.json)",
+  "deviations": ["power amendment n_replication 500->120 (registered 2026-08-07 before any live call; Freeze 1 regenerated; integrity PASS)", "replication execution windows w1-w7 failed on provider route 'morph' (PROVIDER_TRANSPORT_ERROR / RATE_LIMIT / BRIDGE_HANG / AUTHENTICATION-403; auth refusal since resolved); w8 accepted with standard failure handling (16 transient failures excluded; per-condition n reported)"],
+  "cost": {
+    "registered_hard_budget_eur": 40.0,
+    "actual_spend_eur": {"primary_ok": 2.6636, "primary_window1_partial_ok": 1.1352, "replication_w1_ok": 2.5790, "replication_w2_ok": 4.0755, "replication_w6_ok": 0.6149, "replication_w7_ok": 0.8910, "replication_w8_ok": 7.5142, "deterministic_p2": 0.0, "probes": 0.0721, "total": 19.5455},
+    "failed_events_cost": 0.0,
+    "budget_status": "within budget (19.55 of 40.00)"
+  },
+  "next_registered_phases": ["9 baseline/unfairness", "10 cross-layer security (attacks)", "12 evidence/independent verification", "11 real DP (separate protocol)", "13 Nitro (AWS attested; later, infra required)"]
+}

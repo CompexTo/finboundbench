@@ -37,7 +37,7 @@ where = ["src"]
 line-length = 100
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 
 [tool.mypy]
 ignore_missing_imports = true

@@ -1,0 +1,13 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "window_id": "replication-window-3",
+  "registered_at": "2026-08-07T03:22:00Z",
+  "reason": "Window 2 aborted by PROVIDER_TRANSPORT_ERROR stop event (morph route, run len 723 at event 837; see results/v4/confirmatory/replication-kimi-fraud-partial-freeze-w2.json). Route recovery re-verified by live probe before re-registration.",
+  "policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §4 (execution-window rule) + §4.5 protocol guardrail (any manual retry is a new linked event)",
+  "results_root": "results/v4/confirmatory/replication-window-3/",
+  "note": "Windows 1-2 partial events remain bound in their partial freezes and are excluded from all inference. Window-3 events.jsonl starts empty; no mixing."
+}

@@ -1,0 +1,29 @@
+{
+  "freeze_kind": "CONFIRMATORY_REPLICATION_PARTIAL_FREEZE",
+  "protocol": "protocol-v4-purposebench",
+  "study": "replication_kimi_fraud",
+  "lane_id": "moonshotai-kimi-k3",
+  "task_id": "fraud_review",
+  "frozen_at": "2026-08-07T03:10:00Z",
+  "stop_event": {
+    "class": "PROVIDER_TRANSPORT_ERROR",
+    "detail": "OpenRouter route morph returned PROVIDER_TRANSPORT_ERROR in 3 contiguous runs (event indices 447-909 len 463, 974-1402 len 429, 1404-1559 len 156); 1048 provider-failure events",
+    "provider_route": "morph",
+    "failure_runs": [
+      {"start": 447, "length": 463},
+      {"start": 974, "length": 429},
+      {"start": 1404, "length": 156}
+    ]
+  },
+  "execution_window": "replication-window-1 (single session, aborted by route outage)",
+  "provider_success_rate": 0.3282,
+  "events_total": 1560,
+  "events_successful": 512,
+  "events_failed": 1048,
+  "cost_eur_successful_events": 2.579,
+  "cost_eur_failed_events": 0.0,
+  "verdict": "STOPPED_PARTIAL — cannot support any confirmed reading (§3 partial data cannot confirm). Partial events are bound here for transparency; they carry no inferential weight for H1-H7.",
+  "route_policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §2 (pinned route unavailable → STOP, freeze partial, report stop event, never swap routes within the same study)",
+  "guardrail_reference": "docs/v4/PROTOCOL-v4-purpose-selectivity.md §4.3 stop on provider systematic failure; §4.5 no auto-retry/no fallback; any manual retry is a new linked event with a registered new execution window",
+  "next_action": "Route must recover and a NEW execution window must be registered before any re-run. Re-run into a NEW results root (events.jsonl is append-mode; partial run must never be mixed with a retry run)."
+}

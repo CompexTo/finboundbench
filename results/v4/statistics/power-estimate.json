@@ -1,0 +1,109 @@
+{
+  "alpha": 0.05,
+  "analysis_kind": "montecarlo_paired_bootstrap_shrunk_effect",
+  "calls_per_pair": 8,
+  "est_cost_eur_observed_x5": 12.672,
+  "est_cost_eur_reservation_ceiling": 35.2,
+  "h6_margin_registered": 0.05,
+  "hard_budget_eur": 40.0,
+  "n_nd": 120,
+  "n_primary": 100,
+  "n_replication": 120,
+  "nd_point_floor_observation": 0.0,
+  "nd_ucb_achieved": 0.025,
+  "nd_ucb_margin_condition": "3/n_ND (0.0250) <= margin/2 (0.0250)",
+  "nd_ucb_target": 0.025,
+  "power_target": 0.8,
+  "primary_total_calls": 800,
+  "protocol": "protocol-v4-purposebench",
+  "replication_total_calls": 960,
+  "reservation_ceiling_exceeds_budget": false,
+  "studies": [
+    {
+      "discovery_point_estimate": 0.318,
+      "n_selected": 100,
+      "power_at_selected": 0.95,
+      "power_sweep": [
+        {
+          "bootstrap_power": 0.775,
+          "mean_lower_bound": 0.0387,
+          "n_pairs": 60
+        },
+        {
+          "bootstrap_power": 0.95,
+          "mean_lower_bound": 0.0715,
+          "n_pairs": 100
+        },
+        {
+          "bootstrap_power": 0.975,
+          "mean_lower_bound": 0.0873,
+          "n_pairs": 150
+        },
+        {
+          "bootstrap_power": 1.0,
+          "mean_lower_bound": 0.0978,
+          "n_pairs": 200
+        },
+        {
+          "bootstrap_power": 1.0,
+          "mean_lower_bound": 0.1134,
+          "n_pairs": 300
+        },
+        {
+          "bootstrap_power": 1.0,
+          "mean_lower_bound": 0.1243,
+          "n_pairs": 500
+        }
+      ],
+      "shrunk_planning_effect": 0.167,
+      "study": "primary_deepseek_hardship"
+    },
+    {
+      "amended_mean_lower_bound": 0.0549,
+      "amended_power_at_original_shrunk_effect": 0.175,
+      "amended_power_at_registered_margin": 0.925,
+      "amended_registered_n_pairs": 120,
+      "amendment_justification": "frozen CONFIRMATORY pool holds exactly 120 fraud pairs; n=500 infeasible without breaking the frozen dataset manifest; registered wider planning margin 0.15 (smallest round effect with power >= 0.80 at n=120), registered before any live confirmatory call",
+      "discovery_point_estimate": 0.19,
+      "planning_effect_amended": 0.15,
+      "pool_cap_applies": true,
+      "pool_cap_n_pairs": 120,
+      "power_sweep": [
+        {
+          "bootstrap_power": 0.15,
+          "mean_lower_bound": -0.0702,
+          "n_pairs": 60
+        },
+        {
+          "bootstrap_power": 0.225,
+          "mean_lower_bound": -0.0452,
+          "n_pairs": 100
+        },
+        {
+          "bootstrap_power": 0.375,
+          "mean_lower_bound": -0.0162,
+          "n_pairs": 150
+        },
+        {
+          "bootstrap_power": 0.45,
+          "mean_lower_bound": -0.0065,
+          "n_pairs": 200
+        },
+        {
+          "bootstrap_power": 0.575,
+          "mean_lower_bound": 0.0101,
+          "n_pairs": 300
+        },
+        {
+          "bootstrap_power": 0.825,
+          "mean_lower_bound": 0.0236,
+          "n_pairs": 500
+        }
+      ],
+      "shrunk_planning_effect": 0.063,
+      "study": "replication_kimi_fraud"
+    }
+  ],
+  "total_calls": 1760,
+  "within_hard_budget": true
+}

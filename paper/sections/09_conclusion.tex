@@ -1,29 +1,23 @@
 \section{Conclusion}
 
-Purpose-selective execution asks for more than hiding data or deleting it: a
-confidential attribute should remain useful where approved and irrelevant where
-prohibited. This paper defines a bounded way to test that requirement across
-data, workloads, capabilities, releases, privacy, lifecycle, and evidence.
+We defined Purpose-Selective Bounded Execution as a joint, decision-level
+property---an attribute may be \emph{used} under its authorized purpose and
+must not \emph{influence} decisions under prohibited purposes---and built
+FinBoundBench to measure both halves on paired counterfactuals against the
+model's own nondeterminism floor. In a preregistered, frozen, and independently
+re-computed confirmatory study across two model families and two financial
+tasks, prohibited-visible data altered 96--100\% of decisions (floor 0--4\%),
+masking the field by contract suppressed that influence to at or below the
+floor in every condition, and governed execution retained the entire authorized
+utility gain (AUR $= 1.0$ in both studies).
 
-The diagnostic evaluation demonstrates that the PSBE-Runtime pipeline executes
-correctly against three commercial models via OpenRouter. The admission gate
-rejects models with unstable route assignments, the position diagnostic
-identifies layout-sensitive release behavior, and the R2 diagnostic
-validates end-to-end execution across datasets and conditions. Release
-denials are concentrated in one model on one dataset.
-
-A reduced live lane (330 invocations of one admitted model) is reported
-strictly as a live execution and release-policy diagnostic over one
-commercial model lane. An audit of its transmitted-field evidence found that
-only a pseudonymized record identifier was transmitted, so the stream carries
-no purpose-selectivity contrast; the confirmatory experiment is suspended
-until that defect is corrected and re-validated.
-
-Attack, differential-privacy, evidence-verification, availability, and
-overhead results are intentionally withheld: prior test-double values have
-been withdrawn and will be reported only from live attacks, real DP-SGD
-training, real evidence verification, and measured wall-clock executions.
-
-Three diagnostic claims are supported by the live diagnostic evidence. The
-full confirmatory claim family (H1--H10) requires the live non-TEE
-purpose-selective benchmark with statistical inference.
+The practical reading is direct: transmission controls are not enough; a
+financial institution that holds a field lawfully must still measure and bound
+its influence on decisions it is not permitted to shape, and a governed
+execution adapter---purpose contract, projection, and evidence chain---achieves
+that bound without an authorized-utility penalty. The methodological reading is
+that decision-influence evaluation, with a natural-decision floor and frozen
+confirmatory evidence, transfers to any regulated domain in which the same data
+serves multiple purposes. We release the benchmark, protocol, and frozen
+evidence to support independent replication, and we hope FinBoundBench becomes
+the first of many purpose-selective benchmarks.

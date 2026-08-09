@@ -1,0 +1,66 @@
+{
+  "claim_weight": "REPLICATION-tagged results valid for the replication study only; combined interpretation per CONFIRMATORY_GATEKEEPING.md \u00a75",
+  "execution_window": "replication-window-8",
+  "files": [
+    {
+      "path": "results/v4/confirmatory/execution-window-replication-8.json",
+      "sha256": "ad0c2b1db0cc469b19e024df242abd3170ac4c276a251ff41d7fdfdddbce6c4f"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8-outcome.json",
+      "sha256": "d184bafe30e1d48c12596cc0c4007b72030ff6573b4b77b2e808091ac77b8e13"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8/moonshotai-kimi-k3/run-manifest.json",
+      "sha256": "991f6d259536a371b7337cfcafb6821fcaabceb6f326736a0d63ab72e6120513"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8/moonshotai-kimi-k3/model-task-eligibility.json",
+      "sha256": "529b7ff879abe6df7797803178fb362f9cd2380db5530a5aedd1732a3eca8eb7"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8/moonshotai-kimi-k3/fraud_review/events.jsonl",
+      "sha256": "929cc98be4944f86c725e3275d3299746011df7ece2027c8414ff682ab9fe8b2"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8-deterministic-p2/moonshotai-kimi-k3/run-manifest.json",
+      "sha256": "ff96d196c160232442b329937083e5e95e7149b023779fce78f1dc3ea1c517ed"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8-deterministic-p2/moonshotai-kimi-k3/model-task-eligibility.json",
+      "sha256": "d86935df7bb9c98573798c6901a0df797bce8272be918d5f0436efa68851b550"
+    },
+    {
+      "path": "results/v4/confirmatory/replication-window-8-deterministic-p2/moonshotai-kimi-k3/fraud_review/events.jsonl",
+      "sha256": "c1b59a50886cb14c3e2a10c1fed5e610dee952b5ccfadf88eabcc15fbf738678"
+    },
+    {
+      "path": "results/v4/statistics/replication-statistical-report.json",
+      "sha256": "a978b4d92b285013e1f1c33919aa2195c54cfb0e19ec5fa8506836559cf1cfb0"
+    }
+  ],
+  "freeze_kind": "CONFIRMATORY_REPLICATION_RESULTS_FREEZE",
+  "freeze_order": 3,
+  "freeze_sha256": "c56f4dcfa449a15768ecb10e545968d90cb9ed3d29bad491d1f4e8183dc794c2",
+  "frozen_at": "2026-08-07T07:15:00Z",
+  "lane_id": "moonshotai-kimi-k3",
+  "protocol": "protocol-v4-purposebench",
+  "statistical_report": {
+    "H4": "NOT_TESTABLE (P1 outside registered minimal set)",
+    "H7": "EQUIVALENT (exploratory)",
+    "chain_1": "H1 PASS, H2 PASS",
+    "chain_2": "H3 PASS, H5 PASS, H6 PASS",
+    "path": "results/v4/statistics/replication-statistical-report.json",
+    "sha256": "4e0ce33db5b6d62dc6cf1ee3f78c0e2dedbbb73108c0057a3c0479bda9b6920f"
+  },
+  "study": "replication_kimi_fraud",
+  "task_id": "fraud_review",
+  "window_acceptance": {
+    "basis": "results/v4/confirmatory/replication-window-8-outcome.json \u2014 1544/1560 events ok (99.0%); 16 transient failures (14 PROVIDER_TRANSPORT_ERROR, 2 PROVIDER_TIMEOUT) excluded per PROVIDER_FAILURE_TAXONOMY; pairs require both outputs valid; per-condition complete pairs A0=119 A1=120 A3=118 P0=113 P3=120 ND=120; 114 pairs complete on all six conditions",
+    "decision": "ACCEPTED_WITH_REGISTERED_FAILURE_HANDLING",
+    "predecessor_windows": [
+      "w1..w6 failed (see replication-window-6-outcome.json)",
+      "w7 failed (see replication-window-7-outcome.json)"
+    ]
+  }
+}

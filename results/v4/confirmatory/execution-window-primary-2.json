@@ -1,0 +1,13 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "protocol": "protocol-v4-purposebench",
+  "study": "primary_deepseek_hardship",
+  "lane_id": "deepseek-deepseek-v4-pro",
+  "task_id": "hardship_support_routing",
+  "window_id": "primary-window-2",
+  "registered_at": "2026-08-07T03:00:00Z",
+  "reason": "Window 1 aborted by PROVIDER_UNAVAILABLE stop event (coreweave/fp8 HTTP 500 contiguous run; see results/v4/confirmatory/primary-deepseek-hardship-partial-freeze.json). Route verified recovered via live probe (2/2 provider_success, tmp/route-probe) before re-registration.",
+  "policy_reference": "docs/v4/CONFIRMATORY_ROUTE_POLICY.md §4 (execution-window rule) + §4.5 protocol guardrail (any manual retry is a new linked event)",
+  "results_root": "results/v4/confirmatory/primary-window-2/",
+  "note": "Partial window-1 events remain bound in the partial freeze and are excluded from all inference. Window-2 events.jsonl starts empty; no mixing."
+}

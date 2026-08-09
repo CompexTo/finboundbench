@@ -1,0 +1,25 @@
+{
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "window_id": "replication-window-6",
+  "registered_at": "2026-08-07T05:10:00Z",
+  "study": "replication",
+  "lane": "moonshotai-kimi-k3",
+  "task": "fraud_review",
+  "dataset": "data/v4/v4_confirm/pairs.jsonl",
+  "n_pairs": 120,
+  "conditions": "A0,A1,A3,P0,P3,ND (registered minimal set, 8 calls/pair)",
+  "results_root": "results/v4/confirmatory/replication-window-6/",
+  "predecessor_stop": {
+    "file": "results/v4/confirmatory/replication-lane-stop.json",
+    "stop_events": ["w1", "w2", "w3", "w4", "w5"],
+    "classes": ["PROVIDER_TRANSPORT_ERROR", "KILLED_AT_90MIN_NO_PERSIST", "BRIDGE_HANG"]
+  },
+  "resumption_policy": "ONE_SHOT transferable with pre-imposed expectations: this window is the single registered resumption attempt after route-probe success.",
+  "stop_policies": {
+    "route_failure": "any contiguous provider-failure run or provider_success < 1.0 at window end renders the window FAIL; lane stays STOPPED permanently; no further windows",
+    "bridge_hang": "uncaught subprocess TimeoutExpired (eligibility_runner.py:403) -> window FAIL with BRIDGE_HANG class; lane stays STOPPED permanently",
+    "timeout": "run killed at tool envelope -> window FAIL (no persistence guarantee); lane stays STOPPED permanently"
+  },
+  "terminal_consequence": "if this window fails: replication lane remains STOPPED; final report proceeds PRIMARY-ONLY with registered missing-replication note; no further registered retries",
+  "notes": "If window-6 PASSES with provider_success 1.0, replicate results get frozen (Freeze 3) and the statistics report is regenerated with tags and interpretation rule 1."
+}

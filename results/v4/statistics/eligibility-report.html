@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset='utf-8'>
+<title>Protocol-V4 Eligibility Report</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:2rem;max-width:1100px;line-height:1.5}h1{font-size:1.4em}h2{font-size:1.15em;margin-top:2rem}
+table{border-collapse:collapse;margin:1rem 0;font-size:0.9em;width:100%}
+th,td{border:1px solid #ccc;padding:6px 10px;text-align:left}th{background:#f2f2f2}
+.pass{color:green;font-weight:bold}.fail{color:red;font-weight:bold}.unknown{color:gray}
+.verdict{font-size:1.6em;color:green;font-weight:bold}
+</style></head><body>
+<h1>Protocol-V4 Eligibility Report</h1>
+<p>protocol: <code>protocol-v4-purpose-selectivity</code><br>
+model: <code>synthetic/mock</code><br>
+label: <code>ELIGIBILITY_ANALYSIS</code><br>
+provider_success: <code>1.0000</code><br>
+estimated_confirmatory_calls: <code>12000</code></p>
+<p class='verdict'>eligibility: <span class='pass'>PASS</span></p>
+<h2>Gates</h2>
+<table><thead><tr><th>gate</th><th>decision</th><th>value</th><th>evidence</th></tr></thead><tbody><tr><td>A_authorized_gain</td><td><span class='pass'>PASS</span></td><td>0.1600</td><td></td></tr><tr><td>B_visible_uir</td><td><span class='pass'>PASS</span></td><td>0.4500</td><td></td></tr><tr><td>C_snr_vs_floor</td><td><span class='pass'>PASS</span></td><td>0.4000</td><td></td></tr><tr><td>D_psbe_aur</td><td><span class='pass'>PASS</span></td><td>1.6250</td><td></td></tr><tr><td>E_purposes</td><td><span class='pass'>PASS</span></td><td>0.0000</td><td>{&amp;quot;ok&amp;quot;: true, &amp;quot;pairs_checked&amp;quot;: 20, &amp;quot;payload_mismatch_pairs&amp;quot;: 0, &amp;quot;signal_transmitted&amp;quot;: false}</td></tr></tbody></table>
+<h2>Utility (balanced accuracy)</h2>
+<table><thead><tr><th>condition</th><th>value</th><th>95% CI</th><th>n</th></tr></thead><tbody><tr><td>A0</td><td>0.5200</td><td>[0.3800, 0.6600]</td><td>50</td></tr><tr><td>A1</td><td>0.6800</td><td>[0.5400, 0.8000]</td><td>50</td></tr><tr><td>A2</td><td>0.6000</td><td>[0.4600, 0.7400]</td><td>50</td></tr><tr><td>A3</td><td>0.7800</td><td>[0.6600, 0.8800]</td><td>50</td></tr><tr><td>P2</td><td>0.7143</td><td>[0.6143, 0.8143]</td><td>70</td></tr></tbody></table>
+<h2>UIR &amp; nondeterminism floor</h2>
+<table><thead><tr><th>condition</th><th>value</th><th>95% CI</th><th>n</th><th>changed</th></tr></thead><tbody><tr><td>ND_floor</td><td>0.0500</td><td>&amp;mdash;</td><td>10</td><td></td></tr><tr><td>P0</td><td>0.4500</td><td>[0.2500, 0.6500]</td><td>20</td><td>9</td></tr><tr><td>P1</td><td>0.3500</td><td>[0.1500, 0.5500]</td><td>20</td><td>7</td></tr><tr><td>P2</td><td>0.2000</td><td>[0.0500, 0.4000]</td><td>20</td><td>4</td></tr><tr><td>P3</td><td>0.0500</td><td>[0.0000, 0.1500]</td><td>20</td><td>1</td></tr></tbody></table>
+<h2>Signal-vs-noise</h2>
+<table><thead><tr><th>quantity</th><th>value</th></tr></thead><tbody><tr><td>net_ui</td><td>0.4000</td></tr><tr><td>isr</td><td>8.0000</td></tr></tbody></table>
+<h2>AUR (authorized utility retention)</h2>
+<table><thead><tr><th>quantity</th><th>value</th></tr></thead><tbody><tr><td>aur</td><td>1.6250</td></tr><tr><td>numerator</td><td>0.2600</td></tr><tr><td>denominator</td><td>0.1600</td></tr><tr><td>95% CI</td><td>[0.6174, 4.0000]</td></tr><tr><td>bootstrap replicates</td><td>4303</td></tr></tbody></table>
+<h2>Tests</h2>
+<table><thead><tr><th>test</th><th>key</th><th>value</th></tr></thead><tbody><tr><td>authorized_gain</td><td>hi95</td><td>0.3600</td></tr><tr><td>authorized_gain</td><td>lo95</td><td>-0.0400</td></tr><tr><td>authorized_gain</td><td>value</td><td>0.1600</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>a_only</td><td>9</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>b_only</td><td>17</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>both</td><td>17</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>discordant</td><td>26</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>method</td><td>statsmodels.mcnemar.exact</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>n</td><td>50</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>neither</td><td>7</td></tr><tr><td>mcnemar_utility_a1_vs_a0</td><td>p_value</td><td>0.1686</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>alternative</td><td>greater</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>n</td><td>20</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>n_perm</td><td>5000</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>observed</td><td>0.4500</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>p_value</td><td>0.0022</td></tr><tr><td>permutation_uir_p0_vs_floor</td><td>seed</td><td>20251004005</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>delta</td><td>0.1000</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>mean_diff</td><td>-0.1000</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>n</td><td>50</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>p_lower</td><td>0.0211</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>p_tost</td><td>0.5000</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>p_upper</td><td>0.5000</td></tr><tr><td>tost_authorized_utility_a3_vs_a1</td><td>sd</td><td>0.6776</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>delta</td><td>0.1000</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>mean_diff</td><td>0.0500</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>n</td><td>20</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>p_lower</td><td>0.1649</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>p_tost</td><td>0.1649</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>p_upper</td><td>0.0037</td></tr><tr><td>tost_uir_p3_vs_floor</td><td>sd</td><td>0.2236</td></tr></tbody></table>
+<h2>Holm-Bonferroni (within eligibility family)</h2>
+<table><thead><tr><th>family</th><th>raw p</th><th>adjusted p</th></tr></thead><tbody><tr><td>[&amp;#x27;authorized_gain&amp;#x27;, &amp;#x27;mcnemar_utility_a1_vs_a0&amp;#x27;, &amp;#x27;permutation_uir_p0_vs_floor&amp;#x27;, &amp;#x27;tost_authorized_utility_a3_vs_a1&amp;#x27;, &amp;#x27;tost_uir_p3_vs_floor&amp;#x27;]</td><td>[0.16863754391670227, 0.0022]</td><td>[0.16863754391670227, 0.0044]</td></tr></tbody></table>
+<h2>Statistics configuration</h2>
+<table><thead><tr><th>key</th><th>value</th></tr></thead><tbody><tr><td>bootstrap_seed_base</td><td>20251004000</td></tr><tr><td>dry_run</td><td>False</td></tr><tr><td>method</td><td>paired_cluster_bootstrap_over_base_cases</td></tr><tr><td>n_boot</td><td>5000</td></tr><tr><td>seed</td><td>20251004</td></tr></tbody></table>
+<p>report_sha256: <code>393b3f2ccd5d8e24c894d2d106aa9ef2fde48019364850d30f6c36a98afcbc20</code></p>
+</body></html>

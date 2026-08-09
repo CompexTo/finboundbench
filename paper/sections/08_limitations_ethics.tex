@@ -1,16 +1,45 @@
 \section{Limitations and Ethics}
+\label{sec:limitations}
 
-The study uses public records and synthetic confidential attributes; it does
-not model real internal customer facts or authorize individual financial
-decisions. Semi-synthetic construction improves causal control but limits
-ecological validity. Historical public outcomes may reflect institutional and
-social processes and are not treated as normative targets. Protected-group
-fairness and regulatory compliance are outside the claims.
+\textbf{Scope of evidence.} Two (model, task) pairs were tested. The
+replication study's provider required seven execution windows before any window
+completed (registered failure handling); this is a fact about commercial API
+reliability and a warning that live-model confirmatory work is operationally
+fragile. The replication cost was not recorded in the frozen artifacts, a
+process gap we note rather than conceal.
 
-The non-TEE system trusts its host and cannot prevent a malicious administrator
-from reading memory, altering execution below the measured boundary, or denying
-service. Paired tests detect registered forms of influence, not every semantic
-or covert channel. Model/provider versions, route behavior, batching, and
-stochasticity constrain external validity. DP accountant values do not alone
-establish empirical privacy, and attack measurements do not exhaust possible
-adversaries. Negative, failed, and inconclusive results are retained.
+\textbf{Hypothesis H4} (a purpose-agnostic masked variant) is not testable in
+this design: the variant was not part of the registered minimal condition set,
+so no events exist. Claims are limited to the conditions actually executed.
+
+\textbf{No formal guarantees.} PSBE is a measured behavioral property, not a
+proof of non-interference. A governed adapter can still be bypassed by
+prompt-injection exfiltration, by a colluding provider, or by an application
+that reconstructs the field from other inputs; none of these are in scope.
+Trusted-hardware or attestation mechanisms~\cite{intoto2019,rats2023} can
+complement, not replace, decision-level measurement.
+
+\textbf{Model drift.} Model behavior changes over time and per route; a
+purpose-selective property confirmed today is a property of a specific model
+revision. The protocol's fixed route and freeze discipline bound, but do not
+eliminate, this threat.
+
+\textbf{Masking equivalence.} P2 and P3 were equivalent on a single narrow
+field; on broader confidential surfaces or with implicit correlations, a
+purpose-contract may leave residual leakage through correlated public
+features, which our design does not measure. The ND floor partially absorbs
+this (influence is measured \emph{relative} to the floor), but a more powerful
+adversarial reconstruction remains outside the design.
+
+\textbf{Ethics and data.} All records are from public regulatory disclosures
+(HMDA 2024, CFPB 2024) and were synthesized into confidential fields prefixed
+\textsc{synthetic-}; no personal data, no real hardship or fraud flags, and no
+model training occurred on any record. The benchmark's intended use is
+compliance and governance testing, not screening or scoring of individuals.
+We release the benchmark, protocol, and frozen evidence for independent
+verification; we release no prompts containing real records.
+
+\textbf{Claim discipline.} Throughout this paper, influence results are
+reported against the measured natural-decision floor, never in absolute terms;
+this is the methodological correction that earlier protocol generations lacked
+and the property we believe generalizes.

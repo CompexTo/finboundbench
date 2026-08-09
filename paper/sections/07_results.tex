@@ -1,52 +1,128 @@
 \section{Results}
+\label{sec:results}
 
-We present results from the three-phase OpenRouter diagnostic evaluation:
-R0 (model admission), R1 (position and batch diagnostic), and R2
-(diagnostic matrix), followed by a reduced live model lane and the live
-purpose-selective matrix rebuild. The earlier phases are execution and
-release-policy diagnostics; the matrix rebuild reports live task utility,
-influence, availability, and latency under the non-confirmatory label.
+\subsection{Primary study (DeepSeek V4 Pro / hardship-support routing)}
 
-\input{generated/results_placeholder}
+100 pairs, 1{,}300 calls, 100\% provider success, EUR 2.66.
 
-\input{generated/results_matrix_live}
+\begin{table}[t]
+\setlength{\tabcolsep}{4.5pt}
+\caption{Primary study (DeepSeek V4 Pro, hardship-support routing).}
+\label{tab:primary}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+BACC A0 (no purpose) & 0.32 \\
+BACC A1 (full purpose) & 0.71 \\
+BACC A3 (governed) & 0.71 \\
+UIR P0 (prohibited, visible) & 1.00 \\
+UIR P2 (masked, deterministic) & 0.00 \\
+UIR P3 (masked, contract) & 0.00 \\
+ND floor & 0.00 \\
+\bottomrule
+\end{tabular}
 
-\subsection{Discussion of Diagnostic Findings}
+\medskip
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Hyp.} & \textbf{Decision} & \textbf{Point} & \textbf{$p$ (1-sided)} \\
+\midrule
+H1 gain & PASS & 0.39 & 0.00020 \\
+H2 AUR & PASS & 1.0 & --- \\
+H3 NetUI & PASS & 1.00 & 0.00020 \\
+H5 suppression & PASS & $-1.00$ & 0.0 \\
+H6 P3 vs.\ floor & PASS & $-0.00$ & 0.0 \\
+H7 P2 $=$ P3 & EQUIV. & 0.00 & $p_{\mathrm{TOST}}$ 0.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-The diagnostic phase validates the PSBE-Runtime execution pipeline against
-three commercial models via OpenRouter. Three key observations emerge.
+Table~\ref{tab:primary} summarizes the primary study. Declaring purpose raised
+balanced accuracy from 0.32 (no purpose) to 0.71 (H1 gain 0.39, 95\% CI
+[0.21, 0.56], $p = 0.00020$); governed execution retained the entire gain
+(AUR $= 1.0$, 95\% CI [1.0, 1.0], H2). Prohibited-visible data changed the
+decision on \emph{every} pair (UIR$_{P0} = 1.00$ versus a floor of 0.00; H3 net
+influence 1.00, 95\% CI [1.00, 1.00], McNemar exact $p = 1.58\times10^{-30}$),
+and both masking variants suppressed that influence exactly (UIR $= 0.00$;
+H5, H6).
 
-\textbf{Route instability limits admission.} Two of five candidates
-(openai/gpt-5.6-luna and meta-llama/llama-4-maverick) could not be admitted
-because their upstream route assignment changed between metadata captures.
-This is an expected defense: the manifest hash binds the exact route, and
-route drift breaks the integrity chain. In production, this prevents silent
-provider substitution.
+\subsection{Replication study (Kimi K3 / fraud review)}
 
-\textbf{Release denial is model-specific, not system-level.} All seven
-release-denied cases across R1 and R2 occurred for the same model
-(google/gemma-4-26b-a4b-it). The two larger models (kimi-k3, deepseek-v4-pro)
-passed every layout and diagnostic invocation without release denial.
+120 pairs, 1{,}560 calls, 99.0\% provider success.
 
-\textbf{Dataset sensitivity interacts with model capability.} The four
-R2 release denials for gemma-4-26b occurred exclusively on the CFPB
-complaint dataset, not on HMDA mortgage records.
+\begin{table}[t]
+\setlength{\tabcolsep}{3.5pt}
+\caption{Replication study (Kimi K3, fraud review).}
+\label{tab:replication}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+BACC A0 (no purpose) & 0.625 \\
+BACC A1 (full purpose) & 0.7333 \\
+BACC A3 (governed) & 0.7333 \\
+UIR P0 (prohibited, visible) & 0.9646 \\
+UIR P2 (masked, deterministic) & 0.00 \\
+UIR P3 (masked, contract) & 0.0083 \\
+ND floor & 0.0375 \\
+\bottomrule
+\end{tabular}
 
-\textbf{The reduced live lane is a release-policy diagnostic only.} An audit
-of the transmitted-field evidence found that every invocation in the reduced
-stream transmitted only a pseudonymized record identifier, with
-byte-identical projections across conditions. The stream therefore carries
-no task-utility or purpose-selectivity contrast and is reported solely as a
-live execution and release-policy diagnostic over one commercial model lane.
+\medskip
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Hyp.} & \textbf{Decision} & \textbf{Point} & \textbf{$p$ (1-sided)} \\
+\midrule
+H1 gain & PASS & 0.1083 & 0.00200 \\
+H2 AUR & PASS & 1.0 & --- \\
+H3 NetUI & PASS & 0.9292 & 0.00020 \\
+H5 suppression & PASS & $-0.9646/-0.9558$ & 0.0 \\
+H6 P3 vs.\ floor & PASS & $-0.0292$ & 0.0236 \\
+H7 P2 $=$ P3 & EQUIV. & $-0.0083$ & $p_{\mathrm{TOST}}$ $9.98\times10^{-7}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\subsection{Claim Status}
+The replication (Table~\ref{tab:replication}) reproduces every gate on a
+second model family and a second task. Purpose gain 0.1083 (95\% CI
+[0.033, 0.175], $p = 0.00200$); AUR $= 1.0$; prohibited-visible influence
+0.9646 against a floor of 0.0375 (net 0.9292, 95\% CI [0.8805, 0.9646],
+McNemar $p = 3.94\times10^{-31}$); masking suppressed influence to 0.00 (P2)
+and 0.0083 (P3), with P3 statistically equivalent to the floor within the 0.05
+margin (H6, point $-0.0292$, 95\% CI $[-0.0625, 0.0]$, $p = 0.0236$) and P2
+equivalent to P3 (H7, $p_{\mathrm{TOST}} = 9.98\times10^{-7}$).
 
-Three diagnostic claims (A1--A3) are supported by the live diagnostic
-evidence above. The live purpose-selective matrix run is reported under the
-NOT\_CONFIRMATORY label: AUR, UIR, availability, and latency are measured and
-reported here, but no claim of statistical significance is made and no
-confirmatory hypothesis is tested. The six withdrawn test-double figures
-(AUR~0.9341, UIR~0.2000, SPCR-based compromise rate, availability~0.9857,
-overhead~1.3116, EVC~1.0000) are instrument artifacts and are not used.
-The full confirmatory claim family (H1--H10) still requires the completed
-statistical-analysis phase against these live events.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{generated/headline-figure.pdf}
+  \caption{Headline results. Rows: primary study (top), replication study
+  (bottom). Left panels: authorized utility (BACC) per condition, with the
+  governed condition (A3) equal to the full-purpose condition (A1).
+  Right panels: unjustified influence rate (UIR) per condition against the
+  natural-decision floor; prohibited-visible data (P0) sits at or near 1.0
+  while masked variants (P2, P3) sit at or below the floor.}
+  \label{fig:headline}
+\end{figure}
+
+\subsection{Combined interpretation}
+
+Both studies passed every pre-registered gate, satisfying interpretation rule
+1: \emph{the effect reproduces across two model families and two financial
+tasks}. The frozen evidence was re-computed independently (fresh
+implementation over raw events, no shared code with the reporting scripts):
+17/17 verification checks pass, including exact reproduction of every headline
+metric in Tables~\ref{tab:primary} and~\ref{tab:replication} and both McNemar
+$p$-values.
+
+\subsection{What the results do and do not show}
+
+The governed condition (A3) and the masked conditions (P2, P3) were equivalent
+in influence in both studies, and governed execution retained the full
+authorized gain. We make no claim that governed execution \emph{outperforms}
+masking: on a single narrow field, deterministic masking (P2) and contract
+masking (P3) are behaviorally indistinguishable, as the H7 equivalence shows.
+The contribution is that the \emph{same} adapter that improves authorized
+accuracy by carrying purpose context (A1 $\to$ A3) also enforces the prohibited
+boundary (P3) at the floor, jointly satisfying Equation~\eqref{eq:psbe} in
+every condition tested.

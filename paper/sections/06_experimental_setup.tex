@@ -1,16 +1,64 @@
 \section{Experimental Setup}
+\label{sec:setup}
 
-The design has full-data/no-policy (B0), prompt-only (B1), deterministic
-hardened filtering (B2), four cumulative PSBE layers (P0--P3), and four
-non-private/DP training-release configurations (D0--D3). Conditions and pair
-variants follow a frozen seeded Latin-square order. Position and batch size are
-diagnosed before confirmatory outcomes; failures, refusals, partial calls, and
-cost settlements remain in the intention-to-execute population.
+\subsection{Pre-registration}
 
-Primary inference pools 200 independent pairs with dataset strata. Paired
-permutation tests and pair-cluster bootstrap intervals preserve the repeated
-variant/model structure. Holm adjustment covers registered multiple contrasts;
-equivalence and noninferiority use explicit margins. The conservative paired
-planning scenario has 86.1\% power for a 10-point UIR reduction at the first
-Holm threshold. All commercial prices, routes, exact identifiers, and provider
-failures are frozen in manifests; no paid result is assumed in this draft.
+The protocol, hypotheses, gatekeeping rules, power analysis, metric
+definitions, seed, and failure taxonomy were written and frozen before any
+confirmatory execution, and the confirmatory split was locked by content hash
+at the same freeze. All artifacts are content-addressed (SHA-256); results were
+frozen at fixed timestamps and never regenerated after the freeze.
+
+\textbf{Hypotheses} (one-sided unless noted):
+
+\begin{center}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{1.55in}>{\raggedright\arraybackslash}p{0.95in}@{}}
+\toprule
+\textbf{ID} & \textbf{Claim} & \textbf{Status} \\
+\midrule
+H1 & Authorized gain $G = \mathrm{BACC}_{A1}-\mathrm{BACC}_{A0} > 0$ & confirmatory \\
+H2 & AUR $\ge 0.80$ & confirmatory \\
+H3 & NetUI $= \mathrm{UIR}_{P0} - F > 0$ & confirmatory \\
+H5 & UIR suppression: $\mathrm{UIR}_{P2}, \mathrm{UIR}_{P3} < \mathrm{UIR}_{P0}$ & confirmatory \\
+H6 & P3 within $\delta = 0.05$ of floor & confirmatory \\
+H7 & P2 $=$ P3 (equivalence, TOST, $\delta = 0.05$) & report-only \\
+H4 & P1 $<$ P0 & not testable (P1 outside registered minimal set) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Gatekeeping was fixed-sequence: chain 1 (H1 $\to$ H2) gates authorized-utility
+claims; chain 2 (H3 $\to$ H5 $\to$ H6) gates influence claims; H7 is reported
+without gating. Power analysis fixed $n = 100$ pairs for the primary study
+(power $\ge 0.95$ at a conservative gain of 0.167) and $n = 120$ for the
+replication study. Significance: paired cluster bootstrap (5{,}000 iterations)
+with one-sided $p$; McNemar exact test on discordant pairs; TOST with
+$\delta = 0.05$ for equivalence. The execution budget was fixed at EUR 40;
+routing policy fixed candidate models \emph{before} execution.
+
+\subsection{Admission}
+
+Candidate (model $\times$ task) lanes passed a pre-registered eligibility gate
+on a calibration split: sensitivity of the public-only baseline
+(BACC $\in [0.55, 0.85]$), authorized gain $\ge 0.08$, and class prevalence in
+$[0.30, 0.70]$. This gate is why the results are reported per (model, task)
+pair and not pooled. An earlier protocol generation (v3) was withdrawn after
+its evaluation used test-double substitutes (silent-compromise rate 0.2426,
+availability 0.9857, AUR 0.9341) that were found invalid for live claims; v4
+mandates live-event metrics and the gates above. We report this history because
+it motivated the protocol.
+
+\subsection{Execution}
+
+Two confirmatory studies ran on frozen splits with the fixed seed:
+the primary study (DeepSeek V4 Pro on hardship-support routing; 100 pairs;
+1{,}300 calls; 100\% provider success; EUR 2.66) and the replication study
+(Kimi K3 on fraud review; 120 pairs; 1{,}560 calls; 99.0\% success). The
+replication study required seven execution windows: windows 1--7 failed
+provider-side (transport errors and timeouts under a pre-registered failure
+taxonomy) and window 8 was accepted with registered failure handling; 16
+transient failures were excluded per the taxonomy, leaving 114 pairs complete
+on all six conditions. The replication cost was not recorded in the frozen
+artifacts. Both studies ran the same conditions (A0, A1, A3, P0, P2, P3, and
+ND$\times 3$), the same labels, and the same governed adapter (PSBE-Runtime)
+as the A3/P3 conditions.

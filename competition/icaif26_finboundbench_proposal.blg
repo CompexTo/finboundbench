@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: icaif26_finboundbench_proposal.aux
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+The style file: ACM-Reference-Format.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: references.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty publisher in ciwork2026
+Warning--empty address in ciwork2026
+Warning--page numbers missing in both pages and numpages fields in ciwork2026
+Warning--no number and no volume in finbias2026
+Warning--page numbers missing in both pages and numpages fields in finbias2026
+Warning--no number and no volume in toolprivacybench2026
+Warning--page numbers missing in both pages and numpages fields in toolprivacybench2026
+You've used 4 entries,
+            6273 wiz_defined-function locations,
+            1537 strings with 18944 characters,
+and the built_in function-call counts, 4510 in all, are:
+= -- 634
+> -- 148
+< -- 0
++ -- 50
+- -- 50
+* -- 316
+:= -- 421
+add.period$ -- 19
+call.type$ -- 4
+change.case$ -- 30
+chr.to.int$ -- 4
+cite$ -- 11
+duplicate$ -- 372
+empty$ -- 267
+format.name$ -- 66
+if$ -- 1141
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 17
+newline$ -- 71
+num.names$ -- 28
+pop$ -- 168
+preamble$ -- 1
+purify$ -- 62
+quote$ -- 0
+skip$ -- 120
+stack$ -- 0
+substring$ -- 267
+swap$ -- 25
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 78
+warning$ -- 7
+while$ -- 19
+width$ -- 0
+write$ -- 111
+(There were 7 warnings)

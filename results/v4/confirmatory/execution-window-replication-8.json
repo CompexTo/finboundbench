@@ -1,0 +1,45 @@
+{
+  "authorization": "explicit user instruction 2026-08-07: laptop internet was interrupted during windows 1-7; user restarted connectivity and requests a full redo",
+  "budget_check": "hard budget 40.00 EUR; spend ~12.0 EUR; window-8 expected ~3-5 EUR",
+  "conditions": [
+    "A0",
+    "A1",
+    "A3",
+    "P0",
+    "P3",
+    "ND"
+  ],
+  "conditions_cli_notes": "MUST be space-separated (--conditions A0 A1 A3 P0 P3 ND)",
+  "connectivity_evidence": {
+    "actual_result_at_registration": {
+      "api_openrouter_ai_nxdomain": "irrelevant (bridge uses openrouter.ai, not api.openrouter.ai)",
+      "timestamp": "2026-08-07T06:35:00Z",
+      "verdict": "NETWORK_OK \u2014 openrouter.ai resolves, TCP 443 OK, HTTPS 200"
+    },
+    "check": "pre-run reachability test to api.openrouter.ai recorded in this file",
+    "expected": "if reachability FAILS, abort run and report connectivity; if reachable, run proceeds and any failure class is attributed per PROVIDER_FAILURE_TAXONOMY"
+  },
+  "dataset": "data/v4/v4_confirm/pairs.jsonl",
+  "definitive_probe": {
+    "error_class": "PROVIDER_SAFE_ERROR httpStatus=403 category=AUTHENTICATION providerCode=403 selectedProviderRoute=morph",
+    "outcome": "FAIL 0/2",
+    "read": "provider-side authorization refusal for the kimi lane; NOT connectivity (network verified OK); NOT transient load",
+    "results_root": "tmp/route-probe-kimi-w8"
+  },
+  "lane": "moonshotai-kimi-k3",
+  "n_pairs": 120,
+  "predecessor_stop": "results/v4/confirmatory/replication-window-7-outcome.json (1390 failures, HTTP 403 + transport + rate-limit)",
+  "registered_at": "2026-08-07T06:20:00Z",
+  "registration_kind": "NEW_EXECUTION_WINDOW",
+  "results_root": "results/v4/confirmatory/replication-window-8/",
+  "status": "HELD_PROVIDER_AUTH_REFUSAL",
+  "stop_policies": {
+    "bridge_hang": "uncaught subprocess.TimeoutExpired (eligibility_runner.py:403) -> FAIL (BRIDGE_HANG)",
+    "route_failure": "provider_success < 1.0 at window end or any contiguous provider-failure run -> window FAIL; attribution: HTTP 403/429 -> provider-side (not connectivity); transport errors with reachability OK -> provider-side; transport errors with reachability FAIL -> connectivity",
+    "timeout": "killed at tool envelope -> FAIL"
+  },
+  "study": "replication",
+  "task": "fraud_review",
+  "window_id": "replication-window-8",
+  "window_run": false
+}

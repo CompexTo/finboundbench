@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use FinBoundBench, please cite it as follows."
+title: "FinBoundBench: Benchmarking Purpose-Selective AI in Financial Decision Systems"
+abstract: >-
+  FinBoundBench is a paired benchmark that measures purpose-selective AI in
+  financial decision systems: authorized utility retention and prohibited
+  influence relative to a model's natural-decision floor. It ships a
+  preregistered, frozen, independently re-computed confirmatory study across
+  two model families and two financial tasks.
+authors:
+  - name: "The FinBoundBench Organizing Committee"
+date-released: 2026-08-09
+keywords:
+  - purpose limitation
+  - data minimization
+  - financial AI
+  - LLM governance
+  - benchmarking
+  - decision influence
+license: "pending organizers' choice (see RELEASE_NOTES.md)"
+repository-code: "pending public push (see docs/research/PUSH_READY.md)"
+preferred-citation:
+  type: conference-paper
+  title: "Authorized to Use, Forbidden to Influence: Purpose-Selective AI for Financial Decision Systems"
+  conference: "7th ACM International Conference on AI in Finance (ICAIF 2026)"
+  year: 2026

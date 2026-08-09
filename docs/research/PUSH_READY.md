@@ -51,7 +51,7 @@ Everything not listed above (e.g. `deliverable-*`, `tmp/`, `results/v2`,
 ## 3. Secret hygiene (done)
 
 - `scripts/scan_secrets.py` reports: tracked files **clean** (0 findings);
-  working-tree findings all classified as false positives in
+  documented exceptions in
   `docs/research/SECRET_SCAN_EXCEPTIONS.md`.
 - `.env` is gitignored and untracked; it contains the only real credentials
   (`COMPEX_API_KEY`, `MODEL_API_KEY`).

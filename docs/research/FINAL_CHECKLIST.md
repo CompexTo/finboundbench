@@ -2,7 +2,9 @@
 
 Status: OPEN. Items marked [x] are verified; the remaining items require
 human action (submission, push, final review). This file mirrors
-`PUSH_READY.md` §8 and adds the submission steps.
+`PUSH_READY.md` §8 and adds the submission steps. As of 2026-08-09 all
+automated gates (reproducibility, integrity, paper/proposal compile,
+anonymity, secret scan, release branch + tag) are closed.
 
 ## Reproducibility and integrity
 
@@ -47,10 +49,11 @@ human action (submission, push, final review). This file mirrors
 - [x] `EXECUTIVE_SUMMARY.md` written
 - [x] `REPRODUCIBILITY.md`, `CHANGELOG.md`, `RELEASE_NOTES.md`, `CITATION.cff`
       written
-- [ ] Release branch `release/finboundbench-icaif26` created, curated,
-      committed, tagged `finboundbench-icaif26-v1.0` (P9 — run after this
-      checklist is reviewed)
-- [ ] Secret scan re-run immediately before push
+- [x] Release branch `release/finboundbench-icaif26` created, curated,
+      committed, tagged `finboundbench-icaif26-v1.0` (commits `7b3e4ea`,
+      `01d562b`)
+- [x] Secret scan re-run immediately before push (2026-08-09: tracked files
+      clean, allowlist enforced)
 
 ## Submission (human action, Aug 9 deadline)
 

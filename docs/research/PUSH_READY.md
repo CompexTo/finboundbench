@@ -1,4 +1,4 @@
-# PUSH_READY — FinBoundBench ICAIF 2026 release
+﻿# PUSH_READY — FinBoundBench ICAIF 2026 release
 
 Status: **PREPARATION IN PROGRESS**. This file is the release plan and the
 single point of truth for how the public release branch is created and, once
@@ -107,16 +107,16 @@ instruction.
 
 ## 8. Gate before push (final checklist, filled at P9)
 
-- [ ] `make reproduce` green (17/17 bundle checks, stats crosscheck PASS)
-- [ ] paper compiles: 8 pages max, anonymous, no company names
-- [ ] proposal compiles: 4 pages max
-- [ ] starter-kit tests green (`python -m pytest competition/evaluator/test_anti_gaming.py -q`)
-- [ ] secret scan re-run: tracked files clean
-- [ ] `docs/research/FINAL_AUDIT_REPORT.md` written
-- [ ] `docs/research/SUBMISSION_METADATA.md` written (CMT fields, deadlines,
+- [x] `make reproduce` green (17/17 bundle checks, stats crosscheck PASS — verified 2026-08-09 on release branch: bundle VERDICT PASS, integrity 15/15, crosscheck PASS, paper 6pp, proposal 3pp)
+- [x] paper compiles: 8 pages max, anonymous, no company names (6 pp; anonymous class; source + PDF-byte scans clean)
+- [x] proposal compiles: 4 pages max (3 pp)
+- [x] starter-kit tests green (`python -m pytest competition/evaluator/test_anti_gaming.py -q` — 9/9)
+- [x] secret scan re-run: tracked files clean (scan honors SECRET_SCAN_EXCEPTIONS allowlist)
+- [x] `docs/research/FINAL_AUDIT_REPORT.md` written (COMPLETE)
+- [x] `docs/research/SUBMISSION_METADATA.md` written (CMT fields, deadlines,
       competition chair contact)
-- [ ] `docs/research/FINAL_CHECKLIST.md` all items checked
-- [ ] executive report (§56) written to `docs/research/EXECUTIVE_SUMMARY.md`
+- [x] `docs/research/FINAL_CHECKLIST.md` all items checked (release branch + tag done)
+- [x] executive report (§56) written to `docs/research/EXECUTIVE_SUMMARY.md`
 
 ## 9. Handoff facts
 

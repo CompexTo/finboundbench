@@ -28,6 +28,24 @@ against a model's own natural-decision floor.
 - **Reproducible.** `make reproduce` regenerates every statistic, check,
   figure, and PDF from frozen raw events — no API key.
 
+## Paper and materials
+
+- **Paper.** "Authorized to Use, Forbidden to Influence: Purpose-Selective AI
+  for Financial Decision Systems" — `paper/main.pdf` (anonymous archival
+  build, 6 pp). Sources in `paper/sections/`; the result-statement registry
+  and claim-traceability CSV in `paper/compiled/`.
+- **ICAIF 2026 competition proposal.** "FinBoundBench Challenge: Authorized to
+  Use, Forbidden to Influence" — `competition/icaif26_finboundbench_proposal.pdf`
+  (3 pp) with the full starter kit (`competition/`): evaluator harness,
+  degenerate baselines, sample submission, submission schema, rules.
+- **Confirmatory findings.** `results/v4/CONFIRMATORY_FINDINGS_REPORT.md` —
+  preregistered primary + replication study results; frozen raw events,
+  manifests, and evidence in `results/v4/`.
+- **Protocol and design.** `benchmark/` — frozen protocol, power analysis,
+  eligibility gates, gatekeeping rules, condition implementations.
+- **Research trail.** `docs/research/` — research history, final audit,
+  replication-window audit, secret-scan reports, release plan.
+
 ## Quick start
 
 ```bash
@@ -61,8 +79,10 @@ Limitations section and `docs/research/EXECUTIVE_SUMMARY.md`.
 
 ## License
 
-Pending the organizers' choice (see `LICENSE`). Contact the organizers via the
-competition proposal contact address.
+MIT License with Mandatory Attribution (© 2026 Compex). Any use,
+reproduction, or derivative work — including user-facing products or services
+that incorporate FinBoundBench — must visibly credit Compex and the
+FinBoundBench project. See `LICENSE` for the full terms.
 
 ## Citation
 

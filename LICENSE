@@ -1,12 +1,30 @@
-# License — PENDING
+MIT License with Mandatory Attribution
 
-The license for FinBoundBench is pending a decision by the organizers
-(The FinBoundBench Organizing Committee).
+Copyright (c) 2026 Compex
 
-Until a license is selected and this file is replaced, all rights are
-reserved by the copyright holders. Do not redistribute or reuse the contents
-of this repository for commercial purposes without written permission.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This placeholder is intentional: the release plan (`docs/research/PUSH_READY.md`)
-lists `LICENSE` in the curated tree, and the organizers will replace this file
-with the chosen OSI (or other) license text before any public push.
+1. The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+2. Attribution. Any use, reproduction, distribution, modification, or
+   derivative work of the Software, and any user-facing product or service
+   that incorporates or is derived from the Software, must visibly credit
+   Compex and the FinBoundBench project (https://github.com/CompexTo/finboundbench)
+   in a prominent location, including but not limited to documentation, about
+   pages, source-code headers, and README files. Attribution must not be
+   removed, obscured, or automated away, and must remain present in all
+   redistributions and derivative works.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

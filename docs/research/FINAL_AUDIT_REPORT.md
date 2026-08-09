@@ -69,8 +69,10 @@ Power analysis registered replication n=500; 120 pairs were executed under the
    placeholder — replace with real organizers.
 2. Main-track paper submission (extended deadline Aug 9, 2026 AoE) after the
    anonymity re-check; author metadata supplied only in camera-ready.
-3. Git push of `release/finboundbench-icaif26` requires a remote/`gh`
-   (none configured; see `PUSH_READY.md` §7).
+3. ~~Git push of `release/finboundbench-icaif26` requires a remote/`gh`
+   (none configured; see `PUSH_READY.md` §7)~~ **DONE 2026-08-09** — pushed
+   to `https://github.com/CompexTo/finboundbench.git` as `main` +
+   tag `finboundbench-icaif26-v1.0`.
 4. Human review areas from the findings report §9: purpose policies,
    equivalence of governed two-stage execution to comparison conditions,
    metric definitions, statistical plan, model selection, cost assumptions,

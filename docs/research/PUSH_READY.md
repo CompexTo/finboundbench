@@ -92,18 +92,22 @@ git tag -a finboundbench-icaif26-v1.0 -m "FinBoundBench ICAIF 2026 release candi
 
 ## 7. Push (exact command, requires credentials)
 
-The repository currently has **no git remote configured** and **no `gh` CLI**
-on this machine. Once the user provides a remote (or a `gh` install):
+**Done 2026-08-09**: pushed to `origin` = `https://github.com/CompexTo/finboundbench.git`.
+The release branch was renamed to `main` (the curated tree is the default
+branch) and the tag was pushed:
 
 ```bash
-git remote add origin <REMOTE_URL>        # e.g. https://github.com/<org>/finboundbench.git
-git push -u origin release/finboundbench-icaif26
+git remote add origin https://github.com/CompexTo/finboundbench.git
+git branch -M main
+git push -u origin main
 git push origin finboundbench-icaif26-v1.0
 ```
 
-Do not push from any other branch. If credentials are still unavailable at
-handoff, the branch + tag remain local and this file is the exact handoff
-instruction.
+License: MIT with mandatory Compex attribution (`LICENSE`). README points to
+the paper, proposal, findings, and materials.
+
+Do not push from any other branch. Future pushes of the same content:
+`git push origin main && git push origin finboundbench-icaif26-v1.0`.
 
 ## 8. Gate before push (final checklist, filled at P9)
 
